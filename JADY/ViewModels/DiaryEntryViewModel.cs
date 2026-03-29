@@ -1,0 +1,47 @@
+using System;
+using CommunityToolkit.Mvvm.ComponentModel;
+using JADY.Models;
+
+namespace JADY.ViewModels;
+
+public partial class DiaryEntryViewModel : ViewModelBase
+{
+    [ObservableProperty] private DiaryEntryType _type;
+
+    [ObservableProperty] private DiaryEntryStatus _status;
+
+    /// <summary>
+    /// The date at the time the entry was added.
+    /// </summary>
+    [ObservableProperty] private DateTime _logDate;
+
+    /// <summary>
+    /// The start date of an event or a date of a one time entry.
+    /// </summary>
+    [ObservableProperty] private DateTime _date;
+
+    /// <summary>
+    /// The end date of an event. Is useless for a one time entry.
+    /// </summary>
+    [ObservableProperty] private DateTime? _endDate;
+
+    /// <summary>
+    /// E.g. Game/Anime/Misc
+    /// </summary>
+    [ObservableProperty] private string? _category;
+
+    /// <summary>
+    /// E.g. First time playing Factorio
+    /// </summary>
+    [ObservableProperty] private string? _title;
+
+    /// <summary>
+    /// E.g. I started playing Factorio for the first time on the ... version and its ...
+    /// </summary>
+    [ObservableProperty] private string? _content;
+
+    /// <summary>
+    /// E.g. [I automated red science, I finally destroyed those biter nests, ...]
+    /// </summary>
+    [ObservableProperty] private DiarySubEntry[]? _subEntries;
+}
