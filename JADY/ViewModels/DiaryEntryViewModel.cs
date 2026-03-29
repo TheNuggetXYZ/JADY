@@ -44,4 +44,17 @@ public partial class DiaryEntryViewModel : ViewModelBase
     /// E.g. [I automated red science, I finally destroyed those biter nests, ...]
     /// </summary>
     [ObservableProperty] private DiarySubEntry[]? _subEntries;
+
+    public DiaryEntryViewModel(DiaryEntry diaryEntry)
+    {
+        Type = diaryEntry.Type;
+        Status = diaryEntry.Status;
+        LogDate = diaryEntry.LogDate;
+        Date = diaryEntry.Date;
+        EndDate = diaryEntry.EndDate;
+        Category = diaryEntry.Category;
+        Title =  diaryEntry.Title;
+        Content = diaryEntry.Content;
+        SubEntries = diaryEntry.SubEntries;
+    }
 }
