@@ -27,11 +27,32 @@
             </StackPanel>
         </StackPanel>
         
-        <Grid Grid.Row="2" ColumnDefinitions="170, *">
-            <TextBox Watermark="Enter new diary title..."></TextBox>
-            <TextBox Grid.Column="1" Watermark="Enter new diary content...">
+        <ScrollViewer Grid.Row="1">
+            <ItemsControl ItemsSource="{Binding DiaryEntries}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="vm:DiaryEntryViewModel">
+                        <Border Background="DimGray">
+                            <Grid ColumnDefinitions="*, Auto">
+                                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                    <TextBlock Margin="5" Text="{Binding Category}"></TextBlock>
+                                    <TextBlock Margin="5" Text="{Binding Title}"></TextBlock>
+                                    <TextBlock Margin="5" Text="{Binding Content}"></TextBlock>
+                                </StackPanel>
+                                
+                                <TextBlock Grid.Column="1" Margin="5" Text="{Binding LogDate.Date}"></TextBlock>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        
+        <Grid Grid.Row="2" ColumnDefinitions="100, 150, *">
+            <TextBox Grid.Column="0" Text="{Binding NewEntryCategory}" Watermark="Enter category..."></TextBox>
+            <TextBox Grid.Column="1" Text="{Binding NewEntryTitle}" Watermark="Enter title..."></TextBox>
+            <TextBox Grid.Column="2" Text="{Binding NewEntryContent}" Watermark="Enter content...">
                 <TextBox.InnerRightContent>
-                    <Button>ADD</Button>
+                    <Button Command="{Binding AddEntryCommand}">ADD</Button>
                 </TextBox.InnerRightContent>
             </TextBox>
         </Grid>
