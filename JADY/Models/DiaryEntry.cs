@@ -16,7 +16,7 @@ public class DiaryEntry
     /// <summary>
     /// The start date of an event or a date of a one time entry.
     /// </summary>
-    public DateTime Date { get; set; }
+    public DateTime? Date { get; set; }
 
     /// <summary>
     /// The end date of an event. Is useless for a one time entry.

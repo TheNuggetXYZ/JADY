@@ -18,7 +18,7 @@ public partial class DiaryEntryViewModel : ViewModelBase
     /// <summary>
     /// The start date of an event or a date of a one time entry.
     /// </summary>
-    [ObservableProperty] private DateTime _date;
+    [ObservableProperty] private DateTime? _date;
 
     /// <summary>
     /// The end date of an event. Is useless for a one time entry.
