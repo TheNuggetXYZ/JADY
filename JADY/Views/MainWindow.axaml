@@ -18,8 +18,8 @@
 
     
     <Grid RowDefinitions="Auto, *, Auto">
-        <StackPanel Grid.Row="0" FlowDirection="LeftToRight" Orientation="Horizontal">
-            <Border Background="DarkOrange" CornerRadius="5" BorderThickness="5" BorderBrush="DarkSlateGray" Margin="5" >
+        <StackPanel Grid.Row="0" FlowDirection="LeftToRight" Orientation="Horizontal" Background="{DynamicResource SystemChromeMediumLowColor}">
+            <Border Background="{DynamicResource SystemAccentColor}" CornerRadius="20" BorderThickness="2" BorderBrush="{DynamicResource SystemAccentColorDark1}" Margin="5" >
                 <TextBlock Margin="5" TextAlignment="Center" VerticalAlignment="Center" FontSize="20">JADY v0-test</TextBlock>
             </Border>
             <StackPanel HorizontalAlignment="Right">
