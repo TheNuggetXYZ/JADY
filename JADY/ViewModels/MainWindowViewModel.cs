@@ -13,7 +13,7 @@ public partial class MainWindowViewModel : ViewModelBase
     #region NewEntryArguments
     
     [ObservableProperty, NotifyCanExecuteChangedFor(nameof(AddEntryCommand))]
-    private NewDiaryEntryParameter _newEntryEntryParameter;
+    private NewDiaryEntryParameter _newEntryParameter;
     
     [ObservableProperty, NotifyCanExecuteChangedFor(nameof(AddEntryCommand))]
     private string? _newEntryCategory;
@@ -31,20 +31,49 @@ public partial class MainWindowViewModel : ViewModelBase
     [RelayCommand(CanExecute = nameof(CanAddEntry))]
     private void AddEntry()
     {
+        ConvertNewDiaryParameterToStatusAndType(NewEntryParameter, out int status, out int type);
+        
         DiaryEntry newDiaryEntry = new DiaryEntry()
         {
             Category = NewEntryCategory,
             Title = NewEntryTitle,
             Content = NewEntryContent,
             LogDate = DateTime.Now,
-            
-            //TODO: set status and type
+            Status = (DiaryEntryStatus)status,
+            Type = (DiaryEntryType)type
+
             //TODO: set date and end date
         };
 
         DiaryEntryViewModel newDiaryEntryViewModel = new DiaryEntryViewModel(newDiaryEntry);
         
         DiaryEntries.Add(newDiaryEntryViewModel);
+    }
+
+    private void ConvertNewDiaryParameterToStatusAndType(NewDiaryEntryParameter newDiaryEntryParameter, out int status, out int type)
+    {
+        switch (newDiaryEntryParameter)
+        {
+            case NewDiaryEntryParameter.OneTime:
+                status = (int)DiaryEntryStatus.None;
+                type = (int)DiaryEntryType.OneTime;
+                break;
+            case NewDiaryEntryParameter.Started:
+                status = (int)DiaryEntryStatus.InProgress;
+                type = (int)DiaryEntryType.ProlongedEvent;
+                break;
+            case NewDiaryEntryParameter.Finished:
+                status = (int)DiaryEntryStatus.Completed;
+                type = (int)DiaryEntryType.ProlongedEvent;
+                break;
+            case NewDiaryEntryParameter.Dropped:
+                status = (int)DiaryEntryStatus.Dropped;
+                type = (int)DiaryEntryType.ProlongedEvent;
+                break;
+            
+            default:
+                throw new ArgumentOutOfRangeException(nameof(newDiaryEntryParameter), newDiaryEntryParameter, null);
+        }
     }
 }
 
