@@ -18,7 +18,11 @@
                 <TextBlock HorizontalAlignment="Right" Text="{Binding LogDate}"></TextBlock>
             </Panel>
             
-            <TextBlock Grid.Row="1" Name="ObjectToOpen0" Margin="10" TextWrapping="Wrap" Text="{Binding Content}"></TextBlock>
+            <Panel Grid.Row="1" Name="ObjectToOpen0" Margin="10">
+                <Border Background="{DynamicResource SystemRegionColor}" CornerRadius="5">
+                    <TextBlock Margin="5" TextWrapping="Wrap" Text="{Binding Content}"></TextBlock>
+                </Border>
+            </Panel>
             
             <Panel Grid.Row="2" Name="ObjectToOpen1">
                 <TextBlock HorizontalAlignment="Left" Text="{Binding Date}"></TextBlock>
