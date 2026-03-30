@@ -57,4 +57,26 @@ public partial class DiaryEntryViewModel : ViewModelBase
         Content = diaryEntry.Content;
         SubEntries = diaryEntry.SubEntries;
     }
+
+    public string GetStatusDisplayName()
+    {
+        return Status switch
+        {
+            DiaryEntryStatus.None => "None",
+            DiaryEntryStatus.InProgress => "In progress",
+            DiaryEntryStatus.Completed => "Completed",
+            DiaryEntryStatus.Dropped => "Dropped",
+            _ => throw new ArgumentOutOfRangeException(nameof(Status), Status, null)
+        };
+    }
+
+    public string GetTypeDisplayName()
+    {
+        return Type switch
+        {
+            DiaryEntryType.OneTime => "One time",
+            DiaryEntryType.ProlongedEvent => "Event",
+            _ => throw new ArgumentOutOfRangeException(nameof(Type), Type, null)
+        };
+    }
 }
