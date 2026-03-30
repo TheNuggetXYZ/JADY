@@ -32,7 +32,7 @@
             <ItemsControl ItemsSource="{Binding DiaryEntries}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="vm:DiaryEntryViewModel">
-                        <views:DiaryEntry/>
+                        <views:DiaryEntry Margin="2"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
