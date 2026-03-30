@@ -29,6 +29,11 @@ public class DiaryEntry
     public string? Category { get; set; }
     
     /// <summary>
+    /// E.g. Factorio/OPM/null
+    /// </summary>
+    public string? SubCategory { get; set; }
+    
+    /// <summary>
     /// E.g. First time playing Factorio
     /// </summary>
     public string? Title { get; set; }

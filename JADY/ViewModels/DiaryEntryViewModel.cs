@@ -29,6 +29,11 @@ public partial class DiaryEntryViewModel : ViewModelBase
     /// E.g. Game/Anime/Misc
     /// </summary>
     [ObservableProperty] private string? _category;
+    
+    /// <summary>
+    /// E.g. Factorio/OPM/null
+    /// </summary>
+    [ObservableProperty] private string? _subCategory;
 
     /// <summary>
     /// E.g. First time playing Factorio
@@ -78,5 +83,17 @@ public partial class DiaryEntryViewModel : ViewModelBase
             DiaryEntryType.ProlongedEvent => "Event",
             _ => throw new ArgumentOutOfRangeException(nameof(Type), Type, null)
         };
+    }
+
+    
+    public string SubCategoryStringWithPipeSeparator
+    {
+        get
+        {
+            if (!string.IsNullOrWhiteSpace(SubCategory))
+                return " | " + SubCategory;
+
+            return string.Empty;
+        }
     }
 }
