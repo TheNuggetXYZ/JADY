@@ -39,7 +39,7 @@
                                     <TextBlock Margin="5" Text="{Binding Content}"></TextBlock>
                                 </StackPanel>
                                 
-                                <TextBlock Grid.Column="1" Margin="5" Text="{Binding LogDate.Date}"></TextBlock>
+                                <TextBlock Grid.Column="1" Margin="5" Text="{Binding LogDate}"></TextBlock>
                             </Grid>
                         </Border>
                     </DataTemplate>
