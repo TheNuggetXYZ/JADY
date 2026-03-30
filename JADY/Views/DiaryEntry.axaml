@@ -7,16 +7,23 @@
              x:Class="JADY.Views.DiaryEntry"
              x:DataType="viewModels:DiaryEntryViewModel">
     
-    
-    <Border Background="DimGray">
-        <Grid ColumnDefinitions="*, Auto">
-            <StackPanel Grid.Column="0" Orientation="Horizontal">
-                <TextBlock Margin="5" Text="{Binding Category}"></TextBlock>
-                <TextBlock Margin="5" Text="{Binding Title}"></TextBlock>
-                <TextBlock Margin="5" Text="{Binding Content}"></TextBlock>
-            </StackPanel>
-                                
-            <TextBlock Grid.Column="1" Margin="5" Text="{Binding LogDate}"></TextBlock>
+    <Border Background="{DynamicResource SystemChromeMediumColor}" CornerRadius="5" PointerPressed="DiaryEntryHeader_OnPointerPressed">
+        <Grid Margin="5" RowDefinitions="Auto, *, Auto">
+            <Panel Grid.Row="0">
+                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                    <TextBlock Text="{Binding Category}"></TextBlock>
+                    <TextBlock Text="{Binding SubCategoryStringWithPipeSeparator}"></TextBlock>
+                </StackPanel>
+                <TextBlock HorizontalAlignment="Center" Text="{Binding Title}"></TextBlock>
+                <TextBlock HorizontalAlignment="Right" Text="{Binding LogDate}"></TextBlock>
+            </Panel>
+            
+            <TextBlock Grid.Row="1" Name="ObjectToOpen0" Margin="10" TextWrapping="Wrap" Text="{Binding Content}"></TextBlock>
+            
+            <Panel Grid.Row="2" Name="ObjectToOpen1">
+                <TextBlock HorizontalAlignment="Left" Text="{Binding Date}"></TextBlock>
+                <TextBlock HorizontalAlignment="Right" Text="{Binding EndDate}"></TextBlock>
+            </Panel>
         </Grid>
     </Border>
     
