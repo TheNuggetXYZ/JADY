@@ -58,6 +58,7 @@ public partial class DiaryEntryViewModel : ViewModelBase
         Date = diaryEntry.Date;
         EndDate = diaryEntry.EndDate;
         Category = diaryEntry.Category;
+        SubCategory = diaryEntry.SubCategory;
         Title =  diaryEntry.Title;
         Content = diaryEntry.Content;
         SubEntries = diaryEntry.SubEntries;
