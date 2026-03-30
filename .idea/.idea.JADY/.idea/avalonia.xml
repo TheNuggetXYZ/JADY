@@ -3,6 +3,7 @@
   <component name="AvaloniaProject">
     <option name="projectPerEditor">
       <map>
+        <entry key="JADY/Views/DiaryEntry.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/Views/MainWindow.axaml" value="JADY/JADY.csproj" />
       </map>
     </option>
