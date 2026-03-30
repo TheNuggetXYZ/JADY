@@ -10,6 +10,11 @@
     </Application.DataTemplates>
   
     <Application.Styles>
-        <FluentTheme />
+        <FluentTheme>
+            <FluentTheme.Palettes>
+                <ColorPaletteResources x:Key="Light" Accent="#ff52ad62" AltHigh="White" AltLow="White" AltMedium="White" AltMediumHigh="White" AltMediumLow="White" BaseHigh="Black" BaseLow="#ffbcd0c5" BaseMedium="#ff67917e" BaseMediumHigh="#ff2e674e" BaseMediumLow="#ff4a7c66" ChromeAltLow="#ff2e674e" ChromeBlackHigh="Black" ChromeBlackLow="#ffbcd0c5" ChromeBlackMedium="#ff2e674e" ChromeBlackMediumLow="#ff67917e" ChromeDisabledHigh="#ffbcd0c5" ChromeDisabledLow="#ff67917e" ChromeGray="#ff4a7c66" ChromeHigh="#ffbcd0c5" ChromeLow="#ffdbf1e6" ChromeMedium="#ffd5eadf" ChromeMediumLow="#ffdbf1e6" ChromeWhite="White" ListLow="#ffd5eadf" ListMedium="#ffbcd0c5" RegionColor="White" />
+                <ColorPaletteResources x:Key="Dark" Accent="#ff5eac7e" AltHigh="Black" AltLow="Black" AltMedium="Black" AltMediumHigh="Black" AltMediumLow="Black" BaseHigh="White" BaseLow="#ff5e625f" BaseMedium="#ffafb1b0" BaseMediumHigh="#ffc3c5c4" BaseMediumLow="#ff868a87" ChromeAltLow="#ffc3c5c4" ChromeBlackHigh="Black" ChromeBlackLow="#ffc3c5c4" ChromeBlackMedium="Black" ChromeBlackMediumLow="Black" ChromeDisabledHigh="#ff5e625f" ChromeDisabledLow="#ffafb1b0" ChromeGray="#ff9b9d9c" ChromeHigh="#ff9b9d9c" ChromeLow="#ff292b29" ChromeMedium="#ff363937" ChromeMediumLow="#ff515452" ChromeWhite="White" ListLow="#ff363937" ListMedium="#ff5e625f" RegionColor="#ff202221" />
+            </FluentTheme.Palettes>
+        </FluentTheme>
     </Application.Styles>
 </Application>
