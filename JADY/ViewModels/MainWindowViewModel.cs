@@ -101,6 +101,30 @@ public partial class MainWindowViewModel : ViewModelBase
                 throw new ArgumentOutOfRangeException(nameof(newDiaryEntryParameter), newDiaryEntryParameter, null);
         }
     }
+
+    private Diary[] ConvertDiaryViewModelObservableCollectionToDiaryModelArray(ObservableCollection<DiaryViewModel> diaryViewModels)
+    {
+        Diary[] diaries = new Diary[diaryViewModels.Count];
+
+        for (int i = 0; i < diaryViewModels.Count; i++)
+        {
+            diaries[i] = diaryViewModels[i].GetModel();
+        }
+
+        return diaries;
+    }
+
+    private ObservableCollection<DiaryViewModel> ConvertDiaryArrayToDiaryViewModelObservableCollection(Diary[] diaries)
+    {
+        ObservableCollection<DiaryViewModel> diaryViewModelObservableCollection = new();
+
+        for (int i = 0; i < diaries.Length; i++)
+        {
+            diaryViewModelObservableCollection.Add(new DiaryViewModel(diaries[i]));
+        }
+        
+        return diaryViewModelObservableCollection;
+    }
 }
 
 public enum NewDiaryEntryParameter
