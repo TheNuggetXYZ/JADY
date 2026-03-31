@@ -34,4 +34,27 @@ public partial class DiaryViewModel : ViewModelBase
         
         return entryViewModels;
     }
+
+    public Diary GetModel()
+    {
+        return new()
+        {
+            Name = Name,
+            Entries = DeinitializeEntries(Entries)
+        };
+    }
+    
+
+    private List<DiaryEntry> DeinitializeEntries(List<DiaryEntryViewModel> entryViewModels)
+    {
+        List<DiaryEntry> entryModels = new();
+
+        foreach (var entryViewModel in entryViewModels)
+        {
+            DiaryEntry newDiaryEntryModel = entryViewModel.GetModel();
+            entryModels.Add(newDiaryEntryModel);
+        }
+        
+        return entryModels;
+    }
 }

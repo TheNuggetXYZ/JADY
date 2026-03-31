@@ -77,6 +77,36 @@ public partial class DiaryEntryViewModel : ViewModelBase
         
         return subEntryViewModels;
     }
+    
+    public DiaryEntry GetModel()
+    {
+        return new()
+        {
+            Type = Type,
+            Status = Status,
+            LogDate = LogDate,
+            Date = Date,
+            EndDate = EndDate,
+            Category = Category,
+            SubCategory = SubCategory,
+            Title = Title,
+            Content = Content,
+            SubEntries = DeinitializeSubEntries(SubEntries)
+        };
+    }
+    
+    private List<DiarySubEntry> DeinitializeSubEntries(List<DiarySubEntryViewModel> subEntryViewModels)
+    {
+        List<DiarySubEntry> subEntryModels = new();
+
+        foreach (var subEntryViewModel in subEntryViewModels)
+        {
+            DiarySubEntry newDiarySubEntryModel = subEntryViewModel.GetModel();
+            subEntryModels.Add(newDiarySubEntryModel);
+        }
+        
+        return subEntryModels;
+    }
 
     public string GetStatusDisplayName()
     {

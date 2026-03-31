@@ -29,4 +29,14 @@ public partial class DiarySubEntryViewModel : ViewModelBase
         Date = subEntry.Date;
         Content = subEntry.Content;
     }
+
+    public DiarySubEntry GetModel()
+    {
+        return new DiarySubEntry()
+        {
+            LogDate = LogDate,
+            Date = Date,
+            Content = Content
+        };
+    }
 }
