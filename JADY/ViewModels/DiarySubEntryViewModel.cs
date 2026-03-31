@@ -22,4 +22,11 @@ public partial class DiarySubEntryViewModel : ViewModelBase
     /// I finnaly destroyed those biter nests.
     /// </summary>
     [ObservableProperty] private string? _content;
+
+    public DiarySubEntryViewModel(DiarySubEntry subEntry)
+    {
+        LogDate = subEntry.LogDate;
+        Date = subEntry.Date;
+        Content = subEntry.Content;
+    }
 }
