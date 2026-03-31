@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using CommunityToolkit.Mvvm.ComponentModel;
 using JADY.Models;
 
@@ -48,7 +49,7 @@ public partial class DiaryEntryViewModel : ViewModelBase
     /// <summary>
     /// E.g. [I automated red science, I finally destroyed those biter nests, ...]
     /// </summary>
-    [ObservableProperty] private DiarySubEntry[]? _subEntries;
+    [ObservableProperty] private List<DiarySubEntryViewModel> _subEntries = new();
 
     public DiaryEntryViewModel(DiaryEntry diaryEntry)
     {
@@ -61,7 +62,20 @@ public partial class DiaryEntryViewModel : ViewModelBase
         SubCategory = diaryEntry.SubCategory;
         Title =  diaryEntry.Title;
         Content = diaryEntry.Content;
-        SubEntries = diaryEntry.SubEntries;
+        SubEntries = InitializeSubEntries(diaryEntry.SubEntries);
+    }
+    
+    private List<DiarySubEntryViewModel> InitializeSubEntries(List<DiarySubEntry> subEntryModels)
+    {
+        List<DiarySubEntryViewModel> subEntryViewModels = new();
+
+        foreach (var subEntryModel in subEntryModels)
+        {
+            DiarySubEntryViewModel newDiarySubEntryViewModel = new(subEntryModel);
+            subEntryViewModels.Add(newDiarySubEntryViewModel);
+        }
+        
+        return subEntryViewModels;
     }
 
     public string GetStatusDisplayName()
