@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace JADY.Models;
 
@@ -42,11 +43,11 @@ public class DiaryEntry
     /// E.g. I started playing Factorio for the first time on the ... version and its ...
     /// </summary>
     public string? Content { get; set; }
-    
+
     /// <summary>
     /// E.g. [I automated red science, I finally destroyed those biter nests, ...]
     /// </summary>
-    public DiarySubEntry[]? SubEntries { get; set; }
+    public List<DiarySubEntry> SubEntries { get; set; } = new();
 }
 
 public enum DiaryEntryType

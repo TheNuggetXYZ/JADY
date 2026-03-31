@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace JADY.Models;
 
 public class Diary
@@ -6,9 +8,9 @@ public class Diary
     /// The name of the diary.
     /// </summary>
     public string? Name { get; set; }
-    
+
     /// <summary>
     /// The entries in the diary.
     /// </summary>
-    public DiaryEntry[]? Entries { get; set; }
+    public List<DiaryEntry> Entries { get; set; } = new();
 }
