@@ -26,6 +26,11 @@
                 <Button Margin="1">SAVE</Button>
                 <Button Margin="1">LOAD</Button>
             </StackPanel>
+            <TextBox Text="{Binding NewDiaryName}" Watermark="Enter diary name...">
+                <TextBox.InnerRightContent>
+                    <Button Command="{Binding AddDiaryCommand}">ADD</Button>
+                </TextBox.InnerRightContent>
+            </TextBox>
         </StackPanel>
         
         <TabControl Grid.Row="1" ItemsSource="{Binding Diaries}" SelectedIndex="{Binding OpenDiaryIndex}">
