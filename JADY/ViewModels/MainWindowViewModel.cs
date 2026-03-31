@@ -57,6 +57,9 @@ public partial class MainWindowViewModel : ViewModelBase
     [RelayCommand(CanExecute = nameof(CanAddEntry))]
     private void AddEntry()
     {
+        if (OpenDiaryIndex >= Diaries.Count || OpenDiaryIndex < 0)
+            return;
+        
         ConvertNewDiaryParameterToStatusAndType(NewEntryParameter, out int status, out int type);
         
         DiaryEntry newDiaryEntry = new DiaryEntry()
