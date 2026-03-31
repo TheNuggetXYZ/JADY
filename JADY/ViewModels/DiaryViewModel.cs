@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using CommunityToolkit.Mvvm.ComponentModel;
 using JADY.Models;
 
@@ -13,5 +14,5 @@ public partial class DiaryViewModel : ViewModelBase
     /// <summary>
     /// The entries in the diary.
     /// </summary>
-    [ObservableProperty] private DiaryEntry[]? _entries;
+    [ObservableProperty] private List<DiaryEntry> _entries = new();
 }
