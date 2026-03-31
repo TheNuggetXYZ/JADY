@@ -28,15 +28,28 @@
             </StackPanel>
         </StackPanel>
         
-        <ScrollViewer Grid.Row="1">
-            <ItemsControl ItemsSource="{Binding DiaryEntries}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="vm:DiaryEntryViewModel">
-                        <views:DiaryEntry Margin="2"/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
+        <TabControl Grid.Row="1" ItemsSource="{Binding Diaries}" SelectedIndex="{Binding OpenDiaryIndex}">
+            <TabControl.ItemTemplate>
+                <DataTemplate DataType="vm:DiaryViewModel">
+                    <TextBlock Text="{Binding Name}"></TextBlock>
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+            <TabControl.ContentTemplate>
+                <DataTemplate DataType="vm:DiaryViewModel">
+                    <ScrollViewer>
+                        <ItemsControl ItemsSource="{Binding Entries}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="vm:DiaryEntryViewModel">
+                                    <views:DiaryEntry Margin="2"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+        </TabControl>
+        
+        
         
         <Grid Grid.Row="2" ColumnDefinitions="100, 150, *">
             <TextBox Grid.Column="0" Text="{Binding NewEntryCategory}" Watermark="Enter category..."></TextBox>
