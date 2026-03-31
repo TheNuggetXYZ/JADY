@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using JADY.Backend;
 using JADY.Models;
 
 namespace JADY.ViewModels;
@@ -77,6 +78,8 @@ public partial class MainWindowViewModel : ViewModelBase
         DiaryEntryViewModel newDiaryEntryViewModel = new DiaryEntryViewModel(newDiaryEntry);
         
         Diaries[OpenDiaryIndex].Entries.Add(newDiaryEntryViewModel);
+        
+        DiaryJSON.Save(ConvertDiaryViewModelObservableCollectionToDiaryModelArray(Diaries));
     }
 
     private void ConvertNewDiaryParameterToStatusAndType(NewDiaryEntryParameter newDiaryEntryParameter, out int status, out int type)
