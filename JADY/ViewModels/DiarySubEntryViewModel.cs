@@ -30,6 +30,9 @@ public partial class DiarySubEntryViewModel : ViewModelBase
         Content = subEntry.Content;
     }
 
+    /// <returns>
+    /// a model using this view model's values.
+    /// </returns>
     public DiarySubEntry GetModel()
     {
         return new DiarySubEntry()

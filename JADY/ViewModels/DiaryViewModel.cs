@@ -22,6 +22,9 @@ public partial class DiaryViewModel : ViewModelBase
         Entries = InitializeEntries(diary.Entries);
     }
 
+    /// <summary>
+    /// Converts a list of models to a list of their corresponding view models using the view model's constructor.
+    /// </summary>
     private List<DiaryEntryViewModel> InitializeEntries(List<DiaryEntry> entryModels)
     {
         List<DiaryEntryViewModel> entryViewModels = new();
@@ -35,6 +38,9 @@ public partial class DiaryViewModel : ViewModelBase
         return entryViewModels;
     }
 
+    /// <returns>
+    /// a model using this view model's values.
+    /// </returns>
     public Diary GetModel()
     {
         return new()
@@ -44,7 +50,9 @@ public partial class DiaryViewModel : ViewModelBase
         };
     }
     
-
+    /// <summary>
+    /// Converts a list of view models to a list of their corresponding models using the view model's GetModel method.
+    /// </summary>
     private List<DiaryEntry> DeinitializeEntries(List<DiaryEntryViewModel> entryViewModels)
     {
         List<DiaryEntry> entryModels = new();
