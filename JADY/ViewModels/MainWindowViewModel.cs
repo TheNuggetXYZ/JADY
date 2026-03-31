@@ -8,7 +8,17 @@ namespace JADY.ViewModels;
 
 public partial class MainWindowViewModel : ViewModelBase
 {
-    public ObservableCollection<DiaryEntryViewModel> DiaryEntries { get; } = new();
+    public ObservableCollection<DiaryViewModel> Diaries { get; } = new();
+    
+    [ObservableProperty] 
+    private int _openDiaryIndex;
+
+    #region NewDiaryArguments
+
+    [ObservableProperty, NotifyCanExecuteChangedFor(nameof(AddDiaryCommand))] 
+    private string? _newDiaryName;
+
+    #endregion
 
     #region NewEntryArguments
     
@@ -25,6 +35,22 @@ public partial class MainWindowViewModel : ViewModelBase
     private string? _newEntryContent;
 
     #endregion
+
+    private bool CanAddDiary() => !string.IsNullOrWhiteSpace(NewDiaryName);
+    
+    [RelayCommand(CanExecute = nameof(CanAddDiary))]
+    private void AddDiary()
+    {
+        Diary newDiary = new Diary()
+        {
+            Name = NewDiaryName,
+            Entries = new()
+        };
+        
+        DiaryViewModel newDiaryViewModel = new DiaryViewModel(newDiary);
+        
+        Diaries.Add(newDiaryViewModel);
+    }
     
     private bool CanAddEntry() => !string.IsNullOrWhiteSpace(NewEntryTitle);
     
@@ -47,7 +73,7 @@ public partial class MainWindowViewModel : ViewModelBase
 
         DiaryEntryViewModel newDiaryEntryViewModel = new DiaryEntryViewModel(newDiaryEntry);
         
-        DiaryEntries.Add(newDiaryEntryViewModel);
+        Diaries[OpenDiaryIndex].Entries.Add(newDiaryEntryViewModel);
     }
 
     private void ConvertNewDiaryParameterToStatusAndType(NewDiaryEntryParameter newDiaryEntryParameter, out int status, out int type)
