@@ -35,11 +35,20 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty, NotifyCanExecuteChangedFor(nameof(AddEntryCommand))]
     private string? _newEntryCategory;
     
+    [ObservableProperty]
+    private string? _newEntrySubCategory;
+    
     [ObservableProperty, NotifyCanExecuteChangedFor(nameof(AddEntryCommand))] 
     private string? _newEntryTitle;
     
     [ObservableProperty] 
     private string? _newEntryContent;
+    
+    [ObservableProperty] 
+    private DateTime? _newEntryDate;
+    
+    [ObservableProperty] 
+    private DateTime? _newEntryEndDate;
 
     #endregion
 
