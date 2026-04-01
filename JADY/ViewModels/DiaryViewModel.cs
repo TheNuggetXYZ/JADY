@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using JADY.Models;
 
@@ -14,7 +15,7 @@ public partial class DiaryViewModel : ViewModelBase
     /// <summary>
     /// The entries in the diary.
     /// </summary>
-    [ObservableProperty] private List<DiaryEntryViewModel> _entries = new();
+    public ObservableCollection<DiaryEntryViewModel> Entries { get; set; }
 
     public DiaryViewModel(Diary diary)
     {
@@ -25,9 +26,9 @@ public partial class DiaryViewModel : ViewModelBase
     /// <summary>
     /// Converts a list of models to a list of their corresponding view models using the view model's constructor.
     /// </summary>
-    private List<DiaryEntryViewModel> InitializeEntries(List<DiaryEntry> entryModels)
+    private ObservableCollection<DiaryEntryViewModel> InitializeEntries(List<DiaryEntry> entryModels)
     {
-        List<DiaryEntryViewModel> entryViewModels = new();
+        ObservableCollection<DiaryEntryViewModel> entryViewModels = new();
 
         foreach (var entryModel in entryModels)
         {
@@ -53,7 +54,7 @@ public partial class DiaryViewModel : ViewModelBase
     /// <summary>
     /// Converts a list of view models to a list of their corresponding models using the view model's GetModel method.
     /// </summary>
-    private List<DiaryEntry> DeinitializeEntries(List<DiaryEntryViewModel> entryViewModels)
+    private List<DiaryEntry> DeinitializeEntries(ObservableCollection<DiaryEntryViewModel> entryViewModels)
     {
         List<DiaryEntry> entryModels = new();
 

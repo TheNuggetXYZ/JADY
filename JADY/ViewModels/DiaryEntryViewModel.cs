@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using JADY.Models;
 
@@ -49,7 +50,7 @@ public partial class DiaryEntryViewModel : ViewModelBase
     /// <summary>
     /// E.g. [I automated red science, I finally destroyed those biter nests, ...]
     /// </summary>
-    [ObservableProperty] private List<DiarySubEntryViewModel> _subEntries = new();
+    public ObservableCollection<DiarySubEntryViewModel> SubEntries { get; set; }
 
     public DiaryEntryViewModel(DiaryEntry diaryEntry)
     {
@@ -68,9 +69,9 @@ public partial class DiaryEntryViewModel : ViewModelBase
     /// <summary>
     /// Converts a list of models to a list of their corresponding view models using the view model's constructor.
     /// </summary>
-    private List<DiarySubEntryViewModel> InitializeSubEntries(List<DiarySubEntry> subEntryModels)
+    private ObservableCollection<DiarySubEntryViewModel> InitializeSubEntries(List<DiarySubEntry> subEntryModels)
     {
-        List<DiarySubEntryViewModel> subEntryViewModels = new();
+        ObservableCollection<DiarySubEntryViewModel> subEntryViewModels = new();
 
         foreach (var subEntryModel in subEntryModels)
         {
@@ -104,7 +105,7 @@ public partial class DiaryEntryViewModel : ViewModelBase
     /// <summary>
     /// Converts a list of view models to a list of their corresponding models using the view model's GetModel method.
     /// </summary>
-    private List<DiarySubEntry> DeinitializeSubEntries(List<DiarySubEntryViewModel> subEntryViewModels)
+    private List<DiarySubEntry> DeinitializeSubEntries(ObservableCollection<DiarySubEntryViewModel> subEntryViewModels)
     {
         List<DiarySubEntry> subEntryModels = new();
 
