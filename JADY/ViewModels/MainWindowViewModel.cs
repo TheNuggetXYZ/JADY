@@ -31,7 +31,9 @@ public partial class MainWindowViewModel : ViewModelBase
     
     [ObservableProperty, NotifyCanExecuteChangedFor(nameof(AddEntryCommand))]
     private NewDiaryEntryParameter _newEntryParameter;
-    
+
+    public Array NewEntryParameterValues => Enum.GetValues(typeof(NewDiaryEntryParameter));
+
     [ObservableProperty, NotifyCanExecuteChangedFor(nameof(AddEntryCommand))]
     private string? _newEntryCategory;
     
@@ -81,9 +83,12 @@ public partial class MainWindowViewModel : ViewModelBase
         DiaryEntry newDiaryEntry = new DiaryEntry()
         {
             Category = NewEntryCategory,
+            SubCategory = NewEntrySubCategory,
             Title = NewEntryTitle,
             Content = NewEntryContent,
             LogDate = DateTime.Now,
+            Date = NewEntryDate,
+            EndDate = NewEntryEndDate,
             Status = (DiaryEntryStatus)status,
             Type = (DiaryEntryType)type
 
