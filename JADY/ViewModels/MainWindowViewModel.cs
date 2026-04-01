@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using Avalonia;
+using Avalonia.Controls.ApplicationLifetimes;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using JADY.Backend;
 using JADY.Models;
+using JADY.Views;
+using DiaryEntry = JADY.Models.DiaryEntry;
 
 namespace JADY.ViewModels;
 
@@ -13,6 +17,8 @@ public partial class MainWindowViewModel : ViewModelBase
     
     [ObservableProperty] 
     private int _openDiaryIndex;
+    
+    private AddEntryWindow _addEntryWindow = new();
 
     #region NewDiaryArguments
 
@@ -80,6 +86,19 @@ public partial class MainWindowViewModel : ViewModelBase
         Diaries[OpenDiaryIndex].Entries.Add(newDiaryEntryViewModel);
         
         DiaryJSON.Save(ConvertDiaryViewModelObservableCollectionToDiaryModelArray(Diaries));
+    }
+
+    private bool CanOpenAddEntryWindow() => !_addEntryWindow.IsVisible;
+
+    [RelayCommand(CanExecute = nameof(CanOpenAddEntryWindow))]
+    private async void OpenAddEntryWindow()
+    {
+        if (Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+        {
+            _addEntryWindow = new AddEntryWindow();
+            await _addEntryWindow.ShowDialog(desktop.MainWindow);
+            OpenAddEntryWindowCommand.NotifyCanExecuteChanged();
+        }
     }
 
     private void ConvertNewDiaryParameterToStatusAndType(NewDiaryEntryParameter newDiaryEntryParameter, out int status, out int type)
