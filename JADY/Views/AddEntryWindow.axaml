@@ -2,8 +2,24 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:JADY.ViewModels"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="JADY.Views.AddEntryWindow"
+        x:DataType="vm:MainWindowViewModel"
         Title="Add an entry">
-    Welcome to Avalonia!
+    
+    <Grid RowDefinitions="Auto, Auto, *, Auto">
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <TextBox Text="{Binding NewEntryCategory}"></TextBox>
+            <!--<TextBox Text="{Binding NewEntrySubCategory}"></TextBox>-->
+        </StackPanel>
+        
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <TextBox Text="{Binding NewEntryTitle}"></TextBox>
+        </StackPanel>
+        
+        <TextBox Grid.Row="2" TextWrapping="Wrap" Text="{Binding NewEntryContent}"></TextBox>
+        <Button Grid.Row="3" Command="{Binding AddEntryCommand}">ADD</Button>
+    </Grid>
+        
 </Window>

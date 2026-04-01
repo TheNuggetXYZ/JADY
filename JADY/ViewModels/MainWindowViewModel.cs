@@ -95,7 +95,7 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         if (Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            _addEntryWindow = new AddEntryWindow();
+            _addEntryWindow = new AddEntryWindow { DataContext = this };
             await _addEntryWindow.ShowDialog(desktop.MainWindow);
             OpenAddEntryWindowCommand.NotifyCanExecuteChanged();
         }
