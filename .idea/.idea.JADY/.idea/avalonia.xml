@@ -4,6 +4,7 @@
     <option name="projectPerEditor">
       <map>
         <entry key="JADY/App.axaml" value="JADY/JADY.csproj" />
+        <entry key="JADY/Views/AddDiaryWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/Views/AddEntryWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/Views/DiaryEntry.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/Views/MainWindow.axaml" value="JADY/JADY.csproj" />
