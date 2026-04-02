@@ -6,30 +6,32 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="JADY.Views.AddEntryWindow"
         x:DataType="vm:MainWindowViewModel"
-        Title="Add an entry">
+        Title="Add an entry"
+        SizeToContent="Width"
+        Height="400">
     
-    <Grid RowDefinitions="Auto, Auto, *, Auto">
+    <Grid RowDefinitions="Auto, Auto, *, Auto" Margin="10">
         
-        <Grid Grid.Row="0" ColumnDefinitions="*, *">
-            <TextBox Grid.Column="0" Text="{Binding NewEntryCategory}"></TextBox>
-            <TextBox Grid.Column="1" Text="{Binding NewEntrySubCategory}"></TextBox>
+        <Grid Grid.Row="0" ColumnDefinitions="*, *" Margin="5">
+            <TextBox Grid.Column="0" Text="{Binding NewEntryCategory}" Margin="5"></TextBox>
+            <TextBox Grid.Column="1" Text="{Binding NewEntrySubCategory}" Margin="5"></TextBox>
         </Grid>
         
-        <Grid Grid.Row="1" ColumnDefinitions="*, Auto">
-            <TextBox Grid.Column="0" Text="{Binding NewEntryTitle}"></TextBox>
-            <ComboBox Grid.Column="1" SelectedIndex="{Binding NewEntryParameter}" ItemsSource="{Binding NewEntryParameterValues}"></ComboBox>
+        <Grid Grid.Row="1" ColumnDefinitions="*, Auto" Margin="5">
+            <TextBox Grid.Column="0" Text="{Binding NewEntryTitle}" Margin="5"></TextBox>
+            <ComboBox Grid.Column="1" SelectedIndex="{Binding NewEntryParameter}" ItemsSource="{Binding NewEntryParameterValues}" Margin="5"></ComboBox>
         </Grid>
         
-        <TextBox Grid.Row="2" TextWrapping="Wrap" Text="{Binding NewEntryContent}"></TextBox>
+        <TextBox Grid.Row="2" TextWrapping="Wrap" Text="{Binding NewEntryContent}" Margin="10"></TextBox>
         
-        <Grid Grid.Row="3" ColumnDefinitions="*, Auto, *">
-            <StackPanel Grid.Column="0" Orientation="Horizontal">
+        <Grid Grid.Row="3" ColumnDefinitions="*, Auto, *" Margin="5">
+            <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="5">
                 <DatePicker SelectedDate="{Binding NewEntryDate}"></DatePicker>
             </StackPanel>
             
-            <Button Grid.Column="1" Command="{Binding AddEntryCommand}">ADD</Button>
+            <Button Grid.Column="1" Command="{Binding AddEntryCommand}" Margin="5">ADD</Button>
             
-            <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
                 <DatePicker SelectedDate="{Binding NewEntryEndDate}"></DatePicker>
             </StackPanel>
         </Grid>
