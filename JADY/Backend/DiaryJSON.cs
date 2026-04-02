@@ -9,11 +9,11 @@ namespace JADY.Backend;
 
 public static class DiaryJSON
 {
-    private static JADYSave _jadySave = new();
+    public static JADYSave JadySave { get; private set; } = new();
     
     public static void Save(Diary[] diaries)
     {
-        _jadySave.Diaries = diaries;
+        JadySave.Diaries = diaries;
         
         Save();
     }
@@ -24,9 +24,19 @@ public static class DiaryJSON
         
         using (FileStream fs = File.Create(savePath))
         {
-            string json = JsonSerializer.Serialize(_jadySave, new JsonSerializerOptions() {WriteIndented = true});
+            string json = JsonSerializer.Serialize(JadySave, new JsonSerializerOptions() {WriteIndented = true});
             byte[] bytes = Encoding.UTF8.GetBytes(json);
             fs.Write(bytes, 0, bytes.Length);
+        }
+    }
+    
+    public static void Load()
+    {
+        string savePath = GetSavePath();
+        
+        using (FileStream fs = File.OpenRead(savePath))
+        {
+            JadySave = JsonSerializer.Deserialize<JADYSave>(fs);
         }
     }
 
