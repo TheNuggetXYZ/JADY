@@ -69,6 +69,8 @@ public partial class MainWindowViewModel : ViewModelBase
         DiaryViewModel newDiaryViewModel = new DiaryViewModel(newDiary);
         
         Diaries.Add(newDiaryViewModel);
+        
+        _addDiaryWindow.Close();
     }
     
     private bool CanAddEntry() => !string.IsNullOrWhiteSpace(NewEntryTitle);
@@ -99,6 +101,8 @@ public partial class MainWindowViewModel : ViewModelBase
         DiaryEntryViewModel newDiaryEntryViewModel = new DiaryEntryViewModel(newDiaryEntry);
         
         Diaries[OpenDiaryIndex].Entries.Add(newDiaryEntryViewModel);
+        
+        _addEntryWindow.Close();
         
         DiaryJSON.Save(ConvertDiaryViewModelObservableCollectionToDiaryModelArray(Diaries));
     }
