@@ -26,11 +26,6 @@
                 <Button Margin="1">SAVE</Button>
                 <Button Margin="1">LOAD</Button>
             </StackPanel>
-            <TextBox Text="{Binding NewDiaryName}" Watermark="Enter diary name...">
-                <TextBox.InnerRightContent>
-                    <Button Command="{Binding AddDiaryCommand}">ADD</Button>
-                </TextBox.InnerRightContent>
-            </TextBox>
             
             <StackPanel Orientation="Horizontal">
                 <Button Command="{Binding OpenAddDiaryWindowCommand}">Add diary</Button>
