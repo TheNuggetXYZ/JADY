@@ -13,22 +13,21 @@ public static class DiaryJSON
     
     public static void Save(Diary[] diaries)
     {
+        _jadySave.Diaries = diaries;
+        
+        Save();
+    }
+
+    private static void Save()
+    {
         string savePath = GetSavePath();
         
-        // Create the file, or overwrite if the file exists.
         using (FileStream fs = File.Create(savePath))
         {
-            _jadySave.Diaries = diaries;
             string json = JsonSerializer.Serialize(_jadySave, new JsonSerializerOptions() {WriteIndented = true});
             byte[] bytes = Encoding.UTF8.GetBytes(json);
             fs.Write(bytes, 0, bytes.Length);
         }
-    }
-
-    public static Diary[] Load()
-    {
-        string savePath = GetSavePath();
-        return null;
     }
 
     private static string GetSavePath()
