@@ -6,9 +6,11 @@
         mc:Ignorable="d" d:DesignWidth="350" d:DesignHeight="150"
         x:Class="JADY.Views.AddDiaryWindow"
         x:DataType="viewModels:MainWindowViewModel"
-        Title="Add a diary">
+        Title="Add a diary"
+        SizeToContent="Height"
+        Width="180">
         
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10" Margin="10">
                 <TextBox Text="{Binding NewDiaryName}"></TextBox>
                 <Button Command="{Binding AddDiaryCommand}" HorizontalAlignment="Center">ADD</Button>
         </StackPanel>
