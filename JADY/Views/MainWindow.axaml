@@ -18,7 +18,7 @@
 
     
     <Grid RowDefinitions="Auto, *">
-        <StackPanel Grid.Row="0" FlowDirection="LeftToRight" Orientation="Horizontal" Background="{DynamicResource SystemChromeMediumLowColor}">
+        <!--<StackPanel Grid.Row="0" FlowDirection="LeftToRight" Orientation="Horizontal" Background="{DynamicResource SystemChromeMediumLowColor}">
             <Border Background="{DynamicResource SystemAccentColor}" CornerRadius="20" BorderThickness="2" BorderBrush="{DynamicResource SystemAccentColorDark1}" Margin="5" >
                 <TextBlock Margin="5 0 5 0" TextAlignment="Center" VerticalAlignment="Center" FontSize="20">JADY v0-test</TextBlock>
             </Border>
@@ -27,7 +27,21 @@
                 <Button Command="{Binding OpenAddDiaryWindowCommand}">Add diary</Button>
                 <Button Command="{Binding OpenAddEntryWindowCommand}">Add entry</Button>
             </StackPanel>
-        </StackPanel>
+        </StackPanel>-->
+        
+        <DockPanel>
+            <Menu Grid.Row="0" DockPanel.Dock="Top">
+                <MenuItem Header="_File">
+                    <MenuItem Header="_Save"></MenuItem>
+                    <MenuItem Header="_Load"></MenuItem>
+                </MenuItem>
+                <MenuItem Header="_Edit">
+                    <MenuItem Header="Add Diary" Command="{Binding OpenAddDiaryWindowCommand}"></MenuItem>
+                    <MenuItem Header="Add Entry" Command="{Binding OpenAddEntryWindowCommand}"></MenuItem>
+                </MenuItem>
+            </Menu>
+            <TextBlock/>
+        </DockPanel>
         
         <TabControl Grid.Row="1" ItemsSource="{Binding Diaries}" SelectedIndex="{Binding OpenDiaryIndex}">
             <TabControl.ItemTemplate>
