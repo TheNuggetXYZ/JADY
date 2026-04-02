@@ -55,6 +55,13 @@ public partial class MainWindowViewModel : ViewModelBase
 
     #endregion
 
+    public MainWindowViewModel()
+    {
+        DiaryJSON.Load();
+
+        Diaries = ConvertDiaryArrayToDiaryViewModelObservableCollection(DiaryJSON.JadySave.Diaries);
+    }
+
     private bool CanAddDiary() => !string.IsNullOrWhiteSpace(NewDiaryName);
     
     [RelayCommand(CanExecute = nameof(CanAddDiary))]
