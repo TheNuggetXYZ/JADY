@@ -3,14 +3,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:JADY.ViewModels"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="350" d:DesignHeight="150"
         x:Class="JADY.Views.AddDiaryWindow"
         x:DataType="viewModels:MainWindowViewModel"
         Title="Add a diary">
         
-        <StackPanel Orientation="Vertical">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
                 <TextBox Text="{Binding NewDiaryName}"></TextBox>
-                <Button Command="{Binding AddDiaryCommand}">ADD</Button>
+                <Button Command="{Binding AddDiaryCommand}" HorizontalAlignment="Center">ADD</Button>
         </StackPanel>
         
 </Window>
