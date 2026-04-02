@@ -19,6 +19,7 @@ public partial class MainWindowViewModel : ViewModelBase
     private int _openDiaryIndex;
     
     private AddEntryWindow _addEntryWindow = new();
+    private AddDiaryWindow _addDiaryWindow = new();
 
     #region NewDiaryArguments
 
@@ -112,6 +113,19 @@ public partial class MainWindowViewModel : ViewModelBase
             _addEntryWindow = new AddEntryWindow { DataContext = this };
             await _addEntryWindow.ShowDialog(desktop.MainWindow);
             OpenAddEntryWindowCommand.NotifyCanExecuteChanged();
+        }
+    }
+    
+    private bool CanOpenAddDiaryWindow() => !_addDiaryWindow.IsVisible;
+
+    [RelayCommand(CanExecute = nameof(CanOpenAddDiaryWindow))]
+    private async void OpenAddDiaryWindow()
+    {
+        if (Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+        {
+            _addDiaryWindow = new AddDiaryWindow { DataContext = this };
+            await _addDiaryWindow.ShowDialog(desktop.MainWindow);
+            OpenAddDiaryWindowCommand.NotifyCanExecuteChanged();
         }
     }
 
