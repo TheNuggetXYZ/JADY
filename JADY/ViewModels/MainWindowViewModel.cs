@@ -47,10 +47,10 @@ public partial class MainWindowViewModel : ViewModelBase
     private string? _newEntryContent;
     
     [ObservableProperty] 
-    private DateTime? _newEntryDate;
+    private DateTimeOffset? _newEntryDate;
     
     [ObservableProperty] 
-    private DateTime? _newEntryEndDate;
+    private DateTimeOffset? _newEntryEndDate;
 
     #endregion
 
@@ -86,7 +86,7 @@ public partial class MainWindowViewModel : ViewModelBase
             SubCategory = NewEntrySubCategory,
             Title = NewEntryTitle,
             Content = NewEntryContent,
-            LogDate = DateTime.Now,
+            LogDate = DateTimeOffset.Now,
             Date = NewEntryDate,
             EndDate = NewEntryEndDate,
             Status = (DiaryEntryStatus)status,

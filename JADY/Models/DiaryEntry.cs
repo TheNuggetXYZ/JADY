@@ -12,17 +12,17 @@ public class DiaryEntry
     /// <summary>
     /// The date at the time the entry was added.
     /// </summary>
-    public DateTime LogDate { get; set; }
+    public DateTimeOffset LogDate { get; set; }
     
     /// <summary>
     /// The start date of an event or a date of a one time entry.
     /// </summary>
-    public DateTime? Date { get; set; }
+    public DateTimeOffset? Date { get; set; }
 
     /// <summary>
     /// The end date of an event. Is useless for a one time entry.
     /// </summary>
-    public DateTime? EndDate { get; set; }
+    public DateTimeOffset? EndDate { get; set; }
     
     /// <summary>
     /// E.g. Game/Anime/Misc

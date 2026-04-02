@@ -9,12 +9,12 @@ public partial class DiarySubEntryViewModel : ViewModelBase
     /// <summary>
     /// The date at the time the sub entry was added.
     /// </summary>
-    [ObservableProperty] private DateTime _logDate;
+    [ObservableProperty] private DateTimeOffset _logDate;
 
     /// <summary>
     /// The date of a sub entry.
     /// </summary>
-    [ObservableProperty] private DateTime _date;
+    [ObservableProperty] private DateTimeOffset _date;
 
     /// <summary>
     /// E.g.:

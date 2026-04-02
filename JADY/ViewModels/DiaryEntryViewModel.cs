@@ -15,17 +15,17 @@ public partial class DiaryEntryViewModel : ViewModelBase
     /// <summary>
     /// The date at the time the entry was added.
     /// </summary>
-    [ObservableProperty] private DateTime _logDate;
+    [ObservableProperty] private DateTimeOffset _logDate;
 
     /// <summary>
     /// The start date of an event or a date of a one time entry.
     /// </summary>
-    [ObservableProperty] private DateTime? _date;
+    [ObservableProperty] private DateTimeOffset? _date;
 
     /// <summary>
     /// The end date of an event. Is useless for a one time entry.
     /// </summary>
-    [ObservableProperty] private DateTime? _endDate;
+    [ObservableProperty] private DateTimeOffset? _endDate;
 
     /// <summary>
     /// E.g. Game/Anime/Misc

@@ -7,12 +7,12 @@ public class DiarySubEntry
     /// <summary>
     /// The date at the time the sub entry was added.
     /// </summary>
-    public DateTime LogDate { get; set; }
+    public DateTimeOffset LogDate { get; set; }
     
     /// <summary>
     /// The date of a sub entry.
     /// </summary>
-    public DateTime Date { get; set; }
+    public DateTimeOffset Date { get; set; }
     
     /// <summary>
     /// E.g.:
