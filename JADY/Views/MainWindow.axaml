@@ -29,8 +29,8 @@
             </StackPanel>
         </StackPanel>-->
         
-        <DockPanel>
-            <Menu Grid.Row="0" DockPanel.Dock="Top">
+        <DockPanel Grid.Row="0">
+            <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_File">
                     <MenuItem Header="_Save"></MenuItem>
                     <MenuItem Header="_Load"></MenuItem>
@@ -43,10 +43,10 @@
             <TextBlock/>
         </DockPanel>
         
-        <TabControl Grid.Row="1" ItemsSource="{Binding Diaries}" SelectedIndex="{Binding OpenDiaryIndex}">
+        <TabControl Grid.Row="1" ItemsSource="{Binding Diaries}" SelectedIndex="{Binding OpenDiaryIndex}" TabStripPlacement="Bottom">
             <TabControl.ItemTemplate>
                 <DataTemplate DataType="vm:DiaryViewModel">
-                    <TextBlock Text="{Binding Name}"></TextBlock>
+                    <TextBlock Text="{Binding Name}" FontSize="18"></TextBlock>
                 </DataTemplate>
             </TabControl.ItemTemplate>
             <TabControl.ContentTemplate>
