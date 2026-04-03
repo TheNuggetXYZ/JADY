@@ -13,20 +13,22 @@
     <Grid RowDefinitions="Auto, Auto, *, Auto" Margin="10">
         
         <Grid Grid.Row="0" ColumnDefinitions="*, *" Margin="5">
-            <TextBox Grid.Column="0" Text="{Binding NewEntryCategory}" Margin="5"></TextBox>
-            <TextBox Grid.Column="1" Text="{Binding NewEntrySubCategory}" Margin="5"></TextBox>
+            <TextBox Grid.Column="0" Text="{Binding NewEntryCategory}" Watermark="Category..." Margin="5"></TextBox>
+            <TextBox Grid.Column="1" Text="{Binding NewEntrySubCategory}" Watermark="Subcategory..." Margin="5"></TextBox>
         </Grid>
         
         <Grid Grid.Row="1" ColumnDefinitions="*, Auto" Margin="5">
-            <TextBox Grid.Column="0" Text="{Binding NewEntryTitle}" Margin="5"></TextBox>
+            <TextBox Grid.Column="0" Text="{Binding NewEntryTitle}" Watermark="Title..." Margin="5"></TextBox>
             <ComboBox Grid.Column="1" SelectedIndex="{Binding NewEntryParameter}" ItemsSource="{Binding NewEntryParameterValues}" Margin="5"></ComboBox>
         </Grid>
         
-        <TextBox Grid.Row="2" TextWrapping="Wrap" Text="{Binding NewEntryContent}" Margin="10"></TextBox>
+        <TextBox Grid.Row="2" TextWrapping="Wrap" Text="{Binding NewEntryContent}" Watermark="Content..." Margin="10"></TextBox>
         
         <Grid Grid.Row="3" RowDefinitions="*, Auto" Margin="5">
             <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5" HorizontalAlignment="Center">
-                <DatePicker SelectedDate="{Binding NewEntryDate}"></DatePicker>
+                <DatePicker SelectedDate="{Binding NewEntryDate}">
+                    <ToolTip.Tip>Actual start date of an event or a date of a one time entry. (The date of adding an entry is saved automatically.)</ToolTip.Tip>
+                </DatePicker>
             </StackPanel>
             
             <Button Grid.Row="1" Command="{Binding AddEntryCommand}" Margin="5" HorizontalAlignment="Center">ADD</Button>
