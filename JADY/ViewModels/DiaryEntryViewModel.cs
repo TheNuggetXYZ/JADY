@@ -48,6 +48,11 @@ public partial class DiaryEntryViewModel : ViewModelBase
     [ObservableProperty] private string? _content;
 
     /// <summary>
+    /// Used if you don't want this entry to appear unless you toggle on a setting to show hidden entries.
+    /// </summary>
+    [ObservableProperty] private bool _isHidden;
+
+    /// <summary>
     /// E.g. [I automated red science, I finally destroyed those biter nests, ...]
     /// </summary>
     public ObservableCollection<DiarySubEntryViewModel> SubEntries { get; set; }
@@ -63,6 +68,7 @@ public partial class DiaryEntryViewModel : ViewModelBase
         SubCategory = diaryEntry.SubCategory;
         Title =  diaryEntry.Title;
         Content = diaryEntry.Content;
+        IsHidden = diaryEntry.IsHidden;
         SubEntries = InitializeSubEntries(diaryEntry.SubEntries);
     }
     

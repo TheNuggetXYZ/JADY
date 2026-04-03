@@ -46,6 +46,9 @@ public partial class MainWindowViewModel : ViewModelBase
     
     [ObservableProperty] 
     private string? _newEntryContent;
+
+    [ObservableProperty] 
+    private bool _newEntryIsHidden;
     
     [ObservableProperty] 
     private DateTimeOffset? _newEntryDate;
@@ -94,15 +97,14 @@ public partial class MainWindowViewModel : ViewModelBase
         {
             Category = NewEntryCategory,
             SubCategory = NewEntrySubCategory,
-            Title = NewEntryTitle,
-            Content = NewEntryContent,
             LogDate = DateTimeOffset.Now,
             Date = NewEntryDate,
             EndDate = NewEntryEndDate,
+            Title = NewEntryTitle,
+            Content = NewEntryContent,
+            IsHidden = NewEntryIsHidden,
             Status = (DiaryEntryStatus)status,
             Type = (DiaryEntryType)type
-
-            //TODO: set date and end date
         };
 
         DiaryEntryViewModel newDiaryEntryViewModel = new DiaryEntryViewModel(newDiaryEntry);

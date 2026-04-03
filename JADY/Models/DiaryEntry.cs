@@ -43,6 +43,11 @@ public class DiaryEntry
     /// E.g. I started playing Factorio for the first time on the ... version and its ...
     /// </summary>
     public string? Content { get; set; }
+    
+    /// <summary>
+    /// Used if you don't want this entry to appear unless you toggle on a setting to show hidden entries.
+    /// </summary>
+    public bool IsHidden { get; set; }
 
     /// <summary>
     /// E.g. [I automated red science, I finally destroyed those biter nests, ...]
