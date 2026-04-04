@@ -22,12 +22,18 @@ public partial class DiarySubEntryViewModel : ViewModelBase
     /// I finnaly destroyed those biter nests.
     /// </summary>
     [ObservableProperty] private string? _content;
+    
+    private MainWindowViewModel _mainWindowViewModel;
+    
+    private DiaryEntryViewModel _diaryEntryViewModel;
 
-    public DiarySubEntryViewModel(DiarySubEntry subEntry)
+    public DiarySubEntryViewModel(DiarySubEntry subEntry, MainWindowViewModel mainWindowViewModel, DiaryEntryViewModel diaryEntryViewModel)
     {
         LogDate = subEntry.LogDate;
         Date = subEntry.Date;
         Content = subEntry.Content;
+        _mainWindowViewModel = mainWindowViewModel;
+        _diaryEntryViewModel = diaryEntryViewModel;
     }
 
     /// <returns>

@@ -95,8 +95,12 @@ public partial class DiaryEntryViewModel : ViewModelBase
             return string.Empty;
         }
     }
+    
+    private MainWindowViewModel _mainWindowViewModel;
+    
+    private DiaryViewModel _diaryViewModel;
 
-    public DiaryEntryViewModel(DiaryEntry diaryEntry)
+    public DiaryEntryViewModel(DiaryEntry diaryEntry, MainWindowViewModel mainWindowViewModel, DiaryViewModel diaryViewModel)
     {
         Type = diaryEntry.Type;
         Status = diaryEntry.Status;
@@ -109,6 +113,8 @@ public partial class DiaryEntryViewModel : ViewModelBase
         Content = diaryEntry.Content;
         IsHidden = diaryEntry.IsHidden;
         SubEntries = InitializeSubEntries(diaryEntry.SubEntries);
+        _mainWindowViewModel = mainWindowViewModel;
+        _diaryViewModel = diaryViewModel;
     }
     
     /// <returns>
@@ -140,7 +146,7 @@ public partial class DiaryEntryViewModel : ViewModelBase
 
         foreach (var subEntryModel in subEntryModels)
         {
-            DiarySubEntryViewModel newDiarySubEntryViewModel = new(subEntryModel);
+            DiarySubEntryViewModel newDiarySubEntryViewModel = new(subEntryModel, _mainWindowViewModel, this);
             subEntryViewModels.Add(newDiarySubEntryViewModel);
         }
         

@@ -76,7 +76,7 @@ public partial class MainWindowViewModel : ViewModelBase
             Entries = new()
         };
         
-        DiaryViewModel newDiaryViewModel = new DiaryViewModel(newDiary);
+        DiaryViewModel newDiaryViewModel = new DiaryViewModel(newDiary, this);
         
         Diaries.Add(newDiaryViewModel);
         
@@ -107,7 +107,7 @@ public partial class MainWindowViewModel : ViewModelBase
             Type = (DiaryEntryType)type
         };
 
-        DiaryEntryViewModel newDiaryEntryViewModel = new DiaryEntryViewModel(newDiaryEntry);
+        DiaryEntryViewModel newDiaryEntryViewModel = new DiaryEntryViewModel(newDiaryEntry, this, Diaries[OpenDiaryIndex]);
         
         Diaries[OpenDiaryIndex].Entries.Add(newDiaryEntryViewModel);
         
@@ -186,7 +186,7 @@ public partial class MainWindowViewModel : ViewModelBase
 
         for (int i = 0; i < diaries.Length; i++)
         {
-            diaryViewModelObservableCollection.Add(new DiaryViewModel(diaries[i]));
+            diaryViewModelObservableCollection.Add(new DiaryViewModel(diaries[i], this));
         }
         
         return diaryViewModelObservableCollection;

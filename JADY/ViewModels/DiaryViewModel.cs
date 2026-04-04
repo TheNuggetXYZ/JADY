@@ -16,11 +16,14 @@ public partial class DiaryViewModel : ViewModelBase
     /// The entries in the diary.
     /// </summary>
     public ObservableCollection<DiaryEntryViewModel> Entries { get; set; }
+    
+    private MainWindowViewModel _mainWindowViewModel;
 
-    public DiaryViewModel(Diary diary)
+    public DiaryViewModel(Diary diary, MainWindowViewModel mainWindowViewModel)
     {
         Name = diary.Name;
         Entries = InitializeEntries(diary.Entries);
+        _mainWindowViewModel = mainWindowViewModel;
     }
 
     /// <returns>
@@ -44,7 +47,7 @@ public partial class DiaryViewModel : ViewModelBase
 
         foreach (var entryModel in entryModels)
         {
-            DiaryEntryViewModel newDiaryEntryViewModel = new(entryModel);
+            DiaryEntryViewModel newDiaryEntryViewModel = new(entryModel, _mainWindowViewModel, this);
             entryViewModels.Add(newDiaryEntryViewModel);
         }
         
