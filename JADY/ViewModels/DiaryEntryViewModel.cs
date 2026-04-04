@@ -51,6 +51,11 @@ public partial class DiaryEntryViewModel : ViewModelBase
     /// Used if you don't want this entry to appear unless you toggle on a setting to show hidden entries.
     /// </summary>
     [ObservableProperty] private bool _isHidden;
+    
+    /// <summary>
+    /// E.g. [I automated red science, I finally destroyed those biter nests, ...]
+    /// </summary>
+    public ObservableCollection<DiarySubEntryViewModel> SubEntries { get; set; }
 
     public string GetStatusDisplayNameWithSpace
     {
@@ -90,11 +95,6 @@ public partial class DiaryEntryViewModel : ViewModelBase
             return string.Empty;
         }
     }
-
-    /// <summary>
-    /// E.g. [I automated red science, I finally destroyed those biter nests, ...]
-    /// </summary>
-    public ObservableCollection<DiarySubEntryViewModel> SubEntries { get; set; }
 
     public DiaryEntryViewModel(DiaryEntry diaryEntry)
     {
