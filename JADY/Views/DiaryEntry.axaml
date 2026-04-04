@@ -7,7 +7,7 @@
              x:Class="JADY.Views.DiaryEntry"
              x:DataType="viewModels:DiaryEntryViewModel">
     
-    <Border Background="{DynamicResource SystemChromeMediumColor}" CornerRadius="5" PointerPressed="DiaryEntryHeader_OnPointerPressed">
+    <Border Background="{DynamicResource SystemChromeMediumColor}" CornerRadius="5" PointerPressed="DiaryEntryHeader_OnPointerPressed" IsVisible="{Binding !IsHidden}">
         <Border.ContextMenu>
             <ContextMenu>
                 <MenuItem Header="Edit"/>
