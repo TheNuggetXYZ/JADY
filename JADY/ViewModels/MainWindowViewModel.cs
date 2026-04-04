@@ -111,8 +111,6 @@ public partial class MainWindowViewModel : ViewModelBase
         Diaries[OpenDiaryIndex].Entries.Add(newDiaryEntryViewModel);
         
         _addEntryWindow.Close();
-        
-        DiaryJSON.Save(ConvertDiaryViewModelObservableCollectionToDiaryModelArray(Diaries));
     }
 
     [RelayCommand(CanExecute = nameof(Can_ContextMenu_OpenAddDiaryWindow))]
