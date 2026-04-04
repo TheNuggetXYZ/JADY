@@ -23,25 +23,25 @@ public partial class MainWindowViewModel : ViewModelBase
 
     #region NewDiaryArguments
 
-    [ObservableProperty, NotifyCanExecuteChangedFor(nameof(AddDiaryCommand))] 
+    [ObservableProperty, NotifyCanExecuteChangedFor(nameof(AddDiaryWindow_AddCommand))] 
     private string? _newDiaryName;
 
     #endregion
 
     #region NewEntryArguments
     
-    [ObservableProperty, NotifyCanExecuteChangedFor(nameof(AddEntryCommand))]
+    [ObservableProperty, NotifyCanExecuteChangedFor(nameof(AddEntryWindow_AddCommand))]
     private NewDiaryEntryParameter _newEntryParameter;
 
     public Array NewEntryParameterValues => Enum.GetValues(typeof(NewDiaryEntryParameter));
 
-    [ObservableProperty, NotifyCanExecuteChangedFor(nameof(AddEntryCommand))]
+    [ObservableProperty, NotifyCanExecuteChangedFor(nameof(AddEntryWindow_AddCommand))]
     private string? _newEntryCategory;
     
     [ObservableProperty]
     private string? _newEntrySubCategory;
     
-    [ObservableProperty, NotifyCanExecuteChangedFor(nameof(AddEntryCommand))] 
+    [ObservableProperty, NotifyCanExecuteChangedFor(nameof(AddEntryWindow_AddCommand))] 
     private string? _newEntryTitle;
     
     [ObservableProperty] 
@@ -65,13 +65,13 @@ public partial class MainWindowViewModel : ViewModelBase
         Diaries = ConvertDiaryArrayToDiaryViewModelObservableCollection(DiaryJSON.JadySave.Diaries);
     }
 
-    private bool CanAddDiary() => !string.IsNullOrWhiteSpace(NewDiaryName);
-    private bool CanAddEntry() => !string.IsNullOrWhiteSpace(NewEntryTitle);
-    private bool CanOpenAddEntryWindow() => !_addEntryWindow.IsVisible;
-    private bool CanOpenAddDiaryWindow() => !_addDiaryWindow.IsVisible;
+    private bool Can_AddDiaryWindow_Add() => !string.IsNullOrWhiteSpace(NewDiaryName);
+    private bool Can_AddEntryWindow_Add() => !string.IsNullOrWhiteSpace(NewEntryTitle);
+    private bool Can_ContextMenu_OpenAddEntryWindow() => !_addEntryWindow.IsVisible;
+    private bool Can_ContextMenu_OpenAddDiaryWindow() => !_addDiaryWindow.IsVisible;
     
-    [RelayCommand(CanExecute = nameof(CanAddDiary))]
-    private void AddDiary()
+    [RelayCommand(CanExecute = nameof(Can_AddDiaryWindow_Add))]
+    private void AddDiaryWindow_Add()
     {
         Diary newDiary = new Diary()
         {
@@ -86,8 +86,8 @@ public partial class MainWindowViewModel : ViewModelBase
         _addDiaryWindow.Close();
     }
     
-    [RelayCommand(CanExecute = nameof(CanAddEntry))]
-    private void AddEntry()
+    [RelayCommand(CanExecute = nameof(Can_AddEntryWindow_Add))]
+    private void AddEntryWindow_Add()
     {
         if (OpenDiaryIndex >= Diaries.Count || OpenDiaryIndex < 0)
             return;
@@ -117,25 +117,25 @@ public partial class MainWindowViewModel : ViewModelBase
         DiaryJSON.Save(ConvertDiaryViewModelObservableCollectionToDiaryModelArray(Diaries));
     }
 
-    [RelayCommand(CanExecute = nameof(CanOpenAddEntryWindow))]
-    private async void OpenAddEntryWindow()
-    {
-        if (Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-        {
-            _addEntryWindow = new AddEntryWindow { DataContext = this };
-            await _addEntryWindow.ShowDialog(desktop.MainWindow);
-            OpenAddEntryWindowCommand.NotifyCanExecuteChanged();
-        }
-    }
-
-    [RelayCommand(CanExecute = nameof(CanOpenAddDiaryWindow))]
-    private async void OpenAddDiaryWindow()
+    [RelayCommand(CanExecute = nameof(Can_ContextMenu_OpenAddDiaryWindow))]
+    private async void ContextMenu_OpenAddDiaryWindow()
     {
         if (Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             _addDiaryWindow = new AddDiaryWindow { DataContext = this };
             await _addDiaryWindow.ShowDialog(desktop.MainWindow);
-            OpenAddDiaryWindowCommand.NotifyCanExecuteChanged();
+            ContextMenu_OpenAddDiaryWindowCommand.NotifyCanExecuteChanged();
+        }
+    }
+
+    [RelayCommand(CanExecute = nameof(Can_ContextMenu_OpenAddEntryWindow))]
+    private async void ContextMenu_OpenAddEntryWindow()
+    {
+        if (Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+        {
+            _addEntryWindow = new AddEntryWindow { DataContext = this };
+            await _addEntryWindow.ShowDialog(desktop.MainWindow);
+            ContextMenu_OpenAddEntryWindowCommand.NotifyCanExecuteChanged();
         }
     }
 

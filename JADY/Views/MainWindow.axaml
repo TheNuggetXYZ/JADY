@@ -25,8 +25,8 @@
                     <MenuItem Header="_Load"></MenuItem>
                 </MenuItem>
                 <MenuItem Header="_Edit">
-                    <MenuItem Header="Add Diary" Command="{Binding OpenAddDiaryWindowCommand}"></MenuItem>
-                    <MenuItem Header="Add Entry" Command="{Binding OpenAddEntryWindowCommand}"></MenuItem>
+                    <MenuItem Header="Add Diary" Command="{Binding ContextMenu_OpenAddDiaryWindowCommand}"></MenuItem>
+                    <MenuItem Header="Add Entry" Command="{Binding ContextMenu_OpenAddEntryWindowCommand}"></MenuItem>
                 </MenuItem>
             </Menu>
             <TextBlock/>

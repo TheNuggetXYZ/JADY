@@ -33,7 +33,7 @@
             
             <Panel Margin="5">
                 <CheckBox HorizontalAlignment="Left" IsChecked="{Binding NewEntryIsHidden}">Hidden</CheckBox>
-                <Button Command="{Binding AddEntryCommand}" Margin="5" HorizontalAlignment="Center">ADD</Button>
+                <Button Command="{Binding AddEntryWindow_AddCommand}" Margin="5" HorizontalAlignment="Center">ADD</Button>
             </Panel>
         </StackPanel>
     </Grid>
