@@ -18,7 +18,7 @@ public partial class DiaryViewModel : ViewModelBase
     /// </summary>
     public ObservableCollection<DiaryEntryViewModel> Entries { get; set; }
     
-    private MainWindowViewModel _mainWindowViewModel;
+    private readonly MainWindowViewModel _mainWindowViewModel;
 
     public DiaryViewModel(Diary diary, MainWindowViewModel mainWindowViewModel)
     {

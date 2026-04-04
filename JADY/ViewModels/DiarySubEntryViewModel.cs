@@ -24,9 +24,9 @@ public partial class DiarySubEntryViewModel : ViewModelBase
     /// </summary>
     [ObservableProperty] private string? _content;
     
-    private MainWindowViewModel _mainWindowViewModel;
+    private readonly MainWindowViewModel _mainWindowViewModel;
     
-    private DiaryEntryViewModel _diaryEntryViewModel;
+    private readonly DiaryEntryViewModel _diaryEntryViewModel;
 
     public DiarySubEntryViewModel(DiarySubEntry subEntry, MainWindowViewModel mainWindowViewModel, DiaryEntryViewModel diaryEntryViewModel)
     {

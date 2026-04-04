@@ -97,9 +97,9 @@ public partial class DiaryEntryViewModel : ViewModelBase
         }
     }
     
-    private MainWindowViewModel _mainWindowViewModel;
+    private readonly MainWindowViewModel _mainWindowViewModel;
     
-    private DiaryViewModel _diaryViewModel;
+    private readonly DiaryViewModel _diaryViewModel;
 
     public DiaryEntryViewModel(DiaryEntry diaryEntry, MainWindowViewModel mainWindowViewModel, DiaryViewModel diaryViewModel)
     {
