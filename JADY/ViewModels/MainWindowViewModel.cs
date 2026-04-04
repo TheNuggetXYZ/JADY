@@ -13,7 +13,7 @@ namespace JADY.ViewModels;
 
 public partial class MainWindowViewModel : ViewModelBase
 {
-    public ObservableCollection<DiaryViewModel> Diaries { get; } = new();
+    public ObservableCollection<DiaryViewModel> Diaries { get; private set; } = new();
     
     [ObservableProperty] 
     private int _openDiaryIndex;
@@ -60,9 +60,7 @@ public partial class MainWindowViewModel : ViewModelBase
 
     public MainWindowViewModel()
     {
-        DiaryJSON.Load();
-
-        Diaries = ConvertDiaryArrayToDiaryViewModelObservableCollection(DiaryJSON.JadySave.Diaries);
+        Load();
     }
 
     private bool Can_AddDiaryWindow_Add() => !string.IsNullOrWhiteSpace(NewDiaryName);
@@ -137,6 +135,24 @@ public partial class MainWindowViewModel : ViewModelBase
             await _addEntryWindow.ShowDialog(desktop.MainWindow);
             ContextMenu_OpenAddEntryWindowCommand.NotifyCanExecuteChanged();
         }
+    }
+
+    [RelayCommand]
+    private void ContextMenu_Save() => Save();
+
+    [RelayCommand]
+    private void ContextMenu_Load() => Load();
+
+    private void Save()
+    {
+        DiaryJSON.Save(ConvertDiaryViewModelObservableCollectionToDiaryModelArray(Diaries));
+    }
+
+    private void Load()
+    {
+        DiaryJSON.Load();
+
+        Diaries = ConvertDiaryArrayToDiaryViewModelObservableCollection(DiaryJSON.JadySave.Diaries);
     }
 
     private void ConvertNewDiaryParameterToStatusAndType(NewDiaryEntryParameter newDiaryEntryParameter, out int status, out int type)
