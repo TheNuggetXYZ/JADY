@@ -52,78 +52,6 @@ public partial class DiaryEntryViewModel : ViewModelBase
     /// </summary>
     [ObservableProperty] private bool _isHidden;
 
-    /// <summary>
-    /// E.g. [I automated red science, I finally destroyed those biter nests, ...]
-    /// </summary>
-    public ObservableCollection<DiarySubEntryViewModel> SubEntries { get; set; }
-
-    public DiaryEntryViewModel(DiaryEntry diaryEntry)
-    {
-        Type = diaryEntry.Type;
-        Status = diaryEntry.Status;
-        LogDate = diaryEntry.LogDate;
-        Date = diaryEntry.Date;
-        EndDate = diaryEntry.EndDate;
-        Category = diaryEntry.Category;
-        SubCategory = diaryEntry.SubCategory;
-        Title =  diaryEntry.Title;
-        Content = diaryEntry.Content;
-        IsHidden = diaryEntry.IsHidden;
-        SubEntries = InitializeSubEntries(diaryEntry.SubEntries);
-    }
-    
-    /// <summary>
-    /// Converts a list of models to a list of their corresponding view models using the view model's constructor.
-    /// </summary>
-    private ObservableCollection<DiarySubEntryViewModel> InitializeSubEntries(List<DiarySubEntry> subEntryModels)
-    {
-        ObservableCollection<DiarySubEntryViewModel> subEntryViewModels = new();
-
-        foreach (var subEntryModel in subEntryModels)
-        {
-            DiarySubEntryViewModel newDiarySubEntryViewModel = new(subEntryModel);
-            subEntryViewModels.Add(newDiarySubEntryViewModel);
-        }
-        
-        return subEntryViewModels;
-    }
-    
-    /// <returns>
-    /// a model using this view model's values.
-    /// </returns>
-    public DiaryEntry GetModel()
-    {
-        return new()
-        {
-            Type = Type,
-            Status = Status,
-            LogDate = LogDate,
-            Date = Date,
-            EndDate = EndDate,
-            Category = Category,
-            SubCategory = SubCategory,
-            Title = Title,
-            Content = Content,
-            SubEntries = DeinitializeSubEntries(SubEntries)
-        };
-    }
-    
-    /// <summary>
-    /// Converts a list of view models to a list of their corresponding models using the view model's GetModel method.
-    /// </summary>
-    private List<DiarySubEntry> DeinitializeSubEntries(ObservableCollection<DiarySubEntryViewModel> subEntryViewModels)
-    {
-        List<DiarySubEntry> subEntryModels = new();
-
-        foreach (var subEntryViewModel in subEntryViewModels)
-        {
-            DiarySubEntry newDiarySubEntryModel = subEntryViewModel.GetModel();
-            subEntryModels.Add(newDiarySubEntryModel);
-        }
-        
-        return subEntryModels;
-    }
-
     public string GetStatusDisplayNameWithSpace
     {
         get
@@ -152,7 +80,6 @@ public partial class DiaryEntryViewModel : ViewModelBase
         }
     }
 
-    
     public string SubCategoryStringWithPipeSeparator
     {
         get
@@ -162,5 +89,77 @@ public partial class DiaryEntryViewModel : ViewModelBase
 
             return string.Empty;
         }
+    }
+
+    /// <summary>
+    /// E.g. [I automated red science, I finally destroyed those biter nests, ...]
+    /// </summary>
+    public ObservableCollection<DiarySubEntryViewModel> SubEntries { get; set; }
+
+    public DiaryEntryViewModel(DiaryEntry diaryEntry)
+    {
+        Type = diaryEntry.Type;
+        Status = diaryEntry.Status;
+        LogDate = diaryEntry.LogDate;
+        Date = diaryEntry.Date;
+        EndDate = diaryEntry.EndDate;
+        Category = diaryEntry.Category;
+        SubCategory = diaryEntry.SubCategory;
+        Title =  diaryEntry.Title;
+        Content = diaryEntry.Content;
+        IsHidden = diaryEntry.IsHidden;
+        SubEntries = InitializeSubEntries(diaryEntry.SubEntries);
+    }
+    
+    /// <returns>
+    /// a model using this view model's values.
+    /// </returns>
+    public DiaryEntry GetModel()
+    {
+        return new()
+        {
+            Type = Type,
+            Status = Status,
+            LogDate = LogDate,
+            Date = Date,
+            EndDate = EndDate,
+            Category = Category,
+            SubCategory = SubCategory,
+            Title = Title,
+            Content = Content,
+            SubEntries = DeinitializeSubEntries(SubEntries)
+        };
+    }
+    
+    /// <summary>
+    /// Converts a list of models to a list of their corresponding view models using the view model's constructor.
+    /// </summary>
+    private ObservableCollection<DiarySubEntryViewModel> InitializeSubEntries(List<DiarySubEntry> subEntryModels)
+    {
+        ObservableCollection<DiarySubEntryViewModel> subEntryViewModels = new();
+
+        foreach (var subEntryModel in subEntryModels)
+        {
+            DiarySubEntryViewModel newDiarySubEntryViewModel = new(subEntryModel);
+            subEntryViewModels.Add(newDiarySubEntryViewModel);
+        }
+        
+        return subEntryViewModels;
+    }
+    
+    /// <summary>
+    /// Converts a list of view models to a list of their corresponding models using the view model's GetModel method.
+    /// </summary>
+    private List<DiarySubEntry> DeinitializeSubEntries(ObservableCollection<DiarySubEntryViewModel> subEntryViewModels)
+    {
+        List<DiarySubEntry> subEntryModels = new();
+
+        foreach (var subEntryViewModel in subEntryViewModels)
+        {
+            DiarySubEntry newDiarySubEntryModel = subEntryViewModel.GetModel();
+            subEntryModels.Add(newDiarySubEntryModel);
+        }
+        
+        return subEntryModels;
     }
 }

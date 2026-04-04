@@ -23,6 +23,18 @@ public partial class DiaryViewModel : ViewModelBase
         Entries = InitializeEntries(diary.Entries);
     }
 
+    /// <returns>
+    /// a model using this view model's values.
+    /// </returns>
+    public Diary GetModel()
+    {
+        return new()
+        {
+            Name = Name,
+            Entries = DeinitializeEntries(Entries)
+        };
+    }
+
     /// <summary>
     /// Converts a list of models to a list of their corresponding view models using the view model's constructor.
     /// </summary>
@@ -37,18 +49,6 @@ public partial class DiaryViewModel : ViewModelBase
         }
         
         return entryViewModels;
-    }
-
-    /// <returns>
-    /// a model using this view model's values.
-    /// </returns>
-    public Diary GetModel()
-    {
-        return new()
-        {
-            Name = Name,
-            Entries = DeinitializeEntries(Entries)
-        };
     }
     
     /// <summary>
