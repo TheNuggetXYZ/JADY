@@ -124,26 +124,32 @@ public partial class DiaryEntryViewModel : ViewModelBase
         return subEntryModels;
     }
 
-    public string GetStatusDisplayName()
+    public string GetStatusDisplayNameWithSpace
     {
-        return Status switch
+        get
         {
-            DiaryEntryStatus.None => "None",
-            DiaryEntryStatus.InProgress => "In progress",
-            DiaryEntryStatus.Completed => "Completed",
-            DiaryEntryStatus.Dropped => "Dropped",
-            _ => throw new ArgumentOutOfRangeException(nameof(Status), Status, null)
-        };
+            return Status switch
+            {
+                DiaryEntryStatus.None => "",
+                DiaryEntryStatus.InProgress => "In progress ",
+                DiaryEntryStatus.Completed => "Completed ",
+                DiaryEntryStatus.Dropped => "Dropped ",
+                _ => throw new ArgumentOutOfRangeException(nameof(Status), Status, null)
+            };
+        }
     }
 
-    public string GetTypeDisplayName()
+    public string GetTypeDisplayName
     {
-        return Type switch
+        get
         {
-            DiaryEntryType.OneTime => "One time",
-            DiaryEntryType.ProlongedEvent => "Event",
-            _ => throw new ArgumentOutOfRangeException(nameof(Type), Type, null)
-        };
+            return Type switch
+            {
+                DiaryEntryType.OneTime => "One time",
+                DiaryEntryType.ProlongedEvent => "event",
+                _ => throw new ArgumentOutOfRangeException(nameof(Type), Type, null)
+            };
+        }
     }
 
     

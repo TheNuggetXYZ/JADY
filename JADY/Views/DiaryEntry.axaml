@@ -17,22 +17,28 @@
         <Grid Margin="5" RowDefinitions="Auto, *, Auto">
             <Panel Grid.Row="0">
                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-                    <TextBlock Text="{Binding Category}"></TextBlock>
-                    <TextBlock Text="{Binding SubCategoryStringWithPipeSeparator}"></TextBlock>
+                    <TextBlock Text="{Binding Category}"/>
+                    <TextBlock Text="{Binding SubCategoryStringWithPipeSeparator}"/>
                 </StackPanel>
-                <TextBlock HorizontalAlignment="Center" Text="{Binding Title}"></TextBlock>
-                <TextBlock HorizontalAlignment="Right" Text="{Binding LogDate}"></TextBlock>
+                <TextBlock HorizontalAlignment="Center" Text="{Binding Title}"/>
+                <TextBlock HorizontalAlignment="Right" Text="{Binding LogDate}"/>
             </Panel>
             
             <Panel Grid.Row="1" Name="ObjectToOpen0" Margin="10">
                 <Border Background="{DynamicResource SystemRegionColor}" CornerRadius="5">
-                    <TextBlock Margin="5" TextWrapping="Wrap" Text="{Binding Content}"></TextBlock>
+                    <TextBlock Margin="5" TextWrapping="Wrap" Text="{Binding Content}"/>
                 </Border>
             </Panel>
             
             <Panel Grid.Row="2" Name="ObjectToOpen1">
-                <TextBlock HorizontalAlignment="Left" Text="{Binding Date}"></TextBlock>
-                <TextBlock HorizontalAlignment="Right" Text="{Binding EndDate}"></TextBlock>
+                <TextBlock HorizontalAlignment="Left" Text="{Binding Date}"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock>
+                        <Run Text="{Binding GetStatusDisplayNameWithSpace}"/>
+                        <Run Text="{Binding GetTypeDisplayName}"/>
+                    </TextBlock>
+                </StackPanel>
+                <TextBlock HorizontalAlignment="Right" Text="{Binding EndDate}"/>
             </Panel>
         </Grid>
     </Border>
