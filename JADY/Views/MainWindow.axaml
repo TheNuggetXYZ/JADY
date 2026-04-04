@@ -33,6 +33,16 @@
         </DockPanel>
         
         <TabControl Grid.Row="1" ItemsSource="{Binding Diaries}" SelectedIndex="{Binding OpenDiaryIndex}" TabStripPlacement="Bottom">
+            <TabControl.ItemContainerTheme>
+                <ControlTheme TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}">
+                    <Setter Property="ContextMenu">
+                        <ContextMenu>
+                            <MenuItem Header="Edit"/>
+                            <MenuItem Header="Delete"/>
+                        </ContextMenu>
+                    </Setter>
+                </ControlTheme>
+            </TabControl.ItemContainerTheme>
             <TabControl.ItemTemplate>
                 <DataTemplate DataType="vm:DiaryViewModel">
                     <TextBlock Text="{Binding Name}" FontSize="18"></TextBlock>

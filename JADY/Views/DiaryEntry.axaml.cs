@@ -17,9 +17,12 @@ public partial class DiaryEntry : UserControl
 
     private void DiaryEntryHeader_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
-        IsDiaryEntryOpen = !IsDiaryEntryOpen;
+        if (e.Properties.IsLeftButtonPressed)
+        {
+            IsDiaryEntryOpen = !IsDiaryEntryOpen;
 
-        SetVisibilityValues();
+            SetVisibilityValues();
+        }
     }
 
     private void SetVisibilityValues()

@@ -8,6 +8,12 @@
              x:DataType="viewModels:DiaryEntryViewModel">
     
     <Border Background="{DynamicResource SystemChromeMediumColor}" CornerRadius="5" PointerPressed="DiaryEntryHeader_OnPointerPressed">
+        <Border.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Edit"/>
+                <MenuItem Header="Delete"/>
+            </ContextMenu>
+        </Border.ContextMenu>
         <Grid Margin="5" RowDefinitions="Auto, *, Auto">
             <Panel Grid.Row="0">
                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
