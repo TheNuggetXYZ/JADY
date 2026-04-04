@@ -133,6 +133,7 @@ public partial class DiaryEntryViewModel : ViewModelBase
             SubCategory = SubCategory,
             Title = Title,
             Content = Content,
+            IsHidden = IsHidden,
             SubEntries = DeinitializeSubEntries(SubEntries)
         };
     }
