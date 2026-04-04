@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using JADY.Models;
 
 namespace JADY.ViewModels;
@@ -68,5 +69,16 @@ public partial class DiaryViewModel : ViewModelBase
         }
         
         return entryModels;
+    }
+
+    [RelayCommand]
+    private void Remove()
+    {
+        _mainWindowViewModel.RemoveMyself(this);
+    }
+
+    public void RemoveMyself(DiaryEntryViewModel item)
+    {
+        Entries.Remove(item);
     }
 }

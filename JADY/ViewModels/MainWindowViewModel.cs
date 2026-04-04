@@ -66,6 +66,9 @@ public partial class MainWindowViewModel : ViewModelBase
     }
 
     private bool CanAddDiary() => !string.IsNullOrWhiteSpace(NewDiaryName);
+    private bool CanAddEntry() => !string.IsNullOrWhiteSpace(NewEntryTitle);
+    private bool CanOpenAddEntryWindow() => !_addEntryWindow.IsVisible;
+    private bool CanOpenAddDiaryWindow() => !_addDiaryWindow.IsVisible;
     
     [RelayCommand(CanExecute = nameof(CanAddDiary))]
     private void AddDiary()
@@ -82,8 +85,6 @@ public partial class MainWindowViewModel : ViewModelBase
         
         _addDiaryWindow.Close();
     }
-    
-    private bool CanAddEntry() => !string.IsNullOrWhiteSpace(NewEntryTitle);
     
     [RelayCommand(CanExecute = nameof(CanAddEntry))]
     private void AddEntry()
@@ -116,8 +117,6 @@ public partial class MainWindowViewModel : ViewModelBase
         DiaryJSON.Save(ConvertDiaryViewModelObservableCollectionToDiaryModelArray(Diaries));
     }
 
-    private bool CanOpenAddEntryWindow() => !_addEntryWindow.IsVisible;
-
     [RelayCommand(CanExecute = nameof(CanOpenAddEntryWindow))]
     private async void OpenAddEntryWindow()
     {
@@ -128,8 +127,6 @@ public partial class MainWindowViewModel : ViewModelBase
             OpenAddEntryWindowCommand.NotifyCanExecuteChanged();
         }
     }
-    
-    private bool CanOpenAddDiaryWindow() => !_addDiaryWindow.IsVisible;
 
     [RelayCommand(CanExecute = nameof(CanOpenAddDiaryWindow))]
     private async void OpenAddDiaryWindow()
@@ -190,6 +187,11 @@ public partial class MainWindowViewModel : ViewModelBase
         }
         
         return diaryViewModelObservableCollection;
+    }
+
+    public void RemoveMyself(DiaryViewModel item)
+    {
+        Diaries.Remove(item);
     }
 }
 

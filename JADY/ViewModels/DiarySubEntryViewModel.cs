@@ -1,5 +1,6 @@
 using System;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using JADY.Models;
 
 namespace JADY.ViewModels;
@@ -47,5 +48,11 @@ public partial class DiarySubEntryViewModel : ViewModelBase
             Date = Date,
             Content = Content
         };
+    }
+    
+    [RelayCommand]
+    private void Remove()
+    {
+        _diaryEntryViewModel.RemoveMyself(this);
     }
 }
