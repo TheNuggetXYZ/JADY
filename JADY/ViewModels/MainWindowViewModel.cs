@@ -13,7 +13,20 @@ namespace JADY.ViewModels;
 
 public partial class MainWindowViewModel : ViewModelBase
 {
-    public ObservableCollection<DiaryViewModel> Diaries { get; private set; } = new();
+    private ObservableCollection<DiaryViewModel> _diaries = new();
+
+    public ObservableCollection<DiaryViewModel> Diaries
+    {
+        get => _diaries;
+        private set
+        {
+            if (_diaries != value)
+            {
+                _diaries = value;
+                OnPropertyChanged();
+            }
+        }
+    }
     
     [ObservableProperty] 
     private int _openDiaryIndex;
