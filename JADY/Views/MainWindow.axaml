@@ -43,7 +43,7 @@
                     <Setter Property="ContextMenu">
                         <ContextMenu>
                             <MenuItem Header="Edit"/>
-                            <MenuItem Header="Delete"/>
+                            <MenuItem Header="Delete" Command="{Binding $parent[TabItem].((vm:DiaryViewModel)DataContext).RemoveCommand}"/>
                         </ContextMenu>
                     </Setter>
                     <Setter Property="Padding" Value="5 0 5 0"/>
