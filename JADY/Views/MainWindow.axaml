@@ -33,6 +33,11 @@
         </DockPanel>
         
         <TabControl Grid.Row="1" ItemsSource="{Binding Diaries}" SelectedIndex="{Binding OpenDiaryIndex}" TabStripPlacement="Bottom">
+            <TabControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Height="20" Background="{DynamicResource SystemColorWindowColor}"/>
+                </ItemsPanelTemplate>
+            </TabControl.ItemsPanel>
             <TabControl.ItemContainerTheme>
                 <ControlTheme TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}">
                     <Setter Property="ContextMenu">
@@ -41,11 +46,12 @@
                             <MenuItem Header="Delete"/>
                         </ContextMenu>
                     </Setter>
+                    <Setter Property="Padding" Value="5 0 5 0"/>
                 </ControlTheme>
             </TabControl.ItemContainerTheme>
             <TabControl.ItemTemplate>
                 <DataTemplate DataType="vm:DiaryViewModel">
-                    <TextBlock Text="{Binding Name}" FontSize="18"></TextBlock>
+                    <TextBlock Text="{Binding Name}" FontSize="16"></TextBlock>
                 </DataTemplate>
             </TabControl.ItemTemplate>
             <TabControl.ContentTemplate>
