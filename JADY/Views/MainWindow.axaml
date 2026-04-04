@@ -35,7 +35,7 @@
         <TabControl Grid.Row="1" ItemsSource="{Binding Diaries}" SelectedIndex="{Binding OpenDiaryIndex}" TabStripPlacement="Bottom">
             <TabControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel Height="20" Background="{DynamicResource SystemColorWindowColor}"/>
+                    <WrapPanel Height="35" Background="{DynamicResource SystemColorWindowColor}"/>
                 </ItemsPanelTemplate>
             </TabControl.ItemsPanel>
             <TabControl.ItemContainerTheme>
@@ -46,7 +46,8 @@
                             <MenuItem Header="Delete" Command="{Binding $parent[TabItem].((vm:DiaryViewModel)DataContext).RemoveCommand}"/>
                         </ContextMenu>
                     </Setter>
-                    <Setter Property="Padding" Value="5 0 5 0"/>
+                    <Setter Property="Padding" Value="5 5 5 0"/>
+                    <Setter Property="VerticalAlignment" Value="Bottom"/>
                 </ControlTheme>
             </TabControl.ItemContainerTheme>
             <TabControl.ItemTemplate>
