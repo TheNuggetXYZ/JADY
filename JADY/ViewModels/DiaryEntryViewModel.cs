@@ -9,8 +9,11 @@ namespace JADY.ViewModels;
 
 public partial class DiaryEntryViewModel : ViewModelBase
 {
+    [NotifyPropertyChangedFor(nameof(ShowEndEventInContextMenu))]
+    [NotifyPropertyChangedFor(nameof(GetTypeDisplayName))]
     [ObservableProperty] private DiaryEntryType _type;
 
+    [NotifyPropertyChangedFor(nameof(GetStatusDisplayNameWithSpace))]
     [ObservableProperty] private DiaryEntryStatus _status;
 
     /// <summary>
@@ -36,6 +39,7 @@ public partial class DiaryEntryViewModel : ViewModelBase
     /// <summary>
     /// E.g. Factorio/OPM/null
     /// </summary>
+    [NotifyPropertyChangedFor(nameof(SubCategoryStringWithPipeSeparator))]
     [ObservableProperty] private string? _subCategory;
 
     /// <summary>
