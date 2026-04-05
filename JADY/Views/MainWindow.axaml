@@ -21,12 +21,12 @@
         <DockPanel Grid.Row="0">
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_File">
-                    <MenuItem Header="_Save" Command="{Binding ContextMenu_SaveCommand}"></MenuItem>
-                    <MenuItem Header="_Load" Command="{Binding ContextMenu_LoadCommand}"></MenuItem>
+                    <MenuItem Header="_Save" Command="{Binding Menu_SaveCommand}"></MenuItem>
+                    <MenuItem Header="_Load" Command="{Binding Menu_LoadCommand}"></MenuItem>
                 </MenuItem>
                 <MenuItem Header="_Edit">
-                    <MenuItem Header="Add Diary" Command="{Binding ContextMenu_OpenAddDiaryWindowCommand}"></MenuItem>
-                    <MenuItem Header="Add Entry" Command="{Binding ContextMenu_OpenAddEntryWindowCommand}"></MenuItem>
+                    <MenuItem Header="Add Diary" Command="{Binding Menu_OpenAddDiaryWindowCommand}"></MenuItem>
+                    <MenuItem Header="Add Entry" Command="{Binding Menu_OpenAddEntryWindowCommand}"></MenuItem>
                 </MenuItem>
             </Menu>
             <TextBlock/>

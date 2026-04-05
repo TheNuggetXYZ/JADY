@@ -125,32 +125,32 @@ public partial class MainWindowViewModel : ViewModelBase
     }
 
     [RelayCommand(CanExecute = nameof(Can_ContextMenu_OpenAddDiaryWindow))]
-    private async void ContextMenu_OpenAddDiaryWindow()
+    private async void Menu_OpenAddDiaryWindow()
     {
         if (Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             _addDiaryWindow = new AddDiaryWindow { DataContext = this };
             await _addDiaryWindow.ShowDialog(desktop.MainWindow);
-            ContextMenu_OpenAddDiaryWindowCommand.NotifyCanExecuteChanged();
+            Menu_OpenAddDiaryWindowCommand.NotifyCanExecuteChanged();
         }
     }
 
     [RelayCommand(CanExecute = nameof(Can_ContextMenu_OpenAddEntryWindow))]
-    private async void ContextMenu_OpenAddEntryWindow()
+    private async void Menu_OpenAddEntryWindow()
     {
         if (Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             _addEntryWindow = new AddEntryWindow { DataContext = this };
             await _addEntryWindow.ShowDialog(desktop.MainWindow);
-            ContextMenu_OpenAddEntryWindowCommand.NotifyCanExecuteChanged();
+            Menu_OpenAddEntryWindowCommand.NotifyCanExecuteChanged();
         }
     }
 
     [RelayCommand]
-    private void ContextMenu_Save() => Save();
+    private void Menu_Save() => Save();
 
     [RelayCommand]
-    private void ContextMenu_Load() => Load();
+    private void Menu_Load() => Load();
 
     private void Save()
     {
