@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using JADY.Backend;
 using JADY.Models;
+using JADY.Views;
+using DiaryEntry = JADY.Models.DiaryEntry;
 
 namespace JADY.ViewModels;
 
@@ -204,13 +207,14 @@ public partial class DiaryEntryViewModel : ViewModelBase
             EndDiaryParameter.Dropped => DiaryEntryStatus.Dropped,
             _ => Status
         };
-        _mainWindowViewModel.CloseEndEntryWindow();
+        
+        WindowManager.CloseWindow<EndEntryWindow>();
     }
 
     [RelayCommand]
     private void OpenEndWindow()
     {
-        _mainWindowViewModel.OpenEndEntryWindow(this);
+        WindowManager.OpenDialogWindow<EndEntryWindow>(WindowManager.GetMainWindow(), null, this);
     }
 }
 

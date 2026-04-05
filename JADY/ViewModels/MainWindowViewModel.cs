@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -30,10 +31,6 @@ public partial class MainWindowViewModel : ViewModelBase
     
     [ObservableProperty] 
     private int _openDiaryIndex;
-    
-    private AddDiaryWindow _addDiaryWindow = new();
-    private AddEntryWindow _addEntryWindow = new();
-    private EndEntryWindow _endEntryWindow = new();
 
     #region NewDiaryArguments
 
@@ -76,8 +73,6 @@ public partial class MainWindowViewModel : ViewModelBase
 
     private bool Can_AddDiaryWindow_Add() => !string.IsNullOrWhiteSpace(NewDiaryName);
     private bool Can_AddEntryWindow_Add() => !string.IsNullOrWhiteSpace(NewEntryTitle);
-    private bool Can_ContextMenu_OpenAddEntryWindow() => !_addEntryWindow.IsVisible;
-    private bool Can_ContextMenu_OpenAddDiaryWindow() => !_addDiaryWindow.IsVisible;
     
     [RelayCommand(CanExecute = nameof(Can_AddDiaryWindow_Add))]
     private void AddDiaryWindow_Add()
@@ -92,7 +87,7 @@ public partial class MainWindowViewModel : ViewModelBase
         
         Diaries.Add(newDiaryViewModel);
         
-        _addDiaryWindow.Close();
+        WindowManager.CloseWindow<AddDiaryWindow>();
         ResetNewDiaryArguments();
     }
     
@@ -121,31 +116,17 @@ public partial class MainWindowViewModel : ViewModelBase
         
         Diaries[OpenDiaryIndex].Entries.Add(newDiaryEntryViewModel);
         
-        _addEntryWindow.Close();
+        WindowManager.CloseWindow<AddEntryWindow>();
         ResetNewEntryArguments();
     }
 
-    [RelayCommand(CanExecute = nameof(Can_ContextMenu_OpenAddDiaryWindow))]
-    private async void Menu_OpenAddDiaryWindow()
-    {
-        if (Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-        {
-            _addDiaryWindow = new AddDiaryWindow { DataContext = this };
-            await _addDiaryWindow.ShowDialog(desktop.MainWindow);
-            Menu_OpenAddDiaryWindowCommand.NotifyCanExecuteChanged();
-        }
-    }
+    [RelayCommand]
+    private void Menu_OpenAddDiaryWindow() =>
+        WindowManager.OpenDialogWindow<AddDiaryWindow>(WindowManager.GetMainWindow(), null, this);
 
-    [RelayCommand(CanExecute = nameof(Can_ContextMenu_OpenAddEntryWindow))]
-    private async void Menu_OpenAddEntryWindow()
-    {
-        if (Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-        {
-            _addEntryWindow = new AddEntryWindow { DataContext = this };
-            await _addEntryWindow.ShowDialog(desktop.MainWindow);
-            Menu_OpenAddEntryWindowCommand.NotifyCanExecuteChanged();
-        }
-    }
+    [RelayCommand]
+    private void Menu_OpenAddEntryWindow() =>
+        WindowManager.OpenDialogWindow<AddEntryWindow>(WindowManager.GetMainWindow(), null, this);
 
     [RelayCommand]
     private void Menu_Save() => Save();
@@ -234,20 +215,6 @@ public partial class MainWindowViewModel : ViewModelBase
     public void RemoveMyself(DiaryViewModel item)
     {
         Diaries.Remove(item);
-    }
-
-    public void OpenEndEntryWindow(object? dataContext)
-    {
-        if (Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-        {
-            _endEntryWindow = new EndEntryWindow { DataContext = dataContext };
-            _endEntryWindow.ShowDialog(desktop.MainWindow);
-        }
-    }
-
-    public void CloseEndEntryWindow()
-    {
-        _endEntryWindow.Close();
     }
 }
 
