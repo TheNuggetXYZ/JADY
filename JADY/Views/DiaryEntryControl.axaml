@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:JADY.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="JADY.Views.DiaryEntry"
+             x:Class="JADY.Views.DiaryEntryControl"
              x:DataType="viewModels:DiaryEntryViewModel">
     
     <Border Background="{DynamicResource SystemChromeMediumColor}" CornerRadius="5" PointerPressed="DiaryEntryHeader_OnPointerPressed" IsVisible="{Binding !IsHidden}">

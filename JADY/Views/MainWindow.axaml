@@ -61,7 +61,7 @@
                         <ItemsControl ItemsSource="{Binding Entries}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate DataType="vm:DiaryEntryViewModel">
-                                    <views:DiaryEntry Margin="2"/>
+                                    <views:DiaryEntryControl Margin="2"/>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>

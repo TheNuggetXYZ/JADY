@@ -22,7 +22,7 @@ public partial class AddEntryWindow : Window
     {
         Utils.ConvertNewDiaryParameterToStatusAndType((NewDiaryEntryParameter)EntryParameter.SelectedIndex, out int status, out int type);
         
-        Close(new Models.DiaryEntry()
+        Close(new DiaryEntry()
         {
             Status = (DiaryEntryStatus)status,
             Type = (DiaryEntryType)type,

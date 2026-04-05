@@ -5,11 +5,11 @@ using Avalonia.Markup.Xaml;
 
 namespace JADY.Views;
 
-public partial class DiaryEntry : UserControl
+public partial class DiaryEntryControl : UserControl
 {
     public bool IsDiaryEntryOpen = false;
     
-    public DiaryEntry()
+    public DiaryEntryControl()
     {
         InitializeComponent();
         SetVisibilityValues();
