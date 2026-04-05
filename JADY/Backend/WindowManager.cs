@@ -21,20 +21,17 @@ public static class WindowManager
         return null;
     }
     
-    public static async Task OpenDialogWindow<T>(Window? owner, Action? onCloseAction, object? dataContext) where T : Window, new()
+    public static async Task<TResult> OpenDialogWindow<T, TResult>(Window? owner, object? dataContext) where T : Window, new()
     {
-        if (owner == null) return;
-
-        if (OpenWindows.TryGetValue(typeof(T), out var window))
-            return;
+        if (owner == null || OpenWindows.TryGetValue(typeof(T), out var window))
+            return default;
         
         T newWindow = new T {DataContext = dataContext};
         
         OpenWindows.Add(typeof(T), newWindow);
         newWindow.Closed += (_, _) => { OpenWindows.Remove(typeof(T)); };
         
-        await newWindow.ShowDialog(owner);
-        onCloseAction?.Invoke();
+        return await newWindow.ShowDialog<TResult>(owner);
     }
 
     public static void CloseWindow<T>() where T : Window

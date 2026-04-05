@@ -32,13 +32,6 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty] 
     private int _openDiaryIndex;
 
-    #region NewDiaryArguments
-
-    [ObservableProperty, NotifyCanExecuteChangedFor(nameof(AddDiaryWindow_AddCommand))] 
-    private string? _newDiaryName;
-
-    #endregion
-
     #region NewEntryArguments
     
     [ObservableProperty, NotifyCanExecuteChangedFor(nameof(AddEntryWindow_AddCommand))]
@@ -71,25 +64,7 @@ public partial class MainWindowViewModel : ViewModelBase
         Load();
     }
 
-    private bool Can_AddDiaryWindow_Add() => !string.IsNullOrWhiteSpace(NewDiaryName);
     private bool Can_AddEntryWindow_Add() => !string.IsNullOrWhiteSpace(NewEntryTitle);
-    
-    [RelayCommand(CanExecute = nameof(Can_AddDiaryWindow_Add))]
-    private void AddDiaryWindow_Add()
-    {
-        Diary newDiary = new Diary()
-        {
-            Name = NewDiaryName,
-            Entries = new()
-        };
-        
-        DiaryViewModel newDiaryViewModel = new DiaryViewModel(newDiary, this);
-        
-        Diaries.Add(newDiaryViewModel);
-        
-        WindowManager.CloseWindow<AddDiaryWindow>();
-        ResetNewDiaryArguments();
-    }
     
     [RelayCommand(CanExecute = nameof(Can_AddEntryWindow_Add))]
     private void AddEntryWindow_Add()
@@ -121,12 +96,18 @@ public partial class MainWindowViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    private void Menu_OpenAddDiaryWindow() =>
-        WindowManager.OpenDialogWindow<AddDiaryWindow>(WindowManager.GetMainWindow(), null, this);
+    private async Task Menu_OpenAddDiaryWindow()
+    {
+        // Open dialog and wait for result model
+        Diary diary = await WindowManager.OpenDialogWindow<AddDiaryWindow, Diary>(WindowManager.GetMainWindow(), this);
+        
+        // Construct and add a view model from model
+        Diaries.Add(new DiaryViewModel(diary, this));
+    }
 
     [RelayCommand]
     private void Menu_OpenAddEntryWindow() =>
-        WindowManager.OpenDialogWindow<AddEntryWindow>(WindowManager.GetMainWindow(), null, this);
+        WindowManager.OpenDialogWindow<AddEntryWindow, DiaryEntry>(WindowManager.GetMainWindow(), this);
 
     [RelayCommand]
     private void Menu_Save() => Save();
@@ -144,11 +125,6 @@ public partial class MainWindowViewModel : ViewModelBase
         DiaryJSON.Load();
 
         Diaries = Utils.ConvertDiaryMArrayToDiaryVMObservableCollection(DiaryJSON.JadySave.Diaries, this);
-    }
-
-    private void ResetNewDiaryArguments()
-    {
-        NewDiaryName = string.Empty;
     }
 
     private void ResetNewEntryArguments()

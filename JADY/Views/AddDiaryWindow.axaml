@@ -11,8 +11,8 @@
         Width="180">
         
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10" Margin="10">
-                <TextBox Text="{Binding NewDiaryName}"></TextBox>
-                <Button Command="{Binding AddDiaryWindow_AddCommand}" HorizontalAlignment="Center">ADD</Button>
+                <TextBox Name="Name" Watermark="Name..."></TextBox>
+                <Button Click="SubmitButton_OnClick" HorizontalAlignment="Center">ADD</Button>
         </StackPanel>
         
 </Window>

@@ -214,7 +214,7 @@ public partial class DiaryEntryViewModel : ViewModelBase
     [RelayCommand]
     private void OpenEndWindow()
     {
-        WindowManager.OpenDialogWindow<EndEntryWindow>(WindowManager.GetMainWindow(), null, this);
+        WindowManager.OpenDialogWindow<EndEntryWindow, object?>(WindowManager.GetMainWindow(), this);
     }
 }
 
