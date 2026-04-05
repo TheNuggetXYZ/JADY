@@ -1,8 +1,11 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using JADY.Backend;
 using JADY.Models;
+using JADY.Views;
 
 namespace JADY.ViewModels;
 
@@ -80,5 +83,16 @@ public partial class DiaryViewModel : ViewModelBase
     public void RemoveMyself(DiaryEntryViewModel item)
     {
         Entries.Remove(item);
+    }
+
+    [RelayCommand]
+    private async Task Edit()
+    {
+        Diary model = await WindowManager.OpenDialogWindow<EditDiaryWindow, Diary>(WindowManager.GetMainWindow(), this);
+
+        if (model == null)
+            return;
+        
+        Name = model.Name;
     }
 }

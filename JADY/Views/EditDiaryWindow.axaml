@@ -1,0 +1,18 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:JADY.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="JADY.Views.EditDiaryWindow"
+        x:DataType="viewModels:DiaryViewModel"
+        Title="Edit diary"
+        SizeToContent="Height"
+        Width="180">
+        
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10" Margin="10">
+                <TextBox Name="Name" Text="{Binding Name, Mode=OneTime}"></TextBox>
+                <Button Click="Submit_OnClick" HorizontalAlignment="Center">EDIT</Button>
+        </StackPanel>
+        
+</Window>
