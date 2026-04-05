@@ -95,6 +95,7 @@ public partial class MainWindowViewModel : ViewModelBase
         Diaries.Add(newDiaryViewModel);
         
         _addDiaryWindow.Close();
+        ResetNewDiaryArguments();
     }
     
     [RelayCommand(CanExecute = nameof(Can_AddEntryWindow_Add))]
@@ -124,6 +125,7 @@ public partial class MainWindowViewModel : ViewModelBase
         Diaries[OpenDiaryIndex].Entries.Add(newDiaryEntryViewModel);
         
         _addEntryWindow.Close();
+        ResetNewEntryArguments();
     }
 
     [RelayCommand(CanExecute = nameof(Can_ContextMenu_OpenAddDiaryWindow))]
@@ -164,6 +166,22 @@ public partial class MainWindowViewModel : ViewModelBase
         DiaryJSON.Load();
 
         Diaries = ConvertDiaryArrayToDiaryViewModelObservableCollection(DiaryJSON.JadySave.Diaries);
+    }
+
+    private void ResetNewDiaryArguments()
+    {
+        NewDiaryName = string.Empty;
+    }
+
+    private void ResetNewEntryArguments()
+    {
+        NewEntryParameter = NewDiaryEntryParameter.OneTime;
+        NewEntryCategory = string.Empty;
+        NewEntrySubCategory = string.Empty;
+        NewEntryTitle = string.Empty;
+        NewEntryContent = string.Empty;
+        NewEntryDate = null;
+        NewEntryIsHidden = false;
     }
 
     private void ConvertNewDiaryParameterToStatusAndType(NewDiaryEntryParameter newDiaryEntryParameter, out int status, out int type)
