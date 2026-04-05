@@ -11,6 +11,7 @@
         <Border.ContextMenu>
             <ContextMenu>
                 <MenuItem Header="Edit"/>
+                <MenuItem Header="End" IsVisible="{Binding ShowEndEventInContextMenu}"/>
                 <MenuItem Header="Delete" Command="{Binding RemoveCommand}"/>
             </ContextMenu>
         </Border.ContextMenu>

@@ -96,7 +96,9 @@ public partial class DiaryEntryViewModel : ViewModelBase
             return string.Empty;
         }
     }
-    
+
+    public bool ShowEndEventInContextMenu => Type == DiaryEntryType.ProlongedEvent;
+
     private readonly MainWindowViewModel _mainWindowViewModel;
     
     private readonly DiaryViewModel _diaryViewModel;
