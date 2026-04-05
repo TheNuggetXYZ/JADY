@@ -22,9 +22,9 @@ public partial class DiaryViewModel : ViewModelBase
 
     public DiaryViewModel(Diary diary, MainWindowViewModel mainWindowViewModel)
     {
+        _mainWindowViewModel = mainWindowViewModel;
         Name = diary.Name;
         Entries = InitializeEntries(diary.Entries);
-        _mainWindowViewModel = mainWindowViewModel;
     }
 
     /// <returns>

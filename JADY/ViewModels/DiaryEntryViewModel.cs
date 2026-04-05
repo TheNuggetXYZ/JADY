@@ -109,6 +109,8 @@ public partial class DiaryEntryViewModel : ViewModelBase
 
     public DiaryEntryViewModel(DiaryEntry diaryEntry, MainWindowViewModel mainWindowViewModel, DiaryViewModel diaryViewModel)
     {
+        _mainWindowViewModel = mainWindowViewModel;
+        _diaryViewModel = diaryViewModel;
         Type = diaryEntry.Type;
         Status = diaryEntry.Status;
         LogDate = diaryEntry.LogDate;
@@ -120,8 +122,6 @@ public partial class DiaryEntryViewModel : ViewModelBase
         Content = diaryEntry.Content;
         IsHidden = diaryEntry.IsHidden;
         SubEntries = InitializeSubEntries(diaryEntry.SubEntries);
-        _mainWindowViewModel = mainWindowViewModel;
-        _diaryViewModel = diaryViewModel;
     }
     
     /// <returns>

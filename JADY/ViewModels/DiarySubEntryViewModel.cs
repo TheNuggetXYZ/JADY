@@ -30,11 +30,11 @@ public partial class DiarySubEntryViewModel : ViewModelBase
 
     public DiarySubEntryViewModel(DiarySubEntry subEntry, MainWindowViewModel mainWindowViewModel, DiaryEntryViewModel diaryEntryViewModel)
     {
+        _mainWindowViewModel = mainWindowViewModel;
+        _diaryEntryViewModel = diaryEntryViewModel;
         LogDate = subEntry.LogDate;
         Date = subEntry.Date;
         Content = subEntry.Content;
-        _mainWindowViewModel = mainWindowViewModel;
-        _diaryEntryViewModel = diaryEntryViewModel;
     }
 
     /// <returns>
