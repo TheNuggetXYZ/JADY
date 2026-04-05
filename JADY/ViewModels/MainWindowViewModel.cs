@@ -32,82 +32,36 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty] 
     private int _openDiaryIndex;
 
-    #region NewEntryArguments
-    
-    [ObservableProperty, NotifyCanExecuteChangedFor(nameof(AddEntryWindow_AddCommand))]
-    private NewDiaryEntryParameter _newEntryParameter;
-
-    public Array NewEntryParameterValues => Enum.GetValues(typeof(NewDiaryEntryParameter));
-
-    [ObservableProperty, NotifyCanExecuteChangedFor(nameof(AddEntryWindow_AddCommand))]
-    private string? _newEntryCategory;
-    
-    [ObservableProperty]
-    private string? _newEntrySubCategory;
-    
-    [ObservableProperty, NotifyCanExecuteChangedFor(nameof(AddEntryWindow_AddCommand))] 
-    private string? _newEntryTitle;
-    
-    [ObservableProperty] 
-    private string? _newEntryContent;
-
-    [ObservableProperty] 
-    private bool _newEntryIsHidden;
-    
-    [ObservableProperty] 
-    private DateTimeOffset? _newEntryDate;
-
-    #endregion
-
     public MainWindowViewModel()
     {
         Load();
     }
-
-    private bool Can_AddEntryWindow_Add() => !string.IsNullOrWhiteSpace(NewEntryTitle);
     
-    [RelayCommand(CanExecute = nameof(Can_AddEntryWindow_Add))]
-    private void AddEntryWindow_Add()
-    {
-        if (OpenDiaryIndex >= Diaries.Count || OpenDiaryIndex < 0)
-            return;
-        
-        Utils.ConvertNewDiaryParameterToStatusAndType(NewEntryParameter, out int status, out int type);
-        
-        DiaryEntry newDiaryEntry = new DiaryEntry()
-        {
-            Category = NewEntryCategory,
-            SubCategory = NewEntrySubCategory,
-            LogDate = DateTimeOffset.Now,
-            Date = NewEntryDate,
-            Title = NewEntryTitle,
-            Content = NewEntryContent,
-            IsHidden = NewEntryIsHidden,
-            Status = (DiaryEntryStatus)status,
-            Type = (DiaryEntryType)type
-        };
-
-        DiaryEntryViewModel newDiaryEntryViewModel = new DiaryEntryViewModel(newDiaryEntry, this, Diaries[OpenDiaryIndex]);
-        
-        Diaries[OpenDiaryIndex].Entries.Add(newDiaryEntryViewModel);
-        
-        WindowManager.CloseWindow<AddEntryWindow>();
-        ResetNewEntryArguments();
-    }
-
     [RelayCommand]
     private async Task Menu_OpenAddDiaryWindow()
     {
         // Open dialog and wait for result model
-        Diary diary = await WindowManager.OpenDialogWindow<AddDiaryWindow, Diary>(WindowManager.GetMainWindow(), this);
+        Diary model = await WindowManager.OpenDialogWindow<AddDiaryWindow, Diary>(WindowManager.GetMainWindow(), this);
+
+        if (model == null)
+            return;
         
         // Construct and add a view model from model
-        Diaries.Add(new DiaryViewModel(diary, this));
+        Diaries.Add(new DiaryViewModel(model, this));
     }
 
     [RelayCommand]
-    private void Menu_OpenAddEntryWindow() =>
-        WindowManager.OpenDialogWindow<AddEntryWindow, DiaryEntry>(WindowManager.GetMainWindow(), this);
+    private async Task Menu_OpenAddEntryWindow()
+    {
+        // Open dialog and wait for result model
+        DiaryEntry model = await WindowManager.OpenDialogWindow<AddEntryWindow, DiaryEntry>(WindowManager.GetMainWindow(), this);
+
+        if (model == null)
+            return;
+        
+        // Construct and add a view model from model
+        Diaries[OpenDiaryIndex].Entries.Add(new DiaryEntryViewModel(model, this, Diaries[OpenDiaryIndex]));
+    }
 
     [RelayCommand]
     private void Menu_Save() => Save();
@@ -125,17 +79,6 @@ public partial class MainWindowViewModel : ViewModelBase
         DiaryJSON.Load();
 
         Diaries = Utils.ConvertDiaryMArrayToDiaryVMObservableCollection(DiaryJSON.JadySave.Diaries, this);
-    }
-
-    private void ResetNewEntryArguments()
-    {
-        NewEntryParameter = NewDiaryEntryParameter.OneTime;
-        NewEntryCategory = string.Empty;
-        NewEntrySubCategory = string.Empty;
-        NewEntryTitle = string.Empty;
-        NewEntryContent = string.Empty;
-        NewEntryDate = null;
-        NewEntryIsHidden = false;
     }
 
     public void RemoveMyself(DiaryViewModel item)
