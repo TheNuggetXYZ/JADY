@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using JADY.Backend;
@@ -215,6 +216,12 @@ public partial class DiaryEntryViewModel : ViewModelBase
     private void OpenEndWindow()
     {
         WindowManager.OpenDialogWindow<EndEntryWindow, object?>(WindowManager.GetMainWindow(), this);
+    }
+
+    [RelayCommand]
+    private async Task Edit()
+    {
+        WindowManager.OpenDialogWindow<EditEntryWindow, object?>(WindowManager.GetMainWindow(), this);
     }
 }
 
