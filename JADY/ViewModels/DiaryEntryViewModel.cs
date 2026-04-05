@@ -194,6 +194,9 @@ public partial class DiaryEntryViewModel : ViewModelBase
     [RelayCommand]
     private void End()
     {
+        if (Type != DiaryEntryType.ProlongedEvent)
+            return;
+        
         EndDate = NewEndDate;
         Status = NewEndParameter switch
         {
