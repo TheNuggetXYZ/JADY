@@ -1,0 +1,23 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:JADY.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="JADY.Views.EndEntryWindow"
+        x:DataType="viewModels:DiaryEntryViewModel"
+        Title="End entry"
+        SizeToContent="WidthAndHeight">
+        
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="10">
+                <DatePicker SelectedDate="{Binding NewEndDate}" Margin="5">
+                        <ToolTip.Tip>End date of an event</ToolTip.Tip>
+                </DatePicker>
+                
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <ComboBox SelectedIndex="{Binding NewEndParameter}" ItemsSource="{Binding NewEndParameterValues}" Margin="5"></ComboBox>
+                        <Button Command="{Binding EndCommand}" HorizontalAlignment="Center" Margin="5">END</Button>
+                </StackPanel>
+        </StackPanel>
+        
+</Window>

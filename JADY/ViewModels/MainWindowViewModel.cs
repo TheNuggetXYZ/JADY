@@ -31,8 +31,9 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty] 
     private int _openDiaryIndex;
     
-    private AddEntryWindow _addEntryWindow = new();
     private AddDiaryWindow _addDiaryWindow = new();
+    private AddEntryWindow _addEntryWindow = new();
+    private EndEntryWindow _endEntryWindow = new();
 
     #region NewDiaryArguments
 
@@ -233,6 +234,20 @@ public partial class MainWindowViewModel : ViewModelBase
     public void RemoveMyself(DiaryViewModel item)
     {
         Diaries.Remove(item);
+    }
+
+    public void OpenEndEntryWindow(object? dataContext)
+    {
+        if (Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+        {
+            _endEntryWindow = new EndEntryWindow { DataContext = dataContext };
+            _endEntryWindow.ShowDialog(desktop.MainWindow);
+        }
+    }
+
+    public void CloseEndEntryWindow()
+    {
+        _endEntryWindow.Close();
     }
 }
 

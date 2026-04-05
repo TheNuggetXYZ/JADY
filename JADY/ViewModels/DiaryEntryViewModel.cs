@@ -15,6 +15,8 @@ public partial class DiaryEntryViewModel : ViewModelBase
 
     [NotifyPropertyChangedFor(nameof(GetStatusDisplayNameWithSpace))]
     [ObservableProperty] private DiaryEntryStatus _status;
+    [ObservableProperty] private EndDiaryParameter _newEndParameter;
+    public Array NewEndParameterValues => Enum.GetValues(typeof(EndDiaryParameter));
 
     /// <summary>
     /// The date at the time the entry was added.
@@ -30,6 +32,7 @@ public partial class DiaryEntryViewModel : ViewModelBase
     /// The end date of an event. Is useless for a one time entry.
     /// </summary>
     [ObservableProperty] private DateTimeOffset? _endDate;
+    [ObservableProperty] private DateTimeOffset? _newEndDate;
 
     /// <summary>
     /// E.g. Game/Anime/Misc
@@ -187,4 +190,29 @@ public partial class DiaryEntryViewModel : ViewModelBase
     {
         SubEntries.Remove(item);
     }
+
+    [RelayCommand]
+    private void End()
+    {
+        EndDate = NewEndDate;
+        Status = NewEndParameter switch
+        {
+            EndDiaryParameter.Finished => DiaryEntryStatus.Completed,
+            EndDiaryParameter.Dropped => DiaryEntryStatus.Dropped,
+            _ => Status
+        };
+        _mainWindowViewModel.CloseEndEntryWindow();
+    }
+
+    [RelayCommand]
+    private void OpenEndWindow()
+    {
+        _mainWindowViewModel.OpenEndEntryWindow(this);
+    }
+}
+
+public enum EndDiaryParameter
+{
+    Finished = 0,
+    Dropped = 1,
 }
