@@ -97,7 +97,7 @@ public partial class MainWindowViewModel : ViewModelBase
         if (OpenDiaryIndex >= Diaries.Count || OpenDiaryIndex < 0)
             return;
         
-        ConvertNewDiaryParameterToStatusAndType(NewEntryParameter, out int status, out int type);
+        Utils.ConvertNewDiaryParameterToStatusAndType(NewEntryParameter, out int status, out int type);
         
         DiaryEntry newDiaryEntry = new DiaryEntry()
         {
@@ -136,14 +136,14 @@ public partial class MainWindowViewModel : ViewModelBase
 
     private void Save()
     {
-        DiaryJSON.Save(ConvertDiaryViewModelObservableCollectionToDiaryModelArray(Diaries));
+        DiaryJSON.Save(Utils.ConvertDiaryVMObservableCollectionToDiaryMArray(Diaries));
     }
 
     private void Load()
     {
         DiaryJSON.Load();
 
-        Diaries = ConvertDiaryArrayToDiaryViewModelObservableCollection(DiaryJSON.JadySave.Diaries);
+        Diaries = Utils.ConvertDiaryMArrayToDiaryVMObservableCollection(DiaryJSON.JadySave.Diaries, this);
     }
 
     private void ResetNewDiaryArguments()
@@ -160,56 +160,6 @@ public partial class MainWindowViewModel : ViewModelBase
         NewEntryContent = string.Empty;
         NewEntryDate = null;
         NewEntryIsHidden = false;
-    }
-
-    private void ConvertNewDiaryParameterToStatusAndType(NewDiaryEntryParameter newDiaryEntryParameter, out int status, out int type)
-    {
-        switch (newDiaryEntryParameter)
-        {
-            case NewDiaryEntryParameter.OneTime:
-                status = (int)DiaryEntryStatus.None;
-                type = (int)DiaryEntryType.OneTime;
-                break;
-            case NewDiaryEntryParameter.Started:
-                status = (int)DiaryEntryStatus.InProgress;
-                type = (int)DiaryEntryType.ProlongedEvent;
-                break;
-            case NewDiaryEntryParameter.Finished:
-                status = (int)DiaryEntryStatus.Completed;
-                type = (int)DiaryEntryType.ProlongedEvent;
-                break;
-            case NewDiaryEntryParameter.Dropped:
-                status = (int)DiaryEntryStatus.Dropped;
-                type = (int)DiaryEntryType.ProlongedEvent;
-                break;
-            
-            default:
-                throw new ArgumentOutOfRangeException(nameof(newDiaryEntryParameter), newDiaryEntryParameter, null);
-        }
-    }
-
-    private Diary[] ConvertDiaryViewModelObservableCollectionToDiaryModelArray(ObservableCollection<DiaryViewModel> diaryViewModels)
-    {
-        Diary[] diaries = new Diary[diaryViewModels.Count];
-
-        for (int i = 0; i < diaryViewModels.Count; i++)
-        {
-            diaries[i] = diaryViewModels[i].GetModel();
-        }
-
-        return diaries;
-    }
-
-    private ObservableCollection<DiaryViewModel> ConvertDiaryArrayToDiaryViewModelObservableCollection(Diary[] diaries)
-    {
-        ObservableCollection<DiaryViewModel> diaryViewModelObservableCollection = new();
-
-        for (int i = 0; i < diaries.Length; i++)
-        {
-            diaryViewModelObservableCollection.Add(new DiaryViewModel(diaries[i], this));
-        }
-        
-        return diaryViewModelObservableCollection;
     }
 
     public void RemoveMyself(DiaryViewModel item)
