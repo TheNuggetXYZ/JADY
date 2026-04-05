@@ -65,9 +65,6 @@ public partial class MainWindowViewModel : ViewModelBase
     
     [ObservableProperty] 
     private DateTimeOffset? _newEntryDate;
-    
-    [ObservableProperty] 
-    private DateTimeOffset? _newEntryEndDate;
 
     #endregion
 
@@ -112,7 +109,6 @@ public partial class MainWindowViewModel : ViewModelBase
             SubCategory = NewEntrySubCategory,
             LogDate = DateTimeOffset.Now,
             Date = NewEntryDate,
-            EndDate = NewEntryEndDate,
             Title = NewEntryTitle,
             Content = NewEntryContent,
             IsHidden = NewEntryIsHidden,
