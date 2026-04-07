@@ -21,6 +21,17 @@ public partial class EditEntryWindow : Window
 
     private void Submit_OnClick(object? sender, RoutedEventArgs e)
     {
-        
+        Close(new DiaryEntry()
+        {
+            Type = (DiaryEntryType)EntryType.SelectedIndex,
+            Status = (DiaryEntryStatus)EntryStatus.SelectedIndex,
+            Date = EntryDate.SelectedDate,
+            EndDate = EntryEndDate.SelectedDate,
+            Category = EntryCategory.Text,
+            SubCategory = EntrySubcategory.Text,
+            Title = EntryTitle.Text,
+            Content = EntryContent.Text,
+            IsHidden = EntryIsHidden.IsChecked ?? false,
+        });
     }
 }

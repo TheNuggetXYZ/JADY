@@ -221,7 +221,20 @@ public partial class DiaryEntryViewModel : ViewModelBase
     [RelayCommand]
     private async Task Edit()
     {
-        WindowManager.OpenDialogWindow<EditEntryWindow, object?>(WindowManager.GetMainWindow(), this);
+        DiaryEntry diaryEntry = await WindowManager.OpenDialogWindow<EditEntryWindow, DiaryEntry>(WindowManager.GetMainWindow(), this);
+
+        if (diaryEntry == null)
+            return;
+        
+        Type = diaryEntry.Type;
+        Status = diaryEntry.Status;
+        Date = diaryEntry.Date;
+        EndDate = diaryEntry.EndDate;
+        Category = diaryEntry.Category;
+        SubCategory = diaryEntry.SubCategory;
+        Title = diaryEntry.Title;
+        Content = diaryEntry.Content;
+        IsHidden = diaryEntry.IsHidden;
     }
 }
 

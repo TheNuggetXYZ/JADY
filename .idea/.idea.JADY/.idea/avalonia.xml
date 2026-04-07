@@ -7,6 +7,7 @@
         <entry key="JADY/Views/AddDiaryWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/Views/AddEntryWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/Views/DiaryEntry.axaml" value="JADY/JADY.csproj" />
+        <entry key="JADY/Views/DiaryEntryControl.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/Views/EditDiaryWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/Views/EditEntryWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/Views/EndEntryWindow.axaml" value="JADY/JADY.csproj" />
