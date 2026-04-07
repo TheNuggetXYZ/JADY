@@ -23,6 +23,8 @@
                 <MenuItem Header="_File">
                     <MenuItem Header="_Save" Command="{Binding Menu_SaveCommand}"></MenuItem>
                     <MenuItem Header="_Load" Command="{Binding Menu_LoadCommand}"></MenuItem>
+                    <Separator/>
+                    <MenuItem Header="_Settings"></MenuItem>
                 </MenuItem>
                 <MenuItem Header="_Edit">
                     <MenuItem Header="Add Diary" Command="{Binding Menu_OpenAddDiaryWindowCommand}"></MenuItem>
@@ -43,6 +45,7 @@
                     <Setter Property="ContextMenu">
                         <ContextMenu>
                             <MenuItem Header="Edit" Command="{Binding $parent[TabItem].((vm:DiaryViewModel)DataContext).ContextMenu_EditCommand}"/>
+                            <Separator/>
                             <MenuItem Header="Delete" Command="{Binding $parent[TabItem].((vm:DiaryViewModel)DataContext).ContextMenu_RemoveCommand}"/>
                         </ContextMenu>
                     </Setter>
