@@ -10,13 +10,13 @@
         SizeToContent="WidthAndHeight">
         
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="10">
-                <DatePicker SelectedDate="{Binding NewEndDate}" Margin="5">
+                <DatePicker Name="EndDate" SelectedDate="{Binding EndDate, Mode=OneTime}" Margin="5">
                         <ToolTip.Tip>End date of an event</ToolTip.Tip>
                 </DatePicker>
                 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <ComboBox SelectedIndex="{Binding NewEndParameter}" ItemsSource="{Binding NewEndParameterValues}" Margin="5"></ComboBox>
-                        <Button Command="{Binding EndCommand}" HorizontalAlignment="Center" Margin="5">END</Button>
+                        <ComboBox Name="EndParameter" SelectedIndex="0" Margin="5"></ComboBox>
+                        <Button Click="Submit_OnClick" HorizontalAlignment="Center" Margin="5">END</Button>
                 </StackPanel>
         </StackPanel>
         
