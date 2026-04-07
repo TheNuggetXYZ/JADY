@@ -17,6 +17,7 @@ public partial class DiaryEntryViewModel : ViewModelBase
     [NotifyPropertyChangedFor(nameof(GetTypeDisplayName))]
     [ObservableProperty] private DiaryEntryType _type;
 
+    [NotifyPropertyChangedFor(nameof(ShowEndEventInContextMenu))]
     [NotifyPropertyChangedFor(nameof(GetStatusDisplayNameWithSpace))]
     [ObservableProperty] private DiaryEntryStatus _status;
 
@@ -105,7 +106,7 @@ public partial class DiaryEntryViewModel : ViewModelBase
         }
     }
 
-    public bool ShowEndEventInContextMenu => Type == DiaryEntryType.ProlongedEvent;
+    public bool ShowEndEventInContextMenu => Type == DiaryEntryType.ProlongedEvent && Status == DiaryEntryStatus.InProgress;
 
     private readonly MainWindowViewModel _mainWindowViewModel;
     
@@ -195,6 +196,9 @@ public partial class DiaryEntryViewModel : ViewModelBase
     [RelayCommand]
     private async Task OpenEndWindow()
     {
+        if (!ShowEndEventInContextMenu)
+            return;
+        
         DiaryEntry diaryEntry = await WindowManager.OpenDialogWindow<EndEntryWindow, DiaryEntry>(WindowManager.GetMainWindow(), this);
         
         if (diaryEntry == null)
