@@ -34,4 +34,35 @@ public partial class EditEntryWindow : Window
             IsHidden = EntryIsHidden.IsChecked ?? false,
         });
     }
+
+    private void EntryType_OnPropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
+    {
+        if (EntryType == null || EntryStatus == null)
+            return;
+        
+        if (EntryType.SelectedIndex == (int)DiaryEntryType.OneTime)
+        {
+            EntryStatus.SelectedIndex = (int)DiaryEntryStatus.None;
+            EntryStatus.IsVisible = false;
+        }
+        else
+        {
+            if (EntryStatus.SelectedIndex == (int)DiaryEntryStatus.None)
+            {
+                EntryStatus.SelectedIndex = (int)DiaryEntryStatus.InProgress;
+            }
+            EntryStatus.IsVisible = true;
+        }
+    }
+
+    private void EntryStatus_OnPropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
+    {
+        if (EntryType == null || EntryStatus == null)
+            return;
+        
+        if (EntryStatus.SelectedIndex == (int)DiaryEntryStatus.None)
+        {
+            EntryType.SelectedIndex = (int)DiaryEntryType.OneTime;
+        }
+    }
 }
