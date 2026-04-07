@@ -42,8 +42,8 @@
                 <ControlTheme TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}">
                     <Setter Property="ContextMenu">
                         <ContextMenu>
-                            <MenuItem Header="Edit" Command="{Binding $parent[TabItem].((vm:DiaryViewModel)DataContext).EditCommand}"/>
-                            <MenuItem Header="Delete" Command="{Binding $parent[TabItem].((vm:DiaryViewModel)DataContext).RemoveCommand}"/>
+                            <MenuItem Header="Edit" Command="{Binding $parent[TabItem].((vm:DiaryViewModel)DataContext).ContextMenu_EditCommand}"/>
+                            <MenuItem Header="Delete" Command="{Binding $parent[TabItem].((vm:DiaryViewModel)DataContext).ContextMenu_RemoveCommand}"/>
                         </ContextMenu>
                     </Setter>
                     <Setter Property="Padding" Value="5 5 5 0"/>

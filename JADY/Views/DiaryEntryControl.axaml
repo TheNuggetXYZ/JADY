@@ -10,9 +10,9 @@
     <Border Background="{DynamicResource SystemChromeMediumColor}" CornerRadius="5" PointerPressed="DiaryEntryHeader_OnPointerPressed" IsVisible="{Binding !IsHidden}">
         <Border.ContextMenu>
             <ContextMenu>
-                <MenuItem Header="Edit" Command="{Binding EditCommand}"/>
-                <MenuItem Header="End" Command="{Binding OpenEndWindowCommand}" IsVisible="{Binding ShowEndEventInContextMenu}"/>
-                <MenuItem Header="Delete" Command="{Binding RemoveCommand}"/>
+                <MenuItem Header="Edit" Command="{Binding ContextMenu_EditCommand}"/>
+                <MenuItem Header="End" Command="{Binding ContextMenu_EndCommand}" IsVisible="{Binding ShowEndEventInContextMenu}"/>
+                <MenuItem Header="Delete" Command="{Binding ContextMenu_RemoveCommand}"/>
             </ContextMenu>
         </Border.ContextMenu>
         <Grid Margin="5" RowDefinitions="Auto, *, Auto">

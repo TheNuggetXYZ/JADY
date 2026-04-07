@@ -183,7 +183,7 @@ public partial class DiaryEntryViewModel : ViewModelBase
     }
     
     [RelayCommand]
-    private void Remove()
+    private void ContextMenu_Remove()
     {
         _diaryViewModel.RemoveMyself(this);
     }
@@ -194,7 +194,7 @@ public partial class DiaryEntryViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    private async Task OpenEndWindow()
+    private async Task ContextMenu_End()
     {
         if (!ShowEndEventInContextMenu)
             return;
@@ -212,7 +212,7 @@ public partial class DiaryEntryViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    private async Task Edit()
+    private async Task ContextMenu_Edit()
     {
         DiaryEntry diaryEntry = await WindowManager.OpenDialogWindow<EditEntryWindow, DiaryEntry>(WindowManager.GetMainWindow(), this);
 

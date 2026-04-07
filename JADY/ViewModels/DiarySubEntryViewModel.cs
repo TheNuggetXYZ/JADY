@@ -51,7 +51,7 @@ public partial class DiarySubEntryViewModel : ViewModelBase
     }
     
     [RelayCommand]
-    private void Remove()
+    private void ContextMenu_Remove()
     {
         _diaryEntryViewModel.RemoveMyself(this);
     }
