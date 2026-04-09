@@ -24,7 +24,7 @@
                     <MenuItem Header="_Save" Command="{Binding Menu_SaveCommand}"></MenuItem>
                     <MenuItem Header="_Load" Command="{Binding Menu_LoadCommand}"></MenuItem>
                     <Separator/>
-                    <MenuItem Header="_Settings"></MenuItem>
+                    <MenuItem Header="_Settings" Command="{Binding Menu_OpenSettingsWindowCommand}"></MenuItem>
                 </MenuItem>
                 <MenuItem Header="_Edit">
                     <MenuItem Header="Add Diary" Command="{Binding Menu_OpenAddDiaryWindowCommand}"></MenuItem>

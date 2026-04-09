@@ -12,6 +12,8 @@
         <entry key="JADY/Views/EditEntryWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/Views/EndEntryWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/Views/MainWindow.axaml" value="JADY/JADY.csproj" />
+        <entry key="JADY/Views/Settings.axaml" value="JADY/JADY.csproj" />
+        <entry key="JADY/Views/SettingsWindow.axaml" value="JADY/JADY.csproj" />
       </map>
     </option>
   </component>
