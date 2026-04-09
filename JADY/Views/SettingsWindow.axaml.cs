@@ -15,6 +15,9 @@ public partial class SettingsWindow : Window
     public SettingsWindow()
     {
         InitializeComponent();
+
+        ShowHidden.IsChecked = DiaryJSON.JadySave.Settings.ShowHiddenEntries;
+        SavePath.Text = DiaryJSON.JadySave.Settings.SaveFilePath;
     }
 
     private void ChangeSavePath_OnClick(object? sender, RoutedEventArgs e)
