@@ -40,6 +40,9 @@ public static class DiaryJSON
     public static void Load()
     {
         string savePath = GetSavePath();
+
+        if (!File.Exists(savePath))
+            return;
         
         using (FileStream fs = File.OpenRead(savePath))
         {
