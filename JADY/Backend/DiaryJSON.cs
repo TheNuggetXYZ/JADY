@@ -61,4 +61,9 @@ public class JADYSave
 {
     public Settings Settings { get; set; } = new();
     public Diary[] Diaries {get; set;} = [];
+
+    public JADYSave()
+    {
+        Settings.SaveFilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+    }
 }
