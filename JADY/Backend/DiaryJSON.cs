@@ -52,7 +52,10 @@ public static class DiaryJSON
 
     private static string GetSavePath()
     {
-        return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "JADY.save");
+        if (JadySave.Settings.SaveFilePath != null)
+            return Path.Combine(JadySave.Settings.SaveFilePath, "JADY.save");
+        
+        throw new DirectoryNotFoundException("JADY save file path not found");
     }
 }
 
