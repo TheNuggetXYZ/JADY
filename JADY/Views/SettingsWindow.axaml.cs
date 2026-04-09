@@ -5,6 +5,8 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Platform.Storage;
+using JADY.Backend;
+using JADY.Models;
 
 namespace JADY.Views;
 
@@ -36,5 +38,14 @@ public partial class SettingsWindow : Window
         {
             SavePath.Text = folders[0].Path.AbsolutePath;
         }
+    }
+
+    private void Save_OnClick(object? sender, RoutedEventArgs e)
+    {
+        DiaryJSON.Save(new Settings()
+        {
+            ShowHiddenEntries = ShowHidden.IsChecked ?? false,
+            SaveFilePath = SavePath.Text
+        });
     }
 }

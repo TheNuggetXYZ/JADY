@@ -7,13 +7,14 @@
         Title="SettingsWindow"
         SizeToContent="WidthAndHeight">
         
-    <Grid RowDefinitions="Auto, Auto" Margin="10">
+    <Grid RowDefinitions="Auto, Auto, Auto" Margin="10" RowSpacing="10">
         <CheckBox Grid.Row="0" Name="ShowHidden">Show hidden entries</CheckBox>
         <TextBox Grid.Row="1" Name="SavePath">
             <TextBox.InnerRightContent>
                 <Button Click="ChangeSavePath_OnClick">+</Button>
             </TextBox.InnerRightContent>
         </TextBox>
+        <Button Grid.Row="2" Click="Save_OnClick">SAVE</Button>
     </Grid>
         
 </Window>
