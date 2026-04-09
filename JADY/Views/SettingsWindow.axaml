@@ -9,12 +9,18 @@
         
     <Grid RowDefinitions="Auto, Auto, Auto" Margin="10" RowSpacing="10">
         <CheckBox Grid.Row="0" Name="ShowHidden">Show hidden entries</CheckBox>
+        
         <TextBox Grid.Row="1" Name="SavePath">
             <TextBox.InnerRightContent>
                 <Button Click="ChangeSavePath_OnClick">+</Button>
             </TextBox.InnerRightContent>
         </TextBox>
-        <Button Grid.Row="2" Click="Save_OnClick">SAVE</Button>
+        
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="10">
+            <Button Click="Close_OnClick">CLOSE</Button>
+            <Button Click="SaveClose_OnClick" Content="SAVE &amp; CLOSE"></Button>
+            <Button Click="Save_OnClick">SAVE</Button>
+        </StackPanel>
     </Grid>
         
 </Window>

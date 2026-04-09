@@ -42,10 +42,26 @@ public partial class SettingsWindow : Window
 
     private void Save_OnClick(object? sender, RoutedEventArgs e)
     {
+        Save();
+    }
+
+    private void Save()
+    {
         DiaryJSON.Save(new Settings()
         {
             ShowHiddenEntries = ShowHidden.IsChecked ?? false,
             SaveFilePath = SavePath.Text
         });
+    }
+
+    private void SaveClose_OnClick(object? sender, RoutedEventArgs e)
+    {
+        Save();
+        Close();
+    }
+
+    private void Close_OnClick(object? sender, RoutedEventArgs e)
+    {
+        Close();
     }
 }
