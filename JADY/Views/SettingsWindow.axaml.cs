@@ -43,13 +43,21 @@ public partial class SettingsWindow : Window
         }
     }
 
-    private void Save_OnClick(object? sender, RoutedEventArgs e)
-    {
-        Save();
-    }
+    private void Close_OnClick(object? sender, RoutedEventArgs e) => Close();
+    private void SaveClose_OnClick(object? sender, RoutedEventArgs e) => SaveClose();
+    private void Save_OnClick(object? sender, RoutedEventArgs e) => Save();
 
-    private void Save()
+    private async Task Save()
     {
+        var saveFolder = await StorageProvider.TryGetFolderFromPathAsync(SavePath.Text);
+
+        if (saveFolder == null)
+        {
+            //TODO: display message
+            SavePath.Text = DiaryJSON.JadySave.Settings.SaveFilePath;
+            return;
+        }
+        
         DiaryJSON.Save(new Settings()
         {
             ShowHiddenEntries = ShowHidden.IsChecked ?? false,
@@ -57,14 +65,12 @@ public partial class SettingsWindow : Window
         });
     }
 
-    private void SaveClose_OnClick(object? sender, RoutedEventArgs e)
+
+    private async Task SaveClose()
     {
-        Save();
+        await Save();
+        
         Close();
     }
 
-    private void Close_OnClick(object? sender, RoutedEventArgs e)
-    {
-        Close();
-    }
 }
