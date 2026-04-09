@@ -11,6 +11,13 @@ public static class DiaryJSON
 {
     public static JADYSave JadySave { get; private set; } = new();
     
+    public static void Save(Settings settings)
+    {
+        JadySave.Settings = settings;
+        
+        Save();
+    }
+    
     public static void Save(Diary[] diaries)
     {
         JadySave.Diaries = diaries;
@@ -49,5 +56,6 @@ public static class DiaryJSON
 [Serializable]
 public class JADYSave
 {
+    public Settings Settings { get; set; } = new();
     public Diary[] Diaries {get; set;} = [];
 }
