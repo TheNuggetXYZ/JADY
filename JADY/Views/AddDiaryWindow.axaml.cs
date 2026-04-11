@@ -12,6 +12,8 @@ public partial class AddDiaryWindow : Window
     public AddDiaryWindow()
     {
         InitializeComponent();
+        
+        Name.PropertyChanged += NameOnPropertyChanged;
     }
 
     protected override void OnKeyDown(KeyEventArgs e)
@@ -22,15 +24,25 @@ public partial class AddDiaryWindow : Window
             Close();
         else if (e is { Key: Key.Enter, KeyModifiers: KeyModifiers.Control })
         {
-            Submit_OnClick(null, null);
+            Submit();
         }
     }
 
-    private void Submit_OnClick(object? sender, RoutedEventArgs e)
+    private void Submit_OnClick(object? sender, RoutedEventArgs e) => Submit();
+
+    private void Submit()
     {
+        if (!SubmitButton.IsEnabled)
+            return;
+        
         Close(new Diary()
         {
             Name = Name.Text,
         });
+    }
+
+    private void NameOnPropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
+    {
+        SubmitButton.IsEnabled = !string.IsNullOrWhiteSpace(Name.Text);
     }
 }

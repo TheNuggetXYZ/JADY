@@ -12,7 +12,7 @@
         
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10" Margin="10">
                 <TextBox Name="Name" Watermark="Name..."></TextBox>
-                <Button Click="Submit_OnClick" HorizontalAlignment="Center">ADD</Button>
+                <Button Name="SubmitButton" Click="Submit_OnClick" HorizontalAlignment="Center">ADD</Button>
         </StackPanel>
         
 </Window>
