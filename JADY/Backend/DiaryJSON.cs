@@ -10,6 +10,8 @@ namespace JADY.Backend;
 public static class DiaryJSON
 {
     public static JADYSave JadySave { get; private set; } = new();
+
+    public static Action? OnSaveChanged;
     
     public static void Save(Settings settings)
     {
@@ -35,6 +37,8 @@ public static class DiaryJSON
             byte[] bytes = Encoding.UTF8.GetBytes(json);
             fs.Write(bytes, 0, bytes.Length);
         }
+        
+        OnSaveChanged?.Invoke();
     }
     
     public static void Load()
@@ -48,6 +52,8 @@ public static class DiaryJSON
         {
             JadySave = JsonSerializer.Deserialize<JADYSave>(fs);
         }
+        
+        OnSaveChanged?.Invoke();
     }
 
     private static string GetSavePath()

@@ -60,6 +60,7 @@ public partial class DiaryEntryViewModel : ViewModelBase
     /// <summary>
     /// Used if you don't want this entry to appear unless you toggle on a setting to show hidden entries.
     /// </summary>
+    [NotifyPropertyChangedFor(nameof(IsCurrentlyVisible))]
     [ObservableProperty] private bool _isHidden;
     
     /// <summary>
@@ -108,6 +109,8 @@ public partial class DiaryEntryViewModel : ViewModelBase
 
     public bool ShowEndEventInContextMenu => Type == DiaryEntryType.ProlongedEvent && Status == DiaryEntryStatus.InProgress;
 
+    public bool IsCurrentlyVisible => !IsHidden || DiaryJSON.JadySave.Settings.ShowHiddenEntries;
+
     private readonly MainWindowViewModel _mainWindowViewModel;
     
     private readonly DiaryViewModel _diaryViewModel;
@@ -127,6 +130,8 @@ public partial class DiaryEntryViewModel : ViewModelBase
         Content = diaryEntry.Content;
         IsHidden = diaryEntry.IsHidden;
         SubEntries = InitializeSubEntries(diaryEntry.SubEntries);
+
+        DiaryJSON.OnSaveChanged += () => { OnPropertyChanged(nameof(IsCurrentlyVisible)); };
     }
     
     /// <returns>
