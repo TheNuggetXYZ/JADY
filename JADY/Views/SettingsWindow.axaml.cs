@@ -53,7 +53,8 @@ public partial class SettingsWindow : Window
 
         if (saveFolder == null)
         {
-            //TODO: display message
+            WindowManager.OpenMessageBox(WindowManager.GetMainWindow(), "Warning",
+                "The entered save file directory doesn't exist - resetting to last directory");
             SavePath.Text = DiaryJSON.JadySave.Settings.SaveFilePath;
             return;
         }
