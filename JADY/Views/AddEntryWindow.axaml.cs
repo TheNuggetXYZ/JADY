@@ -42,6 +42,7 @@ public partial class AddEntryWindow : Window
             Category = EntryCategory.Text,
             SubCategory = EntrySubcategory.Text,
             Title = EntryTitle.Text,
+            Content = EntryContent.Text,
             LogDate = DateTimeOffset.Now,
             Date = EntryDate.SelectedDate,
             IsHidden = EntryIsHidden.IsChecked ?? false,
