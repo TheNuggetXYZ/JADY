@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Platform.Storage;
@@ -18,6 +19,18 @@ public partial class SettingsWindow : Window
 
         ShowHidden.IsChecked = DiaryJSON.JadySave.Settings.ShowHiddenEntries;
         SavePath.Text = DiaryJSON.JadySave.Settings.SaveFilePath;
+    }
+
+    protected override void OnKeyDown(KeyEventArgs e)
+    {
+        base.OnKeyDown(e);
+        
+        if (e.Key == Key.Escape)
+            Close();
+        else if (e is { Key: Key.Enter, KeyModifiers: KeyModifiers.Control })
+        {
+            SaveClose();
+        }
     }
 
     private void ChangeSavePath_OnClick(object? sender, RoutedEventArgs e)

@@ -1,6 +1,7 @@
 using System;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using JADY.Backend;
@@ -16,6 +17,18 @@ public partial class AddEntryWindow : Window
         InitializeComponent();
 
         EntryParameter.ItemsSource = Enum.GetValues(typeof(NewDiaryEntryParameter));
+    }
+
+    protected override void OnKeyDown(KeyEventArgs e)
+    {
+        base.OnKeyDown(e);
+        
+        if (e.Key == Key.Escape)
+            Close();
+        else if (e is { Key: Key.Enter, KeyModifiers: KeyModifiers.Control })
+        {
+            Submit_OnClick(null, null);
+        }
     }
 
     private void Submit_OnClick(object? sender, RoutedEventArgs e)
