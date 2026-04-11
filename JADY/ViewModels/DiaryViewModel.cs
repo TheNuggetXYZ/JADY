@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -20,6 +21,7 @@ public partial class DiaryViewModel : ViewModelBase
     /// The entries in the diary.
     /// </summary>
     public ObservableCollection<DiaryEntryViewModel> Entries { get; set; }
+    public IEnumerable<DiaryEntryViewModel> SortedEntries => Entries.OrderBy(x => x.Date ?? x.LogDate);
     
     private readonly MainWindowViewModel _mainWindowViewModel;
 
@@ -28,6 +30,8 @@ public partial class DiaryViewModel : ViewModelBase
         _mainWindowViewModel = mainWindowViewModel;
         Name = diary.Name;
         Entries = InitializeEntries(diary.Entries);
+        
+        Entries.CollectionChanged += (_, _) => OnPropertyChanged(nameof(SortedEntries));
     }
 
     /// <returns>
