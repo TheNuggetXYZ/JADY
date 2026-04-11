@@ -4,7 +4,10 @@ using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Platform.Storage;
 using JADY.Views;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Enums;
 
 namespace JADY.Backend;
 
@@ -40,5 +43,15 @@ public static class WindowManager
         {
             window.Close(); // gets automatically removed from dictionary
         }
+    }
+
+    public static async Task OpenMessageBox(Window? owner, string title, string message)
+    {
+        if (owner == null)
+            return;
+        
+        var box = MessageBoxManager.GetMessageBoxStandard(title, message, ButtonEnum.Ok);
+
+        await box.ShowWindowDialogAsync(owner);
     }
 }
