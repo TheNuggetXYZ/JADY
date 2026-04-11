@@ -59,8 +59,11 @@ public partial class SettingsWindow : Window
     private void Close_OnClick(object? sender, RoutedEventArgs e) => Close();
     private void SaveClose_OnClick(object? sender, RoutedEventArgs e) => SaveClose();
     private void Save_OnClick(object? sender, RoutedEventArgs e) => Save();
-
-    private async Task Save()
+    
+    /// <returns>
+    /// Returns if the settings were saved.
+    /// </returns>
+    private async Task<bool> Save()
     {
         var saveFolder = await StorageProvider.TryGetFolderFromPathAsync(SavePath.Text);
 
@@ -69,7 +72,7 @@ public partial class SettingsWindow : Window
             WindowManager.OpenMessageBox(WindowManager.GetMainWindow(), "Warning",
                 "The entered save file directory doesn't exist - resetting to last directory");
             SavePath.Text = DiaryJSON.JadySave.Settings.SaveFilePath;
-            return;
+            return false;
         }
         
         DiaryJSON.Save(new Settings()
@@ -77,14 +80,14 @@ public partial class SettingsWindow : Window
             ShowHiddenEntries = ShowHidden.IsChecked ?? false,
             SaveFilePath = SavePath.Text
         });
+        return true;
     }
 
 
     private async Task SaveClose()
     {
-        await Save();
-        
-        Close();
+        if (await Save())
+            Close();
     }
 
 }
