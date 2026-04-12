@@ -10,7 +10,7 @@ namespace JADY.Backend;
 
 public static class DiaryJSON
 {
-    public static JADYSave JadySave { get; private set; } = new();
+    public static JadySave JadySave { get; private set; } = new();
 
     public static Action? OnSaveChanged;
     
@@ -52,7 +52,7 @@ public static class DiaryJSON
         
         using (FileStream fs = File.OpenRead(savePath))
         {
-            JadySave = JsonSerializer.Deserialize<JADYSave>(fs);
+            JadySave = JsonSerializer.Deserialize<JadySave>(fs);
         }
         
         OnSaveChanged?.Invoke();
@@ -64,17 +64,5 @@ public static class DiaryJSON
             return Path.Combine(JadySave.Settings.SaveFilePath, "JADY.save");
         
         throw new DirectoryNotFoundException("JADY save file path not found");
-    }
-}
-
-[Serializable]
-public class JADYSave
-{
-    public Settings Settings { get; set; } = new();
-    public Diary[] Diaries {get; set;} = [];
-
-    public JADYSave()
-    {
-        Settings.SaveFilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
     }
 }
