@@ -115,11 +115,11 @@ public partial class DiaryEntryViewModel : ViewModelBase
 
     public bool IsCurrentlyVisible => !IsHidden || DiaryJSON.JadySave.Settings.ShowHiddenEntries;
     
-    public string LogDateDisplayName => LogDate.Date.ToShortDateString();
+    public string LogDateDisplayName => LogDate.Date.ToString("d", DiaryJSON.JadySave.Settings.CultureInfo);
 
-    public string? DateDisplayName => Date?.Date.ToShortDateString();
+    public string? DateDisplayName => Date?.Date.ToString("d", DiaryJSON.JadySave.Settings.CultureInfo);
     
-    public string? EndDateDisplayName => EndDate?.Date.ToShortDateString();
+    public string? EndDateDisplayName => EndDate?.Date.ToString("d", DiaryJSON.JadySave.Settings.CultureInfo);
 
     private readonly MainWindowViewModel _mainWindowViewModel;
     
