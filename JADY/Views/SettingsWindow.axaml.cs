@@ -28,10 +28,10 @@ public partial class SettingsWindow : Window
     {
         InitializeComponent();
 
-        ShowHidden.IsChecked = DiaryJSON.JadySave.Settings.ShowHiddenEntries;
-        SavePath.Text = DiaryJSON.JadySave.Settings.SaveFilePath;
+        ShowHidden.IsChecked = Saves.JadySave.Settings.ShowHiddenEntries;
+        SavePath.Text = Saves.JadySave.Settings.SaveFilePath;
         Cultures.ItemsSource = AvailableCultures;
-        Cultures.SelectedItem = new CultureInfo(DiaryJSON.JadySave.Settings.CultureInfoName);
+        Cultures.SelectedItem = new CultureInfo(Saves.JadySave.Settings.CultureInfoName);
     }
 
     protected override void OnKeyDown(KeyEventArgs e)
@@ -84,11 +84,11 @@ public partial class SettingsWindow : Window
         {
             WindowManager.OpenMessageBox(WindowManager.GetMainWindow(), "Warning",
                 "The entered save file directory doesn't exist - resetting to last directory");
-            SavePath.Text = DiaryJSON.JadySave.Settings.SaveFilePath;
+            SavePath.Text = Saves.JadySave.Settings.SaveFilePath;
             return false;
         }
         
-        DiaryJSON.Save(new Settings()
+        Saves.Save(new Settings()
         {
             ShowHiddenEntries = ShowHidden.IsChecked ?? false,
             SaveFilePath = SavePath.Text,

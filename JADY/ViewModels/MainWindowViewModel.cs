@@ -78,14 +78,14 @@ public partial class MainWindowViewModel : ViewModelBase
 
     private void Save()
     {
-        DiaryJSON.Save(Utils.ConvertDiaryVMObservableCollectionToDiaryMArray(Diaries));
+        Saves.Save(Utils.ConvertDiaryVMObservableCollectionToDiaryMArray(Diaries));
     }
 
     private void Load()
     {
-        DiaryJSON.Load();
+        Saves.Load();
 
-        Diaries = Utils.ConvertDiaryMArrayToDiaryVMObservableCollection(DiaryJSON.JadySave.Diaries, this);
+        Diaries = Utils.ConvertDiaryMArrayToDiaryVMObservableCollection(Saves.JadySave.Diaries, this);
     }
 
     public void RemoveMyself(DiaryViewModel item)

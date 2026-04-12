@@ -10,59 +10,24 @@ namespace JADY.Backend;
 
 public static class DiaryJSON
 {
-    public static JadySave JadySave { get; private set; } = new();
-
-    public static Action? OnSaveChanged;
-    
-    public static void Save(Settings settings)
+    public static void Serialize(string savePath, JadySave saveInfo)
     {
-        JadySave.Settings = settings;
-        JadySave.Settings.CultureInfo = new CultureInfo(settings.CultureInfoName);
-        
-        Save();
-    }
-    
-    public static void Save(Diary[] diaries)
-    {
-        JadySave.Diaries = diaries;
-        
-        Save();
-    }
-
-    private static void Save()
-    {
-        string savePath = GetSavePath();
-        
         using (FileStream fs = File.Create(savePath))
         {
-            string json = JsonSerializer.Serialize(JadySave, new JsonSerializerOptions() {WriteIndented = true});
+            string json = JsonSerializer.Serialize(saveInfo, new JsonSerializerOptions() {WriteIndented = true});
             byte[] bytes = Encoding.UTF8.GetBytes(json);
             fs.Write(bytes, 0, bytes.Length);
         }
-        
-        OnSaveChanged?.Invoke();
     }
     
-    public static void Load()
+    public static JadySave Deserialize(string savePath)
     {
-        string savePath = GetSavePath();
-
         if (!File.Exists(savePath))
-            return;
+            return null;
         
         using (FileStream fs = File.OpenRead(savePath))
         {
-            JadySave = JsonSerializer.Deserialize<JadySave>(fs);
+            return JsonSerializer.Deserialize<JadySave>(fs);
         }
-        
-        OnSaveChanged?.Invoke();
-    }
-
-    private static string GetSavePath()
-    {
-        if (JadySave.Settings.SaveFilePath != null)
-            return Path.Combine(JadySave.Settings.SaveFilePath, "JADY.save");
-        
-        throw new DirectoryNotFoundException("JADY save file path not found");
     }
 }

@@ -113,13 +113,13 @@ public partial class DiaryEntryViewModel : ViewModelBase
 
     public bool ShowEndEventInContextMenu => Type == DiaryEntryType.ProlongedEvent && Status == DiaryEntryStatus.InProgress;
 
-    public bool IsCurrentlyVisible => !IsHidden || DiaryJSON.JadySave.Settings.ShowHiddenEntries;
+    public bool IsCurrentlyVisible => !IsHidden || Saves.JadySave.Settings.ShowHiddenEntries;
     
-    public string LogDateDisplayName => LogDate.Date.ToString("d", DiaryJSON.JadySave.Settings.CultureInfo);
+    public string LogDateDisplayName => LogDate.Date.ToString("d", Saves.JadySave.Settings.CultureInfo);
 
-    public string? DateDisplayName => Date?.Date.ToString("d", DiaryJSON.JadySave.Settings.CultureInfo);
+    public string? DateDisplayName => Date?.Date.ToString("d", Saves.JadySave.Settings.CultureInfo);
     
-    public string? EndDateDisplayName => EndDate?.Date.ToString("d", DiaryJSON.JadySave.Settings.CultureInfo);
+    public string? EndDateDisplayName => EndDate?.Date.ToString("d", Saves.JadySave.Settings.CultureInfo);
 
     private readonly MainWindowViewModel _mainWindowViewModel;
     
@@ -141,7 +141,7 @@ public partial class DiaryEntryViewModel : ViewModelBase
         IsHidden = diaryEntry.IsHidden;
         SubEntries = InitializeSubEntries(diaryEntry.SubEntries);
 
-        DiaryJSON.OnSaveChanged += () => { OnPropertyChanged(nameof(IsCurrentlyVisible)); };
+        Saves.OnSaveChanged += () => { OnPropertyChanged(nameof(IsCurrentlyVisible)); };
     }
     
     /// <returns>
