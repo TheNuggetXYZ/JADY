@@ -20,8 +20,10 @@ public partial class DiaryViewModel : ViewModelBase
     /// <summary>
     /// The entries in the diary.
     /// </summary>
-    public ObservableCollection<DiaryEntryViewModel> Entries { get; set; }
-    public IEnumerable<DiaryEntryViewModel> SortedEntries => Entries.OrderBy(x => x.Date ?? x.LogDate);
+    public ObservableCollection<DiaryEntryViewModel> Entries { get; }
+
+    public IEnumerable<DiaryEntryViewModel> SortedEntries =>
+        Entries.OrderBy(x => x.Date ?? x.LogDate).ThenBy(x => x.LogDate); //filter example: .Where(x => x.Category == "Game");
     
     private readonly MainWindowViewModel _mainWindowViewModel;
 
