@@ -23,7 +23,7 @@
                     <TextBlock Text="{Binding SubCategoryStringWithPipeSeparator}"/>
                 </StackPanel>
                 <TextBlock HorizontalAlignment="Center" Text="{Binding Title}"/>
-                <TextBlock HorizontalAlignment="Right" Text="{Binding LogDate}"/>
+                <TextBlock HorizontalAlignment="Right" Text="{Binding LogDateDisplayName}"/>
             </Panel>
             
             <Panel Grid.Row="1" Name="ObjectToOpen0" Margin="10">
@@ -33,14 +33,14 @@
             </Panel>
             
             <Panel Grid.Row="2" Name="ObjectToOpen1">
-                <TextBlock HorizontalAlignment="Left" Text="{Binding Date}"/>
+                <TextBlock HorizontalAlignment="Left" Text="{Binding DateDisplayName}"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <TextBlock>
                         <Run Text="{Binding GetStatusDisplayNameWithSpace}"/>
                         <Run Text="{Binding GetTypeDisplayName}"/>
                     </TextBlock>
                 </StackPanel>
-                <TextBlock HorizontalAlignment="Right" Text="{Binding EndDate}"/>
+                <TextBlock HorizontalAlignment="Right" Text="{Binding EndDateDisplayName}"/>
             </Panel>
         </Grid>
     </Border>

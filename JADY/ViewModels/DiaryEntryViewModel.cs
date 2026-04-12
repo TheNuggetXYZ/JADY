@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Runtime.InteropServices.JavaScript;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -24,16 +25,19 @@ public partial class DiaryEntryViewModel : ViewModelBase
     /// <summary>
     /// The date at the time the entry was added.
     /// </summary>
+    [NotifyPropertyChangedFor(nameof(LogDateDisplayName))]
     [ObservableProperty] private DateTimeOffset _logDate;
 
     /// <summary>
     /// The start date of an event or a date of a one time entry.
     /// </summary>
+    [NotifyPropertyChangedFor(nameof(DateDisplayName))]
     [ObservableProperty] private DateTimeOffset? _date;
 
     /// <summary>
     /// The end date of an event. Is useless for a one time entry.
     /// </summary>
+    [NotifyPropertyChangedFor(nameof(EndDateDisplayName))]
     [ObservableProperty] private DateTimeOffset? _endDate;
 
     /// <summary>
@@ -110,6 +114,12 @@ public partial class DiaryEntryViewModel : ViewModelBase
     public bool ShowEndEventInContextMenu => Type == DiaryEntryType.ProlongedEvent && Status == DiaryEntryStatus.InProgress;
 
     public bool IsCurrentlyVisible => !IsHidden || DiaryJSON.JadySave.Settings.ShowHiddenEntries;
+    
+    public string LogDateDisplayName => LogDate.Date.ToShortDateString();
+
+    public string? DateDisplayName => Date?.Date.ToShortDateString();
+    
+    public string? EndDateDisplayName => EndDate?.Date.ToShortDateString();
 
     private readonly MainWindowViewModel _mainWindowViewModel;
     
