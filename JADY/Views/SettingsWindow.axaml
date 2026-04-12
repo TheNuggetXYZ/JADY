@@ -7,20 +7,24 @@
         Title="SettingsWindow"
         SizeToContent="WidthAndHeight">
         
-    <Grid RowDefinitions="Auto, Auto, Auto" Margin="10" RowSpacing="10">
-        <CheckBox Grid.Row="0" Name="ShowHidden">Show hidden entries</CheckBox>
+    <StackPanel Orientation="Vertical" Margin="10" Spacing="10">
+        <CheckBox Name="ShowHidden">Show hidden entries</CheckBox>
         
-        <TextBox Grid.Row="1" Name="SavePath">
+        <TextBox Name="SavePath">
             <TextBox.InnerRightContent>
                 <Button Click="ChangeSavePath_OnClick">+</Button>
             </TextBox.InnerRightContent>
         </TextBox>
         
-        <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="10">
+        <ComboBox Name="Cultures">
+            
+        </ComboBox>
+        
+        <StackPanel Orientation="Horizontal" Spacing="10">
             <Button Click="Close_OnClick">CLOSE</Button>
             <Button Click="SaveClose_OnClick" Content="SAVE &amp; CLOSE"></Button>
             <Button Click="Save_OnClick">SAVE</Button>
         </StackPanel>
-    </Grid>
+    </StackPanel>
         
 </Window>

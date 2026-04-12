@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Text.Json;
@@ -16,6 +17,7 @@ public static class DiaryJSON
     public static void Save(Settings settings)
     {
         JadySave.Settings = settings;
+        JadySave.Settings.CultureInfo = new CultureInfo(settings.CultureInfoName);
         
         Save();
     }

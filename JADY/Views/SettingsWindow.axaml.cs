@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
@@ -13,12 +15,23 @@ namespace JADY.Views;
 
 public partial class SettingsWindow : Window
 {
+    public List<CultureInfo> AvailableCultures { get; } = new()
+    {
+        new CultureInfo("cs-CZ"),
+        new CultureInfo("en-US"),
+        new CultureInfo("en-GB"),
+        new CultureInfo("de-DE"),
+        new CultureInfo("fr-FR"),
+    };
+    
     public SettingsWindow()
     {
         InitializeComponent();
 
         ShowHidden.IsChecked = DiaryJSON.JadySave.Settings.ShowHiddenEntries;
         SavePath.Text = DiaryJSON.JadySave.Settings.SaveFilePath;
+        Cultures.ItemsSource = AvailableCultures;
+        Cultures.SelectedItem = new CultureInfo(DiaryJSON.JadySave.Settings.CultureInfoName);
     }
 
     protected override void OnKeyDown(KeyEventArgs e)
@@ -78,7 +91,8 @@ public partial class SettingsWindow : Window
         DiaryJSON.Save(new Settings()
         {
             ShowHiddenEntries = ShowHidden.IsChecked ?? false,
-            SaveFilePath = SavePath.Text
+            SaveFilePath = SavePath.Text,
+            CultureInfoName = AvailableCultures[Cultures.SelectedIndex].Name,
         });
         return true;
     }
