@@ -12,7 +12,7 @@ using DiaryEntry = JADY.Models.DiaryEntry;
 
 namespace JADY.ViewModels;
 
-public partial class DiaryEntryViewModel : ViewModelBase
+public partial class DiaryEntryViewModel : SaveDependentViewModel
 {
     [NotifyPropertyChangedFor(nameof(ShowEndEventInContextMenu))]
     [NotifyPropertyChangedFor(nameof(GetTypeDisplayName))]
@@ -113,12 +113,16 @@ public partial class DiaryEntryViewModel : ViewModelBase
 
     public bool ShowEndEventInContextMenu => Type == DiaryEntryType.ProlongedEvent && Status == DiaryEntryStatus.InProgress;
 
+    [SaveDependent]
     public bool IsCurrentlyVisible => !IsHidden || Saves.JadySave.Settings.ShowHiddenEntries;
     
+    [SaveDependent]
     public string LogDateDisplayName => LogDate.Date.ToString("d", Saves.JadySave.Settings.CultureInfo);
 
+    [SaveDependent]
     public string? DateDisplayName => Date?.Date.ToString("d", Saves.JadySave.Settings.CultureInfo);
     
+    [SaveDependent]
     public string? EndDateDisplayName => EndDate?.Date.ToString("d", Saves.JadySave.Settings.CultureInfo);
 
     private readonly MainWindowViewModel _mainWindowViewModel;
@@ -140,8 +144,6 @@ public partial class DiaryEntryViewModel : ViewModelBase
         Content = diaryEntry.Content;
         IsHidden = diaryEntry.IsHidden;
         SubEntries = InitializeSubEntries(diaryEntry.SubEntries);
-
-        Saves.OnSaveChanged += () => { OnPropertyChanged(nameof(IsCurrentlyVisible)); };
     }
     
     /// <returns>
