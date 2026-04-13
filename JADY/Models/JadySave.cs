@@ -1,8 +1,5 @@
-using System;
-
 namespace JADY.Models;
 
-[Serializable]
 public class JadySave
 {
     public Settings Settings { get; set; } = new();

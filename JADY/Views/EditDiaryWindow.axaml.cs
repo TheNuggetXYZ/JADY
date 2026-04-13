@@ -1,11 +1,7 @@
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
-using Avalonia.Markup.Xaml;
-using CommunityToolkit.Mvvm.Input;
 using JADY.Models;
-using JADY.ViewModels;
 
 namespace JADY.Views;
 
