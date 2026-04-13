@@ -1,13 +1,11 @@
 using System;
-using Avalonia.Controls;
-using Avalonia.Input;
 using Avalonia.Interactivity;
 using JADY.Backend;
 using JADY.Models;
 
 namespace JADY.Views;
 
-public partial class AddEntryWindow : Window
+public partial class AddEntryWindow : DialogWindowBase<DiaryEntry>
 {
     public AddEntryWindow()
     {
@@ -16,23 +14,11 @@ public partial class AddEntryWindow : Window
         EntryParameter.ItemsSource = Enum.GetValues(typeof(Utils.NewDiaryEntryParameter));
     }
 
-    protected override void OnKeyDown(KeyEventArgs e)
-    {
-        base.OnKeyDown(e);
-        
-        if (e.Key == Key.Escape)
-            Close();
-        else if (e is { Key: Key.Enter, KeyModifiers: KeyModifiers.Control })
-        {
-            Submit_OnClick(null, null);
-        }
-    }
-
-    private void Submit_OnClick(object? sender, RoutedEventArgs e)
+    protected override DiaryEntry GetValue()
     {
         Utils.ConvertNewDiaryParameterToStatusAndType((Utils.NewDiaryEntryParameter)EntryParameter.SelectedIndex, out int status, out int type);
-        
-        Close(new DiaryEntry()
+
+        return new DiaryEntry()
         {
             Status = (Utils.DiaryEntryStatus)status,
             Type = (Utils.DiaryEntryType)type,
@@ -43,6 +29,8 @@ public partial class AddEntryWindow : Window
             LogDate = DateTimeOffset.Now,
             Date = EntryDate.SelectedDate,
             IsHidden = EntryIsHidden.IsChecked ?? false,
-        });
+        };
     }
+
+    private void Submit_OnClick(object? sender, RoutedEventArgs e) => TrySubmit();
 }

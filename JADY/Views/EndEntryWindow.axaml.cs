@@ -7,7 +7,7 @@ using JADY.Models;
 
 namespace JADY.Views;
 
-public partial class EndEntryWindow : Window
+public partial class EndEntryWindow : DialogWindowBase<DiaryEntry>
 {
     public EndEntryWindow()
     {
@@ -16,21 +16,9 @@ public partial class EndEntryWindow : Window
         EndParameter.ItemsSource = Enum.GetValues(typeof(Utils.EndDiaryParameter));
     }
 
-    protected override void OnKeyDown(KeyEventArgs e)
+    protected override DiaryEntry GetValue()
     {
-        base.OnKeyDown(e);
-        
-        if (e.Key == Key.Escape)
-            Close();
-        else if (e is { Key: Key.Enter, KeyModifiers: KeyModifiers.Control })
-        {
-            Submit_OnClick(null, null);
-        }
-    }
-
-    private void Submit_OnClick(object? sender, RoutedEventArgs e)
-    {
-        Close(new DiaryEntry()
+        return new DiaryEntry()
         {
             EndDate = EndDate.SelectedDate,
             Status = (Utils.EndDiaryParameter)EndParameter.SelectedIndex switch
@@ -39,6 +27,8 @@ public partial class EndEntryWindow : Window
                 Utils.EndDiaryParameter.Dropped => Utils.DiaryEntryStatus.Dropped,
                 _ => throw new ArgumentOutOfRangeException()
             }
-        });
+        };
     }
+
+    private void Submit_OnClick(object? sender, RoutedEventArgs e) => TrySubmit();
 }

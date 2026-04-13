@@ -5,30 +5,22 @@ using JADY.Models;
 
 namespace JADY.Views;
 
-public partial class EditDiaryWindow : Window
+public partial class EditDiaryWindow : DialogWindowBase<Diary>
 {
     public EditDiaryWindow()
     {
         InitializeComponent();
     }
+    
+    //TODO: Add same name check as in AddDiaryWindow.axaml.cs
 
-    protected override void OnKeyDown(KeyEventArgs e)
+    protected override Diary GetValue()
     {
-        base.OnKeyDown(e);
-        
-        if (e.Key == Key.Escape)
-            Close();
-        else if (e is { Key: Key.Enter, KeyModifiers: KeyModifiers.Control })
+        return new Diary()
         {
-            Submit_OnClick(null, null);
-        }
+            Name = Name.Text
+        };
     }
 
-    private void Submit_OnClick(object? sender, RoutedEventArgs e)
-    {
-        Close(new Diary()
-        {
-            Name = Name.Text,
-        });
-    }
+    private void Submit_OnClick(object? sender, RoutedEventArgs e) => TrySubmit();
 }

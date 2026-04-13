@@ -8,7 +8,7 @@ using JADY.Models;
 
 namespace JADY.Views;
 
-public partial class EditEntryWindow : Window
+public partial class EditEntryWindow : DialogWindowBase<DiaryEntry>
 {
     public EditEntryWindow()
     {
@@ -18,21 +18,9 @@ public partial class EditEntryWindow : Window
         EntryStatus.ItemsSource = Enum.GetValues(typeof(Utils.DiaryEntryStatus));
     }
 
-    protected override void OnKeyDown(KeyEventArgs e)
+    protected override DiaryEntry GetValue()
     {
-        base.OnKeyDown(e);
-        
-        if (e.Key == Key.Escape)
-            Close();
-        else if (e is { Key: Key.Enter, KeyModifiers: KeyModifiers.Control })
-        {
-            Submit_OnClick(null, null);
-        }
-    }
-
-    private void Submit_OnClick(object? sender, RoutedEventArgs e)
-    {
-        Close(new DiaryEntry()
+        return new DiaryEntry()
         {
             Type = (Utils.DiaryEntryType)EntryType.SelectedIndex,
             Status = (Utils.DiaryEntryStatus)EntryStatus.SelectedIndex,
@@ -43,8 +31,10 @@ public partial class EditEntryWindow : Window
             Title = EntryTitle.Text,
             Content = EntryContent.Text,
             IsHidden = EntryIsHidden.IsChecked ?? false,
-        });
+        };
     }
+
+    private void Submit_OnClick(object? sender, RoutedEventArgs e) => TrySubmit();
 
     private void EntryType_OnPropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
     {

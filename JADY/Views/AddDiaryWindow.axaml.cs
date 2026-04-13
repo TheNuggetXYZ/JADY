@@ -1,12 +1,10 @@
 using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Input;
 using Avalonia.Interactivity;
 using JADY.Models;
 
 namespace JADY.Views;
 
-public partial class AddDiaryWindow : Window
+public partial class AddDiaryWindow : DialogWindowBase<Diary>
 {
     public AddDiaryWindow()
     {
@@ -14,31 +12,18 @@ public partial class AddDiaryWindow : Window
         
         Name.PropertyChanged += NameOnPropertyChanged;
     }
+    
+    protected override bool CanSubmit() => SubmitButton.IsEnabled;
 
-    protected override void OnKeyDown(KeyEventArgs e)
+    protected override Diary GetValue()
     {
-        base.OnKeyDown(e);
-        
-        if (e.Key == Key.Escape)
-            Close();
-        else if (e is { Key: Key.Enter, KeyModifiers: KeyModifiers.Control })
-        {
-            Submit();
-        }
-    }
-
-    private void Submit_OnClick(object? sender, RoutedEventArgs e) => Submit();
-
-    private void Submit()
-    {
-        if (!SubmitButton.IsEnabled)
-            return;
-        
-        Close(new Diary()
+        return new Diary()
         {
             Name = Name.Text,
-        });
+        };
     }
+
+    private void Submit_OnClick(object? sender, RoutedEventArgs e) => TrySubmit();
 
     private void NameOnPropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
     {
