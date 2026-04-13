@@ -70,7 +70,9 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     /// <summary>
     /// E.g. [I automated red science, I finally destroyed those biter nests, ...]
     /// </summary>
-    public ObservableCollection<DiarySubEntryViewModel> SubEntries { get; set; }
+    public ObservableCollection<DiarySubEntryViewModel> SubEntries { get; set; }// DiaryEntryViewModel
+    
+    [ObservableProperty] private bool _isExpanded;
 
     public string GetStatusDisplayNameWithSpace
     {

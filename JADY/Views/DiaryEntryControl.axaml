@@ -26,13 +26,13 @@
                 <TextBlock HorizontalAlignment="Right" Text="{Binding LogDateDisplayName}"/>
             </Panel>
             
-            <Panel Grid.Row="1" Name="ObjectToOpen0" Margin="10">
+            <Panel Grid.Row="1" IsVisible="{Binding IsExpanded}" Margin="10">
                 <Border Background="{DynamicResource SystemRegionColor}" CornerRadius="5">
                     <TextBlock Margin="5" TextWrapping="Wrap" Text="{Binding Content}"/>
                 </Border>
             </Panel>
             
-            <Panel Grid.Row="2" Name="ObjectToOpen1">
+            <Panel Grid.Row="2" IsVisible="{Binding IsExpanded}">
                 <TextBlock HorizontalAlignment="Left" Text="{Binding DateDisplayName}"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <TextBlock>
