@@ -25,6 +25,7 @@ public partial class EditDiaryWindow : DialogWindowBase<Diary>
     
     private void NameOnPropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
     {
-        SubmitButton.IsEnabled = !string.IsNullOrWhiteSpace(Name.Text);
+        if (SubmitButton != null && Name != null)
+            SubmitButton.IsEnabled = !string.IsNullOrWhiteSpace(Name.Text);
     }
 }
