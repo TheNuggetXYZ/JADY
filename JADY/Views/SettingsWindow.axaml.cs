@@ -13,7 +13,7 @@ namespace JADY.Views;
 
 public partial class SettingsWindow : Window
 {
-    public List<CultureInfo> AvailableCultures { get; } = new()
+    private List<CultureInfo> AvailableCultures { get; } = new()
     {
         new CultureInfo("cs-CZ"),
         new CultureInfo("en-US"),
