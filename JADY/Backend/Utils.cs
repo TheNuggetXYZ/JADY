@@ -1,7 +1,4 @@
 using System;
-using System.Collections.ObjectModel;
-using JADY.Models;
-using JADY.ViewModels;
 
 namespace JADY.Backend;
 

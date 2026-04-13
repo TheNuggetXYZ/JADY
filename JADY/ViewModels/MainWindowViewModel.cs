@@ -6,7 +6,6 @@ using CommunityToolkit.Mvvm.Input;
 using JADY.Backend;
 using JADY.Models;
 using JADY.Views;
-using DiaryEntry = JADY.Models.DiaryEntry;
 
 namespace JADY.ViewModels;
 
@@ -64,7 +63,6 @@ public partial class MainWindowViewModel : ViewModelBase
     [RelayCommand]
     private async Task Menu_OpenSettingsWindow()
     {
-        // Open dialog and wait for result model
         await WindowManager.OpenDialogWindow<SettingsWindow, object?>(WindowManager.GetMainWindow(), this);
     }
 
