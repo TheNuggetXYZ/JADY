@@ -16,14 +16,11 @@
             </TextBox.InnerRightContent>
         </TextBox>
         
-        <ComboBox Name="Cultures">
-            
-        </ComboBox>
+        <ComboBox Name="Cultures"></ComboBox>
         
         <StackPanel Orientation="Horizontal" Spacing="10">
             <Button Click="Close_OnClick">CLOSE</Button>
             <Button Click="SaveClose_OnClick" Content="SAVE &amp; CLOSE"></Button>
-            <Button Click="Save_OnClick">SAVE</Button>
         </StackPanel>
     </StackPanel>
         

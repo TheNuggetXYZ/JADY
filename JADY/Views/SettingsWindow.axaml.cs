@@ -11,7 +11,7 @@ using JADY.Models;
 
 namespace JADY.Views;
 
-public partial class SettingsWindow : Window
+public partial class SettingsWindow : DialogWindowBase<Settings>
 {
     private List<CultureInfo> AvailableCultures { get; } = new()
     {
@@ -32,21 +32,41 @@ public partial class SettingsWindow : Window
         Cultures.SelectedItem = new CultureInfo(Saves.JadySave.Settings.CultureInfoName);
     }
 
-    protected override void OnKeyDown(KeyEventArgs e)
+    protected override Settings GetValue()
     {
-        base.OnKeyDown(e);
-        
-        if (e.Key == Key.Escape)
-            Close();
-        else if (e is { Key: Key.Enter, KeyModifiers: KeyModifiers.Control })
+        return new Settings()
         {
-            SaveClose();
+            ShowHiddenEntries = ShowHidden.IsChecked ?? false,
+            SaveFilePath = SavePath.Text,
+            CultureInfoName = AvailableCultures[Cultures.SelectedIndex].Name,
+        };
+    }
+
+    private new async Task<bool> CanSubmit()
+    {
+        var saveFolder = await StorageProvider.TryGetFolderFromPathAsync(SavePath.Text);
+
+        return saveFolder != null;
+    }
+
+    private new async Task TrySubmit()
+    {
+        if (await CanSubmit())
+        {
+            Saves.Save(GetValue());
+            Close();
+        }
+        else
+        {
+            await CantSubmitAction();
         }
     }
 
-    private void ChangeSavePath_OnClick(object? sender, RoutedEventArgs e)
+    private async Task CantSubmitAction()
     {
-        OpenChangeSavePath();
+        await WindowManager.OpenMessageBox(WindowManager.GetMainWindow(), "Warning",
+            "The entered save file directory doesn't exist - resetting to last directory");
+        SavePath.Text = Saves.JadySave.Settings.SaveFilePath;
     }
 
     private async Task OpenChangeSavePath()
@@ -66,40 +86,9 @@ public partial class SettingsWindow : Window
             SavePath.Text = folders[0].Path.AbsolutePath;
         }
     }
+    
+    private void ChangeSavePath_OnClick(object? sender, RoutedEventArgs e) => OpenChangeSavePath();
 
     private void Close_OnClick(object? sender, RoutedEventArgs e) => Close();
-    private void SaveClose_OnClick(object? sender, RoutedEventArgs e) => SaveClose();
-    private void Save_OnClick(object? sender, RoutedEventArgs e) => Save();
-    
-    /// <returns>
-    /// Returns if the settings were saved.
-    /// </returns>
-    private async Task<bool> Save()
-    {
-        var saveFolder = await StorageProvider.TryGetFolderFromPathAsync(SavePath.Text);
-
-        if (saveFolder == null)
-        {
-            WindowManager.OpenMessageBox(WindowManager.GetMainWindow(), "Warning",
-                "The entered save file directory doesn't exist - resetting to last directory");
-            SavePath.Text = Saves.JadySave.Settings.SaveFilePath;
-            return false;
-        }
-        
-        Saves.Save(new Settings()
-        {
-            ShowHiddenEntries = ShowHidden.IsChecked ?? false,
-            SaveFilePath = SavePath.Text,
-            CultureInfoName = AvailableCultures[Cultures.SelectedIndex].Name,
-        });
-        return true;
-    }
-
-
-    private async Task SaveClose()
-    {
-        if (await Save())
-            Close();
-    }
-
+    private void SaveClose_OnClick(object? sender, RoutedEventArgs e) => TrySubmit();
 }
