@@ -57,7 +57,7 @@ public partial class DiaryViewModel : ViewModelBase
 
         foreach (var entryModel in entryModels)
         {
-            DiaryEntryViewModel newDiaryEntryViewModel = new(entryModel, _mainWindowViewModel, this);
+            DiaryEntryViewModel newDiaryEntryViewModel = new(entryModel, this);
             entryViewModels.Add(newDiaryEntryViewModel);
         }
         

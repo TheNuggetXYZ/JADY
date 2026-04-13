@@ -60,14 +60,14 @@ public partial class MainWindowViewModel : ViewModelBase
             return;
         
         // Construct and add a view model from model
-        Diaries[OpenDiaryIndex].Entries.Add(new DiaryEntryViewModel(model, this, Diaries[OpenDiaryIndex]));
+        Diaries[OpenDiaryIndex].Entries.Add(new DiaryEntryViewModel(model, Diaries[OpenDiaryIndex]));
     }
     
     [RelayCommand]
-    private void Menu_OpenSettingsWindow()
+    private async Task Menu_OpenSettingsWindow()
     {
         // Open dialog and wait for result model
-        WindowManager.OpenDialogWindow<SettingsWindow, object?>(WindowManager.GetMainWindow(), this);
+        await WindowManager.OpenDialogWindow<SettingsWindow, object?>(WindowManager.GetMainWindow(), this);
     }
 
     [RelayCommand]

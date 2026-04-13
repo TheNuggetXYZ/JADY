@@ -124,14 +124,11 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     
     [SaveDependent]
     public string? EndDateDisplayName => EndDate?.Date.ToString("d", Saves.JadySave.Settings.CultureInfo);
-
-    private readonly MainWindowViewModel _mainWindowViewModel;
     
     private readonly DiaryViewModel _diaryViewModel;
 
-    public DiaryEntryViewModel(DiaryEntry diaryEntry, MainWindowViewModel mainWindowViewModel, DiaryViewModel diaryViewModel)
+    public DiaryEntryViewModel(DiaryEntry diaryEntry, DiaryViewModel diaryViewModel)
     {
-        _mainWindowViewModel = mainWindowViewModel;
         _diaryViewModel = diaryViewModel;
         Type = diaryEntry.Type;
         Status = diaryEntry.Status;
@@ -176,7 +173,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
 
         foreach (var subEntryModel in subEntryModels)
         {
-            DiarySubEntryViewModel newDiarySubEntryViewModel = new(subEntryModel, _mainWindowViewModel, this);
+            DiarySubEntryViewModel newDiarySubEntryViewModel = new(subEntryModel, this);
             subEntryViewModels.Add(newDiarySubEntryViewModel);
         }
         

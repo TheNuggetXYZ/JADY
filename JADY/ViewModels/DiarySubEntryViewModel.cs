@@ -28,9 +28,8 @@ public partial class DiarySubEntryViewModel : ViewModelBase
     
     private readonly DiaryEntryViewModel _diaryEntryViewModel;
 
-    public DiarySubEntryViewModel(DiarySubEntry subEntry, MainWindowViewModel mainWindowViewModel, DiaryEntryViewModel diaryEntryViewModel)
+    public DiarySubEntryViewModel(DiarySubEntry subEntry, DiaryEntryViewModel diaryEntryViewModel)
     {
-        _mainWindowViewModel = mainWindowViewModel;
         _diaryEntryViewModel = diaryEntryViewModel;
         LogDate = subEntry.LogDate;
         Date = subEntry.Date;
