@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
@@ -78,14 +79,15 @@ public partial class MainWindowViewModel : ViewModelBase
 
     private void Save()
     {
-        Saves.Save(Utils.ConvertDiaryVMObservableCollectionToDiaryMArray(Diaries));
+        Saves.Save(Diaries.Select(d => d.GetModel()).ToArray());
     }
 
     private void Load()
     {
         Saves.Load();
 
-        Diaries = Utils.ConvertDiaryMArrayToDiaryVMObservableCollection(Saves.JadySave.Diaries, this);
+        Diaries = new ObservableCollection<DiaryViewModel>(
+            Saves.JadySave.Diaries.Select(d => new DiaryViewModel(d, this)));
     }
 
     public void RemoveMyself(DiaryViewModel item)
