@@ -32,4 +32,32 @@ public static class Utils
                 throw new ArgumentOutOfRangeException(nameof(newDiaryEntryParameter), newDiaryEntryParameter, null);
         }
     }
+    
+    public enum DiaryEntryType
+    {
+        OneTime = 0,
+        ProlongedEvent = 1
+    }
+    
+    public enum DiaryEntryStatus
+    {
+        None = 0,
+        InProgress = 1,
+        Completed = 2,
+        Dropped = 3,
+    }
+    
+    public enum EndDiaryParameter
+    {
+        Finished = 0,
+        Dropped = 1,
+    }
+    
+    public enum NewDiaryEntryParameter
+    {
+        OneTime = 0,
+        Started = 1,
+        Finished = 2,
+        Dropped = 3,
+    }
 }

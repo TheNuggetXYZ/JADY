@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
+using JADY.Backend;
 
 namespace JADY.Models;
 
 public class DiaryEntry
 {
-    public DiaryEntryType Type { get; set; }
+    public Utils.DiaryEntryType Type { get; set; }
     
-    public DiaryEntryStatus Status { get; set; }
+    public Utils.DiaryEntryStatus Status { get; set; }
     
     /// <summary>
     /// The date at the time the entry was added.
@@ -53,18 +54,4 @@ public class DiaryEntry
     /// E.g. [I automated red science, I finally destroyed those biter nests, ...]
     /// </summary>
     public List<DiarySubEntry> SubEntries { get; set; } = new();
-}
-
-public enum DiaryEntryType
-{
-    OneTime = 0,
-    ProlongedEvent = 1
-}
-
-public enum DiaryEntryStatus
-{
-    None = 0,
-    InProgress = 1,
-    Completed = 2,
-    Dropped = 3,
 }

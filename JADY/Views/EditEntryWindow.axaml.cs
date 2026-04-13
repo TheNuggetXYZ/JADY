@@ -3,6 +3,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
+using JADY.Backend;
 using JADY.Models;
 
 namespace JADY.Views;
@@ -13,8 +14,8 @@ public partial class EditEntryWindow : Window
     {
         InitializeComponent();
 
-        EntryType.ItemsSource = Enum.GetValues(typeof(DiaryEntryType));
-        EntryStatus.ItemsSource = Enum.GetValues(typeof(DiaryEntryStatus));
+        EntryType.ItemsSource = Enum.GetValues(typeof(Utils.DiaryEntryType));
+        EntryStatus.ItemsSource = Enum.GetValues(typeof(Utils.DiaryEntryStatus));
     }
 
     protected override void OnKeyDown(KeyEventArgs e)
@@ -33,8 +34,8 @@ public partial class EditEntryWindow : Window
     {
         Close(new DiaryEntry()
         {
-            Type = (DiaryEntryType)EntryType.SelectedIndex,
-            Status = (DiaryEntryStatus)EntryStatus.SelectedIndex,
+            Type = (Utils.DiaryEntryType)EntryType.SelectedIndex,
+            Status = (Utils.DiaryEntryStatus)EntryStatus.SelectedIndex,
             Date = EntryDate.SelectedDate,
             EndDate = EntryEndDate.SelectedDate,
             Category = EntryCategory.Text,
@@ -50,16 +51,16 @@ public partial class EditEntryWindow : Window
         if (EntryType == null || EntryStatus == null)
             return;
         
-        if (EntryType.SelectedIndex == (int)DiaryEntryType.OneTime)
+        if (EntryType.SelectedIndex == (int)Utils.DiaryEntryType.OneTime)
         {
-            EntryStatus.SelectedIndex = (int)DiaryEntryStatus.None;
+            EntryStatus.SelectedIndex = (int)Utils.DiaryEntryStatus.None;
             EntryStatus.IsVisible = false;
         }
         else
         {
-            if (EntryStatus.SelectedIndex == (int)DiaryEntryStatus.None)
+            if (EntryStatus.SelectedIndex == (int)Utils.DiaryEntryStatus.None)
             {
-                EntryStatus.SelectedIndex = (int)DiaryEntryStatus.InProgress;
+                EntryStatus.SelectedIndex = (int)Utils.DiaryEntryStatus.InProgress;
             }
             EntryStatus.IsVisible = true;
         }
@@ -70,9 +71,9 @@ public partial class EditEntryWindow : Window
         if (EntryType == null || EntryStatus == null)
             return;
         
-        if (EntryStatus.SelectedIndex == (int)DiaryEntryStatus.None)
+        if (EntryStatus.SelectedIndex == (int)Utils.DiaryEntryStatus.None)
         {
-            EntryType.SelectedIndex = (int)DiaryEntryType.OneTime;
+            EntryType.SelectedIndex = (int)Utils.DiaryEntryType.OneTime;
         }
     }
 }

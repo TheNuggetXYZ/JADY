@@ -4,7 +4,6 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using JADY.Backend;
 using JADY.Models;
-using JADY.ViewModels;
 
 namespace JADY.Views;
 
@@ -14,7 +13,7 @@ public partial class AddEntryWindow : Window
     {
         InitializeComponent();
 
-        EntryParameter.ItemsSource = Enum.GetValues(typeof(NewDiaryEntryParameter));
+        EntryParameter.ItemsSource = Enum.GetValues(typeof(Utils.NewDiaryEntryParameter));
     }
 
     protected override void OnKeyDown(KeyEventArgs e)
@@ -31,12 +30,12 @@ public partial class AddEntryWindow : Window
 
     private void Submit_OnClick(object? sender, RoutedEventArgs e)
     {
-        Utils.ConvertNewDiaryParameterToStatusAndType((NewDiaryEntryParameter)EntryParameter.SelectedIndex, out int status, out int type);
+        Utils.ConvertNewDiaryParameterToStatusAndType((Utils.NewDiaryEntryParameter)EntryParameter.SelectedIndex, out int status, out int type);
         
         Close(new DiaryEntry()
         {
-            Status = (DiaryEntryStatus)status,
-            Type = (DiaryEntryType)type,
+            Status = (Utils.DiaryEntryStatus)status,
+            Type = (Utils.DiaryEntryType)type,
             Category = EntryCategory.Text,
             SubCategory = EntrySubcategory.Text,
             Title = EntryTitle.Text,

@@ -92,11 +92,3 @@ public partial class MainWindowViewModel : ViewModelBase
         Diaries.Remove(item);
     }
 }
-
-public enum NewDiaryEntryParameter
-{
-    OneTime = 0,
-    Started = 1,
-    Finished = 2,
-    Dropped = 3,
-}

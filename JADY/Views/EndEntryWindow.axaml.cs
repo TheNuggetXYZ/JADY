@@ -2,8 +2,8 @@ using System;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
+using JADY.Backend;
 using JADY.Models;
-using JADY.ViewModels;
 
 namespace JADY.Views;
 
@@ -13,7 +13,7 @@ public partial class EndEntryWindow : Window
     {
         InitializeComponent();
         
-        EndParameter.ItemsSource = Enum.GetValues(typeof(EndDiaryParameter));
+        EndParameter.ItemsSource = Enum.GetValues(typeof(Utils.EndDiaryParameter));
     }
 
     protected override void OnKeyDown(KeyEventArgs e)
@@ -33,10 +33,10 @@ public partial class EndEntryWindow : Window
         Close(new DiaryEntry()
         {
             EndDate = EndDate.SelectedDate,
-            Status = (EndDiaryParameter)EndParameter.SelectedIndex switch
+            Status = (Utils.EndDiaryParameter)EndParameter.SelectedIndex switch
             {
-                EndDiaryParameter.Finished => DiaryEntryStatus.Completed,
-                EndDiaryParameter.Dropped => DiaryEntryStatus.Dropped,
+                Utils.EndDiaryParameter.Finished => Utils.DiaryEntryStatus.Completed,
+                Utils.EndDiaryParameter.Dropped => Utils.DiaryEntryStatus.Dropped,
                 _ => throw new ArgumentOutOfRangeException()
             }
         });

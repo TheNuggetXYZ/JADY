@@ -15,11 +15,11 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
 {
     [NotifyPropertyChangedFor(nameof(ShowEndEventInContextMenu))]
     [NotifyPropertyChangedFor(nameof(GetTypeDisplayName))]
-    [ObservableProperty] private DiaryEntryType _type;
+    [ObservableProperty] private Utils.DiaryEntryType _type;
 
     [NotifyPropertyChangedFor(nameof(ShowEndEventInContextMenu))]
     [NotifyPropertyChangedFor(nameof(GetStatusDisplayNameWithSpace))]
-    [ObservableProperty] private DiaryEntryStatus _status;
+    [ObservableProperty] private Utils.DiaryEntryStatus _status;
 
     /// <summary>
     /// The date at the time the entry was added.
@@ -79,10 +79,10 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         {
             return Status switch
             {
-                DiaryEntryStatus.None => "",
-                DiaryEntryStatus.InProgress => "In progress ",
-                DiaryEntryStatus.Completed => "Completed ",
-                DiaryEntryStatus.Dropped => "Dropped ",
+                Utils.DiaryEntryStatus.None => "",
+                Utils.DiaryEntryStatus.InProgress => "In progress ",
+                Utils.DiaryEntryStatus.Completed => "Completed ",
+                Utils.DiaryEntryStatus.Dropped => "Dropped ",
                 _ => throw new ArgumentOutOfRangeException(nameof(Status), Status, null)
             };
         }
@@ -94,8 +94,8 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         {
             return Type switch
             {
-                DiaryEntryType.OneTime => "One time",
-                DiaryEntryType.ProlongedEvent => "event",
+                Utils.DiaryEntryType.OneTime => "One time",
+                Utils.DiaryEntryType.ProlongedEvent => "event",
                 _ => throw new ArgumentOutOfRangeException(nameof(Type), Type, null)
             };
         }
@@ -112,7 +112,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         }
     }
 
-    public bool ShowEndEventInContextMenu => Type == DiaryEntryType.ProlongedEvent && Status == DiaryEntryStatus.InProgress;
+    public bool ShowEndEventInContextMenu => Type == Utils.DiaryEntryType.ProlongedEvent && Status == Utils.DiaryEntryStatus.InProgress;
 
     [SaveDependent]
     public bool IsCurrentlyVisible => !IsHidden || Saves.JadySave.Settings.ShowHiddenEntries;
@@ -218,7 +218,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         if (diaryEntry == null)
             return;
         
-        if (Type != DiaryEntryType.ProlongedEvent)
+        if (Type != Utils.DiaryEntryType.ProlongedEvent)
             return;
         
         EndDate = diaryEntry.EndDate;
@@ -243,10 +243,4 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         Content = diaryEntry.Content;
         IsHidden = diaryEntry.IsHidden;
     }
-}
-
-public enum EndDiaryParameter
-{
-    Finished = 0,
-    Dropped = 1,
 }
