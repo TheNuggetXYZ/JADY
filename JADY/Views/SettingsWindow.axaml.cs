@@ -31,6 +31,26 @@ public partial class SettingsWindow : DialogWindowBase<Settings>
         Cultures.ItemsSource = AvailableCultures;
         Cultures.SelectedItem = new CultureInfo(Saves.JadySave.Settings.CultureInfoName);
     }
+    
+    private async Task TrySaveClose()
+    {
+        if (await SavePathExists())
+        {
+            Saves.Save(GetValue());
+            Close();
+        }
+        else
+        {
+            FixSavePath();
+        }
+    }
+    
+    private async Task<bool> SavePathExists()
+    {
+        var saveFolder = await StorageProvider.TryGetFolderFromPathAsync(SavePath.Text);
+
+        return saveFolder != null;
+    }
 
     protected override Settings GetValue()
     {
@@ -42,30 +62,11 @@ public partial class SettingsWindow : DialogWindowBase<Settings>
         };
     }
 
-    private new async Task<bool> CanSubmit()
+    private void FixSavePath()
     {
-        var saveFolder = await StorageProvider.TryGetFolderFromPathAsync(SavePath.Text);
-
-        return saveFolder != null;
-    }
-
-    private new async Task TrySubmit()
-    {
-        if (await CanSubmit())
-        {
-            Saves.Save(GetValue());
-            Close();
-        }
-        else
-        {
-            await CantSubmitAction();
-        }
-    }
-
-    private async Task CantSubmitAction()
-    {
-        await WindowManager.OpenMessageBox(WindowManager.GetMainWindow(), "Warning",
+        WindowManager.OpenMessageBox(WindowManager.GetMainWindow(), "Warning",
             "The entered save file directory doesn't exist - resetting to last directory");
+        
         SavePath.Text = Saves.JadySave.Settings.SaveFilePath;
     }
 
@@ -90,5 +91,5 @@ public partial class SettingsWindow : DialogWindowBase<Settings>
     private void ChangeSavePath_OnClick(object? sender, RoutedEventArgs e) => OpenChangeSavePath();
 
     private void Close_OnClick(object? sender, RoutedEventArgs e) => Close();
-    private void SaveClose_OnClick(object? sender, RoutedEventArgs e) => TrySubmit();
+    private void SaveClose_OnClick(object? sender, RoutedEventArgs e) => TrySaveClose();
 }
