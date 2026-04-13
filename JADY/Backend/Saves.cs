@@ -9,7 +9,7 @@ public static class Saves
 {
     public static JadySave JadySave { get; private set; } = new();
     
-    public static Action? OnSaveChanged;
+    public static event Action OnSaveChanged = delegate {};
     
     public static void Save(Settings settings)
     {
@@ -30,15 +30,15 @@ public static class Saves
     {
         DiaryJSON.Serialize(GetSavePath(), JadySave);
         
-        OnSaveChanged?.Invoke();
+        OnSaveChanged();
     }
 
     public static void Load()
     {
         JadySave = DiaryJSON.Deserialize(GetSavePath());
         JadySave.Load();
-        
-        OnSaveChanged?.Invoke();
+
+        OnSaveChanged();
     }
     
     private static string GetSavePath()
