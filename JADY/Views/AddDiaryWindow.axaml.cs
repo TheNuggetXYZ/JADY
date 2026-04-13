@@ -9,8 +9,6 @@ public partial class AddDiaryWindow : DialogWindowBase<Diary>
     public AddDiaryWindow()
     {
         InitializeComponent();
-        
-        Name.PropertyChanged += NameOnPropertyChanged;
     }
     
     protected override bool CanSubmit() => SubmitButton.IsEnabled;
