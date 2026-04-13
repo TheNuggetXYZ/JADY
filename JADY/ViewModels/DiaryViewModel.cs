@@ -73,8 +73,8 @@ public partial class DiaryViewModel : ViewModelBase
 
         foreach (var entryViewModel in entryViewModels)
         {
-            DiaryEntry newDiaryEntryModel = entryViewModel.GetModel();
-            entryModels.Add(newDiaryEntryModel);
+            entryModels.Add(entryViewModel.GetModel());
+            entryViewModel.Dispose();
         }
         
         return entryModels;

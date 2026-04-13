@@ -192,8 +192,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
 
         foreach (var subEntryViewModel in subEntryViewModels)
         {
-            DiarySubEntry newDiarySubEntryModel = subEntryViewModel.GetModel();
-            subEntryModels.Add(newDiarySubEntryModel);
+            subEntryModels.Add(subEntryViewModel.GetModel());
         }
         
         return subEntryModels;

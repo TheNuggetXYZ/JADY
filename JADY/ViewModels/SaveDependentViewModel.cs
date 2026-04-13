@@ -13,6 +13,11 @@ public abstract class SaveDependentViewModel : ViewModelBase
     {
         Saves.OnSaveChanged += OnSaveChanged;
     }
+    
+    public void Dispose()
+    {
+        Saves.OnSaveChanged -= OnSaveChanged;
+    }
 
     private void OnSaveChanged()
     {
