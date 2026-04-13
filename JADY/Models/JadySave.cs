@@ -8,8 +8,8 @@ public class JadySave
     public Settings Settings { get; set; } = new();
     public Diary[] Diaries {get; set;} = [];
 
-    public JadySave()
+    public void Load()
     {
-        Settings.SaveFilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        Settings.Load();
     }
 }

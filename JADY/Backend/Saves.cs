@@ -36,6 +36,7 @@ public static class Saves
     public static void Load()
     {
         JadySave = DiaryJSON.Deserialize(GetSavePath());
+        JadySave.Load();
         
         OnSaveChanged?.Invoke();
     }

@@ -20,4 +20,15 @@ public class Settings
     
     [JsonIgnore]
     public CultureInfo CultureInfo { get; set; }
+
+    public Settings()
+    {
+        SaveFilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        CultureInfo = CultureInfo.GetCultureInfo(CultureInfoName);
+    }
+
+    public void Load()
+    {
+        CultureInfo = CultureInfo.GetCultureInfo(CultureInfoName);
+    }
 }
