@@ -1,5 +1,4 @@
-using Avalonia.Controls;
-using Avalonia.Input;
+using Avalonia;
 using Avalonia.Interactivity;
 using JADY.Models;
 
@@ -12,7 +11,7 @@ public partial class EditDiaryWindow : DialogWindowBase<Diary>
         InitializeComponent();
     }
     
-    //TODO: Add same name check as in AddDiaryWindow.axaml.cs
+    protected override bool CanSubmit() => SubmitButton.IsEnabled;
 
     protected override Diary GetValue()
     {
@@ -23,4 +22,9 @@ public partial class EditDiaryWindow : DialogWindowBase<Diary>
     }
 
     private void Submit_OnClick(object? sender, RoutedEventArgs e) => TrySubmit();
+    
+    private void NameOnPropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
+    {
+        SubmitButton.IsEnabled = !string.IsNullOrWhiteSpace(Name.Text);
+    }
 }

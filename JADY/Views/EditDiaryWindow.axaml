@@ -11,8 +11,8 @@
         Width="180">
         
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10" Margin="10">
-                <TextBox Name="Name" Text="{Binding Name, Mode=OneTime}"></TextBox>
-                <Button Click="Submit_OnClick" HorizontalAlignment="Center">EDIT</Button>
+                <TextBox Name="Name" PropertyChanged="NameOnPropertyChanged" Text="{Binding Name, Mode=OneTime}"></TextBox>
+                <Button Name="SubmitButton" Click="Submit_OnClick" HorizontalAlignment="Center">EDIT</Button>
         </StackPanel>
         
 </Window>
