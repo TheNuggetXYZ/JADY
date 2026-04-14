@@ -21,9 +21,6 @@ public partial class DiaryViewModel : ViewModelBase
     /// The entries in the diary.
     /// </summary>
     public ObservableCollection<DiaryEntryViewModel> Entries { get; }
-
-    public IEnumerable<DiaryEntryViewModel> SortedEntries =>
-        Entries.OrderBy(x => x.Date ?? x.LogDate).ThenBy(x => x.LogDate); //filter example: .Where(x => x.Category == "Game");
     
     private readonly MainWindowViewModel _mainWindowViewModel;
 
@@ -31,9 +28,7 @@ public partial class DiaryViewModel : ViewModelBase
     {
         _mainWindowViewModel = mainWindowViewModel;
         Name = diary.Name;
-        Entries = InitializeEntries(diary.Entries);
-        
-        Entries.CollectionChanged += (_, _) => OnPropertyChanged(nameof(SortedEntries));
+        Entries = InitializeEntriesSorted(diary.Entries);
     }
 
     /// <returns>
@@ -49,13 +44,15 @@ public partial class DiaryViewModel : ViewModelBase
     }
 
     /// <summary>
-    /// Converts a list of models to a list of their corresponding view models using the view model's constructor.
+    /// Converts a list of models to a sorted list of their corresponding view models using the view model's constructor.
     /// </summary>
-    private ObservableCollection<DiaryEntryViewModel> InitializeEntries(List<DiaryEntry> entryModels)
+    private ObservableCollection<DiaryEntryViewModel> InitializeEntriesSorted(List<DiaryEntry> entryModels)
     {
+        IEnumerable<DiaryEntry> sortedModels = entryModels.OrderBy(x => x.Date ?? x.LogDate);
+        
         ObservableCollection<DiaryEntryViewModel> entryViewModels = new();
 
-        foreach (var entryModel in entryModels)
+        foreach (var entryModel in sortedModels)
         {
             DiaryEntryViewModel newDiaryEntryViewModel = new(entryModel, this);
             entryViewModels.Add(newDiaryEntryViewModel);

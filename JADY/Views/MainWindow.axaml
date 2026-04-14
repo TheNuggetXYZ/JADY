@@ -69,7 +69,7 @@
             <TabControl.ContentTemplate>
                 <DataTemplate DataType="vm:DiaryViewModel">
                     <ScrollViewer>
-                        <ItemsControl ItemsSource="{Binding SortedEntries}">
+                        <ItemsControl ItemsSource="{Binding Entries}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate DataType="vm:DiaryEntryViewModel">
                                     <views:DiaryEntryControl Margin="2"/>
