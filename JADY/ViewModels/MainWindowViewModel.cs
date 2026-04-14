@@ -57,7 +57,7 @@ public partial class MainWindowViewModel : ViewModelBase
             return;
         
         // Construct and add a view model from model
-        Diaries[OpenDiaryIndex].Entries.Add(new DiaryEntryViewModel(model, Diaries[OpenDiaryIndex]));
+        Diaries[OpenDiaryIndex].Add(new DiaryEntryViewModel(model, Diaries[OpenDiaryIndex]));
     }
     
     [RelayCommand]

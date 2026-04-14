@@ -77,6 +77,14 @@ public partial class DiaryViewModel : ViewModelBase
         return entryModels;
     }
 
+    public void Add(DiaryEntryViewModel vm)
+    {
+        var key = vm.Date ?? vm.LogDate;
+        int i = 0;
+        while (i < Entries.Count && (Entries[i].Date ?? Entries[i].LogDate) <= key) i++;
+        Entries.Insert(i, vm);
+    }
+
     [RelayCommand]
     private void ContextMenu_Remove()
     {
