@@ -77,7 +77,7 @@ public partial class DiaryViewModel : ViewModelBase
         return entryModels;
     }
 
-    public void Add(DiaryEntryViewModel vm)
+    public void AddEntry(DiaryEntryViewModel vm)
     {
         var key = vm.Date ?? vm.LogDate;
         int i = 0;
