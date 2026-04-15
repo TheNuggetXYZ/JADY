@@ -26,7 +26,13 @@
                 <TextBlock HorizontalAlignment="Right" Text="{Binding LogDateDisplayName}"/>
             </Panel>
             
-            <Panel Grid.Row="1" IsVisible="{Binding IsExpandedAndIsContentNotEmpty}" Margin="10">
+            <Panel Grid.Row="1" Margin="10">
+                <Panel.IsVisible>
+                    <MultiBinding Converter="{x:Static BoolConverters.And}">
+                        <Binding Path="Content" Converter="{x:Static StringConverters.IsNotNullOrEmpty}"/>
+                        <Binding Path="IsExpanded"/>
+                    </MultiBinding>
+                </Panel.IsVisible>
                 <Border Background="{DynamicResource SystemRegionColor}" CornerRadius="5">
                     <TextBlock Margin="5" TextWrapping="Wrap" Text="{Binding Content}"/>
                 </Border>
