@@ -96,6 +96,12 @@ public partial class DiaryViewModel : ViewModelBase
         Entries.Remove(item);
     }
 
+    public void EditedMyself(DiaryEntryViewModel item)
+    {
+        Entries.Remove(item);
+        AddEntry(item); // readd entry
+    }
+
     [RelayCommand]
     private async Task ContextMenu_Edit()
     {

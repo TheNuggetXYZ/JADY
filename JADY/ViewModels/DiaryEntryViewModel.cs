@@ -223,6 +223,8 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         
         EndDate = diaryEntry.EndDate;
         Status = diaryEntry.Status;
+        
+        _diaryViewModel.EditedMyself(this);
     }
 
     [RelayCommand]
@@ -242,5 +244,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         Title = diaryEntry.Title;
         Content = diaryEntry.Content;
         IsHidden = diaryEntry.IsHidden;
+
+        _diaryViewModel.EditedMyself(this);
     }
 }
