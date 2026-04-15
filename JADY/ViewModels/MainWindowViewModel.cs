@@ -50,6 +50,9 @@ public partial class MainWindowViewModel : ViewModelBase
     [RelayCommand]
     private async Task Menu_OpenAddEntryWindow()
     {
+        if (OpenDiaryIndex < 0 || OpenDiaryIndex >= Diaries.Count)
+            return;
+        
         // Open dialog and wait for result model
         DiaryEntry model = await WindowManager.OpenDialogWindow<AddEntryWindow, DiaryEntry>(WindowManager.GetMainWindow(), this);
 
