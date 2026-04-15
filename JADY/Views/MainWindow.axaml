@@ -69,13 +69,16 @@
             <TabControl.ContentTemplate>
                 <DataTemplate DataType="vm:DiaryViewModel">
                     <ScrollViewer>
-                        <ItemsControl ItemsSource="{Binding Entries}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate DataType="vm:DiaryEntryViewModel">
-                                    <views:DiaryEntryControl Margin="2"/>
+                        <ItemsRepeater ItemsSource="{Binding Entries}">
+                            <ItemsRepeater.Layout>
+                                <StackLayout Spacing="2"/>
+                            </ItemsRepeater.Layout>
+                            <ItemsRepeater.ItemTemplate>
+                                <DataTemplate>
+                                    <views:DiaryEntryControl/>
                                 </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
+                            </ItemsRepeater.ItemTemplate>
+                        </ItemsRepeater>
                     </ScrollViewer>
                 </DataTemplate>
             </TabControl.ContentTemplate>
