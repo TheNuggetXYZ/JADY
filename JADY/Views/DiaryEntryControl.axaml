@@ -26,7 +26,7 @@
                 <TextBlock HorizontalAlignment="Right" Text="{Binding LogDateDisplayName}"/>
             </Panel>
             
-            <Panel Grid.Row="1" IsVisible="{Binding IsExpanded}" Margin="10">
+            <Panel Grid.Row="1" IsVisible="{Binding IsExpandedAndIsContentNotEmpty}" Margin="10">
                 <Border Background="{DynamicResource SystemRegionColor}" CornerRadius="5">
                     <TextBlock Margin="5" TextWrapping="Wrap" Text="{Binding Content}"/>
                 </Border>

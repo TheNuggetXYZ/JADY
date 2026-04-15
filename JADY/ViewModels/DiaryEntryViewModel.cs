@@ -58,6 +58,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     /// <summary>
     /// E.g. I started playing Factorio for the first time on the ... version and its ...
     /// </summary>
+    [NotifyPropertyChangedFor(nameof(IsExpandedAndIsContentNotEmpty))]
     [ObservableProperty] private string? _content;
 
     /// <summary>
@@ -71,6 +72,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     /// </summary>
     public ObservableCollection<DiarySubEntryViewModel> SubEntries { get; set; }// DiaryEntryViewModel
     
+    [NotifyPropertyChangedFor(nameof(IsExpandedAndIsContentNotEmpty))]
     [ObservableProperty] private bool _isExpanded;
 
     public string GetStatusDisplayNameWithSpace
@@ -125,6 +127,11 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     
     [SaveDependent]
     public string? EndDateDisplayName => EndDate?.Date.ToString("d", Saves.JadySave.Settings.CultureInfo);
+
+    public bool IsExpandedAndIsContentNotEmpty => IsExpanded && !string.IsNullOrEmpty(Content);
+    
+    
+    
     
     private readonly DiaryViewModel _diaryViewModel;
 
