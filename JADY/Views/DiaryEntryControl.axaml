@@ -16,7 +16,7 @@
                 <MenuItem Header="Delete" Command="{Binding ContextMenu_RemoveCommand}"/>
             </ContextMenu>
         </Border.ContextMenu>
-        <Grid Margin="5" RowDefinitions="Auto, *, Auto">
+        <Grid Margin="5" RowDefinitions="Auto, *">
             <Panel Grid.Row="0">
                 <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
                     <PathIcon Height="16" Margin="0 0 5 0" Data="{Binding Status, Converter={StaticResource EntryStatusIconConverter}}">
@@ -31,7 +31,11 @@
                     <TextBlock VerticalAlignment="Center" Text="{Binding SubCategoryStringWithPipeSeparator}"/>
                 </StackPanel>
                 <TextBlock HorizontalAlignment="Center" Text="{Binding Title}"/>
-                <TextBlock HorizontalAlignment="Right" Text="{Binding LogDateDisplayName}"/>
+                <TextBlock HorizontalAlignment="Right" Text="{Binding LogDateDisplayName}">
+                    <ToolTip.Tip>
+                        <TextBlock HorizontalAlignment="Left" Text="{Binding FullDateTooltip}"/>
+                    </ToolTip.Tip>
+                </TextBlock>
             </Panel>
             
             <Panel Grid.Row="1" Margin="10">
@@ -44,11 +48,6 @@
                 <Border Background="{DynamicResource SystemRegionColor}" CornerRadius="5">
                     <TextBlock Margin="5" TextWrapping="Wrap" Text="{Binding Content}"/>
                 </Border>
-            </Panel>
-            
-            <Panel Grid.Row="2" IsVisible="{Binding IsExpanded}">
-                <TextBlock HorizontalAlignment="Left" Text="{Binding DateDisplayName}"/>
-                <TextBlock HorizontalAlignment="Right" Text="{Binding EndDateDisplayName}"/>
             </Panel>
         </Grid>
     </Border>

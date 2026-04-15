@@ -24,19 +24,19 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     /// <summary>
     /// The date at the time the entry was added.
     /// </summary>
-    [NotifyPropertyChangedFor(nameof(LogDateDisplayName))]
+    [NotifyPropertyChangedFor(nameof(LogDateDisplayName), nameof(FullDateTooltip))]
     [ObservableProperty] private DateTimeOffset _logDate;
 
     /// <summary>
     /// The start date of an event or a date of a one time entry.
     /// </summary>
-    [NotifyPropertyChangedFor(nameof(DateDisplayName))]
+    [NotifyPropertyChangedFor(nameof(DateDisplayName), nameof(FullDateTooltip))]
     [ObservableProperty] private DateTimeOffset? _date;
 
     /// <summary>
     /// The end date of an event. Is useless for a one time entry.
     /// </summary>
-    [NotifyPropertyChangedFor(nameof(EndDateDisplayName))]
+    [NotifyPropertyChangedFor(nameof(EndDateDisplayName), nameof(FullDateTooltip))]
     [ObservableProperty] private DateTimeOffset? _endDate;
 
     /// <summary>
@@ -125,8 +125,12 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     
     [SaveDependent]
     public string? EndDateDisplayName => EndDate?.Date.ToString("d", Saves.JadySave.Settings.CultureInfo);
-    
-    
+
+    [SaveDependent]
+    public string? FullDateTooltip =>
+        $"Log date: {LogDateDisplayName}\n" +
+        $"Date: {DateDisplayName ?? "none"}\n" +
+        $"End date: {EndDateDisplayName ?? "none"}";
     
     
     private readonly DiaryViewModel _diaryViewModel;
