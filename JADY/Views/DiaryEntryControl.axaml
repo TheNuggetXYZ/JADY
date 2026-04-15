@@ -18,9 +18,10 @@
         </Border.ContextMenu>
         <Grid Margin="5" RowDefinitions="Auto, *, Auto">
             <Panel Grid.Row="0">
-                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-                    <TextBlock Text="{Binding Category}"/>
-                    <TextBlock Text="{Binding SubCategoryStringWithPipeSeparator}"/>
+                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                    <PathIcon Height="16" Margin="0 0 5 0" Data="{Binding Status, Converter={StaticResource EntryStatusIconConverter}}"></PathIcon>
+                    <TextBlock VerticalAlignment="Center" Text="{Binding Category}"/>
+                    <TextBlock VerticalAlignment="Center" Text="{Binding SubCategoryStringWithPipeSeparator}"/>
                 </StackPanel>
                 <TextBlock HorizontalAlignment="Center" Text="{Binding Title}"/>
                 <TextBlock HorizontalAlignment="Right" Text="{Binding LogDateDisplayName}"/>
