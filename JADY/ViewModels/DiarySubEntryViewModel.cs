@@ -24,6 +24,8 @@ public partial class DiarySubEntryViewModel : ViewModelBase
     /// </summary>
     [ObservableProperty] private string? _content;
     
+    private readonly MainWindowViewModel _mainWindowViewModel;
+    
     private readonly DiaryEntryViewModel _diaryEntryViewModel;
 
     public DiarySubEntryViewModel(DiarySubEntry subEntry, DiaryEntryViewModel diaryEntryViewModel)
@@ -50,6 +52,6 @@ public partial class DiarySubEntryViewModel : ViewModelBase
     [RelayCommand]
     private void ContextMenu_Remove()
     {
-        
+        _diaryEntryViewModel.RemoveMyself(this);
     }
 }
