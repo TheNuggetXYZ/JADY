@@ -31,7 +31,7 @@
                     <TextBlock VerticalAlignment="Center" Text="{Binding SubCategoryStringWithPipeSeparator}"/>
                 </StackPanel>
                 <TextBlock HorizontalAlignment="Center" Text="{Binding Title}"/>
-                <TextBlock HorizontalAlignment="Right" Text="{Binding LogDateDisplayName}">
+                <TextBlock HorizontalAlignment="Right" Text="{Binding DisplayDate}">
                     <ToolTip.Tip>
                         <TextBlock HorizontalAlignment="Left" Text="{Binding FullDateTooltip}"/>
                     </ToolTip.Tip>
