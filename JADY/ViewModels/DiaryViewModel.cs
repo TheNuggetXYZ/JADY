@@ -91,17 +91,6 @@ public partial class DiaryViewModel : ViewModelBase
         _mainWindowViewModel.RemoveMyself(this);
     }
 
-    public void RemoveMyself(DiaryEntryViewModel item)
-    {
-        Entries.Remove(item);
-    }
-
-    public void EditedMyself(DiaryEntryViewModel item)
-    {
-        Entries.Remove(item);
-        AddEntry(item); // readd entry
-    }
-
     [RelayCommand]
     private async Task ContextMenu_Edit()
     {
@@ -111,5 +100,16 @@ public partial class DiaryViewModel : ViewModelBase
             return;
         
         Name = model.Name;
+    }
+
+    public void RemoveEntry(DiaryEntryViewModel item)
+    {
+        Entries.Remove(item);
+    }
+
+    public void ResortEntry(DiaryEntryViewModel item)
+    {
+        Entries.Remove(item);
+        AddEntry(item); // readd entry
     }
 }

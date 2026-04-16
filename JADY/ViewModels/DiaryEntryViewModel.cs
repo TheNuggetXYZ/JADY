@@ -209,12 +209,28 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     [RelayCommand]
     private void ContextMenu_Remove()
     {
-        _diaryViewModel.RemoveMyself(this);
+        _diaryViewModel.RemoveEntry(this);
     }
     
-    public void RemoveMyself(DiarySubEntryViewModel item)
+    [RelayCommand]
+    private async Task ContextMenu_Edit()
     {
-        SubEntries.Remove(item);
+        DiaryEntry diaryEntry = await WindowManager.OpenDialogWindow<EditEntryWindow, DiaryEntry>(WindowManager.GetMainWindow(), this);
+
+        if (diaryEntry == null)
+            return;
+        
+        Type = diaryEntry.Type;
+        Status = diaryEntry.Status;
+        Date = diaryEntry.Date;
+        EndDate = diaryEntry.EndDate;
+        Category = diaryEntry.Category;
+        SubCategory = diaryEntry.SubCategory;
+        Title = diaryEntry.Title;
+        Content = diaryEntry.Content;
+        IsHidden = diaryEntry.IsHidden;
+
+        _diaryViewModel.ResortEntry(this);
     }
 
     [RelayCommand]
@@ -234,27 +250,11 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         EndDate = diaryEntry.EndDate;
         Status = diaryEntry.Status;
         
-        _diaryViewModel.EditedMyself(this);
+        _diaryViewModel.ResortEntry(this);
     }
-
-    [RelayCommand]
-    private async Task ContextMenu_Edit()
+    
+    public void RemoveSubentry(DiarySubEntryViewModel item)
     {
-        DiaryEntry diaryEntry = await WindowManager.OpenDialogWindow<EditEntryWindow, DiaryEntry>(WindowManager.GetMainWindow(), this);
-
-        if (diaryEntry == null)
-            return;
-        
-        Type = diaryEntry.Type;
-        Status = diaryEntry.Status;
-        Date = diaryEntry.Date;
-        EndDate = diaryEntry.EndDate;
-        Category = diaryEntry.Category;
-        SubCategory = diaryEntry.SubCategory;
-        Title = diaryEntry.Title;
-        Content = diaryEntry.Content;
-        IsHidden = diaryEntry.IsHidden;
-
-        _diaryViewModel.EditedMyself(this);
+        SubEntries.Remove(item);
     }
 }
