@@ -10,6 +10,8 @@
     <StackPanel Orientation="Vertical" Margin="10" Spacing="10">
         <CheckBox Name="ShowHidden">Show hidden entries</CheckBox>
         
+        <CheckBox Name="AutoSave">Auto save</CheckBox>
+        
         <TextBox Name="SavePath">
             <TextBox.InnerRightContent>
                 <Button Click="ChangeSavePath_OnClick">+</Button>

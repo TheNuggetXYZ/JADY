@@ -25,6 +25,7 @@ public partial class SettingsWindow : DialogWindowBase<Settings>
         InitializeComponent();
 
         ShowHidden.IsChecked = Saves.JadySave.Settings.ShowHiddenEntries;
+        AutoSave.IsChecked = Saves.JadySave.Settings.AutoSave;
         SavePath.Text = Saves.JadySave.Settings.SaveFilePath;
         Cultures.ItemsSource = AvailableCultures;
         Cultures.SelectedItem = new CultureInfo(Saves.JadySave.Settings.CultureInfoName);
@@ -55,6 +56,7 @@ public partial class SettingsWindow : DialogWindowBase<Settings>
         return new Settings()
         {
             ShowHiddenEntries = ShowHidden.IsChecked ?? false,
+            AutoSave = AutoSave.IsChecked ?? false,
             SaveFilePath = SavePath.Text,
             CultureInfoName = AvailableCultures[Cultures.SelectedIndex].Name,
         };
