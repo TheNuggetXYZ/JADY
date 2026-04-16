@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using JADY.Backend;
 using JADY.Models;
 using JADY.Views;
@@ -209,12 +210,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     [RelayCommand]
     private void ContextMenu_Remove()
     {
-        _diaryViewModel.RemoveMyself(this);
-    }
-    
-    public void RemoveMyself(DiarySubEntryViewModel item)
-    {
-        SubEntries.Remove(item);
+        WeakReferenceMessenger.Default.Send(new Messages.RemoveDiaryEntryMessage(this, _diaryViewModel));
     }
 
     [RelayCommand]
@@ -234,7 +230,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         EndDate = diaryEntry.EndDate;
         Status = diaryEntry.Status;
         
-        _diaryViewModel.EditedMyself(this);
+        WeakReferenceMessenger.Default.Send(new Messages.EditDiaryEntryMessage(this, _diaryViewModel));
     }
 
     [RelayCommand]
@@ -255,6 +251,6 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         Content = diaryEntry.Content;
         IsHidden = diaryEntry.IsHidden;
 
-        _diaryViewModel.EditedMyself(this);
+        WeakReferenceMessenger.Default.Send(new Messages.EditDiaryEntryMessage(this, _diaryViewModel));
     }
 }
