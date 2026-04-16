@@ -79,7 +79,7 @@ public partial class DiaryViewModel : ViewModelBase
 
     public void AddEntry(DiaryEntryViewModel vm)
     {
-        var key = vm.Date ?? vm.LogDate;
+        var key = vm.Date ?? vm.EndDate ?? vm.LogDate;
         int i = 0;
         while (i < Entries.Count && (Entries[i].Date ?? Entries[i].EndDate ?? Entries[i].LogDate) <= key) i++;
         Entries.Insert(i, vm);
