@@ -28,7 +28,7 @@ public partial class DiaryViewModel : ViewModelBase
     {
         _mainWindowViewModel = mainWindowViewModel;
         Name = diary.Name;
-        Entries = InitializeEntriesSorted(diary.Entries);
+        Entries = MVMConverter.ConvertModels(diary.Entries.OrderBy(Utils.GetMostRelevantDate), this);
     }
 
     /// <returns>
@@ -39,42 +39,8 @@ public partial class DiaryViewModel : ViewModelBase
         return new()
         {
             Name = Name,
-            Entries = DeinitializeEntries(Entries)
+            Entries = MVMConverter.ConvertViewModels(Entries)
         };
-    }
-
-    /// <summary>
-    /// Converts a list of models to a sorted list of their corresponding view models using the view model's constructor.
-    /// </summary>
-    private ObservableCollection<DiaryEntryViewModel> InitializeEntriesSorted(List<DiaryEntry> entryModels)
-    {
-        IEnumerable<DiaryEntry> sortedModels = entryModels.OrderBy(Utils.GetMostRelevantDate);
-        
-        ObservableCollection<DiaryEntryViewModel> entryViewModels = new();
-
-        foreach (var entryModel in sortedModels)
-        {
-            DiaryEntryViewModel newDiaryEntryViewModel = new(entryModel, this);
-            entryViewModels.Add(newDiaryEntryViewModel);
-        }
-        
-        return entryViewModels;
-    }
-    
-    /// <summary>
-    /// Converts a list of view models to a list of their corresponding models using the view model's GetModel method.
-    /// </summary>
-    private List<DiaryEntry> DeinitializeEntries(ObservableCollection<DiaryEntryViewModel> entryViewModels)
-    {
-        List<DiaryEntry> entryModels = new();
-
-        foreach (var entryViewModel in entryViewModels)
-        {
-            entryModels.Add(entryViewModel.GetModel());
-            entryViewModel.Dispose();
-        }
-        
-        return entryModels;
     }
 
     public void AddEntry(DiaryEntryViewModel vm)
