@@ -48,7 +48,7 @@ public partial class DiaryViewModel : ViewModelBase
     /// </summary>
     private ObservableCollection<DiaryEntryViewModel> InitializeEntriesSorted(List<DiaryEntry> entryModels)
     {
-        IEnumerable<DiaryEntry> sortedModels = entryModels.OrderBy(x => x.Date ?? x.EndDate ?? x.LogDate);
+        IEnumerable<DiaryEntry> sortedModels = entryModels.OrderBy(Utils.GetMostRelevantDate);
         
         ObservableCollection<DiaryEntryViewModel> entryViewModels = new();
 
@@ -79,9 +79,9 @@ public partial class DiaryViewModel : ViewModelBase
 
     public void AddEntry(DiaryEntryViewModel vm)
     {
-        var key = vm.Date ?? vm.EndDate ?? vm.LogDate;
+        var key = Utils.GetMostRelevantDate(vm);
         int i = 0;
-        while (i < Entries.Count && (Entries[i].Date ?? Entries[i].EndDate ?? Entries[i].LogDate) <= key) i++;
+        while (i < Entries.Count && Utils.GetMostRelevantDate(Entries[i]) <= key) i++;
         Entries.Insert(i, vm);
     }
 

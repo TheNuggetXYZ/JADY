@@ -1,4 +1,6 @@
 using System;
+using JADY.Models;
+using JADY.ViewModels;
 
 namespace JADY.Backend;
 
@@ -29,6 +31,9 @@ public static class Utils
                 throw new ArgumentOutOfRangeException(nameof(newDiaryEntryParameter), newDiaryEntryParameter, null);
         }
     }
+
+    public static DateTimeOffset GetMostRelevantDate(DiaryEntryViewModel vm) => vm.Date ?? vm.EndDate ?? vm.LogDate;
+    public static DateTimeOffset GetMostRelevantDate(DiaryEntry m) => m.Date ?? m.EndDate ?? m.LogDate;
     
     public enum DiaryEntryType
     {
