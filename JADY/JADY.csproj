@@ -28,6 +28,5 @@
 
     <ItemGroup>
       <Folder Include="Assets\Fonts\" />
-      <Folder Include="Assets\Icons\" />
     </ItemGroup>
 </Project>
