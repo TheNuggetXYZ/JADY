@@ -215,7 +215,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     [RelayCommand]
     private async Task ContextMenu_Edit()
     {
-        DiaryEntry diaryEntry = await WindowManager.OpenDialogWindow<EditEntryWindow, DiaryEntry>(WindowManager.GetMainWindow(), this);
+        DiaryEntry? diaryEntry = await WindowManager.OpenDialogWindow<EditEntryWindow, DiaryEntry?>(WindowManager.GetMainWindow(), this);
 
         if (diaryEntry == null)
             return;
@@ -239,7 +239,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         if (!ShowEndEventInContextMenu)
             return;
         
-        DiaryEntry diaryEntry = await WindowManager.OpenDialogWindow<EndEntryWindow, DiaryEntry>(WindowManager.GetMainWindow(), this);
+        DiaryEntry? diaryEntry = await WindowManager.OpenDialogWindow<EndEntryWindow, DiaryEntry?>(WindowManager.GetMainWindow(), this);
         
         if (diaryEntry == null)
             return;

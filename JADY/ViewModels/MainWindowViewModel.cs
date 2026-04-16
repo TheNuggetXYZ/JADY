@@ -38,7 +38,7 @@ public partial class MainWindowViewModel : ViewModelBase
     private async Task Menu_OpenAddDiaryWindow()
     {
         // Open dialog and wait for result model
-        Diary model = await WindowManager.OpenDialogWindow<AddDiaryWindow, Diary>(WindowManager.GetMainWindow(), this);
+        Diary? model = await WindowManager.OpenDialogWindow<AddDiaryWindow, Diary?>(WindowManager.GetMainWindow(), this);
 
         if (model == null)
             return;
@@ -54,7 +54,7 @@ public partial class MainWindowViewModel : ViewModelBase
             return;
         
         // Open dialog and wait for result model
-        DiaryEntry model = await WindowManager.OpenDialogWindow<AddEntryWindow, DiaryEntry>(WindowManager.GetMainWindow(), this);
+        DiaryEntry? model = await WindowManager.OpenDialogWindow<AddEntryWindow, DiaryEntry?>(WindowManager.GetMainWindow(), this);
 
         if (model == null)
             return;

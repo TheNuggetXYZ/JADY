@@ -94,7 +94,7 @@ public partial class DiaryViewModel : ViewModelBase
     [RelayCommand]
     private async Task ContextMenu_Edit()
     {
-        Diary model = await WindowManager.OpenDialogWindow<EditDiaryWindow, Diary>(WindowManager.GetMainWindow(), this);
+        Diary? model = await WindowManager.OpenDialogWindow<EditDiaryWindow, Diary?>(WindowManager.GetMainWindow(), this);
 
         if (model == null)
             return;

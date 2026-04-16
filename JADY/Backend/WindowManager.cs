@@ -22,7 +22,7 @@ public static class WindowManager
         return null;
     }
     
-    public static async Task<TResult> OpenDialogWindow<T, TResult>(Window? owner, object? dataContext) where T : Window, new()
+    public static async Task<TResult?> OpenDialogWindow<T, TResult>(Window? owner, object? dataContext) where T : Window, new()
     {
         if (owner == null || OpenWindows.TryGetValue(typeof(T), out var window))
             return default;
