@@ -151,7 +151,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         Title =  diaryEntry.Title;
         Content = diaryEntry.Content;
         IsHidden = diaryEntry.IsHidden;
-        SubEntries = InitializeSubEntries(diaryEntry.SubEntries);
+        SubEntries = MVMConverter.ConvertModels(diaryEntry.SubEntries, this);
     }
     
     /// <returns>
@@ -171,39 +171,8 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
             Title = Title,
             Content = Content,
             IsHidden = IsHidden,
-            SubEntries = DeinitializeSubEntries(SubEntries)
+            SubEntries = MVMConverter.ConvertViewModels(SubEntries)
         };
-    }
-    
-    /// <summary>
-    /// Converts a list of models to a list of their corresponding view models using the view model's constructor.
-    /// </summary>
-    private ObservableCollection<DiarySubEntryViewModel> InitializeSubEntries(List<DiarySubEntry> subEntryModels)
-    {
-        ObservableCollection<DiarySubEntryViewModel> subEntryViewModels = new();
-
-        foreach (var subEntryModel in subEntryModels)
-        {
-            DiarySubEntryViewModel newDiarySubEntryViewModel = new(subEntryModel, this);
-            subEntryViewModels.Add(newDiarySubEntryViewModel);
-        }
-        
-        return subEntryViewModels;
-    }
-    
-    /// <summary>
-    /// Converts a list of view models to a list of their corresponding models using the view model's GetModel method.
-    /// </summary>
-    private List<DiarySubEntry> DeinitializeSubEntries(ObservableCollection<DiarySubEntryViewModel> subEntryViewModels)
-    {
-        List<DiarySubEntry> subEntryModels = new();
-
-        foreach (var subEntryViewModel in subEntryViewModels)
-        {
-            subEntryModels.Add(subEntryViewModel.GetModel());
-        }
-        
-        return subEntryModels;
     }
     
     [RelayCommand]
