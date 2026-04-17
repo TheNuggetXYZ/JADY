@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using System.IO;
+using CommunityToolkit.Mvvm.Messaging;
 using JADY.Models;
 
 namespace JADY.Backend;
@@ -8,8 +9,6 @@ namespace JADY.Backend;
 public static class Saves
 {
     public static JadySave JadySave { get; private set; } = new();
-    
-    public static event Action OnSaveChanged = delegate {};
     
     public static void Save(Settings settings)
     {
@@ -30,7 +29,7 @@ public static class Saves
     {
         DiaryJSON.Serialize(GetSavePath(), JadySave);
         
-        OnSaveChanged();
+        WeakReferenceMessenger.Default.Send(new Messages.SaveChangeMessage());
     }
 
     public static void Load()
@@ -38,7 +37,7 @@ public static class Saves
         JadySave = DiaryJSON.Deserialize(GetSavePath());
         JadySave.Load();
 
-        OnSaveChanged();
+        WeakReferenceMessenger.Default.Send(new Messages.SaveChangeMessage());
     }
     
     private static string GetSavePath()

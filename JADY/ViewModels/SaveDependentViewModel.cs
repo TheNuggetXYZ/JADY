@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CommunityToolkit.Mvvm.Messaging;
 using JADY.Backend;
 
 namespace JADY.ViewModels;
@@ -11,12 +12,7 @@ public abstract class SaveDependentViewModel : ViewModelBase
 
     protected SaveDependentViewModel()
     {
-        Saves.OnSaveChanged += OnSaveChanged;
-    }
-    
-    public void Dispose()
-    {
-        Saves.OnSaveChanged -= OnSaveChanged;
+        WeakReferenceMessenger.Default.Register<Messages.SaveChangeMessage>(this, (r, m) => OnSaveChanged());
     }
 
     private void OnSaveChanged()

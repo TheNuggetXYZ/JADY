@@ -16,7 +16,7 @@ public static class MVMConverter
         new(models.Select(x => new DiaryEntryViewModel(x, owner)));
     
     public static List<DiaryEntry> ConvertViewModels(ObservableCollection<DiaryEntryViewModel> viewModels) => 
-        new(viewModels.Select(x => { x.Dispose(); return x.GetModel(); }));
+        new(viewModels.Select(x => x.GetModel()));
     
     // ENTRY
     public static ObservableCollection<DiarySubEntryViewModel> ConvertModels(IEnumerable<DiarySubEntry> models, DiaryEntryViewModel owner) => 
