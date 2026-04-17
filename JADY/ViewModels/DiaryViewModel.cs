@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using JADY.Backend;
 using JADY.Models;
 using JADY.Views;
@@ -49,6 +50,8 @@ public partial class DiaryViewModel : ViewModelBase
         int i = 0;
         while (i < Entries.Count && Utils.GetMostRelevantDate(Entries[i]) <= key) i++;
         Entries.Insert(i, vm);
+
+        WeakReferenceMessenger.Default.Send(new Messages.PerformAutoSaveMessage());
     }
 
     [RelayCommand]
@@ -66,11 +69,14 @@ public partial class DiaryViewModel : ViewModelBase
             return;
         
         Name = model.Name;
+        
+        WeakReferenceMessenger.Default.Send(new Messages.PerformAutoSaveMessage());
     }
 
     public void RemoveEntry(DiaryEntryViewModel item)
     {
         Entries.Remove(item);
+        WeakReferenceMessenger.Default.Send(new Messages.PerformAutoSaveMessage());
     }
 
     public void ResortEntry(DiaryEntryViewModel item)

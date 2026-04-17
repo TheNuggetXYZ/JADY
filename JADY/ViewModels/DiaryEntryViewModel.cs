@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using JADY.Backend;
 using JADY.Models;
 using JADY.Views;
@@ -225,5 +226,6 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     public void RemoveSubentry(DiarySubEntryViewModel item)
     {
         SubEntries.Remove(item);
+        WeakReferenceMessenger.Default.Send(new Messages.PerformAutoSaveMessage());
     }
 }

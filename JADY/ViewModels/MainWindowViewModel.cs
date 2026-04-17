@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using JADY.Backend;
 using JADY.Models;
 using JADY.Views;
@@ -32,6 +33,12 @@ public partial class MainWindowViewModel : ViewModelBase
     public MainWindowViewModel()
     {
         Load();
+        
+        WeakReferenceMessenger.Default.Register<Messages.PerformAutoSaveMessage>(this, (r, m) =>
+        {
+            if (Saves.JadySave.Settings.AutoSave)
+                Save();
+        });
     }
     
     [RelayCommand]
@@ -45,6 +52,8 @@ public partial class MainWindowViewModel : ViewModelBase
         
         // Construct and add a view model from model
         Diaries.Add(new DiaryViewModel(model, this));
+        
+        WeakReferenceMessenger.Default.Send(new Messages.PerformAutoSaveMessage());
     }
 
     [RelayCommand]
@@ -91,5 +100,6 @@ public partial class MainWindowViewModel : ViewModelBase
     public void RemoveDiary(DiaryViewModel item)
     {
         Diaries.Remove(item);
+        WeakReferenceMessenger.Default.Send(new Messages.PerformAutoSaveMessage());
     }
 }
