@@ -88,7 +88,7 @@ public partial class MainWindowViewModel : ViewModelBase
             Saves.JadySave.Diaries.Select(d => new DiaryViewModel(d, this)));
     }
 
-    public void RemoveMyself(DiaryViewModel item)
+    public void RemoveDiary(DiaryViewModel item)
     {
         Diaries.Remove(item);
     }
