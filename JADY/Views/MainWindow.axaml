@@ -36,8 +36,8 @@
                         <MenuItem Header="Settings" InputGesture="Ctrl+Alt+S" Command="{Binding Menu_OpenSettingsWindowCommand}"></MenuItem>
                     </MenuItem>
                     <MenuItem Header="_Edit">
-                        <MenuItem Header="Add Diary" InputGesture="Ctrl+D" Command="{Binding Menu_OpenAddDiaryWindowCommand}"></MenuItem>
-                        <MenuItem Header="Add Entry" InputGesture="Ctrl+E" Command="{Binding Menu_OpenAddEntryWindowCommand}"></MenuItem>
+                        <MenuItem Header="Add _Diary" InputGesture="Ctrl+D" Command="{Binding Menu_OpenAddDiaryWindowCommand}"></MenuItem>
+                        <MenuItem Header="Add _Entry" InputGesture="Ctrl+E" Command="{Binding Menu_OpenAddEntryWindowCommand}"></MenuItem>
                     </MenuItem>
                 </Menu>
                 <PathIcon Name="SaveIcon" Opacity="{Binding SaveIconOpacity}" Margin="15 0 15 0" Height="16" HorizontalAlignment="Right" VerticalAlignment="Center" Data="{StaticResource SaveIcon}" Background="Transparent">
