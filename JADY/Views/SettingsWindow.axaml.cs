@@ -31,19 +31,26 @@ public partial class SettingsWindow : DialogWindowBase<Settings>
         Cultures.SelectedItem = new CultureInfo(Saves.JadySave.Settings.CultureInfoName);
     }
     
-    private async Task TrySaveClose()
+    protected override async Task TrySubmitAsync()
     {
-        if (await SavePathExists())
-        {
-            Saves.Save(GetValue());
-            Close();
-        }
+        if (await CanSubmitAsync())
+            await SubmitAsync();
         else
-        {
-            FixSavePath();
-        }
+            await FixSavePath();
     }
-    
+
+    protected override Task SubmitAsync()
+    {
+        Saves.Save(GetValue());
+        Close();
+        return Task.CompletedTask;
+    }
+
+    protected override async Task<bool> CanSubmitAsync()
+    {
+        return await SavePathExists();
+    }
+
     private async Task<bool> SavePathExists()
     {
         var saveFolder = await StorageProvider.TryGetFolderFromPathAsync(SavePath.Text);
@@ -62,12 +69,12 @@ public partial class SettingsWindow : DialogWindowBase<Settings>
         };
     }
 
-    private void FixSavePath()
+    private async Task FixSavePath()
     {
-        WindowManager.OpenMessageBox(WindowManager.GetMainWindow(), "Warning",
-            "The entered save file directory doesn't exist - resetting to last directory");
-        
         SavePath.Text = Saves.JadySave.Settings.SaveFilePath;
+        
+        await WindowManager.OpenMessageBox(WindowManager.GetMainWindow(), "Warning",
+            "The entered save file directory doesn't exist - resetting to last directory");
     }
 
     private async Task OpenChangeSavePath()
@@ -88,8 +95,8 @@ public partial class SettingsWindow : DialogWindowBase<Settings>
         }
     }
     
-    private void ChangeSavePath_OnClick(object? sender, RoutedEventArgs e) => OpenChangeSavePath();
+    private async void ChangeSavePath_OnClick(object? sender, RoutedEventArgs e) => await OpenChangeSavePath();
 
     private void Close_OnClick(object? sender, RoutedEventArgs e) => Close();
-    private void SaveClose_OnClick(object? sender, RoutedEventArgs e) => TrySaveClose();
+    private async void SaveClose_OnClick(object? sender, RoutedEventArgs e) => await TrySubmitAsync();
 }

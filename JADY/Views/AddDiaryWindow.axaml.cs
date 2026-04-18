@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Interactivity;
 using JADY.Models;
@@ -11,7 +12,7 @@ public partial class AddDiaryWindow : DialogWindowBase<Diary>
         InitializeComponent();
     }
     
-    protected override bool CanSubmit() => SubmitButton.IsEnabled;
+    protected override Task<bool> CanSubmitAsync() => Task.FromResult(SubmitButton.IsEnabled);
 
     protected override Diary GetValue()
     {
@@ -21,7 +22,7 @@ public partial class AddDiaryWindow : DialogWindowBase<Diary>
         };
     }
 
-    private void Submit_OnClick(object? sender, RoutedEventArgs e) => TrySubmit();
+    private async void Submit_OnClick(object? sender, RoutedEventArgs e) => await TrySubmitAsync();
 
     private void NameOnPropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
     {

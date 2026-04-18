@@ -28,5 +28,5 @@ public partial class EndEntryWindow : DialogWindowBase<DiaryEntry>
         };
     }
 
-    private void Submit_OnClick(object? sender, RoutedEventArgs e) => TrySubmit();
+    private async void Submit_OnClick(object? sender, RoutedEventArgs e) => await TrySubmitAsync();
 }

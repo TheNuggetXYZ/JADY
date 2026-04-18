@@ -32,7 +32,7 @@ public partial class EditEntryWindow : DialogWindowBase<DiaryEntry>
         };
     }
 
-    private void Submit_OnClick(object? sender, RoutedEventArgs e) => TrySubmit();
+    private async void Submit_OnClick(object? sender, RoutedEventArgs e) => await TrySubmitAsync();
 
     private void EntryType_OnPropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
     {

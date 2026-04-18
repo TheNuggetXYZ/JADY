@@ -1,3 +1,5 @@
+using System;
+using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Input;
 
@@ -5,31 +7,32 @@ namespace JADY.Views;
 
 public abstract class DialogWindowBase<T> : Window
 {
-    protected virtual void TrySubmit()
+    protected virtual async Task TrySubmitAsync()
     {
-        if (CanSubmit())
-            Submit();
+        if (await CanSubmitAsync())
+            await SubmitAsync();
     }
 
-    protected virtual bool CanSubmit() => true;
+    protected virtual Task<bool> CanSubmitAsync() => Task.FromResult(true);
 
     /// <summary>
     /// Make sure to call TrySubmit for CanSubmit check to apply.
     /// </summary>
-    protected virtual void Submit()
+    protected virtual Task SubmitAsync()
     {
         Close(GetValue());
+        return Task.CompletedTask;
     }
 
     protected abstract T GetValue();
     
-    protected override void OnKeyDown(KeyEventArgs e)
+    protected override async void OnKeyDown(KeyEventArgs e)
     {
         base.OnKeyDown(e);
         
         if (e.Key == Key.Escape)
             Close();
         else if (e is { Key: Key.Enter, KeyModifiers: KeyModifiers.Control })
-            TrySubmit();
+            await TrySubmitAsync();
     }
 }
