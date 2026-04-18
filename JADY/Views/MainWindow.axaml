@@ -40,7 +40,17 @@
                         <MenuItem Header="Add Entry" InputGesture="Ctrl+E" Command="{Binding Menu_OpenAddEntryWindowCommand}"></MenuItem>
                     </MenuItem>
                 </Menu>
-                <PathIcon Margin="15 0 15 0" Height="16" HorizontalAlignment="Right" VerticalAlignment="Center" Data="{StaticResource SaveIcon}"></PathIcon>
+                <PathIcon Name="SaveIcon" Opacity="{Binding SaveIconOpacity}" Margin="15 0 15 0" Height="16" HorizontalAlignment="Right" VerticalAlignment="Center" Data="{StaticResource SaveIcon}" Background="Transparent">
+                    <PathIcon.Styles>
+                        <Style Selector="PathIcon">
+                            <Setter Property="Transitions">
+                                <Transitions>
+                                    <DoubleTransition Property="Opacity" Duration="0:0:0.5"></DoubleTransition>
+                                </Transitions>
+                            </Setter>
+                        </Style>
+                    </PathIcon.Styles>
+                </PathIcon>
             </Panel>
             <TextBlock/>
         </DockPanel>

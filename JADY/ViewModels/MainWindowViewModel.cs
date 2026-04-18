@@ -30,6 +30,9 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty] 
     private int _openDiaryIndex;
 
+    [ObservableProperty]
+    private float _saveIconOpacity = 0f;
+
     public MainWindowViewModel()
     {
         Load();
@@ -84,9 +87,13 @@ public partial class MainWindowViewModel : ViewModelBase
     [RelayCommand]
     private void Menu_Load() => Load();
 
-    private void Save()
+    private async Task Save()
     {
         Saves.Save(Diaries.Select(d => d.GetModel()).ToArray());
+        
+        SaveIconOpacity = 1f;
+        await Task.Delay(500);
+        SaveIconOpacity = 0f;
     }
 
     private void Load()
