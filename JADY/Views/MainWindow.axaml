@@ -27,18 +27,21 @@
     
     <Grid RowDefinitions="Auto, *">
         <DockPanel Grid.Row="0">
-            <Menu DockPanel.Dock="Top">
-                <MenuItem Header="_File">
-                    <MenuItem Header="_Save" InputGesture="Ctrl+S" Command="{Binding Menu_SaveCommand}"></MenuItem>
-                    <MenuItem Header="_Load" InputGesture="Ctrl+L" Command="{Binding Menu_LoadCommand}"></MenuItem>
-                    <Separator/>
-                    <MenuItem Header="Settings" InputGesture="Ctrl+Alt+S" Command="{Binding Menu_OpenSettingsWindowCommand}"></MenuItem>
-                </MenuItem>
-                <MenuItem Header="_Edit">
-                    <MenuItem Header="Add Diary" InputGesture="Ctrl+D" Command="{Binding Menu_OpenAddDiaryWindowCommand}"></MenuItem>
-                    <MenuItem Header="Add Entry" InputGesture="Ctrl+E" Command="{Binding Menu_OpenAddEntryWindowCommand}"></MenuItem>
-                </MenuItem>
-            </Menu>
+            <Panel DockPanel.Dock="Top">
+                <Menu>
+                    <MenuItem Header="_File">
+                        <MenuItem Header="_Save" InputGesture="Ctrl+S" Command="{Binding Menu_SaveCommand}"></MenuItem>
+                        <MenuItem Header="_Load" InputGesture="Ctrl+L" Command="{Binding Menu_LoadCommand}"></MenuItem>
+                        <Separator/>
+                        <MenuItem Header="Settings" InputGesture="Ctrl+Alt+S" Command="{Binding Menu_OpenSettingsWindowCommand}"></MenuItem>
+                    </MenuItem>
+                    <MenuItem Header="_Edit">
+                        <MenuItem Header="Add Diary" InputGesture="Ctrl+D" Command="{Binding Menu_OpenAddDiaryWindowCommand}"></MenuItem>
+                        <MenuItem Header="Add Entry" InputGesture="Ctrl+E" Command="{Binding Menu_OpenAddEntryWindowCommand}"></MenuItem>
+                    </MenuItem>
+                </Menu>
+                <PathIcon Margin="15 0 15 0" Height="16" HorizontalAlignment="Right" VerticalAlignment="Center" Data="{StaticResource SaveIcon}"></PathIcon>
+            </Panel>
             <TextBlock/>
         </DockPanel>
         
