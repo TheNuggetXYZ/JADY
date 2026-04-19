@@ -15,11 +15,10 @@ namespace JADY.ViewModels;
 public partial class DiaryEntryViewModel : SaveDependentViewModel
 {
     [NotifyPropertyChangedFor(nameof(ShowEndEventInContextMenu))]
-    [NotifyPropertyChangedFor(nameof(GetTypeDisplayName))]
     [ObservableProperty] private Utils.DiaryEntryType _type;
 
     [NotifyPropertyChangedFor(nameof(ShowEndEventInContextMenu))]
-    [NotifyPropertyChangedFor(nameof(GetStatusDisplayNameWithSpace))]
+    [NotifyPropertyChangedFor(nameof(GetStatusDisplayName))]
     [ObservableProperty] private Utils.DiaryEntryStatus _status;
 
     /// <summary>
@@ -73,30 +72,17 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     
     [ObservableProperty] private bool _isExpanded;
 
-    public string GetStatusDisplayNameWithSpace
+    public string GetStatusDisplayName
     {
         get
         {
             return Status switch
             {
-                Utils.DiaryEntryStatus.None => "",
-                Utils.DiaryEntryStatus.InProgress => "In progress ",
-                Utils.DiaryEntryStatus.Completed => "Completed ",
-                Utils.DiaryEntryStatus.Dropped => "Dropped ",
+                Utils.DiaryEntryStatus.None => "One time event",
+                Utils.DiaryEntryStatus.InProgress => "In progress event",
+                Utils.DiaryEntryStatus.Completed => "Completed event",
+                Utils.DiaryEntryStatus.Dropped => "Dropped event",
                 _ => throw new ArgumentOutOfRangeException(nameof(Status), Status, null)
-            };
-        }
-    }
-
-    public string GetTypeDisplayName
-    {
-        get
-        {
-            return Type switch
-            {
-                Utils.DiaryEntryType.OneTime => "One time",
-                Utils.DiaryEntryType.ProlongedEvent => "event",
-                _ => throw new ArgumentOutOfRangeException(nameof(Type), Type, null)
             };
         }
     }
