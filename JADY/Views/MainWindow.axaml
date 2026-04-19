@@ -83,12 +83,9 @@
                 <DataTemplate DataType="vm:DiaryViewModel">
                     <ScrollViewer>
                         <ItemsRepeater ItemsSource="{Binding Entries}">
-                            <ItemsRepeater.Layout>
-                                <StackLayout Spacing="2"/>
-                            </ItemsRepeater.Layout>
                             <ItemsRepeater.ItemTemplate>
                                 <DataTemplate>
-                                    <views:DiaryEntryControl/> <!-- TODO: There's still spacing even if entry is invisible -->
+                                    <views:DiaryEntryControl IsVisible="{Binding IsCurrentlyVisible}" Margin="0 1"/>
                                 </DataTemplate>
                             </ItemsRepeater.ItemTemplate>
                         </ItemsRepeater>
