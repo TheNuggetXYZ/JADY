@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -41,6 +42,19 @@ public partial class MainWindowViewModel : ViewModelBase
         {
             if (Saves.JadySave.Settings.AutoSave)
                 Save();
+        });
+        
+        WeakReferenceMessenger.Default.Register<Messages.AnySaveMessage>(this, async (r, m) =>
+        {
+            try
+            {
+                await SaveIconAnimation();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         });
     }
     
@@ -87,13 +101,9 @@ public partial class MainWindowViewModel : ViewModelBase
     [RelayCommand]
     private void Menu_Load() => Load();
 
-    private async Task Save()
+    private void Save()
     {
         Saves.Save(Diaries.Select(d => d.GetModel()).ToArray());
-        
-        SaveIconOpacity = 1f;
-        await Task.Delay(500);
-        SaveIconOpacity = 0f;
     }
 
     private void Load()
@@ -102,6 +112,13 @@ public partial class MainWindowViewModel : ViewModelBase
 
         Diaries = new ObservableCollection<DiaryViewModel>(
             Saves.JadySave.Diaries.Select(d => new DiaryViewModel(d, this)));
+    }
+
+    private async Task SaveIconAnimation()
+    {
+        SaveIconOpacity = 1f;
+        await Task.Delay(500);
+        SaveIconOpacity = 0f;
     }
 
     public void RemoveDiary(DiaryViewModel item)

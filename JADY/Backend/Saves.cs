@@ -29,6 +29,7 @@ public static class Saves
     {
         DiaryJSON.Serialize(GetSavePath(), JadySave);
         
+        WeakReferenceMessenger.Default.Send(new Messages.AnySaveMessage());
         WeakReferenceMessenger.Default.Send(new Messages.SaveChangeMessage());
     }
 
