@@ -1,5 +1,3 @@
-using System;
-using Avalonia;
 using Avalonia.Interactivity;
 using JADY.Backend;
 using JADY.Models;
