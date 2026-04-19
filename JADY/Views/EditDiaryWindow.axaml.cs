@@ -22,7 +22,7 @@ public partial class EditDiaryWindow : DialogWindowBase<Diary>
         };
     }
 
-    private void Submit_OnClick(object? sender, RoutedEventArgs e) => TrySubmitAsync();
+    private async void Submit_OnClick(object? sender, RoutedEventArgs e) => await TrySubmitAsync();
     
     private void NameOnPropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
     {

@@ -6,20 +6,14 @@ namespace JADY.Backend;
 
 public static class Utils
 {
-    public static void ConvertNewDiaryParameterToStatusAndType(NewEntryParameter newEntryParameter, out int status)
+    public static EntryStatus NewEntryParameterToEntryStatus(NewEntryParameter newEntryParameter)
     {
-        switch (newEntryParameter)
+        return newEntryParameter switch
         {
-            case NewEntryParameter.OneTime:
-                status = (int)EntryStatus.OneTime;
-                break;
-            case NewEntryParameter.Started:
-                status = (int)EntryStatus.InProgress;
-                break;
-            
-            default:
-                throw new ArgumentOutOfRangeException(nameof(newEntryParameter), newEntryParameter, null);
-        }
+            NewEntryParameter.OneTime => EntryStatus.OneTime,
+            NewEntryParameter.Started => EntryStatus.InProgress,
+            _ => throw new ArgumentOutOfRangeException(nameof(newEntryParameter), newEntryParameter, null)
+        };
     }
 
     public static DateTimeOffset GetMostRelevantDate(DiaryEntryViewModel vm) => vm.Date ?? vm.EndDate ?? vm.LogDate;
