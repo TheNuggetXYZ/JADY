@@ -84,7 +84,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         }
     }
 
-    public bool ShowEndEventInContextMenu => Status != Utils.DiaryEntryStatus.InProgress;
+    public bool ShowEndEventInContextMenu => Status == Utils.DiaryEntryStatus.InProgress;
 
     [SaveDependent]
     public bool IsCurrentlyVisible => !IsHidden || Saves.JadySave.Settings.ShowHiddenEntries;

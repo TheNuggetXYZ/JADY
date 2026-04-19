@@ -12,7 +12,6 @@ public partial class EditEntryWindow : DialogWindowBase<DiaryEntry>
     {
         InitializeComponent();
 
-        EntryType.ItemsSource = Enum.GetValues(typeof(Utils.DiaryEntryType));
         EntryStatus.ItemsSource = Enum.GetValues(typeof(Utils.DiaryEntryStatus));
     }
 
@@ -20,7 +19,6 @@ public partial class EditEntryWindow : DialogWindowBase<DiaryEntry>
     {
         return new DiaryEntry()
         {
-            Type = (Utils.DiaryEntryType)EntryType.SelectedIndex,
             Status = (Utils.DiaryEntryStatus)EntryStatus.SelectedIndex,
             Date = EntryDate.SelectedDate,
             EndDate = EntryEndDate.SelectedDate,
@@ -33,35 +31,4 @@ public partial class EditEntryWindow : DialogWindowBase<DiaryEntry>
     }
 
     private async void Submit_OnClick(object? sender, RoutedEventArgs e) => await TrySubmitAsync();
-
-    private void EntryType_OnPropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
-    {
-        if (EntryType == null || EntryStatus == null)
-            return;
-        
-        if (EntryType.SelectedIndex == (int)Utils.DiaryEntryType.OneTime)
-        {
-            EntryStatus.SelectedIndex = (int)Utils.DiaryEntryStatus.OneTime;
-            EntryStatus.IsVisible = false;
-        }
-        else
-        {
-            if (EntryStatus.SelectedIndex == (int)Utils.DiaryEntryStatus.OneTime)
-            {
-                EntryStatus.SelectedIndex = (int)Utils.DiaryEntryStatus.InProgress;
-            }
-            EntryStatus.IsVisible = true;
-        }
-    }
-
-    private void EntryStatus_OnPropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
-    {
-        if (EntryType == null || EntryStatus == null)
-            return;
-        
-        if (EntryStatus.SelectedIndex == (int)Utils.DiaryEntryStatus.OneTime)
-        {
-            EntryType.SelectedIndex = (int)Utils.DiaryEntryType.OneTime;
-        }
-    }
 }
