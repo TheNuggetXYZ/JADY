@@ -1,3 +1,4 @@
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using JADY.Backend;
 using JADY.Models;
@@ -27,6 +28,8 @@ public partial class EditEntryWindow : DialogWindowBase<DiaryEntry>
             IsHidden = EntryIsHidden.IsChecked ?? false,
         };
     }
+    
+    protected override InputElement? GetFirstFocusableElementOverride() => EntryCategory;
 
     private async void Submit_OnClick(object? sender, RoutedEventArgs e) => await TrySubmitAsync();
 }

@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Avalonia;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using JADY.Models;
 
@@ -21,6 +22,8 @@ public partial class EditDiaryWindow : DialogWindowBase<Diary>
             Name = Name.Text
         };
     }
+    
+    protected override InputElement? GetFirstFocusableElementOverride() => Name;
 
     private async void Submit_OnClick(object? sender, RoutedEventArgs e) => await TrySubmitAsync();
     

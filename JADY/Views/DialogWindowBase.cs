@@ -1,6 +1,8 @@
+using System;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Input;
+using Avalonia.Threading;
 
 namespace JADY.Views;
 
@@ -24,7 +26,12 @@ public abstract class DialogWindowBase<T> : Window
     }
 
     protected abstract T GetValue();
-    
+
+    protected override InputElement? GetFirstFocusableElementOverride()
+    {
+        throw new Exception("This method should be overriden to fix weird focus behavior");
+    }
+
     protected override async void OnKeyDown(KeyEventArgs e)
     {
         base.OnKeyDown(e);
@@ -33,5 +40,18 @@ public abstract class DialogWindowBase<T> : Window
             Close();
         else if (e is { Key: Key.Enter, KeyModifiers: KeyModifiers.Control })
             await TrySubmitAsync();
+    }
+
+    protected override void OnOpened(EventArgs e)
+    {
+        base.OnOpened(e);
+        
+        Dispatcher.UIThread.Post(() =>
+        {
+            Focus();
+            
+            GetFirstFocusableElementOverride()?.Focus();
+            
+        }, DispatcherPriority.Input);
     }
 }

@@ -88,7 +88,7 @@
                             </ItemsRepeater.Layout>
                             <ItemsRepeater.ItemTemplate>
                                 <DataTemplate>
-                                    <views:DiaryEntryControl/>
+                                    <views:DiaryEntryControl/> <!-- TODO: There's still spacing even if entry is invisible -->
                                 </DataTemplate>
                             </ItemsRepeater.ItemTemplate>
                         </ItemsRepeater>

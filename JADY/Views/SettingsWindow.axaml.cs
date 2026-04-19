@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
 using JADY.Backend;
@@ -68,6 +69,8 @@ public partial class SettingsWindow : DialogWindowBase<Settings>
             CultureInfoName = AvailableCultures[Cultures.SelectedIndex].Name,
         };
     }
+
+    protected override InputElement? GetFirstFocusableElementOverride() => ShowHidden;
 
     private async Task FixSavePath()
     {
