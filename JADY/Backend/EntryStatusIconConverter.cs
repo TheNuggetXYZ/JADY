@@ -10,16 +10,16 @@ public class EntryStatusIconConverter : IValueConverter
 {
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if (value is Utils.DiaryEntryStatus status)
+        if (value is Utils.EntryStatus status)
         {
             if (Application.Current is not null)
             {
                 return status switch
                 {
-                    Utils.DiaryEntryStatus.OneTime => Application.Current.Resources["RoundCheckIcon"],
-                    Utils.DiaryEntryStatus.InProgress => Application.Current.Resources["CalendarEmptyIcon"],
-                    Utils.DiaryEntryStatus.Completed => Application.Current.Resources["CalendarCheckmarkIcon"],
-                    Utils.DiaryEntryStatus.Dropped => Application.Current.Resources["CalendarXMarkIcon"],
+                    Utils.EntryStatus.OneTime => Application.Current.Resources["RoundCheckIcon"],
+                    Utils.EntryStatus.InProgress => Application.Current.Resources["CalendarEmptyIcon"],
+                    Utils.EntryStatus.Completed => Application.Current.Resources["CalendarCheckmarkIcon"],
+                    Utils.EntryStatus.Dropped => Application.Current.Resources["CalendarXMarkIcon"],
                     _ => throw new ArgumentOutOfRangeException(nameof(status), status, null)
                 };
             }

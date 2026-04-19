@@ -11,7 +11,7 @@ public partial class EndEntryWindow : DialogWindowBase<DiaryEntry>
     {
         InitializeComponent();
         
-        EndParameter.ItemsSource = Enum.GetValues(typeof(Utils.EndDiaryParameter));
+        EndParameter.ItemsSource = Enum.GetValues(typeof(Utils.EndEntryParameter));
     }
 
     protected override DiaryEntry GetValue()
@@ -19,10 +19,10 @@ public partial class EndEntryWindow : DialogWindowBase<DiaryEntry>
         return new DiaryEntry()
         {
             EndDate = EndDate.SelectedDate,
-            Status = (Utils.EndDiaryParameter)EndParameter.SelectedIndex switch
+            Status = (Utils.EndEntryParameter)EndParameter.SelectedIndex switch
             {
-                Utils.EndDiaryParameter.Finished => Utils.DiaryEntryStatus.Completed,
-                Utils.EndDiaryParameter.Dropped => Utils.DiaryEntryStatus.Dropped,
+                Utils.EndEntryParameter.Completed => Utils.EntryStatus.Completed,
+                Utils.EndEntryParameter.Dropped => Utils.EntryStatus.Dropped,
                 _ => throw new ArgumentOutOfRangeException()
             }
         };

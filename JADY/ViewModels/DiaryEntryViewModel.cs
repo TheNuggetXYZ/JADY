@@ -16,7 +16,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
 {
     [NotifyPropertyChangedFor(nameof(ShowEndEventInContextMenu))]
     [NotifyPropertyChangedFor(nameof(GetStatusDisplayName))]
-    [ObservableProperty] private Utils.DiaryEntryStatus _status;
+    [ObservableProperty] private Utils.EntryStatus _status;
 
     /// <summary>
     /// The date at the time the entry was added.
@@ -75,16 +75,16 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         {
             return Status switch
             {
-                Utils.DiaryEntryStatus.OneTime => "One time event",
-                Utils.DiaryEntryStatus.InProgress => "In progress event",
-                Utils.DiaryEntryStatus.Completed => "Completed event",
-                Utils.DiaryEntryStatus.Dropped => "Dropped event",
+                Utils.EntryStatus.OneTime => "One time event",
+                Utils.EntryStatus.InProgress => "In progress event",
+                Utils.EntryStatus.Completed => "Completed event",
+                Utils.EntryStatus.Dropped => "Dropped event",
                 _ => throw new ArgumentOutOfRangeException(nameof(Status), Status, null)
             };
         }
     }
 
-    public bool ShowEndEventInContextMenu => Status == Utils.DiaryEntryStatus.InProgress;
+    public bool ShowEndEventInContextMenu => Status == Utils.EntryStatus.InProgress;
 
     [SaveDependent]
     public bool IsCurrentlyVisible => !IsHidden || Saves.JadySave.Settings.ShowHiddenEntries;

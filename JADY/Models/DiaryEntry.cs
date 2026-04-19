@@ -6,7 +6,7 @@ namespace JADY.Models;
 
 public class DiaryEntry
 {
-    public Utils.DiaryEntryStatus Status { get; set; }
+    public Utils.EntryStatus Status { get; set; }
     
     /// <summary>
     /// The date at the time the entry was added.

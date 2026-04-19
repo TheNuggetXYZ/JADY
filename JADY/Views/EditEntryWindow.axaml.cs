@@ -12,14 +12,14 @@ public partial class EditEntryWindow : DialogWindowBase<DiaryEntry>
     {
         InitializeComponent();
 
-        EntryStatus.ItemsSource = Enum.GetValues(typeof(Utils.DiaryEntryStatus));
+        EntryStatus.ItemsSource = Enum.GetValues(typeof(Utils.EntryStatus));
     }
 
     protected override DiaryEntry GetValue()
     {
         return new DiaryEntry()
         {
-            Status = (Utils.DiaryEntryStatus)EntryStatus.SelectedIndex,
+            Status = (Utils.EntryStatus)EntryStatus.SelectedIndex,
             Date = EntryDate.SelectedDate,
             EndDate = EntryEndDate.SelectedDate,
             Category = EntryCategory.Text,
