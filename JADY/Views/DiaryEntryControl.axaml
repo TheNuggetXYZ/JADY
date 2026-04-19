@@ -16,6 +16,7 @@
                 <MenuItem Header="Delete" Command="{Binding ContextMenu_RemoveCommand}"/>
             </ContextMenu>
         </Border.ContextMenu>
+        
         <Grid Margin="5" RowDefinitions="Auto, *">
             <Grid Grid.Row="0" ColumnDefinitions="Auto, *, Auto">
                 <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
@@ -27,8 +28,17 @@
                             </TextBlock>
                         </ToolTip.Tip>
                     </PathIcon>
-                    <TextBlock VerticalAlignment="Center" Text="{Binding Category}"/>
-                    <TextBlock VerticalAlignment="Center" Text="{Binding SubCategoryStringWithPipeSeparator}"/>
+                    
+                    <TextBlock VerticalAlignment="Center" Text="{Binding Category}"></TextBlock>
+                    <PathIcon Height="10" VerticalAlignment="Bottom" Margin="0 0 0 3" Data="{StaticResource AngleRightIcon}">
+                        <PathIcon.IsVisible>
+                            <MultiBinding Converter="{x:Static BoolConverters.And}">
+                                <Binding Path="Category" Converter="{x:Static StringConverters.IsNotNullOrEmpty}"/>
+                                <Binding Path="SubCategory" Converter="{x:Static StringConverters.IsNotNullOrEmpty}"/>
+                            </MultiBinding>
+                        </PathIcon.IsVisible>
+                    </PathIcon>
+                    <TextBlock VerticalAlignment="Center" Text="{Binding SubCategory}"></TextBlock>
                 </StackPanel>
                 
                 <TextBlock Grid.Column="1" HorizontalAlignment="Center" Text="{Binding Title}"/>

@@ -48,7 +48,6 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     /// <summary>
     /// E.g. Factorio/OPM/null
     /// </summary>
-    [NotifyPropertyChangedFor(nameof(SubCategoryStringWithPipeSeparator))]
     [ObservableProperty] private string? _subCategory;
 
     /// <summary>
@@ -99,17 +98,6 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
                 Utils.DiaryEntryType.ProlongedEvent => "event",
                 _ => throw new ArgumentOutOfRangeException(nameof(Type), Type, null)
             };
-        }
-    }
-
-    public string SubCategoryStringWithPipeSeparator
-    {
-        get
-        {
-            if (!string.IsNullOrWhiteSpace(SubCategory))
-                return " | " + SubCategory;
-
-            return string.Empty;
         }
     }
 
