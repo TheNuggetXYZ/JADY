@@ -12,7 +12,7 @@ public partial class EditEntryWindow : DialogWindowBase<DiaryEntry>
     {
         InitializeComponent();
 
-        EntryStatus.ItemsSource = Enum.GetValues(typeof(Utils.EntryStatus));
+        EntryStatus.ItemsSource = Utils.EntryStatusToArray;
     }
 
     protected override DiaryEntry GetValue()

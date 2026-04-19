@@ -11,7 +11,7 @@ public partial class EndEntryWindow : DialogWindowBase<DiaryEntry>
     {
         InitializeComponent();
         
-        EndParameter.ItemsSource = Enum.GetValues(typeof(Utils.EndEntryParameter));
+        EndParameter.ItemsSource = Utils.EndEntryParameterToArray;
     }
 
     protected override DiaryEntry GetValue()

@@ -11,7 +11,7 @@ public partial class AddEntryWindow : DialogWindowBase<DiaryEntry>
     {
         InitializeComponent();
 
-        EntryParameter.ItemsSource = Enum.GetValues(typeof(Utils.NewEntryParameter));
+        EntryParameter.ItemsSource = Utils.NewEntryParameterToArray;
     }
 
     protected override DiaryEntry GetValue()

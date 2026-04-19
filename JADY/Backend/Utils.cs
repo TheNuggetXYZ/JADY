@@ -38,4 +38,8 @@ public static class Utils
         Completed = 0,
         Dropped = 1,
     }
+
+    public static readonly string[] EntryStatusToArray = ["One time", "In progress", "Completed", "Dropped"];
+    public static readonly string[] NewEntryParameterToArray = ["One time", "Started"];
+    public static readonly string[] EndEntryParameterToArray = ["Completed", "Dropped"];
 }
