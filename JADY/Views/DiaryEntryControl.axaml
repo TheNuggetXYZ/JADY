@@ -46,7 +46,7 @@
                 </StackPanel>
             </Grid>
             
-            <Panel Grid.Row="1" Margin="10">
+            <Panel Grid.Row="1" Margin="0 5 0 0">
                 <Panel.IsVisible>
                     <MultiBinding Converter="{x:Static BoolConverters.And}">
                         <Binding Path="Content" Converter="{x:Static StringConverters.IsNotNullOrEmpty}"/>
