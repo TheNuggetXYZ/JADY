@@ -17,8 +17,8 @@
             </ContextMenu>
         </Border.ContextMenu>
         <Grid Margin="5" RowDefinitions="Auto, *">
-            <Panel Grid.Row="0">
-                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+            <Grid Grid.Row="0" ColumnDefinitions="Auto, *, Auto">
+                <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
                     <PathIcon Height="16" Margin="0 0 5 0" Data="{Binding Status, Converter={StaticResource EntryStatusIconConverter}}">
                         <ToolTip.Tip>
                             <TextBlock>
@@ -30,13 +30,18 @@
                     <TextBlock VerticalAlignment="Center" Text="{Binding Category}"/>
                     <TextBlock VerticalAlignment="Center" Text="{Binding SubCategoryStringWithPipeSeparator}"/>
                 </StackPanel>
-                <TextBlock HorizontalAlignment="Center" Text="{Binding Title}"/>
-                <TextBlock HorizontalAlignment="Right" Text="{Binding DisplayDate}">
-                    <ToolTip.Tip>
-                        <TextBlock HorizontalAlignment="Left" Text="{Binding FullDateTooltip}"/>
-                    </ToolTip.Tip>
-                </TextBlock>
-            </Panel>
+                
+                <TextBlock Grid.Column="1" HorizontalAlignment="Center" Text="{Binding Title}"/>
+                
+                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                    <TextBlock HorizontalAlignment="Right" Text="{Binding DisplayDate}">
+                        <ToolTip.Tip>
+                            <TextBlock HorizontalAlignment="Left" Text="{Binding FullDateTooltip}"/>
+                        </ToolTip.Tip>
+                    </TextBlock>
+                    <PathIcon Height="16" Data="{StaticResource HiddenIcon}" IsVisible="{Binding IsHidden}"></PathIcon>
+                </StackPanel>
+            </Grid>
             
             <Panel Grid.Row="1" Margin="10">
                 <Panel.IsVisible>
