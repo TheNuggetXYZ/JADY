@@ -6,8 +6,6 @@ namespace JADY.Models;
 
 public class DiaryEntry
 {
-    public Utils.DiaryEntryType Type { get; set; }
-    
     public Utils.DiaryEntryStatus Status { get; set; }
     
     /// <summary>

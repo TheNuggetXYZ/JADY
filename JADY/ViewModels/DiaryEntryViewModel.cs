@@ -15,9 +15,6 @@ namespace JADY.ViewModels;
 public partial class DiaryEntryViewModel : SaveDependentViewModel
 {
     [NotifyPropertyChangedFor(nameof(ShowEndEventInContextMenu))]
-    [ObservableProperty] private Utils.DiaryEntryType _type;
-
-    [NotifyPropertyChangedFor(nameof(ShowEndEventInContextMenu))]
     [NotifyPropertyChangedFor(nameof(GetStatusDisplayName))]
     [ObservableProperty] private Utils.DiaryEntryStatus _status;
 
@@ -78,7 +75,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         {
             return Status switch
             {
-                Utils.DiaryEntryStatus.None => "One time event",
+                Utils.DiaryEntryStatus.OneTime => "One time event",
                 Utils.DiaryEntryStatus.InProgress => "In progress event",
                 Utils.DiaryEntryStatus.Completed => "Completed event",
                 Utils.DiaryEntryStatus.Dropped => "Dropped event",
@@ -87,7 +84,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         }
     }
 
-    public bool ShowEndEventInContextMenu => Type == Utils.DiaryEntryType.ProlongedEvent && Status == Utils.DiaryEntryStatus.InProgress;
+    public bool ShowEndEventInContextMenu => Status != Utils.DiaryEntryStatus.InProgress;
 
     [SaveDependent]
     public bool IsCurrentlyVisible => !IsHidden || Saves.JadySave.Settings.ShowHiddenEntries;
@@ -116,7 +113,6 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     public DiaryEntryViewModel(DiaryEntry diaryEntry, DiaryViewModel diaryViewModel)
     {
         _diaryViewModel = diaryViewModel;
-        Type = diaryEntry.Type;
         Status = diaryEntry.Status;
         LogDate = diaryEntry.LogDate;
         Date = diaryEntry.Date;
@@ -136,7 +132,6 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     {
         return new()
         {
-            Type = Type,
             Status = Status,
             LogDate = LogDate,
             Date = Date,
@@ -164,7 +159,6 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         if (diaryEntry == null)
             return;
         
-        Type = diaryEntry.Type;
         Status = diaryEntry.Status;
         Date = diaryEntry.Date;
         EndDate = diaryEntry.EndDate;
@@ -186,9 +180,6 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         DiaryEntry? diaryEntry = await WindowManager.OpenDialogWindow<EndEntryWindow, DiaryEntry?>(WindowManager.GetMainWindow(), this);
         
         if (diaryEntry == null)
-            return;
-        
-        if (Type != Utils.DiaryEntryType.ProlongedEvent)
             return;
         
         EndDate = diaryEntry.EndDate;

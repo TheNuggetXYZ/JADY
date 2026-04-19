@@ -16,12 +16,11 @@ public partial class AddEntryWindow : DialogWindowBase<DiaryEntry>
 
     protected override DiaryEntry GetValue()
     {
-        Utils.ConvertNewDiaryParameterToStatusAndType((Utils.NewDiaryEntryParameter)EntryParameter.SelectedIndex, out int status, out int type);
+        Utils.ConvertNewDiaryParameterToStatusAndType((Utils.NewDiaryEntryParameter)EntryParameter.SelectedIndex, out int status);
 
         return new DiaryEntry()
         {
             Status = (Utils.DiaryEntryStatus)status,
-            Type = (Utils.DiaryEntryType)type,
             Category = EntryCategory.Text,
             SubCategory = EntrySubcategory.Text,
             Title = EntryTitle.Text,

@@ -16,7 +16,7 @@ public class EntryStatusIconConverter : IValueConverter
             {
                 return status switch
                 {
-                    Utils.DiaryEntryStatus.None => Application.Current.Resources["RoundCheckIcon"],
+                    Utils.DiaryEntryStatus.OneTime => Application.Current.Resources["RoundCheckIcon"],
                     Utils.DiaryEntryStatus.InProgress => Application.Current.Resources["CalendarEmptyIcon"],
                     Utils.DiaryEntryStatus.Completed => Application.Current.Resources["CalendarCheckmarkIcon"],
                     Utils.DiaryEntryStatus.Dropped => Application.Current.Resources["CalendarXMarkIcon"],

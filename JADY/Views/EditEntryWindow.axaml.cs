@@ -41,12 +41,12 @@ public partial class EditEntryWindow : DialogWindowBase<DiaryEntry>
         
         if (EntryType.SelectedIndex == (int)Utils.DiaryEntryType.OneTime)
         {
-            EntryStatus.SelectedIndex = (int)Utils.DiaryEntryStatus.None;
+            EntryStatus.SelectedIndex = (int)Utils.DiaryEntryStatus.OneTime;
             EntryStatus.IsVisible = false;
         }
         else
         {
-            if (EntryStatus.SelectedIndex == (int)Utils.DiaryEntryStatus.None)
+            if (EntryStatus.SelectedIndex == (int)Utils.DiaryEntryStatus.OneTime)
             {
                 EntryStatus.SelectedIndex = (int)Utils.DiaryEntryStatus.InProgress;
             }
@@ -59,7 +59,7 @@ public partial class EditEntryWindow : DialogWindowBase<DiaryEntry>
         if (EntryType == null || EntryStatus == null)
             return;
         
-        if (EntryStatus.SelectedIndex == (int)Utils.DiaryEntryStatus.None)
+        if (EntryStatus.SelectedIndex == (int)Utils.DiaryEntryStatus.OneTime)
         {
             EntryType.SelectedIndex = (int)Utils.DiaryEntryType.OneTime;
         }
