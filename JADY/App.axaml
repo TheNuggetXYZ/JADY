@@ -18,7 +18,7 @@
             </FluentTheme.Palettes>
         </FluentTheme>
         
-        <Style Selector="TextBlock.disabledText">
+        <Style Selector="TextBlock.greyedOut">
             <Setter Property="Foreground" Value="Gray" />
         </Style>
         
