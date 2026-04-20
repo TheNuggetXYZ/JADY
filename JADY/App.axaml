@@ -17,6 +17,10 @@
                 <ColorPaletteResources x:Key="Dark" Accent="#ff5eac7e" AltHigh="Black" AltLow="Black" AltMedium="Black" AltMediumHigh="Black" AltMediumLow="Black" BaseHigh="White" BaseLow="#ff5e625f" BaseMedium="#ffafb1b0" BaseMediumHigh="#ffc3c5c4" BaseMediumLow="#ff868a87" ChromeAltLow="#ffc3c5c4" ChromeBlackHigh="Black" ChromeBlackLow="#ffc3c5c4" ChromeBlackMedium="Black" ChromeBlackMediumLow="Black" ChromeDisabledHigh="#ff5e625f" ChromeDisabledLow="#ffafb1b0" ChromeGray="#ff9b9d9c" ChromeHigh="#ff9b9d9c" ChromeLow="#ff292b29" ChromeMedium="#ff363937" ChromeMediumLow="#ff515452" ChromeWhite="White" ListLow="#ff363937" ListMedium="#ff5e625f" RegionColor="#ff202221" />
             </FluentTheme.Palettes>
         </FluentTheme>
+        
+        <Style Selector="TextBlock.disabledText">
+            <Setter Property="Foreground" Value="Gray" />
+        </Style>
     </Application.Styles>
              
     <Application.Resources>

@@ -2,28 +2,43 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="450"
         x:Class="JADY.Views.SettingsWindow"
         Title="SettingsWindow"
-        SizeToContent="WidthAndHeight">
+        SizeToContent="Height"
+        Width="300">
         
-    <StackPanel Orientation="Vertical" Margin="10" Spacing="10">
-        <CheckBox Name="ShowHidden">Show hidden entries</CheckBox>
+    <Grid RowDefinitions="*, Auto" RowSpacing="25">
+        <StackPanel Grid.Row="0" Orientation="Vertical" Spacing="25" Margin="15">
         
-        <CheckBox Name="AutoSave">Auto save</CheckBox>
+            <TextBlock Classes="disabledText" FontSize="18" Margin="0 0 0 -20">Saves:</TextBlock>
+            <StackPanel Margin="15 0" Orientation="Vertical" Spacing="10">
+                <CheckBox Name="AutoSave">Auto save</CheckBox>
         
-        <TextBox Name="SavePath">
-            <TextBox.InnerRightContent>
-                <Button Click="ChangeSavePath_OnClick">+</Button>
-            </TextBox.InnerRightContent>
-        </TextBox>
+                <TextBlock Classes="disabledText" FontSize="12" Margin="-5">Save directory:</TextBlock>
+                <TextBox Name="SavePath">
+                    <TextBox.InnerRightContent>
+                        <Button Click="ChangeSavePath_OnClick">+</Button>
+                    </TextBox.InnerRightContent>
+                </TextBox>
+            </StackPanel>
+            
+            <TextBlock Classes="disabledText" FontSize="18" Margin="0 0 0 -20">Miscellaneous:</TextBlock>
+            <StackPanel Margin="15 0" Orientation="Vertical" Spacing="10">
+                <CheckBox Name="ShowHidden">Show hidden entries</CheckBox>
         
-        <ComboBox Name="Cultures"></ComboBox>
-        
-        <StackPanel Orientation="Horizontal" Spacing="10">
-            <Button Click="Close_OnClick">CLOSE</Button>
-            <Button Click="SaveClose_OnClick" Content="SAVE &amp; CLOSE"></Button>
+                <TextBlock Classes="disabledText" FontSize="12" Margin="-5">Culture:</TextBlock>
+                <ComboBox Name="Cultures"></ComboBox>
+            </StackPanel>
+            
         </StackPanel>
-    </StackPanel>
+        
+        <Border Grid.Row="1" Background="{StaticResource SystemChromeLowColor}">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="25" Margin="10">
+                <Button Click="Close_OnClick">CLOSE</Button>
+                <Button Click="SaveClose_OnClick" Content="SAVE &amp; CLOSE"></Button>
+            </StackPanel>
+        </Border>
+    </Grid>
         
 </Window>
