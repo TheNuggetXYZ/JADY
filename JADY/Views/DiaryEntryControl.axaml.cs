@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Input;
+using Avalonia.Media;
 using JADY.ViewModels;
 
 namespace JADY.Views;
@@ -14,6 +15,12 @@ public partial class DiaryEntryControl : UserControl
     private void DiaryEntryHeader_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
         if (e.Properties.IsLeftButtonPressed && DataContext is DiaryEntryViewModel vm)
+        {
             vm.IsExpanded = !vm.IsExpanded;
+
+            //ExpandAngle.RenderTransform = new RotateTransform(vm.IsExpanded ? -180 : 180);
+            
+            ExpandAngle.Classes.Set("isExpanded", vm.IsExpanded);
+        }
     }
 }

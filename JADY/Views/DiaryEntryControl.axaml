@@ -41,8 +41,12 @@
                 <TextBlock Grid.Column="1" HorizontalAlignment="Center" Text="{Binding Title}"/>
                 
                 <StackPanel Grid.Column="2" Orientation="Horizontal">
-                    <PathIcon Height="16" Data="{StaticResource HiddenIcon}" IsVisible="{Binding IsHidden}" Margin="5 0 5 0">
+                    <PathIcon Height="16" Data="{StaticResource HiddenIcon}" IsVisible="{Binding IsHidden}" Margin="5 0">
                         <ToolTip.Tip>This entry is marked as hidden.</ToolTip.Tip>
+                    </PathIcon>
+                    
+                    <PathIcon Name="ExpandAngle" Classes="expandIcon" Width="14" Height="14" Data="{StaticResource AngleDownIcon}" IsVisible="{Binding Content, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" Margin="5 0 10 0">
+                        <ToolTip.Tip>This entry is expandable.</ToolTip.Tip>
                     </PathIcon>
                     
                     <TextBlock HorizontalAlignment="Right" Text="{Binding DisplayDate}">

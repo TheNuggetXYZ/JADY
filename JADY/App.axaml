@@ -21,6 +21,18 @@
         <Style Selector="TextBlock.disabledText">
             <Setter Property="Foreground" Value="Gray" />
         </Style>
+        
+        <Style Selector="PathIcon.expandIcon">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.05"></TransformOperationsTransition>
+                </Transitions>
+            </Setter>
+        </Style>
+        
+        <Style Selector="PathIcon.expandIcon.isExpanded">
+            <Setter Property="RenderTransform" Value="rotate(180deg)"/>
+        </Style>
     </Application.Styles>
              
     <Application.Resources>
