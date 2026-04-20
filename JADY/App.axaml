@@ -33,6 +33,10 @@
         <Style Selector="PathIcon.expandIcon.isExpanded">
             <Setter Property="RenderTransform" Value="rotate(180deg)"/>
         </Style>
+        
+        <Style Selector="PathIcon.greyedOut">
+            <Setter Property="Opacity" Value="0.5"></Setter>
+        </Style>
     </Application.Styles>
              
     <Application.Resources>

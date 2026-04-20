@@ -41,7 +41,7 @@
                 <TextBlock Grid.Column="1" HorizontalAlignment="Center" Text="{Binding Title}"/>
                 
                 <StackPanel Grid.Column="2" Orientation="Horizontal">
-                    <PathIcon Height="16" Data="{StaticResource HiddenIcon}" IsVisible="{Binding IsHidden}" Margin="5 0">
+                    <PathIcon Classes="greyedOut" Height="16" Data="{StaticResource HiddenIcon}" IsVisible="{Binding IsHidden}" Margin="5 0">
                         <ToolTip.Tip>This entry is marked as hidden.</ToolTip.Tip>
                     </PathIcon>
                     
