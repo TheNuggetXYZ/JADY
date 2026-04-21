@@ -3,12 +3,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:JADY.ViewModels"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="335" d:DesignHeight="360"
         x:Class="JADY.Views.EditEntryWindow"
         x:DataType="vm:DiaryEntryViewModel"
         Title="Edit entry"
-        Width="400"
-        Height="400">
+        Width="335"
+        Height="400"
+        MinWidth="335"
+        MinHeight="290">
         
     <Grid RowDefinitions="Auto, Auto, *, Auto" Margin="10">
         

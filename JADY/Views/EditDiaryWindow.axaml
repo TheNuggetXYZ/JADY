@@ -3,12 +3,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:JADY.ViewModels"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="180" d:DesignHeight="100"
         x:Class="JADY.Views.EditDiaryWindow"
         x:DataType="viewModels:DiaryViewModel"
         Title="Edit diary"
         SizeToContent="Height"
-        Width="180">
+        Width="180"
+        MinWidth="100"
+        MinHeight="100">
         
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10" Margin="10">
                 <TextBox Name="Name" PropertyChanged="NameOnPropertyChanged" Text="{Binding Name, Mode=OneTime}"></TextBox>
