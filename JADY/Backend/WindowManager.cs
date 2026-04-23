@@ -42,17 +42,7 @@ public static class WindowManager
         if (owner == null || OpenWindows.TryGetValue(typeof(T), out var window) || App.ServiceProvider is null)
             return default;
         
-        T newWindow;
-        
-        try
-        {
-            newWindow = App.ServiceProvider.GetRequiredService<T>();
-        }
-        catch (InvalidOperationException e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
+        T newWindow = App.ServiceProvider.GetRequiredService<T>();
         
         OpenWindows.Add(typeof(T), newWindow);
         newWindow.Closed += (_, _) => { OpenWindows.Remove(typeof(T)); };
