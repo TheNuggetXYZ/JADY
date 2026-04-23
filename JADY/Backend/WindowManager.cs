@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Microsoft.Extensions.DependencyInjection;
 using MsBox.Avalonia;
 using MsBox.Avalonia.Enums;
 
@@ -22,12 +23,36 @@ public static class WindowManager
         return null;
     }
     
+    [Obsolete("This method is obsolete. Use OpenDialogWindowDI<T>() instead.")]
     public static async Task<TResult?> OpenDialogWindow<T, TResult>(Window? owner, object? dataContext) where T : Window, new()
     {
         if (owner == null || OpenWindows.TryGetValue(typeof(T), out var window))
             return default;
         
         T newWindow = new T {DataContext = dataContext};
+        
+        OpenWindows.Add(typeof(T), newWindow);
+        newWindow.Closed += (_, _) => { OpenWindows.Remove(typeof(T)); };
+        
+        return await newWindow.ShowDialog<TResult>(owner);
+    }
+    
+    public static async Task<TResult?> OpenDialogWindowDI<T, TResult>(Window? owner) where T : Window, new()
+    {
+        if (owner == null || OpenWindows.TryGetValue(typeof(T), out var window) || App.ServiceProvider is null)
+            return default;
+        
+        T newWindow;
+        
+        try
+        {
+            newWindow = App.ServiceProvider.GetRequiredService<T>();
+        }
+        catch (InvalidOperationException e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
         
         OpenWindows.Add(typeof(T), newWindow);
         newWindow.Closed += (_, _) => { OpenWindows.Remove(typeof(T)); };

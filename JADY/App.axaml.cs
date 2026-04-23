@@ -9,6 +9,8 @@ namespace JADY;
 
 public partial class App : Application
 {
+    public static ServiceProvider? ServiceProvider { get; private set; }
+    
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
@@ -17,6 +19,8 @@ public partial class App : Application
     public override void OnFrameworkInitializationCompleted()
     {
         ConfigureServices(out var serviceProvider);
+        
+        ServiceProvider = serviceProvider;
         
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
