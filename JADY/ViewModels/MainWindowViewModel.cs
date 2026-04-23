@@ -92,7 +92,7 @@ public partial class MainWindowViewModel : ViewModelBase
     [RelayCommand]
     private async Task Menu_OpenSettingsWindow()
     {
-        await WindowManager.OpenDialogWindow<SettingsWindow, object?>(WindowManager.GetMainWindow(), this);
+        await WindowManager.OpenDialogWindowDI<SettingsWindow, object?>(WindowManager.GetMainWindow());
     }
 
     [RelayCommand]

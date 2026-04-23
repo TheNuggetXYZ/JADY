@@ -38,6 +38,7 @@ public partial class App : Application
         var collection = new ServiceCollection();
         
         collection.AddSingleton<MainWindowViewModel>();
+        collection.AddTransient<SettingsWindow>();
 
         serviceProvider = collection.BuildServiceProvider();
     }
