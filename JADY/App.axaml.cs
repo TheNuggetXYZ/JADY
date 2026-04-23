@@ -39,6 +39,11 @@ public partial class App : Application
         
         collection.AddSingleton<MainWindowViewModel>();
         collection.AddTransient<SettingsWindow>();
+        collection.AddTransient<AddEntryWindow>();
+        collection.AddTransient<AddDiaryWindow>();
+        collection.AddTransient<EditDiaryWindow>();
+        collection.AddTransient<EditEntryWindow>();
+        collection.AddTransient<EndEntryWindow>();
 
         serviceProvider = collection.BuildServiceProvider();
     }

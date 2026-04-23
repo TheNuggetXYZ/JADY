@@ -3,13 +3,15 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using JADY.Backend;
 using JADY.Models;
+using JADY.ViewModels;
 
 namespace JADY.Views;
 
-public partial class EndEntryWindow : DialogWindowBase<DiaryEntry>
+public partial class EndEntryWindow : DialogWindowBase<DiaryEntry>, IDialogInitializable<DiaryEntryViewModel>
 {
-    public EndEntryWindow()
+    public void Initialize(DiaryEntryViewModel data)
     {
+        DataContext = data;
         InitializeComponent();
         
         EndParameter.ItemsSource = Utils.EndEntryParameterToArray;

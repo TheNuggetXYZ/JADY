@@ -3,16 +3,19 @@ using Avalonia;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using JADY.Models;
+using JADY.ViewModels;
 
 namespace JADY.Views;
 
-public partial class EditDiaryWindow : DialogWindowBase<Diary>
+public partial class EditDiaryWindow : DialogWindowBase<Diary>, IDialogInitializable<DiaryViewModel>
 {
-    public EditDiaryWindow()
+    public void Initialize(DiaryViewModel data)
     {
+        DataContext = data;
+        
         InitializeComponent();
     }
-    
+
     protected override Task<bool> CanSubmitAsync() => Task.FromResult(SubmitButton.IsEnabled);
 
     protected override Diary GetValue()

@@ -2,15 +2,17 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using JADY.Backend;
 using JADY.Models;
+using JADY.ViewModels;
 
 namespace JADY.Views;
 
-public partial class EditEntryWindow : DialogWindowBase<DiaryEntry>
+public partial class EditEntryWindow : DialogWindowBase<DiaryEntry>, IDialogInitializable<DiaryEntryViewModel>
 {
-    public EditEntryWindow()
+    public void Initialize(DiaryEntryViewModel data)
     {
+        DataContext = data;
         InitializeComponent();
-
+        
         EntryStatus.ItemsSource = Utils.EntryStatusToArray;
     }
 
