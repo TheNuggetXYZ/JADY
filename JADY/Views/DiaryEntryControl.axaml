@@ -17,8 +17,11 @@
             </ContextMenu>
         </Border.ContextMenu>
         
+        <!-- Main grid -->
         <Grid Margin="5" RowDefinitions="Auto, *">
+            <!-- Header -->
             <Grid Grid.Row="0" ColumnDefinitions="Auto, *, Auto">
+                <!-- Left panel -->
                 <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
                     <PathIcon Height="16" Margin="0 0 5 0" Data="{Binding Status, Converter={StaticResource EntryStatusIconConverter}}">
                         <ToolTip.Tip>
@@ -38,8 +41,10 @@
                     <TextBlock VerticalAlignment="Center" Text="{Binding SubCategory}"></TextBlock>
                 </StackPanel>
                 
+                <!-- Title -->
                 <TextBlock Grid.Column="1" HorizontalAlignment="Center" Text="{Binding Title}"/>
                 
+                <!-- Right panel -->
                 <StackPanel Grid.Column="2" Orientation="Horizontal">
                     <PathIcon Classes="greyedOut" Height="16" Data="{StaticResource HiddenIcon}" IsVisible="{Binding IsHidden}" Margin="5 0">
                         <ToolTip.Tip>This entry is marked as hidden.</ToolTip.Tip>
@@ -57,6 +62,7 @@
                 </StackPanel>
             </Grid>
             
+            <!-- Content -->
             <Panel Grid.Row="1" Margin="0 5 0 0">
                 <Panel.IsVisible>
                     <MultiBinding Converter="{x:Static BoolConverters.And}">
