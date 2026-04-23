@@ -7,7 +7,11 @@
              x:Class="JADY.Views.DiaryEntryControl"
              x:DataType="viewModels:DiaryEntryViewModel">
     
-    <Border Background="{DynamicResource SystemChromeMediumColor}" CornerRadius="3" PointerPressed="DiaryEntryHeader_OnPointerPressed">
+    <Border Background="{DynamicResource SystemChromeMediumColor}" 
+            CornerRadius="3" 
+            PointerPressed="DiaryEntryHeader_OnPointerPressed">
+        
+        <!-- Context menu -->
         <Border.ContextMenu>
             <ContextMenu>
                 <MenuItem Header="Edit" Command="{Binding ContextMenu_EditCommand}"/>
@@ -22,15 +26,29 @@
             <!-- Header -->
             <Grid Grid.Row="0" ColumnDefinitions="Auto, *, Auto">
                 <!-- Left panel -->
-                <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
-                    <PathIcon Height="16" Margin="0 0 5 0" Data="{Binding Status, Converter={StaticResource EntryStatusIconConverter}}">
+                <StackPanel Grid.Column="0" 
+                            HorizontalAlignment="Left" VerticalAlignment="Center" 
+                            Orientation="Horizontal">
+                    
+                    <!-- Status icon -->
+                    <PathIcon Height="16"
+                              Data="{Binding Status, Converter={StaticResource EntryStatusIconConverter}}"
+                              Margin="0 0 5 0" >
+                        
                         <ToolTip.Tip>
                             <TextBlock Text="{Binding GetStatusDisplayName}"></TextBlock>
                         </ToolTip.Tip>
                     </PathIcon>
                     
-                    <TextBlock VerticalAlignment="Center" Text="{Binding Category}"></TextBlock>
-                    <PathIcon Height="10" VerticalAlignment="Bottom" Margin="0 0 0 3" Data="{StaticResource AngleRightIcon}">
+                    <!-- Category -->
+                    <TextBlock VerticalAlignment="Center" Text="{Binding Category}"/>
+                    
+                    <!-- Category and subcategory separator icon -->
+                    <PathIcon Height="10"
+                              Data="{StaticResource AngleRightIcon}"
+                              VerticalAlignment="Bottom" 
+                              Margin="0 0 0 3">
+                        
                         <PathIcon.IsVisible>
                             <MultiBinding Converter="{x:Static BoolConverters.And}">
                                 <Binding Path="Category" Converter="{x:Static StringConverters.IsNotNullOrEmpty}"/>
@@ -38,23 +56,46 @@
                             </MultiBinding>
                         </PathIcon.IsVisible>
                     </PathIcon>
-                    <TextBlock VerticalAlignment="Center" Text="{Binding SubCategory}"></TextBlock>
+                    
+                    <!-- Subcategory -->
+                    <TextBlock VerticalAlignment="Center" Text="{Binding SubCategory}"/>
                 </StackPanel>
                 
                 <!-- Title -->
-                <TextBlock Grid.Column="1" HorizontalAlignment="Center" Text="{Binding Title}"/>
+                <TextBlock Grid.Column="1" Text="{Binding Title}" 
+                           HorizontalAlignment="Center" 
+                           TextTrimming="CharacterEllipsis" 
+                           Margin="50 0"/>
                 
                 <!-- Right panel -->
-                <StackPanel Grid.Column="2" Orientation="Horizontal">
-                    <PathIcon Classes="greyedOut" Height="16" Data="{StaticResource HiddenIcon}" IsVisible="{Binding IsHidden}" Margin="5 0">
+                <StackPanel Grid.Column="2" 
+                            Orientation="Horizontal" 
+                            Spacing="5">
+                    
+                    <!-- Hidden icon -->
+                    <PathIcon Classes="greyedOut" 
+                              Height="16" 
+                              Data="{StaticResource HiddenIcon}" 
+                              IsVisible="{Binding IsHidden}">
+                        
                         <ToolTip.Tip>This entry is marked as hidden.</ToolTip.Tip>
                     </PathIcon>
                     
-                    <PathIcon Name="ExpandAngle" Classes="expandIcon" Width="14" Height="14" Data="{StaticResource AngleDownIcon}" IsVisible="{Binding Content, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" Margin="5 0 10 0">
+                    <!-- Expand icon -->
+                    <PathIcon Name="ExpandAngle" 
+                              Classes="expandIcon" 
+                              Width="14" Height="14" 
+                              Data="{StaticResource AngleDownIcon}" 
+                              IsVisible="{Binding Content, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" 
+                              Margin="0 0 5 0">
+                        
                         <ToolTip.Tip>This entry is expandable.</ToolTip.Tip>
                     </PathIcon>
                     
-                    <TextBlock HorizontalAlignment="Right" Text="{Binding DisplayDate}">
+                    <!-- Date -->
+                    <TextBlock HorizontalAlignment="Right" 
+                               Text="{Binding DisplayDate}">
+                        
                         <ToolTip.Tip>
                             <TextBlock HorizontalAlignment="Left" Text="{Binding FullDateTooltip}"/>
                         </ToolTip.Tip>
@@ -62,18 +103,23 @@
                 </StackPanel>
             </Grid>
             
-            <!-- Content -->
-            <Panel Grid.Row="1" Margin="0 5 0 0">
-                <Panel.IsVisible>
+            <!-- Content panel -->
+            <Border Grid.Row="1" 
+                    Background="{DynamicResource SystemRegionColor}" 
+                    Margin="0 5 0 0" CornerRadius="5">
+                
+                <Border.IsVisible>
                     <MultiBinding Converter="{x:Static BoolConverters.And}">
                         <Binding Path="Content" Converter="{x:Static StringConverters.IsNotNullOrEmpty}"/>
                         <Binding Path="IsExpanded"/>
                     </MultiBinding>
-                </Panel.IsVisible>
-                <Border Background="{DynamicResource SystemRegionColor}" CornerRadius="5">
-                    <TextBlock Margin="5" TextWrapping="Wrap" Text="{Binding Content}"/>
-                </Border>
-            </Panel>
+                </Border.IsVisible>
+                
+                <!-- Content -->
+                <TextBlock Text="{Binding Content}"
+                           TextWrapping="Wrap" 
+                           Margin="5"/>
+            </Border>
         </Grid>
     </Border>
     
