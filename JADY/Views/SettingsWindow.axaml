@@ -14,10 +14,10 @@
         <StackPanel Grid.Row="0" Orientation="Vertical" Spacing="25" Margin="15">
         
             <TextBlock Classes="greyedOut" FontSize="18" Margin="0 0 0 -20">Saves:</TextBlock>
-            <StackPanel Margin="15 0" Orientation="Vertical" Spacing="10">
+            <StackPanel Margin="15 0" Orientation="Vertical">
                 <CheckBox Name="AutoSave">Auto save</CheckBox>
         
-                <TextBlock Classes="greyedOut" FontSize="12" Margin="-5">Save directory:</TextBlock>
+                <TextBlock Classes="greyedOut" FontSize="12" Margin="-5 5">Save directory:</TextBlock>
                 <TextBox Name="SavePath">
                     <TextBox.InnerRightContent>
                         <Button Click="ChangeSavePath_OnClick">+</Button>
@@ -26,10 +26,12 @@
             </StackPanel>
             
             <TextBlock Classes="greyedOut" FontSize="18" Margin="0 0 0 -20">Miscellaneous:</TextBlock>
-            <StackPanel Margin="15 0" Orientation="Vertical" Spacing="10">
+            <StackPanel Margin="15 0" Orientation="Vertical">
                 <CheckBox Name="ShowHidden">Show hidden entries</CheckBox>
+                
+                <CheckBox Name="DarkTheme">Dark theme</CheckBox>
         
-                <TextBlock Classes="greyedOut" FontSize="12" Margin="-5">Culture:</TextBlock>
+                <TextBlock Classes="greyedOut" FontSize="12" Margin="-5 5">Culture:</TextBlock>
                 <ComboBox Name="Cultures"></ComboBox>
             </StackPanel>
             

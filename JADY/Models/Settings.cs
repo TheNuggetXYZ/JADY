@@ -12,6 +12,11 @@ public class Settings
     public bool ShowHiddenEntries { get; init; }
     
     /// <summary>
+    /// Should the apps theme be set to dark?
+    /// </summary>
+    public bool IsThemeDark { get; init; }
+    
+    /// <summary>
     /// Should the app automatically save?
     /// </summary>
     public bool AutoSave { get; init; }

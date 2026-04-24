@@ -65,6 +65,7 @@ public partial class SettingsWindow : DialogWindowBase<Settings>
         {
             ShowHiddenEntries = ShowHidden.IsChecked ?? false,
             AutoSave = AutoSave.IsChecked ?? false,
+            IsThemeDark = DarkTheme.IsChecked ?? false,
             SaveFilePath = SavePath.Text,
             CultureInfoName = AvailableCultures[Cultures.SelectedIndex].Name,
         };
