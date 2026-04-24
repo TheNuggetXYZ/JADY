@@ -23,10 +23,15 @@
         </Style>
         
         <Style Selector="Border.outsetLighting">
-            <!--                                ====shadow====  ================lighting=============-->
-            <Setter Property="BoxShadow" Value="1 2 2 -1 black, inset 0.5 1 1 0 rgba(255,255,255,0.3)"/>
+            <!--                                ====shadow====  ================lighting==============-->
+            <Setter Property="BoxShadow" Value="1 2 2 -1 black, inset 0.5 1 1 0 rgba(255,255,255,0.15)"/>
             <!-- Set margin so shadow is not cut off -->
             <Setter Property="Margin" Value="0 0 1 2"/>
+        </Style>
+        
+        <Style Selector="Border.insetLighting">
+            <!--                                ========shadow======  ================lighting================-->
+            <Setter Property="BoxShadow" Value="inset 1 2 2 -1 black, inset -0.5 -1 1 0 rgba(255,255,255,0.15)"/>
         </Style>
         
         <Style Selector="PathIcon.expandIcon">

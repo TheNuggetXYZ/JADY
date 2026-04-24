@@ -106,6 +106,7 @@
             
             <!-- Content panel -->
             <Border Grid.Row="1" 
+                    Classes="insetLighting"
                     Background="{DynamicResource SystemRegionColor}" 
                     Margin="0 5 0 0" CornerRadius="5">
                 
