@@ -7,11 +7,10 @@
              x:Class="JADY.Views.DiaryEntryControl"
              x:DataType="viewModels:DiaryEntryViewModel">
 
-    <Border Background="{DynamicResource SystemChromeMediumColor}" 
+    <Border Classes="outsetLighting"
+            Background="{DynamicResource SystemChromeMediumColor}" 
             CornerRadius="3"
-            PointerPressed="DiaryEntryHeader_OnPointerPressed"
-            BoxShadow="1 2 2 -1 black, inset 0.5 1 1 0 rgba(255,255,255,0.3)"
-            Margin="0 0 1 2">
+            PointerPressed="DiaryEntryHeader_OnPointerPressed">
         
         <!-- Context menu -->
         <Border.ContextMenu>
