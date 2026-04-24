@@ -12,6 +12,8 @@ namespace JADY.Views;
 
 public partial class SettingsWindow : DialogWindowBase<Settings>
 {
+    private AppVisualService _appVisualService;
+    
     private List<CultureInfo> AvailableCultures { get; } = new()
     {
         new CultureInfo("cs-CZ"),
@@ -21,12 +23,15 @@ public partial class SettingsWindow : DialogWindowBase<Settings>
         new CultureInfo("fr-FR"),
     };
     
-    public SettingsWindow()
+    public SettingsWindow(AppVisualService appVisualService)
     {
         InitializeComponent();
 
+        _appVisualService = appVisualService;
+        
         ShowHidden.IsChecked = Saves.JadySave.Settings.ShowHiddenEntries;
         AutoSave.IsChecked = Saves.JadySave.Settings.AutoSave;
+        DarkTheme.IsChecked = Saves.JadySave.Settings.IsThemeDark;
         SavePath.Text = Saves.JadySave.Settings.SaveFilePath;
         Cultures.ItemsSource = AvailableCultures;
         Cultures.SelectedItem = new CultureInfo(Saves.JadySave.Settings.CultureInfoName);
@@ -42,6 +47,7 @@ public partial class SettingsWindow : DialogWindowBase<Settings>
 
     protected override Task SubmitAsync()
     {
+        UpdateApp();
         Saves.Save(GetValue());
         Close();
         return Task.CompletedTask;
@@ -57,6 +63,15 @@ public partial class SettingsWindow : DialogWindowBase<Settings>
         var saveFolder = await StorageProvider.TryGetFolderFromPathAsync(SavePath.Text);
 
         return saveFolder != null;
+    }
+
+    private void UpdateApp()
+    {
+        bool newIsDark = DarkTheme.IsChecked ?? false;
+        if (Saves.JadySave.Settings.IsThemeDark != newIsDark)
+        {
+            _appVisualService.SetTheme(newIsDark);
+        }
     }
 
     protected override Settings GetValue()
