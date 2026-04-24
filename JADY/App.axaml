@@ -18,8 +18,6 @@
             </FluentTheme.Palettes>
         </FluentTheme>
         
-        <Style Selector="FluentTheme"><Setter Property="DensityStyle" Value="Compact"></Setter></Style>
-        
         <Style Selector="TextBlock.greyedOut">
             <Setter Property="Foreground" Value="Gray" />
         </Style>
