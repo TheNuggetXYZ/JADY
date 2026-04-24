@@ -6,10 +6,12 @@
              mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="70"
              x:Class="JADY.Views.DiaryEntryControl"
              x:DataType="viewModels:DiaryEntryViewModel">
-    
+
     <Border Background="{DynamicResource SystemChromeMediumColor}" 
             CornerRadius="3" 
-            PointerPressed="DiaryEntryHeader_OnPointerPressed">
+            PointerPressed="DiaryEntryHeader_OnPointerPressed"
+            BoxShadow="1 2 2 -1 black, inset 0.5 1 1 0 rgb(200,200,200)"
+            Margin="0 0 1 2">
         
         <!-- Context menu -->
         <Border.ContextMenu>
@@ -122,5 +124,5 @@
             </Border>
         </Grid>
     </Border>
-    
+
 </UserControl>
