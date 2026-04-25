@@ -18,7 +18,14 @@
             </FluentTheme.Palettes>
         </FluentTheme>
 
+        <Style Selector="Button /template/ ContentPresenter">
+            <Setter Property="BoxShadow" Value="1 2 2 -1 black"/>
+            <Setter Property="Margin" Value="0 0 2 3"></Setter>
+        </Style>
         
+        <Style Selector="Button:pointerover /template/ ContentPresenter">
+            <Setter Property="BoxShadow" Value="2 3 2 -1 black"/>
+        </Style>
         
         <Style Selector="TextBlock.greyedOut">
             <Setter Property="Foreground" Value="Gray"/>
