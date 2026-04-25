@@ -61,6 +61,8 @@ public partial class SettingsWindow : DialogWindowBase<Settings>
     private async Task<bool> SavePathExists()
     {
         var saveFolder = await StorageProvider.TryGetFolderFromPathAsync(SavePath.Text);
+        
+        SavePath.Text = saveFolder?.Path.AbsolutePath;
 
         return saveFolder != null;
     }
@@ -108,7 +110,7 @@ public partial class SettingsWindow : DialogWindowBase<Settings>
             SuggestedStartLocation = suggestedStart
         });
 
-        if (folders != null)
+        if (folders is { Count: > 0 })
         {
             SavePath.Text = folders[0].Path.AbsolutePath;
         }
