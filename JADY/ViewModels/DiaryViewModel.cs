@@ -28,7 +28,7 @@ public partial class DiaryViewModel : ViewModelBase
     {
         _mainWindowViewModel = mainWindowViewModel;
         Name = diary.Name;
-        Entries = MVMConverter.ConvertModels(diary.Entries.OrderBy(Utils.GetMostRelevantDate), this);
+        Entries = MVMConverter.ConvertModels(diary.Entries.OrderByDescending(Utils.GetMostRelevantDate), this);
     }
 
     /// <returns>
@@ -45,9 +45,11 @@ public partial class DiaryViewModel : ViewModelBase
 
     public void AddEntry(DiaryEntryViewModel vm)
     {
-        var key = Utils.GetMostRelevantDate(vm);
+        var compareDate = Utils.GetMostRelevantDate(vm);
+        
         int i = 0;
-        while (i < Entries.Count && Utils.GetMostRelevantDate(Entries[i]) <= key) i++;
+        while (i < Entries.Count && Utils.GetMostRelevantDate(Entries[i]) > compareDate) i++;
+        
         Entries.Insert(i, vm);
 
         WeakReferenceMessenger.Default.Send(new Messages.PerformAutoSaveMessage());
