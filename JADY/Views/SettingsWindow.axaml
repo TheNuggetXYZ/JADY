@@ -20,7 +20,7 @@
                 <TextBlock Classes="greyedOut" FontSize="12" Margin="-5 5">Save directory:</TextBlock>
                 <TextBox Name="SavePath">
                     <TextBox.InnerRightContent>
-                        <Button Click="ChangeSavePath_OnClick">+</Button>
+                        <Button Classes="shadowless" Click="ChangeSavePath_OnClick">+</Button>
                     </TextBox.InnerRightContent>
                 </TextBox>
             </StackPanel>

@@ -21,10 +21,21 @@
         <Style Selector="Button /template/ ContentPresenter">
             <Setter Property="BoxShadow" Value="1 2 2 -1 black"/>
             <Setter Property="Margin" Value="0 0 2 3"></Setter>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <!-- Smoothly fade shadow if it changes -->
+                    <BoxShadowsTransition Property="BoxShadow" Duration="0:0:0.2" />
+                </Transitions>
+            </Setter>
         </Style>
         
         <Style Selector="Button:pointerover /template/ ContentPresenter">
             <Setter Property="BoxShadow" Value="2 3 2 -1 black"/>
+        </Style>
+        
+        <Style Selector="Button.shadowless /template/ ContentPresenter">
+            <Setter Property="BoxShadow" Value="0 0 0 0 transparent"/>
+            <Setter Property="Margin" Value="0 0 0 0"></Setter>
         </Style>
         
         <Style Selector="TextBlock.greyedOut">
