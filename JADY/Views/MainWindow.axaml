@@ -58,9 +58,36 @@
         </DockPanel>
         
         <TabControl Grid.Row="1" ItemsSource="{Binding Diaries}" SelectedIndex="{Binding OpenDiaryIndex}" TabStripPlacement="Bottom">
+            
+            <TabControl.Theme>
+                <ControlTheme TargetType="TabControl" BasedOn="{StaticResource {x:Type TabControl}}">
+                    <Setter Property="Template">
+                        <ControlTemplate>
+                            <DockPanel>
+                                <ScrollViewer DockPanel.Dock="{TemplateBinding TabStripPlacement}"
+                                              HorizontalScrollBarVisibility="Hidden"
+                                              VerticalScrollBarVisibility="Disabled"
+                                              PointerWheelChanged="TabStrip_OnPointerWheelChanged">
+                                    <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}"/>
+                                </ScrollViewer>
+                                <ContentPresenter Name="PART_SelectedContentHost"
+                                                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                             Content="{TemplateBinding SelectedContent}"
+                                                             ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                            </DockPanel>
+                        </ControlTemplate>
+                    </Setter>
+                    <Setter Property="ItemsPanel">
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </Setter>
+                </ControlTheme>
+            </TabControl.Theme>
             <TabControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel Height="35" Background="{DynamicResource SystemColorWindowColor}"/>
+                    <StackPanel Orientation="Horizontal" Height="35" Background="{DynamicResource SystemColorWindowColor}"/>
                 </ItemsPanelTemplate>
             </TabControl.ItemsPanel>
             <TabControl.ItemContainerTheme>
@@ -84,7 +111,7 @@
             <TabControl.ContentTemplate>
                 <DataTemplate DataType="vm:DiaryViewModel">
                     <ScrollViewer>
-                        <ItemsRepeater ItemsSource="{Binding Entries}">
+                        <ItemsRepeater ItemsSource="{Binding Entries}"  Margin="10 0">
                             <ItemsRepeater.ItemTemplate>
                                 <DataTemplate>
                                     <views:DiaryEntryControl IsVisible="{Binding IsCurrentlyVisible}" Margin="0 1"/>
