@@ -6,9 +6,9 @@
              mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="70"
              x:Class="JADY.Views.DiaryEntryControl"
              x:DataType="viewModels:DiaryEntryViewModel">
-
+    
     <Border Classes="outsetLighting highlight"
-            Background="{DynamicResource SystemBaseLowColor}" 
+            Background="{DynamicResource SystemChromeMediumLowColor}" 
             CornerRadius="3"
             PointerPressed="DiaryEntryHeader_OnPointerPressed">
         

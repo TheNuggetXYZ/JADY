@@ -58,7 +58,6 @@
         </DockPanel>
         
         <TabControl Grid.Row="1" ItemsSource="{Binding Diaries}" SelectedIndex="{Binding OpenDiaryIndex}" TabStripPlacement="Bottom">
-            
             <TabControl.Theme>
                 <ControlTheme TargetType="TabControl" BasedOn="{StaticResource {x:Type TabControl}}">
                     <Setter Property="Template">
@@ -111,7 +110,7 @@
             <TabControl.ContentTemplate>
                 <DataTemplate DataType="vm:DiaryViewModel">
                     <ScrollViewer>
-                        <ItemsRepeater ItemsSource="{Binding Entries}"  Margin="10 0">
+                        <ItemsRepeater ItemsSource="{Binding Entries}" Margin="10 0">
                             <ItemsRepeater.ItemTemplate>
                                 <DataTemplate>
                                     <views:DiaryEntryControl IsVisible="{Binding IsCurrentlyVisible}" Margin="0 1"/>
