@@ -18,23 +18,36 @@
             </FluentTheme.Palettes>
         </FluentTheme>
 
-
+        
         
         <Style Selector="TextBlock.greyedOut">
             <Setter Property="Foreground" Value="Gray"/>
         </Style>
         
         <Style Selector="Border.outsetLighting">
-            <!--                                ====shadow====  ================lighting==============-->
-            <Setter Property="BoxShadow" Value="1 2 2 -1 black, inset 0.5 1 1 0 rgba(255,255,255,0.15)"/>
+            <!--                                ====shadow====  ================lighting=============-->
+            <Setter Property="BoxShadow" Value="1 2 2 -1 black, inset 0.5 1 1 0 rgba(255,255,255,0.1)"/>
             <!-- Set margin so shadow is not cut off -->
             <Setter Property="Margin" Value="0 0 1 2"/>
+        </Style>
+        
+        <Style Selector="Border:pointerover.outsetLighting.hover">
+            <!--                                ====shadow====  ================lighting===========-->
+            <Setter Property="BoxShadow" Value="2 3 3 -1 black, inset 1 2 1 0 rgba(255,255,255,0.1)"/>
+            <!-- Set margin so shadow is not cut off -->
+            <Setter Property="Margin" Value="0 0 2 3"/>
+        </Style>
+        
+        <Style Selector="Border:pointerover.outsetLighting.highlight">
+            <!--                                ====shadow====  ================lighting============-->
+            <Setter Property="BoxShadow" Value="1 2 2 -1 black, inset 1 2 1 0 rgba(255,255,255,0.15)"/>
         </Style>
         
         <Style Selector="Border.insetLighting">
             <!--                                ========shadow======  ================lighting================-->
             <Setter Property="BoxShadow" Value="inset 1 2 2 -1 black, inset -0.5 -1 1 0 rgba(255,255,255,0.15)"/>
         </Style>
+        
         
         <Style Selector="PathIcon.expandIcon">
             <Setter Property="Transitions">
@@ -52,6 +65,8 @@
             <Setter Property="Opacity" Value="0.5"></Setter>
         </Style>
     </Application.Styles>
+             
+             
              
     <Application.Resources>
         <backend:EntryStatusIconConverter x:Key="EntryStatusIconConverter"/>
