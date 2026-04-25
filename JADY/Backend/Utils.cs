@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using JADY.Models;
 using JADY.ViewModels;
 
@@ -18,6 +19,30 @@ public static class Utils
 
     public static DateTimeOffset GetMostRelevantDate(DiaryEntryViewModel vm) => vm.Date ?? vm.EndDate ?? vm.LogDate;
     public static DateTimeOffset GetMostRelevantDate(DiaryEntry m) => m.Date ?? m.EndDate ?? m.LogDate;
+    
+    public static bool IsDirectoryWritable(string dirPath, bool throwIfFails = false)
+    {
+        try
+        {
+            using (FileStream fs = File.Create(
+                       Path.Combine(
+                           dirPath, 
+                           Path.GetRandomFileName()
+                       ), 
+                       1,
+                       FileOptions.DeleteOnClose)
+                  )
+            { }
+            return true;
+        }
+        catch
+        {
+            if (throwIfFails)
+                throw;
+            else
+                return false;
+        }
+    }
     
     public enum EntryStatus
     {

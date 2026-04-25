@@ -40,9 +40,14 @@ public partial class SettingsWindow : DialogWindowBase<Settings>
     protected override async Task TrySubmitAsync()
     {
         if (await CanSubmitAsync())
+        {
             await SubmitAsync();
+        }
         else
-            await FixSavePath();
+        {
+            if (!await SavePathValid())
+                await FixSavePath();
+        }
     }
 
     protected override Task SubmitAsync()
@@ -55,16 +60,25 @@ public partial class SettingsWindow : DialogWindowBase<Settings>
 
     protected override async Task<bool> CanSubmitAsync()
     {
-        return await SavePathExists();
+        return await SavePathValid();
     }
 
-    private async Task<bool> SavePathExists()
+    private async Task<bool> SavePathValid()
     {
         var saveFolder = await StorageProvider.TryGetFolderFromPathAsync(SavePath.Text);
-        
-        SavePath.Text = saveFolder?.Path.AbsolutePath;
 
-        return saveFolder != null;
+        try
+        {
+            // Cleanup the path and partially fix it. E.g.: When you have "home/user\" it will still get the folder and incorrectly flag the path as valid. Then it will try to save to "home/user\/JADY.save"
+            SavePath.Text = saveFolder?.Path.AbsolutePath;
+        }
+        catch (InvalidOperationException e)
+        {
+            Console.WriteLine($"Cannot set save path to the path of the found folder. Exception: {e}");
+            return false;
+        }
+
+        return saveFolder != null && Utils.IsDirectoryWritable(SavePath.Text);
     }
 
     private void UpdateApp()
@@ -93,9 +107,9 @@ public partial class SettingsWindow : DialogWindowBase<Settings>
     private async Task FixSavePath()
     {
         SavePath.Text = Saves.JadySave.Settings.SaveFilePath;
-        
+
         await WindowManager.OpenMessageBox(WindowManager.GetMainWindow(), "Warning",
-            "The entered save file directory doesn't exist - resetting to last directory");
+            "The entered save file directory is invalid - resetting to last directory");
     }
 
     private async Task OpenChangeSavePath()
