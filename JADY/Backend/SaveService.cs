@@ -1,0 +1,52 @@
+using System.Globalization;
+using System.IO;
+using CommunityToolkit.Mvvm.Messaging;
+using JADY.Models;
+
+namespace JADY.Backend;
+
+public class SaveService(IAppVisualService appVisualService) : ISaveService
+{
+    public JadySave JadySave { get; private set; } = new();
+
+    public void Save(Diary[] diaries)
+    {
+        JadySave.Diaries = diaries;
+        
+        Save();
+    }
+
+    public void Save(Settings settings)
+    {
+        JadySave.Settings = settings;
+        JadySave.Settings.CultureInfo = new CultureInfo(settings.CultureInfoName);
+        
+        Save();
+    }
+    
+    private void Save()
+    {
+        DiaryJSON.Serialize(GetSavePath(), JadySave);
+        
+        WeakReferenceMessenger.Default.Send(new Messages.AnySaveMessage());
+        WeakReferenceMessenger.Default.Send(new Messages.SaveChangeMessage());
+    }
+
+    public void Load()
+    {
+        JadySave = DiaryJSON.Deserialize(GetSavePath());
+        JadySave.Load();
+
+        appVisualService.SetTheme(JadySave.Settings.IsThemeDark);
+
+        WeakReferenceMessenger.Default.Send(new Messages.SaveChangeMessage());
+    }
+    
+    private string GetSavePath()
+    {
+        if (JadySave.Settings.SaveFilePath != null)
+            return Path.Combine(JadySave.Settings.SaveFilePath, "JADY.save");
+        
+        throw new DirectoryNotFoundException("JADY save file path not found");
+    }
+}

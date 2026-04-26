@@ -39,6 +39,7 @@ public partial class App : Application
         var collection = new ServiceCollection();
         
         collection.AddSingleton<IAppVisualService, AppVisualService>();
+        collection.AddSingleton<ISaveService, SaveService>();
         
         collection.AddSingleton<MainWindowViewModel>();
         collection.AddTransient<SettingsWindow>();
