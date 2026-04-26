@@ -2,6 +2,7 @@ using System;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using JADY.Backend;
+using JADY.Data;
 using JADY.Models;
 
 namespace JADY.Views;
@@ -19,7 +20,7 @@ public partial class AddEntryWindow : DialogWindowBase<DiaryEntry>
     {
         return new DiaryEntry()
         {
-            Status = Utils.NewEntryParameterToEntryStatus((Utils.NewEntryParameter)EntryParameter.SelectedIndex),
+            Status = Utils.NewEntryParameterToEntryStatus((NewEntryParameter)EntryParameter.SelectedIndex),
             Category = EntryCategory.Text,
             SubCategory = EntrySubcategory.Text,
             Title = EntryTitle.Text,

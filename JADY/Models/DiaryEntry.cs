@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
-using JADY.Backend;
+using JADY.Data;
 
 namespace JADY.Models;
 
 public class DiaryEntry
 {
-    public Utils.EntryStatus Status { get; set; }
+    public EntryStatus Status { get; set; }
     
     /// <summary>
     /// The date at the time the entry was added.

@@ -1,6 +1,7 @@
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using JADY.Backend;
+using JADY.Data;
 using JADY.Models;
 using JADY.ViewModels;
 
@@ -20,7 +21,7 @@ public partial class EditEntryWindow : DialogWindowBase<DiaryEntry>, IDialogInit
     {
         return new DiaryEntry()
         {
-            Status = (Utils.EntryStatus)EntryStatus.SelectedIndex,
+            Status = (EntryStatus)EntryStatus.SelectedIndex,
             Date = EntryDate.SelectedDate,
             EndDate = EntryEndDate.SelectedDate,
             Category = EntryCategory.Text,

@@ -2,6 +2,7 @@ using System;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using JADY.Backend;
+using JADY.Data;
 using JADY.Models;
 using JADY.ViewModels;
 
@@ -22,10 +23,10 @@ public partial class EndEntryWindow : DialogWindowBase<DiaryEntry>, IDialogIniti
         return new DiaryEntry()
         {
             EndDate = EndDate.SelectedDate,
-            Status = (Utils.EndEntryParameter)EndParameter.SelectedIndex switch
+            Status = (EndEntryParameter)EndParameter.SelectedIndex switch
             {
-                Utils.EndEntryParameter.Completed => Utils.EntryStatus.Completed,
-                Utils.EndEntryParameter.Dropped => Utils.EntryStatus.Dropped,
+                EndEntryParameter.Completed => EntryStatus.Completed,
+                EndEntryParameter.Dropped => EntryStatus.Dropped,
                 _ => throw new ArgumentOutOfRangeException()
             }
         };

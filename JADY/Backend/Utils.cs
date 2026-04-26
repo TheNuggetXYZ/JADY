@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using JADY.Data;
 using JADY.Models;
 using JADY.ViewModels;
 
@@ -42,26 +43,6 @@ public static class Utils
             else
                 return false;
         }
-    }
-    
-    public enum EntryStatus
-    {
-        OneTime = 0,
-        InProgress = 1,
-        Completed = 2,
-        Dropped = 3,
-    }
-    
-    public enum NewEntryParameter
-    {
-        OneTime = 0,
-        Started = 1,
-    }
-    
-    public enum EndEntryParameter
-    {
-        Completed = 0,
-        Dropped = 1,
     }
 
     public static readonly string[] EntryStatusToArray = ["One time", "In progress", "Completed", "Dropped"];
