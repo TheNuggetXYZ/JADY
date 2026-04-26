@@ -12,7 +12,7 @@ namespace JADY.Views;
 
 public partial class SettingsWindow : DialogWindowBase<Settings>
 {
-    private AppVisualService _appVisualService;
+    private readonly IAppVisualService _appVisualService;
     
     private List<CultureInfo> AvailableCultures { get; } = new()
     {
@@ -23,7 +23,7 @@ public partial class SettingsWindow : DialogWindowBase<Settings>
         new CultureInfo("fr-FR"),
     };
     
-    public SettingsWindow(AppVisualService appVisualService)
+    public SettingsWindow(IAppVisualService appVisualService)
     {
         InitializeComponent();
 

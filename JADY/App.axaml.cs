@@ -38,8 +38,9 @@ public partial class App : Application
     {
         var collection = new ServiceCollection();
         
+        collection.AddSingleton<IAppVisualService, AppVisualService>();
+        
         collection.AddSingleton<MainWindowViewModel>();
-        collection.AddSingleton<AppVisualService>();
         collection.AddTransient<SettingsWindow>();
         collection.AddTransient<AddEntryWindow>();
         collection.AddTransient<AddDiaryWindow>();

@@ -2,6 +2,7 @@ using System.Globalization;
 using System.IO;
 using CommunityToolkit.Mvvm.Messaging;
 using JADY.Models;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace JADY.Backend;
 
@@ -36,6 +37,9 @@ public static class Saves
     {
         JadySave = DiaryJSON.Deserialize(GetSavePath());
         JadySave.Load();
+
+        if (App.ServiceProvider is not null)
+            App.ServiceProvider.GetRequiredService<IAppVisualService>().SetTheme(JadySave.Settings.IsThemeDark);
 
         WeakReferenceMessenger.Default.Send(new Messages.SaveChangeMessage());
     }
