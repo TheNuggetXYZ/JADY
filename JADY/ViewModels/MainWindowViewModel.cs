@@ -7,6 +7,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using JADY.Backend;
 using JADY.Models;
+using JADY.Services;
 using JADY.Views;
 
 namespace JADY.ViewModels;

@@ -25,5 +25,7 @@
 
     <ItemGroup>
       <Folder Include="Assets\Fonts\" />
+      <Folder Include="Data\" />
+      <Folder Include="Factories\" />
     </ItemGroup>
 </Project>

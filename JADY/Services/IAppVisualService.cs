@@ -1,4 +1,4 @@
-namespace JADY.Backend;
+namespace JADY.Services;
 
 public interface IAppVisualService
 {

@@ -1,6 +1,6 @@
 using Avalonia;
 
-namespace JADY.Backend;
+namespace JADY.Services;
 
 public class AppVisualService : IAppVisualService
 {

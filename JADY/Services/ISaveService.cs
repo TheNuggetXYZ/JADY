@@ -1,6 +1,6 @@
 using JADY.Models;
 
-namespace JADY.Backend;
+namespace JADY.Services;
 
 public interface ISaveService
 {

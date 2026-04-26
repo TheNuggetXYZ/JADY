@@ -7,6 +7,7 @@ using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
 using JADY.Backend;
 using JADY.Models;
+using JADY.Services;
 
 namespace JADY.Views;
 

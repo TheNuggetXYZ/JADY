@@ -1,7 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using JADY.Backend;
+using JADY.Services;
 using JADY.ViewModels;
 using JADY.Views;
 using Microsoft.Extensions.DependencyInjection;
