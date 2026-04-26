@@ -25,8 +25,11 @@ public partial class DiaryViewModel : ViewModelBase
     
     private readonly MainWindowViewModel _mainWindowViewModel;
 
+    private readonly IDiaryEntryViewModelFactory _diaryEntryViewModelFactory;
+
     public DiaryViewModel(Diary diary, MainWindowViewModel mainWindowViewModel, IDiaryEntryViewModelFactory diaryEntryViewModelFactory)
     {
+        _diaryEntryViewModelFactory = diaryEntryViewModelFactory;
         _mainWindowViewModel = mainWindowViewModel;
         Name = diary.Name;
         Entries = new ObservableCollection<DiaryEntryViewModel>(diary.Entries.OrderByDescending(Utils.GetMostRelevantDate).Select(x => diaryEntryViewModelFactory.Create(x, this)));
@@ -44,14 +47,21 @@ public partial class DiaryViewModel : ViewModelBase
         };
     }
 
-    public void AddEntry(DiaryEntryViewModel vm)
+    public void AddEntry(DiaryEntry model)
     {
-        var compareDate = Utils.GetMostRelevantDate(vm);
+        DiaryEntryViewModel newEntryViewModel = _diaryEntryViewModelFactory.Create(model, this);
+        
+        InsertEntry(newEntryViewModel);
+    }
+
+    private void InsertEntry(DiaryEntryViewModel newEntryViewModel)
+    {
+        var compareDate = Utils.GetMostRelevantDate(newEntryViewModel);
         
         int i = 0;
         while (i < Entries.Count && Utils.GetMostRelevantDate(Entries[i]) > compareDate) i++;
         
-        Entries.Insert(i, vm);
+        Entries.Insert(i, newEntryViewModel);
 
         WeakReferenceMessenger.Default.Send(new Messages.PerformAutoSaveMessage());
     }
@@ -78,12 +88,13 @@ public partial class DiaryViewModel : ViewModelBase
     public void RemoveEntry(DiaryEntryViewModel item)
     {
         Entries.Remove(item);
+        
         WeakReferenceMessenger.Default.Send(new Messages.PerformAutoSaveMessage());
     }
 
     public void ResortEntry(DiaryEntryViewModel item)
     {
         Entries.Remove(item);
-        AddEntry(item); // readd entry
+        InsertEntry(item); // readd entry
     }
 }

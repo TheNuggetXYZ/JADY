@@ -16,7 +16,6 @@ namespace JADY.ViewModels;
 public partial class MainWindowViewModel : ViewModelBase
 {
     private readonly ISaveService _saveService;
-    private readonly IDiaryEntryViewModelFactory _diaryEntryViewModelFactory;
     private readonly IDiaryViewModelFactory _diaryViewModelFactory;
     
     private ObservableCollection<DiaryViewModel> _diaries = new();
@@ -40,11 +39,10 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty]
     private float _saveIconOpacity = 0f;
 
-    public MainWindowViewModel(ISaveService saveService, IDiaryViewModelFactory diaryViewModelFactory, IDiaryEntryViewModelFactory diaryEntryViewModelFactory)
+    public MainWindowViewModel(ISaveService saveService, IDiaryViewModelFactory diaryViewModelFactory)
     {
         _saveService = saveService;
         _diaryViewModelFactory = diaryViewModelFactory;
-        _diaryEntryViewModelFactory = diaryEntryViewModelFactory;
         
         Load();
         
@@ -96,7 +94,7 @@ public partial class MainWindowViewModel : ViewModelBase
             return;
         
         // Construct and add a view model from model
-        Diaries[OpenDiaryIndex].AddEntry(_diaryEntryViewModelFactory.Create(model, Diaries[OpenDiaryIndex])); // TODO: no need to assign owner when we call this from the owner, the owner can assign that themselves
+        Diaries[OpenDiaryIndex].AddEntry(model);
     }
     
     [RelayCommand]
