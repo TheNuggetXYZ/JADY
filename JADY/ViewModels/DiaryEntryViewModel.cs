@@ -1,5 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -126,7 +127,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         Title =  diaryEntry.Title;
         Content = diaryEntry.Content;
         IsHidden = diaryEntry.IsHidden;
-        SubEntries = MVMConverter.ConvertModels(diaryEntry.SubEntries, this);
+        SubEntries = new(diaryEntry.SubEntries.Select(x => new DiarySubEntryViewModel(x, this)));
     }
     
     /// <returns>
@@ -145,7 +146,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
             Title = Title,
             Content = Content,
             IsHidden = IsHidden,
-            SubEntries = MVMConverter.ConvertViewModels(SubEntries)
+            SubEntries = new(SubEntries.Select(x => x.GetModel()))
         };
     }
     

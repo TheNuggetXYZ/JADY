@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using JADY.Backend;
+using JADY.Factories;
 using JADY.Models;
 using JADY.Views;
 
@@ -24,11 +25,11 @@ public partial class DiaryViewModel : ViewModelBase
     
     private readonly MainWindowViewModel _mainWindowViewModel;
 
-    public DiaryViewModel(Diary diary, MainWindowViewModel mainWindowViewModel)
+    public DiaryViewModel(Diary diary, MainWindowViewModel mainWindowViewModel, IDiaryEntryViewModelFactory diaryEntryViewModelFactory)
     {
         _mainWindowViewModel = mainWindowViewModel;
         Name = diary.Name;
-        Entries = MVMConverter.ConvertModels(diary.Entries.OrderByDescending(Utils.GetMostRelevantDate), this);
+        Entries = new ObservableCollection<DiaryEntryViewModel>(diary.Entries.OrderByDescending(Utils.GetMostRelevantDate).Select(x => diaryEntryViewModelFactory.Create(x, this)));
     }
 
     /// <returns>
@@ -39,7 +40,7 @@ public partial class DiaryViewModel : ViewModelBase
         return new()
         {
             Name = Name,
-            Entries = MVMConverter.ConvertViewModels(Entries)
+            Entries = new(Entries.Select(x => x.GetModel()))
         };
     }
 
