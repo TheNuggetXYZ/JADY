@@ -13,6 +13,8 @@ namespace JADY.ViewModels;
 
 public partial class MainWindowViewModel : ViewModelBase
 {
+    private readonly ISaveService _saveService;
+    
     private ObservableCollection<DiaryViewModel> _diaries = new();
 
     public ObservableCollection<DiaryViewModel> Diaries
@@ -34,13 +36,15 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty]
     private float _saveIconOpacity = 0f;
 
-    public MainWindowViewModel()
+    public MainWindowViewModel(ISaveService saveService)
     {
+        _saveService = saveService;
+        
         Load();
         
         WeakReferenceMessenger.Default.Register<Messages.PerformAutoSaveMessage>(this, (r, m) =>
         {
-            if (Saves.JadySave.Settings.AutoSave)
+            if (_saveService.JadySave.Settings.AutoSave)
                 Save();
         });
         
@@ -103,15 +107,15 @@ public partial class MainWindowViewModel : ViewModelBase
 
     private void Save()
     {
-        Saves.Save(Diaries.Select(d => d.GetModel()).ToArray());
+        _saveService.Save(Diaries.Select(d => d.GetModel()).ToArray());
     }
 
     private void Load()
     {
-        Saves.Load();
+        _saveService.Load();
 
         Diaries = new ObservableCollection<DiaryViewModel>(
-            Saves.JadySave.Diaries.Select(d => new DiaryViewModel(d, this)));
+            _saveService.JadySave.Diaries.Select(d => new DiaryViewModel(d, this)));
     }
 
     private async Task SaveIconAnimation()

@@ -13,6 +13,7 @@ namespace JADY.Views;
 public partial class SettingsWindow : DialogWindowBase<Settings>
 {
     private readonly IAppVisualService _appVisualService;
+    private readonly ISaveService _saveService;
     
     private List<CultureInfo> AvailableCultures { get; } = new()
     {
@@ -23,18 +24,19 @@ public partial class SettingsWindow : DialogWindowBase<Settings>
         new CultureInfo("fr-FR"),
     };
     
-    public SettingsWindow(IAppVisualService appVisualService)
+    public SettingsWindow(IAppVisualService appVisualService, ISaveService saveService)
     {
         InitializeComponent();
 
         _appVisualService = appVisualService;
+        _saveService = saveService;
         
-        ShowHidden.IsChecked = Saves.JadySave.Settings.ShowHiddenEntries;
-        AutoSave.IsChecked = Saves.JadySave.Settings.AutoSave;
-        DarkTheme.IsChecked = Saves.JadySave.Settings.IsThemeDark;
-        SavePath.Text = Saves.JadySave.Settings.SaveFilePath;
+        ShowHidden.IsChecked = _saveService.JadySave.Settings.ShowHiddenEntries;
+        AutoSave.IsChecked = _saveService.JadySave.Settings.AutoSave;
+        DarkTheme.IsChecked = _saveService.JadySave.Settings.IsThemeDark;
+        SavePath.Text = _saveService.JadySave.Settings.SaveFilePath;
         Cultures.ItemsSource = AvailableCultures;
-        Cultures.SelectedItem = new CultureInfo(Saves.JadySave.Settings.CultureInfoName);
+        Cultures.SelectedItem = new CultureInfo(_saveService.JadySave.Settings.CultureInfoName);
     }
     
     protected override async Task TrySubmitAsync()
@@ -53,7 +55,7 @@ public partial class SettingsWindow : DialogWindowBase<Settings>
     protected override Task SubmitAsync()
     {
         UpdateApp();
-        Saves.Save(GetValue());
+        _saveService.Save(GetValue());
         Close();
         return Task.CompletedTask;
     }
@@ -84,7 +86,7 @@ public partial class SettingsWindow : DialogWindowBase<Settings>
     private void UpdateApp()
     {
         bool newIsDark = DarkTheme.IsChecked ?? false;
-        if (Saves.JadySave.Settings.IsThemeDark != newIsDark)
+        if (_saveService.JadySave.Settings.IsThemeDark != newIsDark)
         {
             _appVisualService.SetTheme(newIsDark);
         }
@@ -106,7 +108,7 @@ public partial class SettingsWindow : DialogWindowBase<Settings>
 
     private async Task FixSavePath()
     {
-        SavePath.Text = Saves.JadySave.Settings.SaveFilePath;
+        SavePath.Text = _saveService.JadySave.Settings.SaveFilePath;
 
         await WindowManager.OpenMessageBox(WindowManager.GetMainWindow(), "Warning",
             "The entered save file directory is invalid - resetting to last directory");
