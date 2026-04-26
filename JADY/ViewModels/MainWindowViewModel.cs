@@ -17,6 +17,7 @@ public partial class MainWindowViewModel : ViewModelBase
 {
     private readonly ISaveService _saveService;
     private readonly IDiaryEntryViewModelFactory _diaryEntryViewModelFactory;
+    private readonly IDiaryViewModelFactory _diaryViewModelFactory;
     
     private ObservableCollection<DiaryViewModel> _diaries = new();
 
@@ -39,9 +40,10 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty]
     private float _saveIconOpacity = 0f;
 
-    public MainWindowViewModel(ISaveService saveService, IDiaryEntryViewModelFactory diaryEntryViewModelFactory)
+    public MainWindowViewModel(ISaveService saveService, IDiaryViewModelFactory diaryViewModelFactory, IDiaryEntryViewModelFactory diaryEntryViewModelFactory)
     {
         _saveService = saveService;
+        _diaryViewModelFactory = diaryViewModelFactory;
         _diaryEntryViewModelFactory = diaryEntryViewModelFactory;
         
         Load();
@@ -76,7 +78,7 @@ public partial class MainWindowViewModel : ViewModelBase
             return;
         
         // Construct and add a view model from model
-        Diaries.Add(new DiaryViewModel(model, this));
+        Diaries.Add(_diaryViewModelFactory.Create(model, this));
         
         WeakReferenceMessenger.Default.Send(new Messages.PerformAutoSaveMessage());
     }
@@ -119,7 +121,7 @@ public partial class MainWindowViewModel : ViewModelBase
         _saveService.Load();
 
         Diaries = new ObservableCollection<DiaryViewModel>(
-            _saveService.JadySave.Diaries.Select(d => new DiaryViewModel(d, this)));
+            _saveService.JadySave.Diaries.Select(model => _diaryViewModelFactory.Create(model, this)));
     }
 
     private async Task SaveIconAnimation()

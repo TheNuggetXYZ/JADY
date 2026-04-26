@@ -45,6 +45,7 @@ public partial class App : Application
         
         // Factories
         collection.AddSingleton<IDiaryEntryViewModelFactory, DiaryEntryViewModelFactory>();
+        collection.AddSingleton<IDiaryViewModelFactory, DiaryViewModelFactory>();
         
         // View Models
         collection.AddSingleton<MainWindowViewModel>();
