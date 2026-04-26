@@ -33,6 +33,13 @@
             <Setter Property="Margin" Value="0 0 0 0"/>
         </Style>
         
+        <Style Selector="Button.invisible /template/ ContentPresenter">
+            <Setter Property="BoxShadow" Value="0 0 0 0 transparent"/>
+            <Setter Property="Margin" Value="0 0 0 0"/>
+            <Setter Property="Padding" Value="0 0 0 0"/>
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+        
         <Style Selector="TextBlock.greyedOut">
             <Setter Property="Foreground" Value="Gray"/>
         </Style>
