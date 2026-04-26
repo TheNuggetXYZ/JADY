@@ -7,6 +7,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using JADY.Backend;
 using JADY.Data;
 using JADY.Models;
+using JADY.Services;
 using JADY.Views;
 
 namespace JADY.ViewModels;
@@ -86,16 +87,16 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     public bool ShowEndEventInContextMenu => Status == EntryStatus.InProgress;
 
     [SaveDependent]
-    public bool IsCurrentlyVisible => !IsHidden || Saves.JadySave.Settings.ShowHiddenEntries;
+    public bool IsCurrentlyVisible => !IsHidden || _saveService.JadySave.Settings.ShowHiddenEntries;
     
     [SaveDependent]
-    public string LogDateDisplayName => LogDate.Date.ToString("d", Saves.JadySave.Settings.CultureInfo);
+    public string LogDateDisplayName => LogDate.Date.ToString("d", _saveService.JadySave.Settings.CultureInfo);
 
     [SaveDependent]
-    public string? DateDisplayName => Date?.Date.ToString("d", Saves.JadySave.Settings.CultureInfo);
+    public string? DateDisplayName => Date?.Date.ToString("d", _saveService.JadySave.Settings.CultureInfo);
     
     [SaveDependent]
-    public string? EndDateDisplayName => EndDate?.Date.ToString("d", Saves.JadySave.Settings.CultureInfo);
+    public string? EndDateDisplayName => EndDate?.Date.ToString("d", _saveService.JadySave.Settings.CultureInfo);
 
     [SaveDependent]
     public string DisplayDate => DateDisplayName ?? EndDateDisplayName ?? LogDateDisplayName;
@@ -109,8 +110,12 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     
     private readonly DiaryViewModel _diaryViewModel;
 
-    public DiaryEntryViewModel(DiaryEntry diaryEntry, DiaryViewModel diaryViewModel)
+    private readonly ISaveService _saveService;
+
+    public DiaryEntryViewModel(DiaryEntry diaryEntry, DiaryViewModel diaryViewModel, ISaveService saveService)
     {
+        _saveService = saveService;
+        
         _diaryViewModel = diaryViewModel;
         Status = diaryEntry.Status;
         LogDate = diaryEntry.LogDate;

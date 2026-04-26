@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using JADY.Factories;
 using JADY.Services;
 using JADY.ViewModels;
 using JADY.Views;
@@ -38,9 +39,14 @@ public partial class App : Application
     {
         var collection = new ServiceCollection();
         
+        // Services
         collection.AddSingleton<IAppVisualService, AppVisualService>();
         collection.AddSingleton<ISaveService, SaveService>();
         
+        // Factories
+        collection.AddSingleton<IDiaryEntryViewModelFactory, DiaryEntryViewModelFactory>();
+        
+        // View Models
         collection.AddSingleton<MainWindowViewModel>();
         collection.AddTransient<SettingsWindow>();
         collection.AddTransient<AddEntryWindow>();

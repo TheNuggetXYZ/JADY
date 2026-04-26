@@ -6,6 +6,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using JADY.Backend;
+using JADY.Factories;
 using JADY.Models;
 using JADY.Services;
 using JADY.Views;
@@ -15,6 +16,7 @@ namespace JADY.ViewModels;
 public partial class MainWindowViewModel : ViewModelBase
 {
     private readonly ISaveService _saveService;
+    private readonly IDiaryEntryViewModelFactory _diaryEntryViewModelFactory;
     
     private ObservableCollection<DiaryViewModel> _diaries = new();
 
@@ -37,9 +39,10 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty]
     private float _saveIconOpacity = 0f;
 
-    public MainWindowViewModel(ISaveService saveService)
+    public MainWindowViewModel(ISaveService saveService, IDiaryEntryViewModelFactory diaryEntryViewModelFactory)
     {
         _saveService = saveService;
+        _diaryEntryViewModelFactory = diaryEntryViewModelFactory;
         
         Load();
         
@@ -91,7 +94,7 @@ public partial class MainWindowViewModel : ViewModelBase
             return;
         
         // Construct and add a view model from model
-        Diaries[OpenDiaryIndex].AddEntry(new DiaryEntryViewModel(model, Diaries[OpenDiaryIndex]));
+        Diaries[OpenDiaryIndex].AddEntry(_diaryEntryViewModelFactory.Create(model, Diaries[OpenDiaryIndex])); // TODO: no need to assign owner when we call this from the owner, the owner can assign that themselves
     }
     
     [RelayCommand]
