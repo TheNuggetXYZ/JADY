@@ -28,6 +28,10 @@
             <Setter Property="Margin" Value="0 0 2 3"/>
         </Style>
         
+        <Style Selector="Button:pressed">
+            <Setter Property="RenderTransform" Value="scale(0.995)"/>
+        </Style>
+        
         <Style Selector="Button.shadowless /template/ ContentPresenter">
             <Setter Property="BoxShadow" Value="0 0 0 0 transparent"/>
             <Setter Property="Margin" Value="0 0 0 0"/>
