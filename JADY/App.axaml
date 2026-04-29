@@ -17,6 +17,10 @@
                 <ColorPaletteResources x:Key="Dark" Accent="#ff089300" AltHigh="Black" AltLow="Black" AltMedium="Black" AltMediumHigh="Black" AltMediumLow="Black" BaseHigh="White" BaseLow="#ff3c3c3c" BaseMedium="#ff9e9e9e" BaseMediumHigh="#ffb7b7b7" BaseMediumLow="#ff6d6d6d" ChromeAltLow="#ffb7b7b7" ChromeBlackHigh="Black" ChromeBlackLow="#ffb7b7b7" ChromeBlackMedium="Black" ChromeBlackMediumLow="Black" ChromeDisabledHigh="#ff3c3c3c" ChromeDisabledLow="#ff9e9e9e" ChromeGray="#ff868686" ChromeHigh="#ff868686" ChromeLow="#ff191919" ChromeMedium="#ff222222" ChromeMediumLow="#ff292929" ChromeWhite="White" ListLow="#ff222222" ListMedium="#ff3c3c3c" RegionColor="#ff191919"/>
             </FluentTheme.Palettes>
         </FluentTheme>
+        
+        <Style Selector="Window">
+            <Setter Property="FontFamily" Value="Consolas"></Setter>
+        </Style>
 
         <Style Selector="Button /template/ ContentPresenter">
             <Setter Property="BoxShadow" Value="1 2 2 -1 black"/>
