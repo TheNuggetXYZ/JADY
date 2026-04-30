@@ -38,11 +38,11 @@
                             <DockPanel>
                                 
                                 <Border DockPanel.Dock="{TemplateBinding TabStripPlacement}" Classes="outsetPanelShadowless">
-                                    <Grid ColumnDefinitions="Auto, *, Auto" Margin="10 0">
+                                    <Grid ColumnDefinitions="Auto, *, Auto" Margin="7 0">
                                         
                                         <StackPanel Grid.Column="0" Orientation="Horizontal">
                                             <Button Classes="iconButton" Click="Settings_OnClick">
-                                                <PathIcon Data="{StaticResource SettingsIcon}"></PathIcon>
+                                                <PathIcon Data="{StaticResource SettingsIcon}" Width="18" Height="18"></PathIcon>
                                             </Button>
                                         </StackPanel>
                                         
