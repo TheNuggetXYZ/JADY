@@ -64,7 +64,7 @@
                     <Setter Property="Template">
                         <ControlTemplate>
                             <DockPanel>
-                                <Border DockPanel.Dock="{TemplateBinding TabStripPlacement}" Classes="outsetPanel">
+                                <Border DockPanel.Dock="{TemplateBinding TabStripPlacement}" Classes="outsetPanelShadowless">
                                     <ScrollViewer HorizontalScrollBarVisibility="Hidden" 
                                                   VerticalScrollBarVisibility="Disabled"
                                                   PointerWheelChanged="TabStrip_OnPointerWheelChanged">
@@ -72,10 +72,10 @@
                                     </ScrollViewer>
                                 </Border>
                                 <ContentPresenter Name="PART_SelectedContentHost"
-                                                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                                             Content="{TemplateBinding SelectedContent}"
-                                                             ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                                                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                  Content="{TemplateBinding SelectedContent}"
+                                                  ContentTemplate="{TemplateBinding ContentTemplate}"/>
                             </DockPanel>
                         </ControlTemplate>
                     </Setter>
