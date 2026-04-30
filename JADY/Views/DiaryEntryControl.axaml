@@ -86,6 +86,7 @@
                         <!-- Expand icon -->
                         <PathIcon Name="ExpandAngle" 
                                   Classes="expandIcon" 
+                                  Classes.isExpanded="{Binding IsExpanded}"
                                   Width="14" Height="14" 
                                   Data="{StaticResource AngleDownIcon}" 
                                   IsVisible="{Binding Content, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" 

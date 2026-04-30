@@ -14,10 +14,6 @@ public partial class DiaryEntryControl : UserControl
     private void Control_OnClick(object? sender, RoutedEventArgs e)
     {
         if (DataContext is DiaryEntryViewModel vm)
-        {
             vm.IsExpanded = !vm.IsExpanded;
-
-            ExpandAngle.Classes.Set("isExpanded", vm.IsExpanded);
-        }
     }
 }
