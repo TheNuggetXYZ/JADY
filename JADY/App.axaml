@@ -49,8 +49,23 @@
             <Setter Property="Background" Value="Transparent"/>
         </Style>
         
-        <Style Selector="Button.iconButton">
+        <Style Selector="Button.iconButton /template/ ContentPresenter">
+            <Setter Property="BoxShadow" Value="0 0 0 0 transparent"/>
+            <Setter Property="Margin" Value="0 0 0 0"/>
             <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        
+        <Style Selector="Button.iconButton:pointerover">
+            <Setter Property="RenderTransform" Value="scale(1.1)"/>
+        </Style>
+        
+        <Style Selector="Button.iconButton:pressed">
+            <Setter Property="RenderTransform" Value="scale(0.9)"/>
         </Style>
         
         <!-- TEXTBLOCK -->
