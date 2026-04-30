@@ -84,7 +84,7 @@
         </Style>
         
         <Style Selector="Border.insetPanelLightless">
-            <Setter Property="BoxShadow" Value="inset 0 3 3 0 black"/>
+            <Setter Property="BoxShadow" Value="inset 0 3 3 0 rgba(0,0,0,0.5)"/>
         </Style>
         
         <!-- PATH_ICON -->
