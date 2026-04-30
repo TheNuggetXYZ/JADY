@@ -21,7 +21,8 @@
         <Style Selector="Window">
             <Setter Property="FontFamily" Value="Consolas"></Setter>
         </Style>
-
+        
+        <!-- BUTTON -->
         <Style Selector="Button /template/ ContentPresenter">
             <Setter Property="BoxShadow" Value="1 2 2 -1 black"/>
             <Setter Property="Margin" Value="1 1 1 2"/>
@@ -48,10 +49,12 @@
             <Setter Property="Background" Value="Transparent"/>
         </Style>
         
+        <!-- TEXTBLOCK -->
         <Style Selector="TextBlock.greyedOut">
             <Setter Property="Foreground" Value="Gray"/>
         </Style>
         
+        <!-- BORDER -->
         <Style Selector="Border.outsetLighting">
             <!--                                ====shadow====  ================lighting=============-->
             <Setter Property="BoxShadow" Value="1 2 2 -1 black, inset 0.5 1 1 0 rgba(255,255,255,0.1)"/>
@@ -76,11 +79,11 @@
             <Setter Property="BoxShadow" Value="inset 1 2 2 -1 black, inset -0.5 -1 1 0 rgba(255,255,255,0.15)"/>
         </Style>
         
-        
+        <!-- PATH_ICON -->
         <Style Selector="PathIcon.expandIcon">
             <Setter Property="Transitions">
                 <Transitions>
-                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.05"></TransformOperationsTransition>
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.05"/>
                 </Transitions>
             </Setter>
         </Style>
