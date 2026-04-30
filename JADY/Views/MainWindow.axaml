@@ -41,6 +41,10 @@
                                     <Grid ColumnDefinitions="Auto, *, Auto" Margin="7 0">
                                         
                                         <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                            <Button Classes="iconButton">
+                                                <PathIcon Data="{StaticResource BurgerMenuIcon}" Width="18" Height="18"></PathIcon>
+                                            </Button>
+                                            
                                             <Button Classes="iconButton" Click="Settings_OnClick">
                                                 <PathIcon Data="{StaticResource SettingsIcon}" Width="18" Height="18"></PathIcon>
                                             </Button>
