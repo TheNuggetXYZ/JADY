@@ -64,12 +64,13 @@
                     <Setter Property="Template">
                         <ControlTemplate>
                             <DockPanel>
-                                <ScrollViewer DockPanel.Dock="{TemplateBinding TabStripPlacement}"
-                                              HorizontalScrollBarVisibility="Hidden"
-                                              VerticalScrollBarVisibility="Disabled"
-                                              PointerWheelChanged="TabStrip_OnPointerWheelChanged">
-                                    <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}"/>
-                                </ScrollViewer>
+                                <Border DockPanel.Dock="{TemplateBinding TabStripPlacement}" Classes="outsetPanel">
+                                    <ScrollViewer HorizontalScrollBarVisibility="Hidden" 
+                                                  VerticalScrollBarVisibility="Disabled"
+                                                  PointerWheelChanged="TabStrip_OnPointerWheelChanged">
+                                        <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}"/>
+                                    </ScrollViewer>
+                                </Border>
                                 <ContentPresenter Name="PART_SelectedContentHost"
                                                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -80,16 +81,11 @@
                     </Setter>
                     <Setter Property="ItemsPanel">
                         <ItemsPanelTemplate>
-                            <StackPanel Orientation="Horizontal"/>
+                            <StackPanel Classes="outsetPanel" Orientation="Horizontal" Height="45"/>
                         </ItemsPanelTemplate>
                     </Setter>
                 </ControlTheme>
             </TabControl.Theme>
-            <TabControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal" Height="35" Background="{DynamicResource SystemColorWindowColor}"/>
-                </ItemsPanelTemplate>
-            </TabControl.ItemsPanel>
             <TabControl.ItemContainerTheme>
                 <ControlTheme TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}">
                     <Setter Property="ContextMenu">

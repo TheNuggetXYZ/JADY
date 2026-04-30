@@ -79,6 +79,11 @@
             <Setter Property="BoxShadow" Value="inset 1 2 2 -1 black, inset -0.5 -1 1 0 rgba(255,255,255,0.15)"/>
         </Style>
         
+        <Style Selector="Border.outsetPanel">
+            <Setter Property="BoxShadow" Value="0 3 3 0 black, inset 0 2 1 0 rgba(255,255,255,0.1)"/>
+            <Setter Property="Margin" Value="0 0 0 6"></Setter>
+        </Style>
+        
         <!-- PATH_ICON -->
         <Style Selector="PathIcon.expandIcon">
             <Setter Property="Transitions">
