@@ -36,13 +36,34 @@
                     <Setter Property="Template">
                         <ControlTemplate>
                             <DockPanel>
+                                
                                 <Border DockPanel.Dock="{TemplateBinding TabStripPlacement}" Classes="outsetPanelShadowless">
-                                    <ScrollViewer HorizontalScrollBarVisibility="Hidden" 
-                                                  VerticalScrollBarVisibility="Disabled"
-                                                  PointerWheelChanged="TabStrip_OnPointerWheelChanged">
-                                        <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}"/>
-                                    </ScrollViewer>
+                                    <Grid ColumnDefinitions="*, Auto">
+                                        <ScrollViewer HorizontalScrollBarVisibility="Hidden" 
+                                                      VerticalScrollBarVisibility="Disabled"
+                                                      PointerWheelChanged="TabStrip_OnPointerWheelChanged">
+                                            <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}"/>
+                                        </ScrollViewer>
+                                        
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                            <PathIcon Name="SaveIcon" Opacity="{Binding SaveIconOpacity}" Margin="15 0 15 0" Height="16" HorizontalAlignment="Right" VerticalAlignment="Center" Data="{StaticResource SaveIcon}">
+                                                <PathIcon.Styles>
+                                                    <Style Selector="PathIcon">
+                                                        <Setter Property="Transitions">
+                                                            <Transitions>
+                                                                <DoubleTransition Property="Opacity" Duration="0:0:0.5"></DoubleTransition>
+                                                            </Transitions>
+                                                        </Setter>
+                                                    </Style>
+                                                    <Style Selector="PathIcon[Opacity=0]">
+                                                        <Setter Property="IsVisible" Value="False" />
+                                                    </Style>
+                                                </PathIcon.Styles>
+                                            </PathIcon>
+                                        </StackPanel>
+                                    </Grid>
                                 </Border>
+                                
                                 <Panel>
                                     <!-- Overlay shadow -->
                                     <Border Classes="insetPanelLightless" ZIndex="99" Background="Transparent" IsHitTestVisible="False"/>
@@ -52,6 +73,7 @@
                                                       Content="{TemplateBinding SelectedContent}"
                                                       ContentTemplate="{TemplateBinding ContentTemplate}"/>
                                 </Panel>
+                                
                             </DockPanel>
                         </ControlTemplate>
                     </Setter>
