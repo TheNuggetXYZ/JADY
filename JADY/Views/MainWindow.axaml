@@ -38,15 +38,22 @@
                             <DockPanel>
                                 
                                 <Border DockPanel.Dock="{TemplateBinding TabStripPlacement}" Classes="outsetPanelShadowless">
-                                    <Grid ColumnDefinitions="*, Auto">
-                                        <ScrollViewer HorizontalScrollBarVisibility="Hidden" 
+                                    <Grid ColumnDefinitions="Auto, *, Auto" Margin="10 0">
+                                        
+                                        <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                            <Button Classes="iconButton" Click="Settings_OnClick">
+                                                <PathIcon Data="{StaticResource SettingsIcon}"></PathIcon>
+                                            </Button>
+                                        </StackPanel>
+                                        
+                                        <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Hidden" 
                                                       VerticalScrollBarVisibility="Disabled"
                                                       PointerWheelChanged="TabStrip_OnPointerWheelChanged">
                                             <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}"/>
                                         </ScrollViewer>
                                         
-                                        <StackPanel Grid.Column="1" Orientation="Horizontal">
-                                            <PathIcon Name="SaveIcon" Opacity="{Binding SaveIconOpacity}" Margin="15 0 15 0" Height="16" HorizontalAlignment="Right" VerticalAlignment="Center" Data="{StaticResource SaveIcon}">
+                                        <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                            <PathIcon Name="SaveIcon" Opacity="{Binding SaveIconOpacity}" Margin="15 0" Height="16" HorizontalAlignment="Right" VerticalAlignment="Center" Data="{StaticResource SaveIcon}">
                                                 <PathIcon.Styles>
                                                     <Style Selector="PathIcon">
                                                         <Setter Property="Transitions">
@@ -79,7 +86,7 @@
                     </Setter>
                     <Setter Property="ItemsPanel">
                         <ItemsPanelTemplate>
-                            <StackPanel Orientation="Horizontal" Height="45" Margin="15 0"/>
+                            <StackPanel Orientation="Horizontal" Height="45" Margin="10 0"/>
                         </ItemsPanelTemplate>
                     </Setter>
                 </ControlTheme>
