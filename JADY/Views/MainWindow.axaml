@@ -29,34 +29,6 @@
     </Window.KeyBindings>
     
     <Grid RowDefinitions="Auto, *">
-        <DockPanel Grid.Row="0">
-            <Panel DockPanel.Dock="Top">
-                <Menu>
-                    <MenuItem Header="_File">
-                        <MenuItem Header="_Save" InputGesture="Ctrl+S" Command="{Binding Menu_SaveCommand}"></MenuItem>
-                        <MenuItem Header="_Load" InputGesture="Ctrl+L" Command="{Binding Menu_LoadCommand}"></MenuItem>
-                        <Separator/>
-                        <MenuItem Header="Settings" InputGesture="Ctrl+Alt+S" Command="{Binding Menu_OpenSettingsWindowCommand}"></MenuItem>
-                    </MenuItem>
-                    <MenuItem Header="_Edit">
-                        <MenuItem Header="Add _Diary" InputGesture="Ctrl+D" Command="{Binding Menu_OpenAddDiaryWindowCommand}"></MenuItem>
-                        <MenuItem Header="Add _Entry" InputGesture="Ctrl+E" Command="{Binding Menu_OpenAddEntryWindowCommand}"></MenuItem>
-                    </MenuItem>
-                </Menu>
-                <PathIcon Name="SaveIcon" Opacity="{Binding SaveIconOpacity}" Margin="15 0 15 0" Height="16" HorizontalAlignment="Right" VerticalAlignment="Center" Data="{StaticResource SaveIcon}" Background="Transparent">
-                    <PathIcon.Styles>
-                        <Style Selector="PathIcon">
-                            <Setter Property="Transitions">
-                                <Transitions>
-                                    <DoubleTransition Property="Opacity" Duration="0:0:0.5"></DoubleTransition>
-                                </Transitions>
-                            </Setter>
-                        </Style>
-                    </PathIcon.Styles>
-                </PathIcon>
-            </Panel>
-            <TextBlock/>
-        </DockPanel>
         
         <TabControl Grid.Row="1" ItemsSource="{Binding Diaries}" SelectedIndex="{Binding OpenDiaryIndex}" TabStripPlacement="Top">
             <TabControl.Theme>
