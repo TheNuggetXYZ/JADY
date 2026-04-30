@@ -71,17 +71,21 @@
                                         <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}"/>
                                     </ScrollViewer>
                                 </Border>
-                                <ContentPresenter Name="PART_SelectedContentHost"
-                                                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                                  Content="{TemplateBinding SelectedContent}"
-                                                  ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                                <Panel>
+                                    <!-- Overlay shadow -->
+                                    <Border Classes="insetPanelLightless" ZIndex="99" Background="Transparent" IsHitTestVisible="False"/>
+                                    <ContentPresenter Name="PART_SelectedContentHost"
+                                                      HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                      VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                      Content="{TemplateBinding SelectedContent}"
+                                                      ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                                </Panel>
                             </DockPanel>
                         </ControlTemplate>
                     </Setter>
                     <Setter Property="ItemsPanel">
                         <ItemsPanelTemplate>
-                            <StackPanel Classes="outsetPanel" Orientation="Horizontal" Height="45"/>
+                            <StackPanel Orientation="Horizontal" Height="45"/>
                         </ItemsPanelTemplate>
                     </Setter>
                 </ControlTheme>
