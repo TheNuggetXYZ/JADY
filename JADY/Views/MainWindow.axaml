@@ -26,6 +26,7 @@
         <KeyBinding Gesture="Ctrl+Alt+S" Command="{Binding Menu_OpenSettingsWindowCommand}"/>
         <KeyBinding Gesture="Ctrl+D" Command="{Binding Menu_OpenAddDiaryWindowCommand}"/>
         <KeyBinding Gesture="Ctrl+E" Command="{Binding Menu_OpenAddEntryWindowCommand}"/>
+        <KeyBinding Gesture="Ctrl+H" Command="{Binding Menu_ToggleHiddenEntriesCommand}"/>
     </Window.KeyBindings>
     
     <Grid RowDefinitions="Auto, *">
