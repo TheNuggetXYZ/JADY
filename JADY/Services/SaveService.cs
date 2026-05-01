@@ -15,6 +15,8 @@ public class SaveService(IAppVisualService appVisualService) : ISaveService
         JadySave.Diaries = diaries;
         
         Save();
+        
+        WeakReferenceMessenger.Default.Send(new Messages.DiariesSaveMessage());
     }
 
     public void Save(Settings settings)

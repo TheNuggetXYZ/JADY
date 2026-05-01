@@ -1,7 +1,9 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
@@ -36,8 +38,8 @@ public partial class MainWindowViewModel : SaveDependentViewModel
     [ObservableProperty] 
     private int _openDiaryIndex;
 
-    [ObservableProperty]
-    private float _saveIconOpacity = 0f;
+    [ObservableProperty] 
+    private Geometry? _saveStateIcon;
     
     [SaveDependent]
     public bool ShowHiddenEntries
@@ -60,25 +62,24 @@ public partial class MainWindowViewModel : SaveDependentViewModel
         _saveService = saveService;
         _diaryViewModelFactory = diaryViewModelFactory;
         
+        if (Application.Current is not null)
+            SaveStateIcon = Application.Current.FindResource("RoundCheckIconSolid") as Geometry;
+        
         Load();
         
         WeakReferenceMessenger.Default.Register<Messages.UnsavedChangeMessage>(this, (r, m) =>
         {
+            if (Application.Current is not null)
+                SaveStateIcon = Application.Current.FindResource("RoundExclamationIconSolid") as Geometry;
+            
             if (_saveService.JadySave.Settings.AutoSave)
                 Save();
         });
         
-        WeakReferenceMessenger.Default.Register<Messages.AnySaveMessage>(this, async (r, m) =>
+        WeakReferenceMessenger.Default.Register<Messages.DiariesSaveMessage>(this, (r, m) =>
         {
-            try
-            {
-                await SaveIconAnimation();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
+            if (Application.Current is not null)
+                SaveStateIcon = Application.Current.FindResource("RoundCheckIconSolid") as Geometry;
         });
     }
     
@@ -142,13 +143,6 @@ public partial class MainWindowViewModel : SaveDependentViewModel
 
         Diaries = new ObservableCollection<DiaryViewModel>(
             _saveService.JadySave.Diaries.Select(model => _diaryViewModelFactory.Create(model, this)));
-    }
-
-    private async Task SaveIconAnimation()
-    {
-        SaveIconOpacity = 1f;
-        await Task.Delay(500);
-        SaveIconOpacity = 0f;
     }
 
     public void RemoveDiary(DiaryViewModel item)
