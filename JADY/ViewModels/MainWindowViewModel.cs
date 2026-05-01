@@ -13,7 +13,7 @@ using JADY.Views;
 
 namespace JADY.ViewModels;
 
-public partial class MainWindowViewModel : ViewModelBase
+public partial class MainWindowViewModel : SaveDependentViewModel
 {
     private readonly ISaveService _saveService;
     private readonly IDiaryViewModelFactory _diaryViewModelFactory;
@@ -38,6 +38,22 @@ public partial class MainWindowViewModel : ViewModelBase
 
     [ObservableProperty]
     private float _saveIconOpacity = 0f;
+    
+    [SaveDependent]
+    public bool ShowHiddenEntries
+    {
+        get => _saveService.JadySave.Settings.CurrentShowHiddenEntries;
+        set
+        {
+            if (_saveService.JadySave.Settings.CurrentShowHiddenEntries != value)
+            {
+                _saveService.JadySave.Settings.CurrentShowHiddenEntries = value;
+                WeakReferenceMessenger.Default.Send(new Messages.SaveChangeMessage());
+                
+                OnPropertyChanged();
+            }
+        }
+    }
 
     public MainWindowViewModel(ISaveService saveService, IDiaryViewModelFactory diaryViewModelFactory)
     {
@@ -106,8 +122,7 @@ public partial class MainWindowViewModel : ViewModelBase
     [RelayCommand]
     private void Menu_ToggleHiddenEntries()
     {
-        _saveService.JadySave.Settings.CurrentShowHiddenEntries = !_saveService.JadySave.Settings.CurrentShowHiddenEntries;
-        WeakReferenceMessenger.Default.Send(new Messages.SaveChangeMessage());
+        ShowHiddenEntries = !ShowHiddenEntries;
     }
 
     [RelayCommand]

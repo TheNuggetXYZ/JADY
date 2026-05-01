@@ -63,6 +63,18 @@
                                             <Button Classes="iconButton" Click="Settings_OnClick">
                                                 <PathIcon Data="{StaticResource SettingsIcon}" Width="18" Height="18"></PathIcon>
                                             </Button>
+                                            
+                                            <!-- Toggle hidden entries button -->
+                                            <ToggleButton Classes="iconButton" IsChecked="{Binding ShowHiddenEntries}">
+                                                <PathIcon Width="18" Height="18" Data="{StaticResource EyeIcon}">
+                                                    <PathIcon.Styles>
+                                                        <!-- Icon when ToggleButton is checked -->
+                                                        <Style Selector="ToggleButton:checked PathIcon">
+                                                            <Setter Property="Data" Value="{StaticResource EyeSlashIcon}" />
+                                                        </Style>
+                                                    </PathIcon.Styles>
+                                                </PathIcon>
+                                            </ToggleButton>
                                         </StackPanel>
                                         
                                         <!-- Diary panel -->
