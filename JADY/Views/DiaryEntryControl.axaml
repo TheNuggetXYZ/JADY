@@ -77,7 +77,7 @@
                         <!-- Hidden icon -->
                         <PathIcon Classes="greyedOut" 
                                   Height="16" 
-                                  Data="{StaticResource HiddenIcon}" 
+                                  Data="{StaticResource EyeSlashIcon}" 
                                   IsVisible="{Binding IsHidden}">
                         
                             <ToolTip.Tip>This entry is marked as hidden.</ToolTip.Tip>
