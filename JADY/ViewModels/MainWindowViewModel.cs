@@ -102,6 +102,13 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         await WindowManager.OpenDialogWindowDI<SettingsWindow, object?>(WindowManager.GetMainWindow());
     }
+    
+    [RelayCommand]
+    private void Menu_ToggleHiddenEntries()
+    {
+        _saveService.JadySave.Settings.CurrentShowHiddenEntries = !_saveService.JadySave.Settings.CurrentShowHiddenEntries;
+        WeakReferenceMessenger.Default.Send(new Messages.SaveChangeMessage());
+    }
 
     [RelayCommand]
     private void Menu_Save() => Save();

@@ -9,7 +9,20 @@ public class Settings
     /// <summary>
     /// Should entries marked as hidden be displayed?
     /// </summary>
-    public bool ShowHiddenEntries { get; init; }
+    private readonly bool _showHiddenEntries;
+
+    public bool ShowHiddenEntries
+    {
+        get => _showHiddenEntries;
+        init
+        {
+            _showHiddenEntries = value;
+            CurrentShowHiddenEntries = value;
+        }
+    }
+    
+    [JsonIgnore]
+    public bool CurrentShowHiddenEntries { get; set; }
     
     /// <summary>
     /// Should the apps theme be set to dark?
@@ -34,11 +47,14 @@ public class Settings
     public Settings()
     {
         SaveFilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        
         CultureInfo = CultureInfo.GetCultureInfo(CultureInfoName);
+        CurrentShowHiddenEntries = ShowHiddenEntries;
     }
 
     public void Load()
     {
         CultureInfo = CultureInfo.GetCultureInfo(CultureInfoName);
+        CurrentShowHiddenEntries = ShowHiddenEntries;
     }
 }

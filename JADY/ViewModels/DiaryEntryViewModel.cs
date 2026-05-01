@@ -88,7 +88,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     public bool ShowEndEventInContextMenu => Status == EntryStatus.InProgress;
 
     [SaveDependent]
-    public bool IsCurrentlyVisible => !IsHidden || _saveService.JadySave.Settings.ShowHiddenEntries;
+    public bool IsCurrentlyVisible => !IsHidden || _saveService.JadySave.Settings.CurrentShowHiddenEntries;
     
     [SaveDependent]
     public string LogDateDisplayName => LogDate.Date.ToString("d", _saveService.JadySave.Settings.CultureInfo);
