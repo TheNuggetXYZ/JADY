@@ -44,7 +44,7 @@
                                         <StackPanel Grid.Column="0" Orientation="Horizontal">
                                             <!-- Burger menu button -->
                                             <Button Classes="iconButton">
-                                                <PathIcon Data="{StaticResource BurgerMenuIcon}" Width="18" Height="18"></PathIcon>
+                                                <PathIcon Data="{StaticResource BurgerMenuIconSolid}" Width="18" Height="18"></PathIcon>
                                                 
                                                 <Button.Flyout>
                                                     <MenuFlyout>
@@ -61,16 +61,16 @@
                                             
                                             <!-- Settings button -->
                                             <Button Classes="iconButton" Click="Settings_OnClick">
-                                                <PathIcon Data="{StaticResource SettingsIcon}" Width="18" Height="18"></PathIcon>
+                                                <PathIcon Data="{StaticResource SettingsIconSolid}" Width="18" Height="18"></PathIcon>
                                             </Button>
                                             
                                             <!-- Toggle hidden entries button -->
                                             <ToggleButton Classes="iconButton" IsChecked="{Binding ShowHiddenEntries}">
-                                                <PathIcon Width="18" Height="18" Data="{StaticResource EyeIcon}">
+                                                <PathIcon Width="18" Height="18" Data="{StaticResource EyeIconSolid}">
                                                     <PathIcon.Styles>
                                                         <!-- Icon when ToggleButton is checked -->
                                                         <Style Selector="ToggleButton:checked PathIcon">
-                                                            <Setter Property="Data" Value="{StaticResource EyeSlashIcon}" />
+                                                            <Setter Property="Data" Value="{StaticResource EyeSlashIconSolid}" />
                                                         </Style>
                                                     </PathIcon.Styles>
                                                 </PathIcon>
