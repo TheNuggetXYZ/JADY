@@ -87,20 +87,20 @@
                                         <!-- Right panel -->
                                         <StackPanel Grid.Column="2" Orientation="Horizontal">
                                             <!-- Save icon notification -->
-                                            <PathIcon Name="SaveIcon" Opacity="{Binding SaveIconOpacity}" Margin="15 0" Height="16" HorizontalAlignment="Right" VerticalAlignment="Center" Data="{StaticResource SaveIcon}">
-                                                <PathIcon.Styles>
-                                                    <Style Selector="PathIcon">
-                                                        <Setter Property="Transitions">
-                                                            <Transitions>
-                                                                <DoubleTransition Property="Opacity" Duration="0:0:0.5"></DoubleTransition>
-                                                            </Transitions>
-                                                        </Setter>
-                                                    </Style>
-                                                    <Style Selector="PathIcon[Opacity=0]">
-                                                        <Setter Property="IsVisible" Value="False" />
-                                                    </Style>
-                                                </PathIcon.Styles>
-                                            </PathIcon>
+                                            <TransitioningContentControl Content="{Binding SaveStateIcon}">
+                                                <TransitioningContentControl.PageTransition>
+                                                    <CompositePageTransition>
+                                                        <CompositePageTransition.PageTransitions>
+                                                            <CrossFade Duration="0:0:0.5"/>
+                                                        </CompositePageTransition.PageTransitions>
+                                                    </CompositePageTransition>
+                                                </TransitioningContentControl.PageTransition>
+                                                <TransitioningContentControl.ContentTemplate>
+                                                    <DataTemplate DataType="Geometry">
+                                                        <PathIcon Data="{Binding}" Height="16" Margin="5 0"/>
+                                                    </DataTemplate>
+                                                </TransitioningContentControl.ContentTemplate>
+                                            </TransitioningContentControl>
                                         </StackPanel>
                                     </Grid>
                                 </Border>
