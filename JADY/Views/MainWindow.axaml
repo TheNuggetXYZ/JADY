@@ -43,6 +43,19 @@
                                         <StackPanel Grid.Column="0" Orientation="Horizontal">
                                             <Button Classes="iconButton">
                                                 <PathIcon Data="{StaticResource BurgerMenuIcon}" Width="18" Height="18"></PathIcon>
+                                                
+                                                <Button.Flyout>
+                                                    <MenuFlyout>
+                                                        
+                                                        <MenuItem Header="Add _Entry" InputGesture="Ctrl+E" Command="{Binding Menu_OpenAddEntryWindowCommand}"></MenuItem>
+                                                        <MenuItem Header="Add _Diary" InputGesture="Ctrl+D" Command="{Binding Menu_OpenAddDiaryWindowCommand}"></MenuItem>
+                                                        <Separator/>
+                                                        <MenuItem Header="Settings" InputGesture="Ctrl+Alt+S" Command="{Binding Menu_OpenSettingsWindowCommand}"></MenuItem>
+                                                        <Separator/>
+                                                        <MenuItem Header="_Save" InputGesture="Ctrl+S" Command="{Binding Menu_SaveCommand}"></MenuItem>
+                                                        <MenuItem Header="_Load" InputGesture="Ctrl+L" Command="{Binding Menu_LoadCommand}"></MenuItem>
+                                                    </MenuFlyout>
+                                                </Button.Flyout>
                                             </Button>
                                             
                                             <Button Classes="iconButton" Click="Settings_OnClick">
