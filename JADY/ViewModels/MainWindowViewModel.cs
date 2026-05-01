@@ -57,6 +57,8 @@ public partial class MainWindowViewModel : SaveDependentViewModel
         }
     }
 
+    private bool _unsavedChanges;
+
     public MainWindowViewModel(ISaveService saveService, IDiaryViewModelFactory diaryViewModelFactory)
     {
         _saveService = saveService;
@@ -74,12 +76,23 @@ public partial class MainWindowViewModel : SaveDependentViewModel
             
             if (_saveService.JadySave.Settings.AutoSave)
                 Save();
+            else
+                _unsavedChanges = true;
         });
         
         WeakReferenceMessenger.Default.Register<Messages.DiariesSaveMessage>(this, (r, m) =>
         {
             if (Application.Current is not null)
                 SaveStateIcon = Application.Current.FindResource("RoundCheckIconSolid") as Geometry;
+        });
+        
+        WeakReferenceMessenger.Default.Register<Messages.AnySaveMessage>(this, (r, m) =>
+        {
+            if (_unsavedChanges && _saveService.JadySave.Settings.AutoSave)
+            {
+                _unsavedChanges = false;
+                Save();
+            }
         });
     }
     
