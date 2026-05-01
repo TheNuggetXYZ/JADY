@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:views="clr-namespace:JADY.Views"
+        xmlns:data="clr-namespace:JADY.Data"
         xmlns:ia="using:Avalonia.Xaml.Interactions.Animated"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="JADY.Views.MainWindow"
@@ -92,8 +93,8 @@
                                         
                                         <!-- Right panel -->
                                         <StackPanel Grid.Column="2" Orientation="Horizontal">
-                                            <!-- Save icon notification -->
-                                            <TransitioningContentControl Content="{Binding SaveStateIcon}">
+                                            <!-- Save state icon -->
+                                            <TransitioningContentControl Content="{Binding SaveState}">
                                                 <TransitioningContentControl.PageTransition>
                                                     <CompositePageTransition>
                                                         <CompositePageTransition.PageTransitions>
@@ -101,11 +102,17 @@
                                                         </CompositePageTransition.PageTransitions>
                                                     </CompositePageTransition>
                                                 </TransitioningContentControl.PageTransition>
-                                                <TransitioningContentControl.ContentTemplate>
-                                                    <DataTemplate DataType="Geometry">
-                                                        <PathIcon Data="{Binding}" Height="16" Margin="5 0"/>
+                                                <TransitioningContentControl.DataTemplates>
+                                                    <!-- Saved state -->
+                                                    <DataTemplate DataType="{x:Type data:SaveState_Saved}">
+                                                        <PathIcon Data="{StaticResource RoundCheckIconSolid}" ToolTip.Tip="Everything is saved" Height="16" Margin="5 0"/>
                                                     </DataTemplate>
-                                                </TransitioningContentControl.ContentTemplate>
+        
+                                                    <!-- Unsaved state -->
+                                                    <DataTemplate DataType="{x:Type data:SaveState_UnsavedChanges}">
+                                                        <PathIcon Data="{StaticResource RoundExclamationIconSolid}" ToolTip.Tip="Unsaved changes" Height="16" Margin="5 0"/>
+                                                    </DataTemplate>
+                                                </TransitioningContentControl.DataTemplates>
                                             </TransitioningContentControl>
                                         </StackPanel>
                                     </Grid>

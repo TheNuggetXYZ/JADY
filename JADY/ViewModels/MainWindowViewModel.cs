@@ -2,12 +2,11 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using JADY.Backend;
+using JADY.Data;
 using JADY.Factories;
 using JADY.Models;
 using JADY.Services;
@@ -39,7 +38,7 @@ public partial class MainWindowViewModel : SaveDependentViewModel
     private int _openDiaryIndex;
 
     [ObservableProperty] 
-    private Geometry? _saveStateIcon;
+    private object? _saveState;
     
     [SaveDependent]
     public bool ShowHiddenEntries
@@ -65,14 +64,14 @@ public partial class MainWindowViewModel : SaveDependentViewModel
         _diaryViewModelFactory = diaryViewModelFactory;
         
         if (Application.Current is not null)
-            SaveStateIcon = Application.Current.FindResource("RoundCheckIconSolid") as Geometry;
+            SaveState = new SaveState_Saved();
         
         Load();
         
         WeakReferenceMessenger.Default.Register<Messages.UnsavedChangeMessage>(this, (r, m) =>
         {
             if (Application.Current is not null)
-                SaveStateIcon = Application.Current.FindResource("RoundExclamationIconSolid") as Geometry;
+                SaveState = new SaveState_UnsavedChanges();
             
             if (_saveService.JadySave.Settings.AutoSave)
                 Save();
@@ -83,7 +82,7 @@ public partial class MainWindowViewModel : SaveDependentViewModel
         WeakReferenceMessenger.Default.Register<Messages.DiariesSaveMessage>(this, (r, m) =>
         {
             if (Application.Current is not null)
-                SaveStateIcon = Application.Current.FindResource("RoundCheckIconSolid") as Geometry;
+                SaveState = new SaveState_Saved();
         });
         
         WeakReferenceMessenger.Default.Register<Messages.AnySaveMessage>(this, (r, m) =>
