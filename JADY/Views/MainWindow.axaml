@@ -36,17 +36,17 @@
                     <Setter Property="Template">
                         <ControlTemplate>
                             <DockPanel>
-                                
+                                <!-- App header -->
                                 <Border DockPanel.Dock="{TemplateBinding TabStripPlacement}" Classes="outsetPanelShadowless">
                                     <Grid ColumnDefinitions="Auto, *, Auto" Margin="7 0">
-                                        
+                                        <!-- Left panel -->
                                         <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                            <!-- Burger menu button -->
                                             <Button Classes="iconButton">
                                                 <PathIcon Data="{StaticResource BurgerMenuIcon}" Width="18" Height="18"></PathIcon>
                                                 
                                                 <Button.Flyout>
                                                     <MenuFlyout>
-                                                        
                                                         <MenuItem Header="Add _Entry" InputGesture="Ctrl+E" Command="{Binding Menu_OpenAddEntryWindowCommand}"></MenuItem>
                                                         <MenuItem Header="Add _Diary" InputGesture="Ctrl+D" Command="{Binding Menu_OpenAddDiaryWindowCommand}"></MenuItem>
                                                         <Separator/>
@@ -58,18 +58,22 @@
                                                 </Button.Flyout>
                                             </Button>
                                             
+                                            <!-- Settings button -->
                                             <Button Classes="iconButton" Click="Settings_OnClick">
                                                 <PathIcon Data="{StaticResource SettingsIcon}" Width="18" Height="18"></PathIcon>
                                             </Button>
                                         </StackPanel>
                                         
+                                        <!-- Diary panel -->
                                         <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Hidden" 
                                                       VerticalScrollBarVisibility="Disabled"
                                                       PointerWheelChanged="TabStrip_OnPointerWheelChanged">
                                             <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}"/>
                                         </ScrollViewer>
                                         
+                                        <!-- Right panel -->
                                         <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                            <!-- Save icon notification -->
                                             <PathIcon Name="SaveIcon" Opacity="{Binding SaveIconOpacity}" Margin="15 0" Height="16" HorizontalAlignment="Right" VerticalAlignment="Center" Data="{StaticResource SaveIcon}">
                                                 <PathIcon.Styles>
                                                     <Style Selector="PathIcon">
@@ -88,6 +92,7 @@
                                     </Grid>
                                 </Border>
                                 
+                                <!-- Entries panel -->
                                 <Panel>
                                     <!-- Overlay shadow -->
                                     <Border Classes="insetPanelLightless" ZIndex="99" Background="Transparent" IsHitTestVisible="False"/>
