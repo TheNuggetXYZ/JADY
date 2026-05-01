@@ -46,7 +46,7 @@ public partial class MainWindowViewModel : ViewModelBase
         
         Load();
         
-        WeakReferenceMessenger.Default.Register<Messages.PerformAutoSaveMessage>(this, (r, m) =>
+        WeakReferenceMessenger.Default.Register<Messages.UnsavedChangeMessage>(this, (r, m) =>
         {
             if (_saveService.JadySave.Settings.AutoSave)
                 Save();
@@ -78,7 +78,7 @@ public partial class MainWindowViewModel : ViewModelBase
         // Construct and add a view model from model
         Diaries.Add(_diaryViewModelFactory.Create(model, this));
         
-        WeakReferenceMessenger.Default.Send(new Messages.PerformAutoSaveMessage());
+        WeakReferenceMessenger.Default.Send(new Messages.UnsavedChangeMessage());
     }
 
     [RelayCommand]
@@ -132,6 +132,6 @@ public partial class MainWindowViewModel : ViewModelBase
     public void RemoveDiary(DiaryViewModel item)
     {
         Diaries.Remove(item);
-        WeakReferenceMessenger.Default.Send(new Messages.PerformAutoSaveMessage());
+        WeakReferenceMessenger.Default.Send(new Messages.UnsavedChangeMessage());
     }
 }

@@ -63,7 +63,7 @@ public partial class DiaryViewModel : ViewModelBase
         
         Entries.Insert(i, newEntryViewModel);
 
-        WeakReferenceMessenger.Default.Send(new Messages.PerformAutoSaveMessage());
+        WeakReferenceMessenger.Default.Send(new Messages.UnsavedChangeMessage());
     }
 
     [RelayCommand]
@@ -82,14 +82,14 @@ public partial class DiaryViewModel : ViewModelBase
         
         Name = model.Name;
         
-        WeakReferenceMessenger.Default.Send(new Messages.PerformAutoSaveMessage());
+        WeakReferenceMessenger.Default.Send(new Messages.UnsavedChangeMessage());
     }
 
     public void RemoveEntry(DiaryEntryViewModel item)
     {
         Entries.Remove(item);
         
-        WeakReferenceMessenger.Default.Send(new Messages.PerformAutoSaveMessage());
+        WeakReferenceMessenger.Default.Send(new Messages.UnsavedChangeMessage());
     }
 
     public void ResortEntry(DiaryEntryViewModel item)

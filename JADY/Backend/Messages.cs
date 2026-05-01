@@ -6,5 +6,5 @@ public class Messages
     
     public record AnySaveMessage();
 
-    public record PerformAutoSaveMessage();
+    public record UnsavedChangeMessage();
 }
