@@ -44,6 +44,8 @@
                                         <StackPanel Grid.Column="0" Orientation="Horizontal">
                                             <!-- Burger menu button -->
                                             <Button Classes="iconButton">
+                                                <ToolTip.Tip>Open menu</ToolTip.Tip>
+                                                
                                                 <PathIcon Data="{StaticResource BurgerMenuIconSolid}" Width="18" Height="18"></PathIcon>
                                                 
                                                 <Button.Flyout>
@@ -61,11 +63,15 @@
                                             
                                             <!-- Settings button -->
                                             <Button Classes="iconButton" Click="Settings_OnClick">
+                                                <ToolTip.Tip>Open settings</ToolTip.Tip>
+                                                
                                                 <PathIcon Data="{StaticResource SettingsIconSolid}" Width="18" Height="18"></PathIcon>
                                             </Button>
                                             
                                             <!-- Toggle hidden entries button -->
                                             <ToggleButton Classes="iconButton" IsChecked="{Binding ShowHiddenEntries}">
+                                                <ToolTip.Tip>Show/hide hidden entries</ToolTip.Tip>
+                                                
                                                 <PathIcon Width="18" Height="18" Data="{StaticResource EyeIconSolid}">
                                                     <PathIcon.Styles>
                                                         <!-- Icon when ToggleButton is checked -->
