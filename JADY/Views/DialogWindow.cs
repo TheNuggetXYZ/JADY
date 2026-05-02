@@ -3,12 +3,18 @@ using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Data;
 using Avalonia.Input;
+using Avalonia.Interactivity;
 using Avalonia.Threading;
 
 namespace JADY.Views;
 
 public abstract class DialogWindow<T> : Window
 {
+    protected DialogWindow()
+    {
+        AddHandler(KeyDownEvent, PreviewKeyDown, RoutingStrategies.Tunnel);
+    }
+    
     protected virtual async Task TrySubmitAsync() => await TrySubmitAsync(Optional<T>.Empty);
 
     protected virtual async Task TrySubmitAsync(Optional<T> value)
@@ -53,14 +59,20 @@ public abstract class DialogWindow<T> : Window
 
     protected abstract InputElement? FocusedElement();
 
-    protected override async void OnKeyDown(KeyEventArgs e)
+    private async void PreviewKeyDown(object? sender, KeyEventArgs e)
     {
         base.OnKeyDown(e);
         
         if (e.Key == Key.Escape)
+        {
+            e.Handled = true;
             Close();
+        }
         else if (e is { Key: Key.Enter, KeyModifiers: KeyModifiers.Control })
+        {
+            e.Handled = true;
             await TrySubmitAsync();
+        }
     }
 
     protected override void OnOpened(EventArgs e)
