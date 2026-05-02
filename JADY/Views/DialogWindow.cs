@@ -27,10 +27,10 @@ public abstract class DialogWindow<T> : Window
 
     protected abstract T GetValue();
 
-    protected override InputElement? GetFirstFocusableElementOverride()
-    {
-        throw new Exception("This method should be overriden to fix weird focus behavior");
-    }
+    // Fix weird focus behavior when GetFirstFocusableElementOverride is not overriden
+    protected override InputElement? GetFirstFocusableElementOverride() => FocusedElement();
+
+    protected abstract InputElement? FocusedElement();
 
     protected override async void OnKeyDown(KeyEventArgs e)
     {
@@ -50,7 +50,7 @@ public abstract class DialogWindow<T> : Window
         {
             Focus();
             
-            GetFirstFocusableElementOverride()?.Focus();
+            FocusedElement()?.Focus();
             
         }, DispatcherPriority.Input);
     }

@@ -105,7 +105,7 @@ public partial class SettingsWindow : DialogWindow<Settings>
         };
     }
 
-    protected override InputElement? GetFirstFocusableElementOverride() => ShowHidden;
+    protected override InputElement? FocusedElement() => ShowHidden;
 
     private async Task FixSavePath()
     {

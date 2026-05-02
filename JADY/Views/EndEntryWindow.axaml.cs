@@ -32,7 +32,7 @@ public partial class EndEntryWindow : DialogWindow<DiaryEntry>, IDialogInitializ
         };
     }
     
-    protected override InputElement? GetFirstFocusableElementOverride() => EndDate;
+    protected override InputElement? FocusedElement() => EndDate;
 
     private async void Submit_OnClick(object? sender, RoutedEventArgs e) => await TrySubmitAsync();
 }

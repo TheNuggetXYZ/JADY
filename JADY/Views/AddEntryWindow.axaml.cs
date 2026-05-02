@@ -31,7 +31,7 @@ public partial class AddEntryWindow : DialogWindow<DiaryEntry>
         };
     }
     
-    protected override InputElement? GetFirstFocusableElementOverride() => EntryCategory;
+    protected override InputElement? FocusedElement() => EntryCategory;
 
     private async void Submit_OnClick(object? sender, RoutedEventArgs e) => await TrySubmitAsync();
 }

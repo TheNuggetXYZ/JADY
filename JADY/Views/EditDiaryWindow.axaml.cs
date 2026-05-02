@@ -26,7 +26,7 @@ public partial class EditDiaryWindow : DialogWindow<Diary>, IDialogInitializable
         };
     }
     
-    protected override InputElement? GetFirstFocusableElementOverride() => Name;
+    protected override InputElement? FocusedElement() => Name;
 
     private async void Submit_OnClick(object? sender, RoutedEventArgs e) => await TrySubmitAsync();
     
