@@ -41,8 +41,6 @@ public class SaveService : ISaveService
         JadySave.Diaries = diaries;
         
         SaveFile();
-        
-        WeakReferenceMessenger.Default.Send(new Messages.DiariesSavePerformed());
     }
 
     public void Save(Settings settings)
@@ -56,8 +54,6 @@ public class SaveService : ISaveService
         {
             TriggerAutoSave();
         }
-        
-        WeakReferenceMessenger.Default.Send(new Messages.SettingsSavePerformed());
     }
 
     private void SaveFile()
