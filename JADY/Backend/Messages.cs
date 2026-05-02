@@ -1,12 +1,12 @@
 namespace JADY.Backend;
 
-public class Messages
+public static class Messages
 {
-    public record SaveChangeMessage();
+    public record JadySaveChanged();
     
-    public record AnySaveMessage();
+    public record SavePerformed();
     
-    public record DiariesSaveMessage();
+    public record DiariesSavePerformed();
 
-    public record UnsavedChangeMessage();
+    public record UnsavedChangeCreated();
 }

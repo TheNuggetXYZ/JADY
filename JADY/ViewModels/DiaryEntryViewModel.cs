@@ -197,6 +197,6 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     public void RemoveSubentry(DiarySubEntryViewModel item)
     {
         SubEntries.Remove(item);
-        WeakReferenceMessenger.Default.Send(new Messages.UnsavedChangeMessage());
+        WeakReferenceMessenger.Default.Send(new Messages.UnsavedChangeCreated());
     }
 }

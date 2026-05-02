@@ -6,7 +6,7 @@ using JADY.Models;
 
 namespace JADY.Services;
 
-public class SaveService(IAppVisualService appVisualService) : ISaveService
+public class SaveService : ISaveService
 {
     public JadySave JadySave { get; private set; } = new();
 
@@ -16,7 +16,7 @@ public class SaveService(IAppVisualService appVisualService) : ISaveService
         
         Save();
         
-        WeakReferenceMessenger.Default.Send(new Messages.DiariesSaveMessage());
+        WeakReferenceMessenger.Default.Send(new Messages.DiariesSavePerformed());
     }
 
     public void Save(Settings settings)
@@ -31,8 +31,8 @@ public class SaveService(IAppVisualService appVisualService) : ISaveService
     {
         DiaryJSON.Serialize(GetSavePath(), JadySave);
         
-        WeakReferenceMessenger.Default.Send(new Messages.AnySaveMessage());
-        WeakReferenceMessenger.Default.Send(new Messages.SaveChangeMessage());
+        WeakReferenceMessenger.Default.Send(new Messages.SavePerformed());
+        WeakReferenceMessenger.Default.Send(new Messages.JadySaveChanged());
     }
 
     public void Load()
@@ -42,7 +42,7 @@ public class SaveService(IAppVisualService appVisualService) : ISaveService
 
         appVisualService.SetTheme(JadySave.Settings.IsThemeDark);
 
-        WeakReferenceMessenger.Default.Send(new Messages.SaveChangeMessage());
+        WeakReferenceMessenger.Default.Send(new Messages.JadySaveChanged());
     }
     
     private string GetSavePath()

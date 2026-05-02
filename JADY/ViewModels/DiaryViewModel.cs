@@ -64,7 +64,7 @@ public partial class DiaryViewModel : ViewModelBase
         
         Entries.Insert(i, newEntryViewModel);
 
-        WeakReferenceMessenger.Default.Send(new Messages.UnsavedChangeMessage());
+        WeakReferenceMessenger.Default.Send(new Messages.UnsavedChangeCreated());
     }
 
     [RelayCommand]
@@ -83,7 +83,7 @@ public partial class DiaryViewModel : ViewModelBase
         
         Name = model.Value.Name;
         
-        WeakReferenceMessenger.Default.Send(new Messages.UnsavedChangeMessage());
+        WeakReferenceMessenger.Default.Send(new Messages.UnsavedChangeCreated());
     }
 
     public async Task RemoveEntry(DiaryEntryViewModel item)
@@ -92,7 +92,7 @@ public partial class DiaryViewModel : ViewModelBase
         if (!pickedYes.HasValue || pickedYes.Value == false) return;
         
         Entries.Remove(item);
-        WeakReferenceMessenger.Default.Send(new Messages.UnsavedChangeMessage());
+        WeakReferenceMessenger.Default.Send(new Messages.UnsavedChangeCreated());
     }
 
     public void ResortEntry(DiaryEntryViewModel item)

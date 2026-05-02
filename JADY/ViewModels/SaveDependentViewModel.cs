@@ -12,7 +12,7 @@ public abstract class SaveDependentViewModel : ViewModelBase
 
     protected SaveDependentViewModel()
     {
-        WeakReferenceMessenger.Default.Register<Messages.SaveChangeMessage>(this, (r, m) => OnSaveChanged());
+        WeakReferenceMessenger.Default.Register<Messages.JadySaveChanged>(this, (r, m) => OnSaveChanged());
     }
 
     private void OnSaveChanged()

@@ -50,7 +50,7 @@ public partial class MainWindowViewModel : SaveDependentViewModel
             if (_saveService.JadySave.Settings.CurrentShowHiddenEntries != value)
             {
                 _saveService.JadySave.Settings.CurrentShowHiddenEntries = value;
-                WeakReferenceMessenger.Default.Send(new Messages.SaveChangeMessage());
+                WeakReferenceMessenger.Default.Send(new Messages.JadySaveChanged());
                 
                 OnPropertyChanged();
             }
@@ -68,7 +68,7 @@ public partial class MainWindowViewModel : SaveDependentViewModel
         
         Load();
         
-        WeakReferenceMessenger.Default.Register<Messages.UnsavedChangeMessage>(this, (r, m) =>
+        WeakReferenceMessenger.Default.Register<Messages.UnsavedChangeCreated>(this, (r, m) =>
         {
             SaveState = new SaveState_UnsavedChanges();
             
@@ -78,12 +78,12 @@ public partial class MainWindowViewModel : SaveDependentViewModel
                 _unsavedChanges = true;
         });
         
-        WeakReferenceMessenger.Default.Register<Messages.DiariesSaveMessage>(this, (r, m) =>
+        WeakReferenceMessenger.Default.Register<Messages.DiariesSavePerformed>(this, (r, m) =>
         {
             SaveState = new SaveState_Saved();
         });
 
-        WeakReferenceMessenger.Default.Register<Messages.AnySaveMessage>(this, (r, m) =>
+        WeakReferenceMessenger.Default.Register<Messages.SavePerformed>(this, (r, m) =>
         {
             if (_unsavedChanges && _saveService.JadySave.Settings.AutoSave)
             {
@@ -136,7 +136,7 @@ public partial class MainWindowViewModel : SaveDependentViewModel
         // Construct and add a view model from model
         Diaries.Add(_diaryViewModelFactory.Create(model.Value, this));
         
-        WeakReferenceMessenger.Default.Send(new Messages.UnsavedChangeMessage());
+        WeakReferenceMessenger.Default.Send(new Messages.UnsavedChangeCreated());
     }
 
     [RelayCommand]
@@ -192,6 +192,6 @@ public partial class MainWindowViewModel : SaveDependentViewModel
         if (!pickedYes.HasValue || pickedYes.Value == false) return;
             
         Diaries.Remove(item);
-        WeakReferenceMessenger.Default.Send(new Messages.UnsavedChangeMessage());
+        WeakReferenceMessenger.Default.Send(new Messages.UnsavedChangeCreated());
     }
 }
