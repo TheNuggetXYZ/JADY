@@ -55,6 +55,7 @@ public partial class App : Application
         collection.AddTransient<EditDiaryWindow>();
         collection.AddTransient<EditEntryWindow>();
         collection.AddTransient<EndEntryWindow>();
+        collection.AddTransient<UnsavedChangesWindow>();
 
         serviceProvider = collection.BuildServiceProvider();
     }

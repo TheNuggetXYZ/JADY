@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Avalonia;
+using Avalonia.Data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
@@ -84,7 +85,7 @@ public partial class MainWindowViewModel : SaveDependentViewModel
             if (Application.Current is not null)
                 SaveState = new SaveState_Saved();
         });
-        
+
         WeakReferenceMessenger.Default.Register<Messages.AnySaveMessage>(this, (r, m) =>
         {
             if (_unsavedChanges && _saveService.JadySave.Settings.AutoSave)
@@ -95,7 +96,37 @@ public partial class MainWindowViewModel : SaveDependentViewModel
             _unsavedChanges = false;
         });
     }
-    
+
+    public async Task<bool> OnClosing()
+    {
+        bool cancelClosing = false;
+        
+        if (_unsavedChanges)
+        {
+            cancelClosing = true;
+            
+            Optional<UnsavedChangesChoice> choice = await WindowManager.OpenDialogWindowDI<UnsavedChangesWindow, UnsavedChangesChoice>(WindowManager.GetMainWindow());
+
+            if (!choice.HasValue) // closed window
+            {
+                return cancelClosing;
+            }
+            
+            if (choice.Value == UnsavedChangesChoice.Quit)
+            {
+                cancelClosing = false;
+            }
+            else if (choice.Value == UnsavedChangesChoice.Save)
+            {
+                Save();
+                
+                cancelClosing = false;
+            }
+        }
+
+        return cancelClosing;
+    }
+
     [RelayCommand]
     private async Task Menu_OpenAddDiaryWindow()
     {
