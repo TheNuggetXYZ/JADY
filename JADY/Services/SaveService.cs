@@ -25,6 +25,8 @@ public class SaveService : ISaveService
         JadySave.Settings.CultureInfo = new CultureInfo(settings.CultureInfoName);
         
         Save();
+        
+        WeakReferenceMessenger.Default.Send(new Messages.SettingsSavePerformed());
     }
     
     private void Save()

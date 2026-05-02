@@ -83,7 +83,7 @@ public partial class MainWindowViewModel : SaveDependentViewModel
             SaveState = new SaveState_Saved();
         });
 
-        WeakReferenceMessenger.Default.Register<Messages.SavePerformed>(this, (r, m) =>
+        WeakReferenceMessenger.Default.Register<Messages.SettingsSavePerformed>(this, (r, m) =>
         {
             if (_unsavedChanges && _saveService.JadySave.Settings.AutoSave)
             {

@@ -7,6 +7,8 @@ public static class Messages
     public record SavePerformed();
     
     public record DiariesSavePerformed();
+    
+    public record SettingsSavePerformed();
 
     public record UnsavedChangeCreated();
 }
