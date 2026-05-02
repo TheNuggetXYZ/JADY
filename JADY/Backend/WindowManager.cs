@@ -7,8 +7,6 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data;
 using JADY.Views;
 using Microsoft.Extensions.DependencyInjection;
-using MsBox.Avalonia;
-using MsBox.Avalonia.Enums;
 
 namespace JADY.Backend;
 
