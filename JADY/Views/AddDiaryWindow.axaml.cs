@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Avalonia;
+using Avalonia.Data;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using JADY.Models;
@@ -15,7 +16,7 @@ public partial class AddDiaryWindow : DialogWindow<Diary>
     
     protected override Task<bool> CanSubmitAsync() => Task.FromResult(SubmitButton.IsEnabled);
 
-    protected override Diary GetValue()
+    protected override Optional<Diary> GetValue()
     {
         return new Diary()
         {

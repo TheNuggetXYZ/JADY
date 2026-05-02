@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
+using Avalonia.Data;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
@@ -56,7 +57,7 @@ public partial class SettingsWindow : DialogWindow<Settings>
     protected override Task SubmitAsync()
     {
         UpdateApp();
-        _saveService.Save(GetValue());
+        _saveService.Save(GetValue().Value);
         Close();
         return Task.CompletedTask;
     }
@@ -93,7 +94,7 @@ public partial class SettingsWindow : DialogWindow<Settings>
         }
     }
 
-    protected override Settings GetValue()
+    protected override Optional<Settings> GetValue()
     {
         return new Settings()
         {

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Data;
 using JADY.Views;
 using Microsoft.Extensions.DependencyInjection;
 using MsBox.Avalonia;
@@ -38,12 +39,12 @@ public static class WindowManager
         return await newWindow.ShowDialog<TResult>(owner);
     }
 
-    public static async Task<TResult?> OpenDialogWindowDI<T, TResult>(Window? owner) where T : Window
+    public static async Task<Optional<TResult>> OpenDialogWindowDI<T, TResult>(Window? owner) where T : Window
     {
         return await OpenDialogWindowDI<T, TResult, object>(owner, null);
     }
     
-    public static async Task<TResult?> OpenDialogWindowDI<T, TResult, TData>(Window? owner, TData? initData) where T : Window
+    public static async Task<Optional<TResult>> OpenDialogWindowDI<T, TResult, TData>(Window? owner, TData? initData) where T : Window
     {
         if (owner == null || OpenWindows.TryGetValue(typeof(T), out var window) || App.ServiceProvider is null)
             return default;
@@ -58,7 +59,7 @@ public static class WindowManager
         OpenWindows.Add(typeof(T), newWindow);
         newWindow.Closed += (_, _) => { OpenWindows.Remove(typeof(T)); };
         
-        return await newWindow.ShowDialog<TResult>(owner);
+        return await newWindow.ShowDialog<Optional<TResult>>(owner);
     }
 
     public static void CloseWindow<T>() where T : Window

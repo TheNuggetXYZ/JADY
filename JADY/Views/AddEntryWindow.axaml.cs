@@ -1,4 +1,5 @@
 using System;
+using Avalonia.Data;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using JADY.Backend;
@@ -16,7 +17,7 @@ public partial class AddEntryWindow : DialogWindow<DiaryEntry>
         EntryParameter.ItemsSource = Utils.NewEntryParameterToArray;
     }
 
-    protected override DiaryEntry GetValue()
+    protected override Optional<DiaryEntry> GetValue()
     {
         return new DiaryEntry()
         {
