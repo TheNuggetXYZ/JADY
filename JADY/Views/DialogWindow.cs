@@ -75,4 +75,16 @@ public abstract class DialogWindow<T> : Window
             
         }, DispatcherPriority.Input);
     }
+
+    // Ensure we dont return null
+    protected new void Close()
+    {
+        base.Close(Optional<T>.Empty);
+    }
+    
+    // Ensure we return the right type
+    protected new void Close(T value)
+    {
+        base.Close(new Optional<T>(value));
+    }
 }
