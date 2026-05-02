@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Avalonia.Controls;
+using Avalonia.Data;
 using Avalonia.Input;
 using Avalonia.Threading;
 
@@ -8,10 +9,12 @@ namespace JADY.Views;
 
 public abstract class DialogWindow<T> : Window
 {
-    protected virtual async Task TrySubmitAsync()
+    protected virtual async Task TrySubmitAsync() => await TrySubmitAsync(Optional<T>.Empty);
+
+    protected virtual async Task TrySubmitAsync(Optional<T> value)
     {
         if (await CanSubmitAsync())
-            await SubmitAsync();
+            await SubmitAsync(value);
     }
 
     protected virtual Task<bool> CanSubmitAsync() => Task.FromResult(true);
@@ -19,13 +22,31 @@ public abstract class DialogWindow<T> : Window
     /// <summary>
     /// Make sure to call TrySubmit for CanSubmit check to apply.
     /// </summary>
-    protected virtual Task SubmitAsync()
+    protected virtual Task SubmitAsync() => SubmitAsync(Optional<T>.Empty);
+
+    /// <summary>
+    /// Make sure to call TrySubmit for CanSubmit check to apply.
+    /// </summary>
+    protected virtual Task SubmitAsync(Optional<T> value)
     {
-        Close(GetValue());
+        if (value.HasValue)
+        {
+            Close(value.Value);
+        }
+        else
+        {
+            var fallbackValue = GetValue();
+            
+            if (fallbackValue.HasValue)
+                Close(fallbackValue);
+            else
+                Close(Optional<T>.Empty);
+        }
+        
         return Task.CompletedTask;
     }
 
-    protected abstract T GetValue();
+    protected virtual Optional<T> GetValue() => Optional<T>.Empty;
 
     // Fix weird focus behavior when GetFirstFocusableElementOverride is not overriden
     protected override InputElement? GetFirstFocusableElementOverride() => FocusedElement();
