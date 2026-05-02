@@ -89,9 +89,10 @@ public partial class MainWindowViewModel : SaveDependentViewModel
         {
             if (_unsavedChanges && _saveService.JadySave.Settings.AutoSave)
             {
-                _unsavedChanges = false;
                 Save();
             }
+            
+            _unsavedChanges = false;
         });
     }
     
