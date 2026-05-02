@@ -64,15 +64,13 @@ public partial class MainWindowViewModel : SaveDependentViewModel
         _saveService = saveService;
         _diaryViewModelFactory = diaryViewModelFactory;
         
-        if (Application.Current is not null)
-            SaveState = new SaveState_Saved();
+        SaveState = new SaveState_Saved();
         
         Load();
         
         WeakReferenceMessenger.Default.Register<Messages.UnsavedChangeMessage>(this, (r, m) =>
         {
-            if (Application.Current is not null)
-                SaveState = new SaveState_UnsavedChanges();
+            SaveState = new SaveState_UnsavedChanges();
             
             if (_saveService.JadySave.Settings.AutoSave)
                 Save();
@@ -82,8 +80,7 @@ public partial class MainWindowViewModel : SaveDependentViewModel
         
         WeakReferenceMessenger.Default.Register<Messages.DiariesSaveMessage>(this, (r, m) =>
         {
-            if (Application.Current is not null)
-                SaveState = new SaveState_Saved();
+            SaveState = new SaveState_Saved();
         });
 
         WeakReferenceMessenger.Default.Register<Messages.AnySaveMessage>(this, (r, m) =>
