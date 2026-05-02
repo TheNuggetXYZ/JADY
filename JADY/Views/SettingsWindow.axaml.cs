@@ -50,7 +50,7 @@ public partial class SettingsWindow : DialogWindow<Settings>
         else
         {
             if (!await SavePathValid())
-                await FixSavePath();
+                FixSavePath();
         }
     }
 
@@ -108,12 +108,11 @@ public partial class SettingsWindow : DialogWindow<Settings>
 
     protected override InputElement? FocusedElement() => ShowHidden;
 
-    private async Task FixSavePath()
+    private void FixSavePath()
     {
         SavePath.Text = _saveService.JadySave.Settings.SaveFilePath;
 
-        await WindowManager.OpenMessageBox(WindowManager.GetMainWindow(), "Warning",
-            "The entered save file directory is invalid - resetting to last directory");
+        WindowManager.OpenMessageBox("The entered save file directory is invalid - resetting to last directory", "Warning");
     }
 
     private async Task OpenChangeSavePath()

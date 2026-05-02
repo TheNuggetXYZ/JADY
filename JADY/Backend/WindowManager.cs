@@ -70,13 +70,10 @@ public static class WindowManager
         }
     }
 
-    public static async Task OpenMessageBox(Window? owner, string title, string message)
+    public static void OpenMessageBox(string message, string? title = null)
     {
-        if (owner == null)
-            return;
+        var box = new MessageWindow(message, title);
         
-        var box = MessageBoxManager.GetMessageBoxStandard(title, message, ButtonEnum.Ok);
-
-        await box.ShowWindowDialogAsync(owner);
+        box.Show();
     }
 }
