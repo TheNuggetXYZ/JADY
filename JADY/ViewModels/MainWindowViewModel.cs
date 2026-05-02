@@ -189,8 +189,11 @@ public partial class MainWindowViewModel : SaveDependentViewModel
             _saveService.JadySave.Diaries.Select(model => _diaryViewModelFactory.Create(model, this)));
     }
 
-    public void RemoveDiary(DiaryViewModel item)
+    public async Task RemoveDiary(DiaryViewModel item)
     {
+        Optional<bool> pickedYes = await WindowManager.OpenYesNoMessageBox(WindowManager.GetMainWindow(), "Are you sure you want to remove this diary?", "Remove diary?");
+        if (!pickedYes.HasValue || pickedYes.Value == false) return;
+            
         Diaries.Remove(item);
         WeakReferenceMessenger.Default.Send(new Messages.UnsavedChangeMessage());
     }

@@ -68,9 +68,9 @@ public partial class DiaryViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    private void ContextMenu_Remove()
+    private async Task ContextMenu_Remove()
     {
-        _mainWindowViewModel.RemoveDiary(this);
+        await _mainWindowViewModel.RemoveDiary(this);
     }
 
     [RelayCommand]
@@ -86,10 +86,12 @@ public partial class DiaryViewModel : ViewModelBase
         WeakReferenceMessenger.Default.Send(new Messages.UnsavedChangeMessage());
     }
 
-    public void RemoveEntry(DiaryEntryViewModel item)
+    public async Task RemoveEntry(DiaryEntryViewModel item)
     {
-        Entries.Remove(item);
+        Optional<bool> pickedYes = await WindowManager.OpenYesNoMessageBox(WindowManager.GetMainWindow(), "Are you sure you want to remove this entry?", "Remove entry?");
+        if (!pickedYes.HasValue || pickedYes.Value == false) return;
         
+        Entries.Remove(item);
         WeakReferenceMessenger.Default.Send(new Messages.UnsavedChangeMessage());
     }
 
