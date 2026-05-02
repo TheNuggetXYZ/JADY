@@ -2,6 +2,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Avalonia.Data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
@@ -159,19 +160,19 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     [RelayCommand]
     private async Task ContextMenu_Edit()
     {
-        DiaryEntry? diaryEntry = await WindowManager.OpenDialogWindowDI<EditEntryWindow, DiaryEntry?, DiaryEntryViewModel>(WindowManager.GetMainWindow(), this);
+        Optional<DiaryEntry> diaryEntry = await WindowManager.OpenDialogWindowDI<EditEntryWindow, DiaryEntry, DiaryEntryViewModel>(WindowManager.GetMainWindow(), this);
 
-        if (diaryEntry == null)
+        if (!diaryEntry.HasValue)
             return;
         
-        Status = diaryEntry.Status;
-        Date = diaryEntry.Date;
-        EndDate = diaryEntry.EndDate;
-        Category = diaryEntry.Category;
-        SubCategory = diaryEntry.SubCategory;
-        Title = diaryEntry.Title;
-        Content = diaryEntry.Content;
-        IsHidden = diaryEntry.IsHidden;
+        Status = diaryEntry.Value.Status;
+        Date = diaryEntry.Value.Date;
+        EndDate = diaryEntry.Value.EndDate;
+        Category = diaryEntry.Value.Category;
+        SubCategory = diaryEntry.Value.SubCategory;
+        Title = diaryEntry.Value.Title;
+        Content = diaryEntry.Value.Content;
+        IsHidden = diaryEntry.Value.IsHidden;
 
         _diaryViewModel.ResortEntry(this);
     }
@@ -182,13 +183,13 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         if (!ShowEndEventInContextMenu)
             return;
         
-        DiaryEntry? diaryEntry = await WindowManager.OpenDialogWindowDI<EndEntryWindow, DiaryEntry?, DiaryEntryViewModel>(WindowManager.GetMainWindow(), this);
+        Optional<DiaryEntry> diaryEntry = await WindowManager.OpenDialogWindowDI<EndEntryWindow, DiaryEntry, DiaryEntryViewModel>(WindowManager.GetMainWindow(), this);
         
-        if (diaryEntry == null)
+        if (!diaryEntry.HasValue)
             return;
         
-        EndDate = diaryEntry.EndDate;
-        Status = diaryEntry.Status;
+        EndDate = diaryEntry.Value.EndDate;
+        Status = diaryEntry.Value.Status;
         
         _diaryViewModel.ResortEntry(this);
     }

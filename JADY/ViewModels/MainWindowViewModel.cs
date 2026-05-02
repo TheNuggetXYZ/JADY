@@ -99,13 +99,13 @@ public partial class MainWindowViewModel : SaveDependentViewModel
     private async Task Menu_OpenAddDiaryWindow()
     {
         // Open dialog and wait for result model
-        Diary? model = await WindowManager.OpenDialogWindowDI<AddDiaryWindow, Diary?>(WindowManager.GetMainWindow());
+        Optional<Diary> model = await WindowManager.OpenDialogWindowDI<AddDiaryWindow, Diary>(WindowManager.GetMainWindow());
 
-        if (model == null)
+        if (!model.HasValue)
             return;
         
         // Construct and add a view model from model
-        Diaries.Add(_diaryViewModelFactory.Create(model, this));
+        Diaries.Add(_diaryViewModelFactory.Create(model.Value, this));
         
         WeakReferenceMessenger.Default.Send(new Messages.UnsavedChangeMessage());
     }
@@ -117,13 +117,13 @@ public partial class MainWindowViewModel : SaveDependentViewModel
             return;
         
         // Open dialog and wait for result model
-        DiaryEntry? model = await WindowManager.OpenDialogWindowDI<AddEntryWindow, DiaryEntry?>(WindowManager.GetMainWindow());
+        Optional<DiaryEntry> model = await WindowManager.OpenDialogWindowDI<AddEntryWindow, DiaryEntry>(WindowManager.GetMainWindow());
 
-        if (model == null)
+        if (!model.HasValue)
             return;
         
         // Construct and add a view model from model
-        Diaries[OpenDiaryIndex].AddEntry(model);
+        Diaries[OpenDiaryIndex].AddEntry(model.Value);
     }
     
     [RelayCommand]

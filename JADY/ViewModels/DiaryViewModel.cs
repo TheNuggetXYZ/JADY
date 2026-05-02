@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Avalonia.Data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
@@ -75,12 +76,12 @@ public partial class DiaryViewModel : ViewModelBase
     [RelayCommand]
     private async Task ContextMenu_Edit()
     {
-        Diary? model = await WindowManager.OpenDialogWindowDI<EditDiaryWindow, Diary?, DiaryViewModel>(WindowManager.GetMainWindow(), this);
+        Optional<Diary> model = await WindowManager.OpenDialogWindowDI<EditDiaryWindow, Diary, DiaryViewModel>(WindowManager.GetMainWindow(), this);
 
-        if (model == null)
+        if (!model.HasValue)
             return;
         
-        Name = model.Name;
+        Name = model.Value.Name;
         
         WeakReferenceMessenger.Default.Send(new Messages.UnsavedChangeMessage());
     }
