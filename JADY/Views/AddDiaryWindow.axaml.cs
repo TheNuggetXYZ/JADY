@@ -6,7 +6,7 @@ using JADY.Models;
 
 namespace JADY.Views;
 
-public partial class AddDiaryWindow : DialogWindowBase<Diary>
+public partial class AddDiaryWindow : DialogWindow<Diary>
 {
     public AddDiaryWindow()
     {

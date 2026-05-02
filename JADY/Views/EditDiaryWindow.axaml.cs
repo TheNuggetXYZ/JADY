@@ -7,7 +7,7 @@ using JADY.ViewModels;
 
 namespace JADY.Views;
 
-public partial class EditDiaryWindow : DialogWindowBase<Diary>, IDialogInitializable<DiaryViewModel>
+public partial class EditDiaryWindow : DialogWindow<Diary>, IDialogInitializable<DiaryViewModel>
 {
     public void Initialize(DiaryViewModel data)
     {

@@ -11,7 +11,7 @@ using JADY.Services;
 
 namespace JADY.Views;
 
-public partial class SettingsWindow : DialogWindowBase<Settings>
+public partial class SettingsWindow : DialogWindow<Settings>
 {
     private readonly IAppVisualService _appVisualService;
     private readonly ISaveService _saveService;

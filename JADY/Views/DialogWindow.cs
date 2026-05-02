@@ -6,7 +6,7 @@ using Avalonia.Threading;
 
 namespace JADY.Views;
 
-public abstract class DialogWindowBase<T> : Window
+public abstract class DialogWindow<T> : Window
 {
     protected virtual async Task TrySubmitAsync()
     {
