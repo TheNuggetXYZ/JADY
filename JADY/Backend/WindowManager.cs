@@ -74,4 +74,13 @@ public static class WindowManager
         
         box.Show();
     }
+
+    public static async Task<Optional<bool>> OpenYesNoMessageBox(Window? owner, string message, string title)
+    {
+        if (owner is null) return Optional<bool>.Empty;
+        
+        var box = new YesNoDialogWindow(message, title);
+        
+        return await box.ShowDialog<Optional<bool>>(owner);
+    }
 }

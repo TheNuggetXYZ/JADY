@@ -6,9 +6,12 @@ namespace JADY.Views;
 
 public partial class YesNoDialogWindow : DialogWindow<bool>
 {
-    public YesNoDialogWindow()
+    public YesNoDialogWindow(string message, string title)
     {
         InitializeComponent();
+        
+        Title = title;
+        MessageText.Text = message;
     }
 
     private void YesButton_OnClick(object? sender, RoutedEventArgs e) => Close(true);
