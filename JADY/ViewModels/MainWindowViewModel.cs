@@ -129,7 +129,7 @@ public partial class MainWindowViewModel : SaveDependentViewModel
     [RelayCommand]
     private async Task Menu_OpenSettingsWindow()
     {
-        await WindowManager.OpenDialogWindowDI<SettingsWindow, object?>(WindowManager.GetMainWindow());
+        await WindowManager.OpenDialogWindowDI<SettingsWindow, Settings>(WindowManager.GetMainWindow());
     }
     
     [RelayCommand]
