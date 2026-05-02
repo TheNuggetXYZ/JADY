@@ -19,8 +19,5 @@ public partial class UnsavedChangesWindow : DialogWindow<UnsavedChangesChoice>
 
     private async void QuitButton_OnClick(object? sender, RoutedEventArgs e) => await TrySubmitAsync(UnsavedChangesChoice.Quit);
 
-    private void CloseButton_OnClick(object? sender, RoutedEventArgs e)
-    {
-        Close();
-    }
+    private void CancelButton_OnClick(object? sender, RoutedEventArgs e) => Close();
 }

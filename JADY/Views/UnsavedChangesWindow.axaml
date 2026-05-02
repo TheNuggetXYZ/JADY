@@ -8,17 +8,18 @@
         SizeToContent="Height"
         Width="230">
         
-        <StackPanel Orientation="Vertical" Spacing="10" 
-                    HorizontalAlignment="Center" VerticalAlignment="Center" 
-                    Margin="10">
-                <TextBlock>You have unsaved changes</TextBlock>
+    <StackPanel Orientation="Vertical" Spacing="10" 
+                HorizontalAlignment="Center" VerticalAlignment="Center" 
+                Margin="10">
+        <TextBlock HorizontalAlignment="Center">You have unsaved changes</TextBlock>
                 
-                <StackPanel Orientation="Horizontal" Spacing="10" 
-                            HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Button Name="SaveButton" Click="SaveButton_OnClick">SAVE</Button>
-                        <Button Click="QuitButton_OnClick">QUIT</Button>
-                        <Button Click="CloseButton_OnClick">CLOSE</Button>
-                </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="10" 
+                    HorizontalAlignment="Center" VerticalAlignment="Center">
+                    
+            <Button Name="SaveButton" Click="SaveButton_OnClick">SAVE</Button>
+            <Button Click="QuitButton_OnClick">QUIT</Button>
+            <Button Click="CancelButton_OnClick">CANCEL</Button>
         </StackPanel>
+    </StackPanel>
         
 </Window>
