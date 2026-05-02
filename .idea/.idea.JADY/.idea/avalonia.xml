@@ -14,6 +14,7 @@
         <entry key="JADY/Views/MainWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/Views/Settings.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/Views/SettingsWindow.axaml" value="JADY/JADY.csproj" />
+        <entry key="JADY/Views/UnsavedChangesWindow.axaml" value="JADY/JADY.csproj" />
       </map>
     </option>
   </component>
