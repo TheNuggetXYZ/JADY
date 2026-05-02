@@ -57,8 +57,6 @@ public partial class MainWindowViewModel : SaveDependentViewModel
         }
     }
 
-    private bool _unsavedChanges;
-
     public MainWindowViewModel(ISaveService saveService, IDiaryViewModelFactory diaryViewModelFactory)
     {
         _saveService = saveService;
@@ -71,11 +69,6 @@ public partial class MainWindowViewModel : SaveDependentViewModel
         WeakReferenceMessenger.Default.Register<Messages.UnsavedChangeCreated>(this, (r, m) =>
         {
             SaveState = new SaveState_UnsavedChanges();
-            
-            if (_saveService.JadySave.Settings.AutoSave)
-                Save();
-            else
-                _unsavedChanges = true;
         });
         
         WeakReferenceMessenger.Default.Register<Messages.DiariesSavePerformed>(this, (r, m) =>
@@ -83,14 +76,9 @@ public partial class MainWindowViewModel : SaveDependentViewModel
             SaveState = new SaveState_Saved();
         });
 
-        WeakReferenceMessenger.Default.Register<Messages.SettingsSavePerformed>(this, (r, m) =>
+        WeakReferenceMessenger.Default.Register<Messages.PerformSave>(this, (r, m) =>
         {
-            if (_unsavedChanges && _saveService.JadySave.Settings.AutoSave)
-            {
-                Save();
-            }
-            
-            _unsavedChanges = false;
+            Save();
         });
     }
 
@@ -98,7 +86,7 @@ public partial class MainWindowViewModel : SaveDependentViewModel
     {
         bool cancelClosing = false;
         
-        if (_unsavedChanges)
+        if (_saveService.UnsavedChanges)
         {
             cancelClosing = true;
             

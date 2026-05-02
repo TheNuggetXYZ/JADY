@@ -8,13 +8,39 @@ namespace JADY.Services;
 
 public class SaveService : ISaveService
 {
+    private readonly IAppVisualService _appVisualService;
+    
     public JadySave JadySave { get; private set; } = new();
+
+    public bool UnsavedChanges { get; private set; }
+
+    public SaveService(IAppVisualService appVisualService)
+    {
+        _appVisualService = appVisualService;
+        
+        WeakReferenceMessenger.Default.Register<Messages.UnsavedChangeCreated>(this, (r, m) =>
+        {
+            UnsavedChanges = true;
+            
+            if (JadySave.Settings.AutoSave)
+                TriggerAutoSave();
+        });
+    }
+
+    private void TriggerAutoSave()
+    {
+        if (!UnsavedChanges) return;
+        
+        WeakReferenceMessenger.Default.Send(new Messages.PerformSave());
+        
+        UnsavedChanges = false;
+    }
 
     public void Save(Diary[] diaries)
     {
         JadySave.Diaries = diaries;
         
-        Save();
+        SaveFile();
         
         WeakReferenceMessenger.Default.Send(new Messages.DiariesSavePerformed());
     }
@@ -24,12 +50,17 @@ public class SaveService : ISaveService
         JadySave.Settings = settings;
         JadySave.Settings.CultureInfo = new CultureInfo(settings.CultureInfoName);
         
-        Save();
+        SaveFile();
+
+        if (UnsavedChanges && JadySave.Settings.AutoSave)
+        {
+            TriggerAutoSave();
+        }
         
         WeakReferenceMessenger.Default.Send(new Messages.SettingsSavePerformed());
     }
-    
-    private void Save()
+
+    private void SaveFile()
     {
         DiaryJSON.Serialize(GetSavePath(), JadySave);
         
@@ -42,7 +73,7 @@ public class SaveService : ISaveService
         JadySave = DiaryJSON.Deserialize(GetSavePath());
         JadySave.Load();
 
-        appVisualService.SetTheme(JadySave.Settings.IsThemeDark);
+        _appVisualService.SetTheme(JadySave.Settings.IsThemeDark);
 
         WeakReferenceMessenger.Default.Send(new Messages.JadySaveChanged());
     }

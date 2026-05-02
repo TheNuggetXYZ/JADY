@@ -6,6 +6,8 @@ public interface ISaveService
 {
     JadySave JadySave { get; }
     
+    bool UnsavedChanges { get; }
+    
     void Save(Diary[] diaries);
     void Save(Settings settings);
 

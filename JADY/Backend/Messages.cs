@@ -11,4 +11,6 @@ public static class Messages
     public record SettingsSavePerformed();
 
     public record UnsavedChangeCreated();
+
+    public record PerformSave();
 }
