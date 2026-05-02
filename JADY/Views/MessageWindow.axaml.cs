@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 
 namespace JADY.Views;
@@ -16,4 +17,12 @@ public partial class MessageWindow : Window
     }
 
     private void OkButton_OnClick(object? sender, RoutedEventArgs e) => Close();
+
+    protected override void OnKeyDown(KeyEventArgs e)
+    {
+        if (e.Key == Key.Escape)
+            Close();
+        else if (e.Key == Key.Enter)
+            Close();
+    }
 }
