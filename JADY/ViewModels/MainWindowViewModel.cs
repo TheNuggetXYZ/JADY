@@ -17,7 +17,7 @@ namespace JADY.ViewModels;
 
 public partial class MainWindowViewModel : SaveDependentViewModel
 {
-    private readonly ISaveService _saveService;
+    public ISaveService SaveService { get; }
     private readonly IDiaryViewModelFactory _diaryViewModelFactory;
     
     private ObservableCollection<DiaryViewModel> _diaries = new();
@@ -37,19 +37,16 @@ public partial class MainWindowViewModel : SaveDependentViewModel
     
     [ObservableProperty] 
     private int _openDiaryIndex;
-
-    [ObservableProperty] 
-    private object? _saveState;
     
     [SaveDependent]
     public bool ShowHiddenEntries
     {
-        get => _saveService.JadySave.Settings.CurrentShowHiddenEntries;
+        get => SaveService.JadySave.Settings.CurrentShowHiddenEntries;
         set
         {
-            if (_saveService.JadySave.Settings.CurrentShowHiddenEntries != value)
+            if (SaveService.JadySave.Settings.CurrentShowHiddenEntries != value)
             {
-                _saveService.JadySave.Settings.CurrentShowHiddenEntries = value;
+                SaveService.JadySave.Settings.CurrentShowHiddenEntries = value;
                 WeakReferenceMessenger.Default.Send(new Messages.JadySaveChanged());
                 
                 OnPropertyChanged();
@@ -59,21 +56,8 @@ public partial class MainWindowViewModel : SaveDependentViewModel
 
     public MainWindowViewModel(ISaveService saveService, IDiaryViewModelFactory diaryViewModelFactory)
     {
-        _saveService = saveService;
+        SaveService = saveService;
         _diaryViewModelFactory = diaryViewModelFactory;
-        
-        SaveState = new SaveState_Saved();
-
-        _saveService.PropertyChanged += (sender, args) =>
-        {
-            if (args.PropertyName == nameof(_saveService.UnsavedChanges))
-            {
-                if (_saveService.UnsavedChanges)
-                    SaveState = new SaveState_UnsavedChanges();
-                else
-                    SaveState = new SaveState_Saved();
-            }
-        };
         
         Load();
 
@@ -87,7 +71,7 @@ public partial class MainWindowViewModel : SaveDependentViewModel
     {
         bool cancelClosing = false;
         
-        if (_saveService.UnsavedChanges)
+        if (SaveService.UnsavedChanges)
         {
             cancelClosing = true;
             
@@ -164,15 +148,15 @@ public partial class MainWindowViewModel : SaveDependentViewModel
 
     private void Save()
     {
-        _saveService.Save(Diaries.Select(d => d.GetModel()).ToArray());
+        SaveService.Save(Diaries.Select(d => d.GetModel()).ToArray());
     }
 
     private void Load()
     {
-        _saveService.Load();
+        SaveService.Load();
 
         Diaries = new ObservableCollection<DiaryViewModel>(
-            _saveService.JadySave.Diaries.Select(model => _diaryViewModelFactory.Create(model, this)));
+            SaveService.JadySave.Diaries.Select(model => _diaryViewModelFactory.Create(model, this)));
     }
 
     public async Task RemoveDiary(DiaryViewModel item)
