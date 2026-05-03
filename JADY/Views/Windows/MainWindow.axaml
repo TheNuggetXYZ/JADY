@@ -58,7 +58,10 @@
         </DataTemplate>
         
         <DataTemplate x:Key="EntriesPanel_Hint">
-            <TextBlock>Hint</TextBlock>
+            <StackPanel Orientation="Vertical" Spacing="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Classes="greyedOut">Create entry - Ctrl+E</TextBlock>
+                <TextBlock Classes="greyedOut">Create diary - Ctrl+D</TextBlock>
+            </StackPanel>
         </DataTemplate>
         
         <converters:EntriesPanelTemplateConverter x:Key="EntriesPanelConverter" ListView="{StaticResource EntriesPanel_ListView}" Hint="{StaticResource EntriesPanel_Hint}"/>
