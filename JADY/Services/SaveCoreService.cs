@@ -17,12 +17,25 @@ public class SaveCoreService(ILogger<SaveCoreService> logger) : ISaveCoreService
             logger.LogInformation("Save file already exists, creating backup");
             MoveOldSaveToBackup(savePath);
         }
+
+        using FileStream fs = File.Create(savePath);
         
-        using (FileStream fs = File.Create(savePath))
+        JsonSerializer.Serialize(fs, saveInfo, new JsonSerializerOptions { WriteIndented = true });
+        logger.LogInformation("Saved to: " + savePath);
+    }
+    
+    public void Write(string savePath, Settings config)
+    {
+        if (File.Exists(savePath))
         {
-            JsonSerializer.Serialize(fs, saveInfo, new JsonSerializerOptions { WriteIndented = true });
-            logger.LogInformation("Saved to: " + savePath);
+            logger.LogInformation("Config file already exists, creating backup");
+            MoveOldSaveToBackup(savePath);
         }
+
+        using FileStream fs = File.Create(savePath);
+        
+        JsonSerializer.Serialize(fs, config, new JsonSerializerOptions { WriteIndented = true });
+        logger.LogInformation("Saved to: " + savePath);
     }
 
     private void MoveOldSaveToBackup(string savePath)
@@ -34,61 +47,78 @@ public class SaveCoreService(ILogger<SaveCoreService> logger) : ISaveCoreService
         logger.LogInformation("Renaming save file to backup");
         File.Move(savePath, backupPath);
     }
-    
-    public JadySave Read(string savePath)
+
+    public T Read<T>(string savePath) where T : new()
     {
         if (!File.Exists(savePath))
         {
             logger.LogWarning("Save file not found");
-            return DeserializeBackup(savePath);
+            
+            var backup = DeserializeBackup<T>(savePath);
+
+            if (backup is not null) 
+                return backup;
+
+            logger.LogInformation("Reading file returned null. Creating empty save.");
+            return new T();
         }
+
+        using FileStream fs = File.OpenRead(savePath);
         
-        using (FileStream fs = File.OpenRead(savePath))
+        try
         {
-            try 
+            var save = JsonSerializer.Deserialize<T>(fs);
+
+            if (save is not null)
+                return save;
+            
+            logger.LogInformation("Reading file returned null. Creating empty save.");
+            return new T();
+        }
+        catch (JsonException e)
+        {
+            logger.LogTrace(e, "Error deserializing save file");
+                
+            string corruptedPath = savePath + ".corrupted";
+                
+            logger.LogInformation("Renaming corrupted save file");
+                
+            if (!File.Exists(corruptedPath))
+                File.Move(savePath, corruptedPath);
+            else
             {
-                return JsonSerializer.Deserialize<JadySave>(fs);
+                logger.LogError($"Corrupted save file already exists: {savePath}.corrupted. Please handle your corrupted save file first");
+                throw;
             }
-            catch (JsonException e)
-            {
-                logger.LogTrace(e, "Error deserializing save file");
                 
-                string corruptedPath = savePath + ".corrupted";
-                
-                logger.LogInformation("Renaming corrupted save file");
-                
-                if (!File.Exists(corruptedPath))
-                    File.Move(savePath, corruptedPath);
-                else
-                {
-                    logger.LogError($"Corrupted save file already exists: {savePath}.corrupted. Please handle your corrupted save file first");
-                    throw;
-                }
-                
-                return DeserializeBackup(savePath);
-            }
+            var backup = DeserializeBackup<T>(savePath);
+
+            if (backup is not null) 
+                return backup;
+
+            logger.LogInformation("Reading file returned null. Creating empty save.");
+            return new T();
         }
     }
 
-    private JadySave DeserializeBackup(string savePath)
+    private T? DeserializeBackup<T>(string savePath) where T : new()
     {
         string backupPath = savePath + ".backup";
         if (File.Exists(backupPath))
         {
             logger.LogInformation("Restoring backup");
             File.Move(backupPath, savePath);
+
+            using FileStream fs = File.OpenRead(savePath);
             
-            using (FileStream fs = File.OpenRead(savePath))
-            {
-                JadySave save = JsonSerializer.Deserialize<JadySave>(fs);
-                logger.LogInformation("Restored backup");
-                return save;
-            }
+            var save = JsonSerializer.Deserialize<T>(fs);
+            logger.LogInformation("Restored backup");
+            return save;
         }
         
         logger.LogWarning("Backup file not found");
         logger.LogInformation("Creating empty save");
         
-        return new();
+        return new T();
     }
 }

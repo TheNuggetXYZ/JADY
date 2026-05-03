@@ -59,7 +59,7 @@ public partial class SaveService : ObservableObject, ISaveService
         Settings = settings;
         Settings.CultureInfo = new CultureInfo(settings.CultureInfoName);
 
-        _saveCoreService.Write(GetConfigPath(), Settings); // TODO: saving Settings in SaveCoreService
+        _saveCoreService.Write(GetConfigPath(), Settings);
 
         OnSave();
 
@@ -77,7 +77,8 @@ public partial class SaveService : ObservableObject, ISaveService
 
     public void Load()
     {
-        JadySave = _saveCoreService.Read(GetSavePath());
+        JadySave = _saveCoreService.Read<JadySave>(GetSavePath());
+        Settings = _saveCoreService.Read<Settings>(GetConfigPath());
 
         UnsavedChanges = false;
 
