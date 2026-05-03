@@ -1,8 +1,9 @@
+using System.ComponentModel;
 using JADY.Models;
 
 namespace JADY.Services;
 
-public interface ISaveService
+public interface ISaveService : INotifyPropertyChanged
 {
     JadySave JadySave { get; }
     

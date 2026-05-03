@@ -63,13 +63,19 @@ public partial class MainWindowViewModel : SaveDependentViewModel
         _diaryViewModelFactory = diaryViewModelFactory;
         
         SaveState = new SaveState_Saved();
+
+        _saveService.PropertyChanged += (sender, args) =>
+        {
+            if (args.PropertyName == nameof(_saveService.UnsavedChanges))
+            {
+                if (_saveService.UnsavedChanges)
+                    SaveState = new SaveState_UnsavedChanges();
+                else
+                    SaveState = new SaveState_Saved();
+            }
+        };
         
         Load();
-        
-        WeakReferenceMessenger.Default.Register<Messages.UnsavedChangeCreated>(this, (r, m) =>
-        {
-            SaveState = new SaveState_UnsavedChanges();
-        });
 
         WeakReferenceMessenger.Default.Register<Messages.PerformSave>(this, (r, m) =>
         {
@@ -159,8 +165,6 @@ public partial class MainWindowViewModel : SaveDependentViewModel
     private void Save()
     {
         _saveService.Save(Diaries.Select(d => d.GetModel()).ToArray());
-        
-        SaveState = new SaveState_Saved();
     }
 
     private void Load()

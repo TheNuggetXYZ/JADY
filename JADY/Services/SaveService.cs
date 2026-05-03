@@ -1,18 +1,20 @@
 using System.Globalization;
 using System.IO;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 using JADY.Backend;
 using JADY.Models;
 
 namespace JADY.Services;
 
-public class SaveService : ISaveService
+public partial class SaveService : ObservableObject, ISaveService
 {
     private readonly IAppVisualService _appVisualService;
     
     public JadySave JadySave { get; private set; } = new();
 
-    public bool UnsavedChanges { get; private set; }
+    [ObservableProperty]
+    private bool _unsavedChanges;
 
     public SaveService(IAppVisualService appVisualService)
     {
@@ -68,6 +70,8 @@ public class SaveService : ISaveService
     {
         JadySave = DiaryJSON.Deserialize(GetSavePath());
         JadySave.Load();
+        
+        UnsavedChanges = false;
 
         _appVisualService.SetTheme(JadySave.Settings.IsThemeDark);
 
