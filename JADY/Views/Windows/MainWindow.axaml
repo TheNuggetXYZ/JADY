@@ -66,7 +66,7 @@
     
     <Grid RowDefinitions="Auto, *">
         
-        <TabControl Name="DiaryTab" Grid.Row="1" ItemsSource="{Binding Diaries}" SelectedIndex="{Binding OpenDiaryIndex}" ContentTemplate="{Binding #DiaryTab.SelectedContent, Converter={StaticResource EntriesPanelConverter}}" TabStripPlacement="Top">
+        <TabControl Name="DiaryTab" Grid.Row="1" ItemsSource="{Binding Diaries}" SelectedIndex="{Binding OpenDiaryIndex}" TabStripPlacement="Top">
             <TabControl.Theme>
                 <ControlTheme TargetType="TabControl" BasedOn="{StaticResource {x:Type TabControl}}">
                     <Setter Property="Template">
@@ -176,6 +176,19 @@
                     <TextBlock Text="{Binding Name}" FontSize="16"></TextBlock>
                 </DataTemplate>
             </TabControl.ItemTemplate>
+            <TabControl.ContentTemplate>
+                <DataTemplate DataType="vm:DiaryViewModel">
+                    <ContentControl Content="{Binding}">
+                        <ContentControl.ContentTemplate>
+                            <MultiBinding Converter="{StaticResource EntriesPanelConverter}">
+                                <Binding/> 
+                                <!-- Triggers update -->
+                                <Binding Path="Entries.Count"/>
+                            </MultiBinding>
+                        </ContentControl.ContentTemplate>
+                    </ContentControl>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
         </TabControl>
     </Grid>
     
