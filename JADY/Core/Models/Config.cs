@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace JADY.Core.Models;
 
-public class Settings
+public class Config
 {
     /// <summary>
     /// Should entries marked as hidden be displayed?
@@ -38,7 +38,7 @@ public class Settings
     [JsonIgnore]
     public CultureInfo CultureInfo { get; set; }
 
-    public Settings()
+    public Config()
     {
         CultureInfo = CultureInfo.GetCultureInfo(CultureInfoName);
         CurrentShowHiddenEntries = ShowHiddenEntries;

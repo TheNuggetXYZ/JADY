@@ -42,12 +42,12 @@ public partial class MainWindowViewModel : SaveDependentViewModel
     [SaveDependent]
     public bool ShowHiddenEntries
     {
-        get => SaveService.Settings.CurrentShowHiddenEntries;
+        get => SaveService.Config.CurrentShowHiddenEntries;
         set
         {
-            if (SaveService.Settings.CurrentShowHiddenEntries != value)
+            if (SaveService.Config.CurrentShowHiddenEntries != value)
             {
-                SaveService.Settings.CurrentShowHiddenEntries = value;
+                SaveService.Config.CurrentShowHiddenEntries = value;
                 WeakReferenceMessenger.Default.Send(new Messages.JadySaveChanged());
                 
                 OnPropertyChanged();
@@ -133,7 +133,7 @@ public partial class MainWindowViewModel : SaveDependentViewModel
     [RelayCommand]
     private async Task Menu_OpenSettingsWindow()
     {
-        await _windowService.OpenDialogWindowDI<SettingsWindow, Settings>(_windowService.GetMainWindow());
+        await _windowService.OpenDialogWindowDI<SettingsWindow, Config>(_windowService.GetMainWindow());
     }
     
     [RelayCommand]
@@ -158,7 +158,7 @@ public partial class MainWindowViewModel : SaveDependentViewModel
         SaveService.Load();
 
         Diaries = new ObservableCollection<DiaryViewModel>(
-            SaveService.JadySave.Diaries.Select(model => _diaryViewModelFactory.Create(model, this)));
+            SaveService.SaveData.Diaries.Select(model => _diaryViewModelFactory.Create(model, this)));
     }
 
     public async Task RemoveDiary(DiaryViewModel item)

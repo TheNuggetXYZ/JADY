@@ -90,16 +90,16 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     public bool ShowEndEventInContextMenu => Status == EntryStatus.InProgress;
 
     [SaveDependent]
-    public bool IsCurrentlyVisible => !IsHidden || _saveService.Settings.CurrentShowHiddenEntries;
+    public bool IsCurrentlyVisible => !IsHidden || _saveService.Config.CurrentShowHiddenEntries;
     
     [SaveDependent]
-    public string LogDateDisplayName => LogDate.Date.ToString("d", _saveService.Settings.CultureInfo);
+    public string LogDateDisplayName => LogDate.Date.ToString("d", _saveService.Config.CultureInfo);
 
     [SaveDependent]
-    public string? DateDisplayName => Date?.Date.ToString("d", _saveService.Settings.CultureInfo);
+    public string? DateDisplayName => Date?.Date.ToString("d", _saveService.Config.CultureInfo);
     
     [SaveDependent]
-    public string? EndDateDisplayName => EndDate?.Date.ToString("d", _saveService.Settings.CultureInfo);
+    public string? EndDateDisplayName => EndDate?.Date.ToString("d", _saveService.Config.CultureInfo);
 
     [SaveDependent]
     public string DisplayDate => DateDisplayName ?? EndDateDisplayName ?? LogDateDisplayName;

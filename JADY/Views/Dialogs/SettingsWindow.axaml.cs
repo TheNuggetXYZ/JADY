@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 
 namespace JADY.Views.Dialogs;
 
-public partial class SettingsWindow : DialogWindow<Settings>
+public partial class SettingsWindow : DialogWindow<Config>
 {
     private readonly IAppVisualService _appVisualService;
     private readonly ISaveService _saveService;
@@ -34,12 +34,12 @@ public partial class SettingsWindow : DialogWindow<Settings>
         _saveService = saveService;
         _logger = logger;
 
-        ShowHidden.IsChecked = _saveService.JadySave.Settings.ShowHiddenEntries;
-        AutoSave.IsChecked = _saveService.JadySave.Settings.AutoSave;
-        DarkTheme.IsChecked = _saveService.JadySave.Settings.IsThemeDark;
+        ShowHidden.IsChecked = _saveService.Config.ShowHiddenEntries;
+        AutoSave.IsChecked = _saveService.Config.AutoSave;
+        DarkTheme.IsChecked = _saveService.Config.IsThemeDark;
         SavePath.Text = saveService.SavesDirectory;
         Cultures.ItemsSource = AvailableCultures;
-        Cultures.SelectedItem = new CultureInfo(_saveService.JadySave.Settings.CultureInfoName);
+        Cultures.SelectedItem = new CultureInfo(_saveService.Config.CultureInfoName);
     }
     
     protected override Task SubmitAsync()
@@ -53,15 +53,15 @@ public partial class SettingsWindow : DialogWindow<Settings>
     private void UpdateApp()
     {
         bool newIsDark = DarkTheme.IsChecked ?? false;
-        if (_saveService.JadySave.Settings.IsThemeDark != newIsDark)
+        if (_saveService.Config.IsThemeDark != newIsDark)
         {
             _appVisualService.SetTheme(newIsDark);
         }
     }
 
-    protected override Optional<Settings> GetValue()
+    protected override Optional<Config> GetValue()
     {
-        return new Settings()
+        return new Config()
         {
             ShowHiddenEntries = ShowHidden.IsChecked ?? false,
             AutoSave = AutoSave.IsChecked ?? false,

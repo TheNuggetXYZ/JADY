@@ -12,8 +12,8 @@ public partial class SaveService : ObservableObject, ISaveService
     private readonly ISaveCoreService _saveCoreService;
     private readonly IAppVisualService _appVisualService;
 
-    public JadySave JadySave { get; private set; } = new();
-    public Settings Settings { get; private set; } = new();
+    public SaveData SaveData { get; private set; } = new();
+    public Config Config { get; private set; } = new();
 
     public string SavesDirectory => _saveCoreService.SavesDirectory;
 
@@ -29,7 +29,7 @@ public partial class SaveService : ObservableObject, ISaveService
         {
             UnsavedChanges = true;
 
-            if (Settings.AutoSave)
+            if (Config.AutoSave)
                 TriggerAutoSave();
         });
     }
@@ -45,25 +45,25 @@ public partial class SaveService : ObservableObject, ISaveService
 
     public void Save(Diary[] diaries)
     {
-        JadySave.Diaries = diaries;
+        SaveData.Diaries = diaries;
 
-        _saveCoreService.Write(GetSavePath(), JadySave);
+        _saveCoreService.Write(GetSavePath(), SaveData);
 
         UnsavedChanges = false;
 
         OnSave();
     }
 
-    public void Save(Settings settings)
+    public void Save(Config config)
     {
-        Settings = settings;
-        Settings.CultureInfo = new CultureInfo(settings.CultureInfoName);
+        Config = config;
+        Config.CultureInfo = new CultureInfo(config.CultureInfoName);
 
-        _saveCoreService.Write(GetConfigPath(), Settings);
+        _saveCoreService.Write(GetConfigPath(), Config);
 
         OnSave();
 
-        if (UnsavedChanges && Settings.AutoSave)
+        if (UnsavedChanges && Config.AutoSave)
         {
             TriggerAutoSave();
         }
@@ -77,12 +77,12 @@ public partial class SaveService : ObservableObject, ISaveService
 
     public void Load()
     {
-        JadySave = _saveCoreService.Read<JadySave>(GetSavePath());
-        Settings = _saveCoreService.Read<Settings>(GetConfigPath());
+        SaveData = _saveCoreService.Read<SaveData>(GetSavePath());
+        Config = _saveCoreService.Read<Config>(GetConfigPath());
 
         UnsavedChanges = false;
 
-        _appVisualService.SetTheme(Settings.IsThemeDark);
+        _appVisualService.SetTheme(Config.IsThemeDark);
 
         WeakReferenceMessenger.Default.Send(new Messages.JadySaveChanged());
     }

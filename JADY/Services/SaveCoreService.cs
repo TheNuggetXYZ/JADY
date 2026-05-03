@@ -10,7 +10,7 @@ public class SaveCoreService(ILogger<SaveCoreService> logger) : ISaveCoreService
 {
     public string SavesDirectory { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "JADY");
 
-    public void Write(string savePath, JadySave saveInfo)
+    public void Write(string savePath, SaveData saveData)
     {
         if (File.Exists(savePath))
         {
@@ -20,11 +20,11 @@ public class SaveCoreService(ILogger<SaveCoreService> logger) : ISaveCoreService
 
         using FileStream fs = File.Create(savePath);
         
-        JsonSerializer.Serialize(fs, saveInfo, new JsonSerializerOptions { WriteIndented = true });
+        JsonSerializer.Serialize(fs, saveData, new JsonSerializerOptions { WriteIndented = true });
         logger.LogInformation("Saved to: " + savePath);
     }
     
-    public void Write(string savePath, Settings config)
+    public void Write(string savePath, Config config)
     {
         if (File.Exists(savePath))
         {

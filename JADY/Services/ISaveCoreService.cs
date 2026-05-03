@@ -6,7 +6,7 @@ public interface ISaveCoreService
 {
     string SavesDirectory { get; }
     
-    void Write(string filePath, JadySave save);
-    void Write(string savePath, Settings config);
+    void Write(string filePath, SaveData saveData);
+    void Write(string savePath, Config config);
     T Read<T>(string savePath) where T : new();
 }
