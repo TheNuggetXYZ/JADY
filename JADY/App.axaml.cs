@@ -58,6 +58,7 @@ public partial class App : Application
         collection.AddSingleton<IAppVisualService, AppVisualService>();
         collection.AddSingleton<ISaveCoreService, SaveCoreService>();
         collection.AddSingleton<ISaveService, SaveService>();
+        collection.AddSingleton<IWindowService, WindowService>();
         
         // Factories
         collection.AddSingleton<IDiaryEntryViewModelFactory, DiaryEntryViewModelFactory>();

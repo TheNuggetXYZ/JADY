@@ -6,10 +6,10 @@ using Avalonia.Data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using JADY.Backend;
 using JADY.Core;
 using JADY.Core.Models;
 using JADY.Factories;
+using JADY.Services;
 using JADY.Views.Dialogs;
 
 namespace JADY.ViewModels;
@@ -29,10 +29,12 @@ public partial class DiaryViewModel : ViewModelBase
     private readonly MainWindowViewModel _mainWindowViewModel;
 
     private readonly IDiaryEntryViewModelFactory _diaryEntryViewModelFactory;
+    private readonly IWindowService _windowService;
 
-    public DiaryViewModel(Diary diary, MainWindowViewModel mainWindowViewModel, IDiaryEntryViewModelFactory diaryEntryViewModelFactory)
+    public DiaryViewModel(Diary diary, MainWindowViewModel mainWindowViewModel, IDiaryEntryViewModelFactory diaryEntryViewModelFactory, IWindowService windowService)
     {
         _diaryEntryViewModelFactory = diaryEntryViewModelFactory;
+        _windowService = windowService;
         _mainWindowViewModel = mainWindowViewModel;
         Name = diary.Name;
         Entries = new ObservableCollection<DiaryEntryViewModel>(diary.Entries.OrderByDescending(GetMostRelevantDate).Select(x => diaryEntryViewModelFactory.Create(x, this)));
@@ -78,7 +80,7 @@ public partial class DiaryViewModel : ViewModelBase
     [RelayCommand]
     private async Task ContextMenu_Edit()
     {
-        Optional<Diary> model = await WindowManager.OpenDialogWindowDI<EditDiaryWindow, Diary, DiaryViewModel>(WindowManager.GetMainWindow(), this);
+        Optional<Diary> model = await _windowService.OpenDialogWindowDI<EditDiaryWindow, Diary, DiaryViewModel>(_windowService.GetMainWindow(), this);
 
         if (!model.HasValue)
             return;
@@ -90,7 +92,7 @@ public partial class DiaryViewModel : ViewModelBase
 
     public async Task RemoveEntry(DiaryEntryViewModel item)
     {
-        Optional<bool> pickedYes = await WindowManager.OpenYesNoMessageBox(WindowManager.GetMainWindow(), "Are you sure you want to remove this entry?", "Remove entry?");
+        Optional<bool> pickedYes = await _windowService.OpenYesNoMessageBox(_windowService.GetMainWindow(), "Are you sure you want to remove this entry?", "Remove entry?");
         if (!pickedYes.HasValue || pickedYes.Value == false) return;
         
         Entries.Remove(item);

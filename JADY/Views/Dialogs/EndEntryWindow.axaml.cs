@@ -2,7 +2,6 @@ using System;
 using Avalonia.Data;
 using Avalonia.Input;
 using Avalonia.Interactivity;
-using JADY.Backend;
 using JADY.Core.Data;
 using JADY.Core.Models;
 using JADY.ViewModels;

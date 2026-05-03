@@ -6,7 +6,6 @@ using Avalonia.Data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using JADY.Backend;
 using JADY.Core;
 using JADY.Core.Attributes;
 using JADY.Core.Data;
@@ -25,6 +24,7 @@ public partial class MainWindowViewModel : SaveDependentViewModel
 {
     public ISaveService SaveService { get; }
     private readonly IDiaryViewModelFactory _diaryViewModelFactory;
+    private readonly IWindowService _windowService;
     
     private ObservableCollection<DiaryViewModel> _diaries = new();
 
@@ -60,11 +60,12 @@ public partial class MainWindowViewModel : SaveDependentViewModel
         }
     }
 
-    public MainWindowViewModel(ISaveService saveService, IDiaryViewModelFactory diaryViewModelFactory)
+    public MainWindowViewModel(ISaveService saveService, IDiaryViewModelFactory diaryViewModelFactory, IWindowService windowService)
     {
         SaveService = saveService;
         _diaryViewModelFactory = diaryViewModelFactory;
-        
+        _windowService = windowService;
+
         Load();
 
         WeakReferenceMessenger.Default.Register<Messages.PerformSave>(this, (r, m) =>
@@ -81,7 +82,7 @@ public partial class MainWindowViewModel : SaveDependentViewModel
         {
             cancelClosing = true;
             
-            Optional<UnsavedChangesChoice> choice = await WindowManager.OpenDialogWindowDI<UnsavedChangesWindow, UnsavedChangesChoice>(WindowManager.GetMainWindow());
+            Optional<UnsavedChangesChoice> choice = await _windowService.OpenDialogWindowDI<UnsavedChangesWindow, UnsavedChangesChoice>(_windowService.GetMainWindow());
 
             if (!choice.HasValue) // closed window
             {
@@ -107,7 +108,7 @@ public partial class MainWindowViewModel : SaveDependentViewModel
     private async Task Menu_OpenAddDiaryWindow()
     {
         // Open dialog and wait for result model
-        Optional<Diary> model = await WindowManager.OpenDialogWindowDI<AddDiaryWindow, Diary>(WindowManager.GetMainWindow());
+        Optional<Diary> model = await _windowService.OpenDialogWindowDI<AddDiaryWindow, Diary>(_windowService.GetMainWindow());
 
         if (!model.HasValue)
             return;
@@ -125,7 +126,7 @@ public partial class MainWindowViewModel : SaveDependentViewModel
             return;
         
         // Open dialog and wait for result model
-        Optional<DiaryEntry> model = await WindowManager.OpenDialogWindowDI<AddEntryWindow, DiaryEntry>(WindowManager.GetMainWindow());
+        Optional<DiaryEntry> model = await _windowService.OpenDialogWindowDI<AddEntryWindow, DiaryEntry>(_windowService.GetMainWindow());
 
         if (!model.HasValue)
             return;
@@ -137,7 +138,7 @@ public partial class MainWindowViewModel : SaveDependentViewModel
     [RelayCommand]
     private async Task Menu_OpenSettingsWindow()
     {
-        await WindowManager.OpenDialogWindowDI<SettingsWindow, Settings>(WindowManager.GetMainWindow());
+        await _windowService.OpenDialogWindowDI<SettingsWindow, Settings>(_windowService.GetMainWindow());
     }
     
     [RelayCommand]
@@ -167,7 +168,7 @@ public partial class MainWindowViewModel : SaveDependentViewModel
 
     public async Task RemoveDiary(DiaryViewModel item)
     {
-        Optional<bool> pickedYes = await WindowManager.OpenYesNoMessageBox(WindowManager.GetMainWindow(), "Are you sure you want to remove this diary?", "Remove diary?");
+        Optional<bool> pickedYes = await _windowService.OpenYesNoMessageBox(_windowService.GetMainWindow(), "Are you sure you want to remove this diary?", "Remove diary?");
         if (!pickedYes.HasValue || pickedYes.Value == false) return;
             
         Diaries.Remove(item);

@@ -3,7 +3,6 @@ using System.Globalization;
 using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
-using JADY.Backend;
 using JADY.Core;
 using JADY.Core.Models;
 

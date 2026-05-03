@@ -6,7 +6,6 @@ using Avalonia.Data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using JADY.Backend;
 using JADY.Core;
 using JADY.Core.Attributes;
 using JADY.Core.Data;
@@ -117,11 +116,13 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     private readonly DiaryViewModel _diaryViewModel;
 
     private readonly ISaveService _saveService;
+    private readonly IWindowService _windowService;
 
-    public DiaryEntryViewModel(DiaryEntry diaryEntry, DiaryViewModel diaryViewModel, ISaveService saveService)
+    public DiaryEntryViewModel(DiaryEntry diaryEntry, DiaryViewModel diaryViewModel, ISaveService saveService, IWindowService windowService)
     {
         _saveService = saveService;
-        
+        _windowService = windowService;
+
         _diaryViewModel = diaryViewModel;
         Status = diaryEntry.Status;
         LogDate = diaryEntry.LogDate;
@@ -164,7 +165,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     [RelayCommand]
     private async Task ContextMenu_Edit()
     {
-        Optional<DiaryEntry> diaryEntry = await WindowManager.OpenDialogWindowDI<EditEntryWindow, DiaryEntry, DiaryEntryViewModel>(WindowManager.GetMainWindow(), this);
+        Optional<DiaryEntry> diaryEntry = await _windowService.OpenDialogWindowDI<EditEntryWindow, DiaryEntry, DiaryEntryViewModel>(_windowService.GetMainWindow(), this);
 
         if (!diaryEntry.HasValue)
             return;
@@ -187,7 +188,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         if (!ShowEndEventInContextMenu)
             return;
         
-        Optional<DiaryEntry> diaryEntry = await WindowManager.OpenDialogWindowDI<EndEntryWindow, DiaryEntry, DiaryEntryViewModel>(WindowManager.GetMainWindow(), this);
+        Optional<DiaryEntry> diaryEntry = await _windowService.OpenDialogWindowDI<EndEntryWindow, DiaryEntry, DiaryEntryViewModel>(_windowService.GetMainWindow(), this);
         
         if (!diaryEntry.HasValue)
             return;
