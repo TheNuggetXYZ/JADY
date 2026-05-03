@@ -42,12 +42,12 @@ public partial class MainWindowViewModel : SaveDependentViewModel
     [SaveDependent]
     public bool ShowHiddenEntries
     {
-        get => SaveService.JadySave.Settings.CurrentShowHiddenEntries;
+        get => SaveService.Settings.CurrentShowHiddenEntries;
         set
         {
-            if (SaveService.JadySave.Settings.CurrentShowHiddenEntries != value)
+            if (SaveService.Settings.CurrentShowHiddenEntries != value)
             {
-                SaveService.JadySave.Settings.CurrentShowHiddenEntries = value;
+                SaveService.Settings.CurrentShowHiddenEntries = value;
                 WeakReferenceMessenger.Default.Send(new Messages.JadySaveChanged());
                 
                 OnPropertyChanged();

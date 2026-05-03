@@ -11,9 +11,10 @@ public partial class SaveService : ObservableObject, ISaveService
 {
     private readonly ISaveCoreService _saveCoreService;
     private readonly IAppVisualService _appVisualService;
-    
+
     public JadySave JadySave { get; private set; } = new();
-    
+    public Settings Settings { get; private set; } = new();
+
     public string SavesDirectory => _saveCoreService.SavesDirectory;
 
     [ObservableProperty]
@@ -23,12 +24,12 @@ public partial class SaveService : ObservableObject, ISaveService
     {
         _saveCoreService = saveCoreService;
         _appVisualService = appVisualService;
-        
+
         WeakReferenceMessenger.Default.Register<Messages.UnsavedChangeCreated>(this, (r, m) =>
         {
             UnsavedChanges = true;
-            
-            if (JadySave.Settings.AutoSave)
+
+            if (Settings.AutoSave)
                 TriggerAutoSave();
         });
     }
@@ -36,56 +37,62 @@ public partial class SaveService : ObservableObject, ISaveService
     private void TriggerAutoSave()
     {
         if (!UnsavedChanges) return;
-        
+
         WeakReferenceMessenger.Default.Send(new Messages.PerformSave());
-        
+
         UnsavedChanges = false;
     }
 
     public void Save(Diary[] diaries)
     {
         JadySave.Diaries = diaries;
-        
+
+        _saveCoreService.Write(GetSavePath(), JadySave);
+
         UnsavedChanges = false;
-        
-        SaveFile();
+
+        OnSave();
     }
 
     public void Save(Settings settings)
     {
-        JadySave.Settings = settings;
-        JadySave.Settings.CultureInfo = new CultureInfo(settings.CultureInfoName);
-        
-        SaveFile();
+        Settings = settings;
+        Settings.CultureInfo = new CultureInfo(settings.CultureInfoName);
 
-        if (UnsavedChanges && JadySave.Settings.AutoSave)
+        _saveCoreService.Write(GetConfigPath(), Settings); // TODO: saving Settings in SaveCoreService
+
+        OnSave();
+
+        if (UnsavedChanges && Settings.AutoSave)
         {
             TriggerAutoSave();
         }
     }
 
-    private void SaveFile()
+    private void OnSave()
     {
-        _saveCoreService.Write(GetMainSavePath(), JadySave);
-        
         WeakReferenceMessenger.Default.Send(new Messages.SavePerformed());
         WeakReferenceMessenger.Default.Send(new Messages.JadySaveChanged());
     }
 
     public void Load()
     {
-        JadySave = _saveCoreService.Read(GetMainSavePath());
-        JadySave.Load();
-        
+        JadySave = _saveCoreService.Read(GetSavePath());
+
         UnsavedChanges = false;
 
-        _appVisualService.SetTheme(JadySave.Settings.IsThemeDark);
+        _appVisualService.SetTheme(Settings.IsThemeDark);
 
         WeakReferenceMessenger.Default.Send(new Messages.JadySaveChanged());
     }
 
-    private string GetMainSavePath()
+    private string GetSavePath()
     {
         return Path.Combine(_saveCoreService.SavesDirectory, "JADY.save");
+    }
+
+    private string GetConfigPath()
+    {
+        return Path.Combine(_saveCoreService.SavesDirectory, "JADY.config");
     }
 }

@@ -6,6 +6,7 @@ namespace JADY.Services;
 public interface ISaveService : INotifyPropertyChanged
 {
     JadySave JadySave { get; }
+    Settings Settings { get; }
     bool UnsavedChanges { get; }
     string SavesDirectory { get; }
     
