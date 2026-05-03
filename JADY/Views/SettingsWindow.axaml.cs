@@ -39,53 +39,17 @@ public partial class SettingsWindow : DialogWindow<Settings>
         ShowHidden.IsChecked = _saveService.JadySave.Settings.ShowHiddenEntries;
         AutoSave.IsChecked = _saveService.JadySave.Settings.AutoSave;
         DarkTheme.IsChecked = _saveService.JadySave.Settings.IsThemeDark;
-        SavePath.Text = _saveService.JadySave.Settings.SaveFilePath;
+        SavePath.Text = saveService.SavesDirectory;
         Cultures.ItemsSource = AvailableCultures;
         Cultures.SelectedItem = new CultureInfo(_saveService.JadySave.Settings.CultureInfoName);
     }
     
-    protected override async Task TrySubmitAsync()
-    {
-        if (await CanSubmitAsync())
-        {
-            await SubmitAsync();
-        }
-        else
-        {
-            if (!await SavePathValid())
-                FixSavePath();
-        }
-    }
-
     protected override Task SubmitAsync()
     {
         UpdateApp();
         _saveService.Save(GetValue().Value);
         Close();
         return Task.CompletedTask;
-    }
-
-    protected override async Task<bool> CanSubmitAsync()
-    {
-        return await SavePathValid();
-    }
-
-    private async Task<bool> SavePathValid()
-    {
-        var saveFolder = await StorageProvider.TryGetFolderFromPathAsync(SavePath.Text);
-
-        try
-        {
-            // Cleanup the path and partially fix it. E.g.: When you have "home/user\" it will still get the folder and incorrectly flag the path as valid. Then it will try to save to "home/user\/JADY.save"
-            SavePath.Text = saveFolder?.Path.AbsolutePath;
-        }
-        catch (InvalidOperationException e)
-        {
-            _logger.LogTrace(e, "Cannot set save path to the path of the found folder.");
-            return false;
-        }
-
-        return saveFolder != null && Utils.IsDirectoryWritable(SavePath.Text);
     }
 
     private void UpdateApp()
@@ -104,39 +68,11 @@ public partial class SettingsWindow : DialogWindow<Settings>
             ShowHiddenEntries = ShowHidden.IsChecked ?? false,
             AutoSave = AutoSave.IsChecked ?? false,
             IsThemeDark = DarkTheme.IsChecked ?? false,
-            SaveFilePath = SavePath.Text,
             CultureInfoName = AvailableCultures[Cultures.SelectedIndex].Name,
         };
     }
 
     protected override InputElement? FocusedElement() => ShowHidden;
-
-    private void FixSavePath()
-    {
-        SavePath.Text = _saveService.JadySave.Settings.SaveFilePath;
-
-        WindowManager.OpenMessageBox("The entered save file directory is invalid - resetting to last directory", "Warning");
-    }
-
-    private async Task OpenChangeSavePath()
-    {
-        IStorageFolder? suggestedStart =
-            await StorageProvider.TryGetFolderFromPathAsync(
-                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
-
-        var folders = await StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions()
-        {
-            Title = "Choose save location",
-            SuggestedStartLocation = suggestedStart
-        });
-
-        if (folders is { Count: > 0 })
-        {
-            SavePath.Text = folders[0].Path.AbsolutePath;
-        }
-    }
-    
-    private async void ChangeSavePath_OnClick(object? sender, RoutedEventArgs e) => await OpenChangeSavePath();
 
     private void Close_OnClick(object? sender, RoutedEventArgs e) => Close();
     private async void SaveClose_OnClick(object? sender, RoutedEventArgs e) => await TrySubmitAsync();

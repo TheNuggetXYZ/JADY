@@ -8,6 +8,8 @@ namespace JADY.Services;
 
 public class SaveCoreService(ILogger<SaveCoreService> logger) : ISaveCoreService
 {
+    public string SavesDirectory { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "JADY");
+
     public void Write(string savePath, JadySave saveInfo)
     {
         if (File.Exists(savePath))

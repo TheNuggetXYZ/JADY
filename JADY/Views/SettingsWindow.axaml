@@ -17,12 +17,8 @@
             <StackPanel Margin="15 0" Orientation="Vertical">
                 <CheckBox Name="AutoSave">Auto save</CheckBox>
         
-                <TextBlock Classes="greyedOut" FontSize="12" Margin="-5 5">Save directory:</TextBlock>
-                <TextBox Name="SavePath">
-                    <TextBox.InnerRightContent>
-                        <Button Classes="shadowless" Click="ChangeSavePath_OnClick">+</Button>
-                    </TextBox.InnerRightContent>
-                </TextBox>
+                <TextBlock Classes="greyedOut" FontSize="12" Margin="-5 5">Saves directory:</TextBlock>
+                <TextBox Name="SavePath" IsReadOnly="True"/>
             </StackPanel>
             
             <TextBlock Classes="greyedOut" FontSize="18" Margin="0 0 0 -20">Miscellaneous:</TextBlock>

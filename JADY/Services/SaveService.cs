@@ -1,3 +1,4 @@
+using System;
 using System.Globalization;
 using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -13,6 +14,8 @@ public partial class SaveService : ObservableObject, ISaveService
     private readonly IAppVisualService _appVisualService;
     
     public JadySave JadySave { get; private set; } = new();
+    
+    public string SavesDirectory => _saveCoreService.SavesDirectory;
 
     [ObservableProperty]
     private bool _unsavedChanges;
@@ -64,7 +67,7 @@ public partial class SaveService : ObservableObject, ISaveService
 
     private void SaveFile()
     {
-        _saveCoreService.Write(GetSavePath(), JadySave);
+        _saveCoreService.Write(GetMainSavePath(), JadySave);
         
         WeakReferenceMessenger.Default.Send(new Messages.SavePerformed());
         WeakReferenceMessenger.Default.Send(new Messages.JadySaveChanged());
@@ -72,7 +75,7 @@ public partial class SaveService : ObservableObject, ISaveService
 
     public void Load()
     {
-        JadySave = _saveCoreService.Read(GetSavePath());
+        JadySave = _saveCoreService.Read(GetMainSavePath());
         JadySave.Load();
         
         UnsavedChanges = false;
@@ -81,12 +84,9 @@ public partial class SaveService : ObservableObject, ISaveService
 
         WeakReferenceMessenger.Default.Send(new Messages.JadySaveChanged());
     }
-    
-    private string GetSavePath()
+
+    private string GetMainSavePath()
     {
-        if (JadySave.Settings.SaveFilePath != null)
-            return Path.Combine(JadySave.Settings.SaveFilePath, "JADY.save");
-        
-        throw new DirectoryNotFoundException("JADY save file path not found");
+        return Path.Combine(_saveCoreService.SavesDirectory, "JADY.save");
     }
 }
