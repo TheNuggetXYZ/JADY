@@ -22,7 +22,6 @@ public partial class AddEntryWindow : DialogWindow<DiaryEntry>
     {
         return new DiaryEntry()
         {
-            Status = Utils.NewEntryParameterToEntryStatus((NewEntryParameter)EntryParameter.SelectedIndex),
             Category = EntryCategory.Text,
             SubCategory = EntrySubcategory.Text,
             Title = EntryTitle.Text,
@@ -30,6 +29,12 @@ public partial class AddEntryWindow : DialogWindow<DiaryEntry>
             LogDate = DateTimeOffset.Now,
             Date = EntryDate.SelectedDate,
             IsHidden = EntryIsHidden.IsChecked ?? false,
+            Status = (NewEntryParameter)EntryParameter.SelectedIndex switch
+            {
+                NewEntryParameter.OneTime => EntryStatus.OneTime,
+                NewEntryParameter.Started => EntryStatus.InProgress,
+                _ => throw new ArgumentOutOfRangeException(nameof(EntryParameter), EntryParameter, null)
+            },
         };
     }
     
