@@ -1,0 +1,177 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:JADY.ViewModels"
+        xmlns:ia="using:Avalonia.Xaml.Interactions.Animated"
+        xmlns:converters="clr-namespace:JADY.Views.Converters"
+        xmlns:controls="clr-namespace:JADY.Views.Controls"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="JADY.Views.Windows.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/Icons/JADY_32x.png"
+        Title="JADY"
+        MinWidth="500"
+        MinHeight="300">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+    
+    <Window.KeyBindings>
+        <!-- Hotkeys for the menu -->
+        <KeyBinding Gesture="Ctrl+S" Command="{Binding Menu_SaveCommand}"/>
+        <KeyBinding Gesture="Ctrl+L" Command="{Binding Menu_LoadCommand}"/>
+        <KeyBinding Gesture="Ctrl+Alt+S" Command="{Binding Menu_OpenSettingsWindowCommand}"/>
+        <KeyBinding Gesture="Ctrl+D" Command="{Binding Menu_OpenAddDiaryWindowCommand}"/>
+        <KeyBinding Gesture="Ctrl+E" Command="{Binding Menu_OpenAddEntryWindowCommand}"/>
+        <KeyBinding Gesture="Ctrl+H" Command="{Binding Menu_ToggleHiddenEntriesCommand}"/>
+    </Window.KeyBindings>
+    
+    <Window.Resources>
+        <DataTemplate x:Key="SaveIcon_SavedState">
+            <PathIcon Data="{StaticResource RoundCheckIconSolid}" ToolTip.Tip="Everything is saved" Height="16" Margin="5 0"/>
+        </DataTemplate>
+        
+        <DataTemplate x:Key="SaveIcon_UnsavedState">
+            <PathIcon Data="{StaticResource RoundExclamationIconSolid}" ToolTip.Tip="Unsaved changes" Height="16" Margin="5 0"/>
+        </DataTemplate>
+        
+        <converters:SaveIconTemplateConverter x:Key="SaveIconConverter" Saved="{StaticResource SaveIcon_SavedState}" Unsaved="{StaticResource SaveIcon_UnsavedState}"/>
+    </Window.Resources>
+    
+    <Grid RowDefinitions="Auto, *">
+        
+        <TabControl Grid.Row="1" ItemsSource="{Binding Diaries}" SelectedIndex="{Binding OpenDiaryIndex}" TabStripPlacement="Top">
+            <TabControl.Theme>
+                <ControlTheme TargetType="TabControl" BasedOn="{StaticResource {x:Type TabControl}}">
+                    <Setter Property="Template">
+                        <ControlTemplate>
+                            <DockPanel>
+                                <!-- App header -->
+                                <Border DockPanel.Dock="{TemplateBinding TabStripPlacement}" Classes="outsetPanelShadowless">
+                                    <Grid ColumnDefinitions="Auto, *, Auto" Margin="7 0">
+                                        <!-- Left panel -->
+                                        <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                            <!-- Burger menu button -->
+                                            <Button Classes="iconButton">
+                                                <ToolTip.Tip>Open menu</ToolTip.Tip>
+                                                
+                                                <PathIcon Data="{StaticResource BurgerMenuIconSolid}" Width="18" Height="18"></PathIcon>
+                                                
+                                                <Button.Flyout>
+                                                    <MenuFlyout>
+                                                        <MenuItem Header="Add _Entry" InputGesture="Ctrl+E" Command="{Binding Menu_OpenAddEntryWindowCommand}"></MenuItem>
+                                                        <MenuItem Header="Add _Diary" InputGesture="Ctrl+D" Command="{Binding Menu_OpenAddDiaryWindowCommand}"></MenuItem>
+                                                        <Separator/>
+                                                        <MenuItem Header="Settings" InputGesture="Ctrl+Alt+S" Command="{Binding Menu_OpenSettingsWindowCommand}"></MenuItem>
+                                                        <Separator/>
+                                                        <MenuItem Header="_Save" InputGesture="Ctrl+S" Command="{Binding Menu_SaveCommand}"></MenuItem>
+                                                        <MenuItem Header="_Load" InputGesture="Ctrl+L" Command="{Binding Menu_LoadCommand}"></MenuItem>
+                                                    </MenuFlyout>
+                                                </Button.Flyout>
+                                            </Button>
+                                            
+                                            <!-- Settings button -->
+                                            <Button Classes="iconButton" Click="Settings_OnClick">
+                                                <ToolTip.Tip>Open settings</ToolTip.Tip>
+                                                
+                                                <PathIcon Data="{StaticResource SettingsIconSolid}" Width="18" Height="18"></PathIcon>
+                                            </Button>
+                                            
+                                            <!-- Toggle hidden entries button -->
+                                            <ToggleButton Classes="iconButton" IsChecked="{Binding ShowHiddenEntries}">
+                                                <ToolTip.Tip>Show/hide hidden entries</ToolTip.Tip>
+                                                
+                                                <PathIcon Width="18" Height="18" Data="{StaticResource EyeIconSolid}">
+                                                    <PathIcon.Styles>
+                                                        <!-- Icon when ToggleButton is checked -->
+                                                        <Style Selector="ToggleButton:checked PathIcon">
+                                                            <Setter Property="Data" Value="{StaticResource EyeSlashIconSolid}" />
+                                                        </Style>
+                                                    </PathIcon.Styles>
+                                                </PathIcon>
+                                            </ToggleButton>
+                                        </StackPanel>
+                                        
+                                        <!-- Diary panel -->
+                                        <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Hidden" 
+                                                      VerticalScrollBarVisibility="Disabled"
+                                                      PointerWheelChanged="TabStrip_OnPointerWheelChanged">
+                                            <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}"/>
+                                        </ScrollViewer>
+                                        
+                                        <!-- Right panel -->
+                                        <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                            <!-- Save state icon -->
+                                            <TransitioningContentControl Content="{Binding SaveService.UnsavedChanges, Converter={StaticResource SaveIconConverter}}">
+                                                <TransitioningContentControl.PageTransition>
+                                                    <CrossFade Duration="0:0:0.5"/>
+                                                </TransitioningContentControl.PageTransition>
+                                            </TransitioningContentControl>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                                
+                                <!-- Entries panel -->
+                                <Panel>
+                                    <!-- Overlay shadow -->
+                                    <Border Classes="insetPanelLightless" ZIndex="99" Background="Transparent" IsHitTestVisible="False"/>
+                                    <ContentPresenter Name="PART_SelectedContentHost"
+                                                      HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                      VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                      Content="{TemplateBinding SelectedContent}"
+                                                      ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                                </Panel>
+                                
+                            </DockPanel>
+                        </ControlTemplate>
+                    </Setter>
+                    <Setter Property="ItemsPanel">
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" Height="45" Margin="10 0"/>
+                        </ItemsPanelTemplate>
+                    </Setter>
+                </ControlTheme>
+            </TabControl.Theme>
+            <TabControl.ItemContainerTheme>
+                <ControlTheme TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}">
+                    <Setter Property="ContextMenu">
+                        <ContextMenu>
+                            <MenuItem Header="Edit" Command="{Binding $parent[TabItem].((vm:DiaryViewModel)DataContext).ContextMenu_EditCommand}"/>
+                            <Separator/>
+                            <MenuItem Header="Delete" Command="{Binding $parent[TabItem].((vm:DiaryViewModel)DataContext).ContextMenu_RemoveCommand}"/>
+                        </ContextMenu>
+                    </Setter>
+                    <Setter Property="Padding" Value="5 5 5 0"/>
+                    <Setter Property="VerticalAlignment" Value="Bottom"/>
+                </ControlTheme>
+            </TabControl.ItemContainerTheme>
+            <TabControl.ItemTemplate>
+                <DataTemplate DataType="vm:DiaryViewModel">
+                    <TextBlock Text="{Binding Name}" FontSize="16"></TextBlock>
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+            <TabControl.ContentTemplate>
+                <DataTemplate DataType="vm:DiaryViewModel">
+                    <ScrollViewer AllowAutoHide="False">
+                        <!-- Smooth scrolling -->
+                        <Interaction.Behaviors>
+                            <ia:VerticalScrollViewerAnimatedBehavior />
+                        </Interaction.Behaviors>
+                        <ItemsRepeater ItemsSource="{Binding Entries}" Margin="10 5">
+                            <ItemsRepeater.ItemTemplate>
+                                <DataTemplate>
+                                    <controls:DiaryEntryControl IsVisible="{Binding IsCurrentlyVisible}" Margin="0 1"/>
+                                </DataTemplate>
+                            </ItemsRepeater.ItemTemplate>
+                        </ItemsRepeater>
+                    </ScrollViewer>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+        </TabControl>
+    </Grid>
+    
+</Window>

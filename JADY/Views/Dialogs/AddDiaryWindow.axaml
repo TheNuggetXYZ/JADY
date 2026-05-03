@@ -1,0 +1,20 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:JADY.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="180" d:DesignHeight="100"
+        x:Class="JADY.Views.Dialogs.AddDiaryWindow"
+        x:DataType="viewModels:MainWindowViewModel"
+        Title="Add a diary"
+        SizeToContent="Height"
+        Width="180"
+        MinWidth="100"
+        MinHeight="100">
+        
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10" Margin="10">
+                <TextBox Name="Name" PropertyChanged="NameOnPropertyChanged" PlaceholderText="Name..."></TextBox>
+                <Button Name="SubmitButton" Click="Submit_OnClick" HorizontalAlignment="Center">ADD</Button>
+        </StackPanel>
+        
+</Window>

@@ -7,10 +7,14 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using JADY.Backend;
-using JADY.Data;
-using JADY.Models;
+using JADY.Core;
+using JADY.Core.Attributes;
+using JADY.Core.Data;
+using JADY.Core.Models;
 using JADY.Services;
 using JADY.Views;
+using EditEntryWindow = JADY.Views.Dialogs.EditEntryWindow;
+using EndEntryWindow = JADY.Views.Dialogs.EndEntryWindow;
 
 namespace JADY.ViewModels;
 

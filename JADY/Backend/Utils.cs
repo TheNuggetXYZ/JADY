@@ -1,7 +1,7 @@
 using System;
 using System.IO;
-using JADY.Data;
-using JADY.Models;
+using JADY.Core.Data;
+using JADY.Core.Models;
 using JADY.ViewModels;
 
 namespace JADY.Backend;

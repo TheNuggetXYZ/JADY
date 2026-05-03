@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using JADY.Models;
+using JADY.Core.Models;
 
 namespace JADY.Services;
 

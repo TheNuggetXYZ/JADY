@@ -1,0 +1,44 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:JADY.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="335" d:DesignHeight="340"
+        x:Class="JADY.Views.Dialogs.AddEntryWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="Add an entry"
+        SizeToContent="Width"
+        Width="335"
+        Height="380"
+        MinWidth="335"
+        MinHeight="270">
+    
+    <Grid RowDefinitions="Auto, Auto, *, Auto" Margin="10">
+        
+        <Grid Grid.Row="0" ColumnDefinitions="*, *" Margin="5">
+            <TextBox Grid.Column="0" Name="EntryCategory" PlaceholderText="Category..." Margin="5"></TextBox>
+            <TextBox Grid.Column="1" Name="EntrySubcategory" PlaceholderText="Subcategory..." Margin="5"></TextBox>
+        </Grid>
+        
+        <Grid Grid.Row="1" ColumnDefinitions="*, Auto" Margin="5">
+            <TextBox Grid.Column="0" Name="EntryTitle" PlaceholderText="Title..." Margin="5"></TextBox>
+            <ComboBox Grid.Column="1" Name="EntryParameter" SelectedIndex="0" Margin="5"></ComboBox>
+        </Grid>
+        
+        <TextBox Grid.Row="2" Name="EntryContent" TextWrapping="Wrap" PlaceholderText="Content..." Margin="10"></TextBox>
+        
+        <StackPanel Grid.Row="3" Orientation="Vertical" Margin="5" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <DatePicker Name="EntryDate">
+                    <ToolTip.Tip>Actual start date of an event or a date of a one time entry. (The date of adding an entry is saved automatically.)</ToolTip.Tip>
+                </DatePicker>
+            </StackPanel>
+            
+            <Panel Margin="5">
+                <CheckBox Name="EntryIsHidden" HorizontalAlignment="Left">Hidden</CheckBox>
+                <Button Click="Submit_OnClick" Margin="5" HorizontalAlignment="Center">ADD</Button>
+            </Panel>
+        </StackPanel>
+    </Grid>
+        
+</Window>

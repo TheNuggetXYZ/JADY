@@ -6,6 +6,11 @@
         <entry key="JADY/App.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/Views/AddDiaryWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/Views/AddEntryWindow.axaml" value="JADY/JADY.csproj" />
+        <entry key="JADY/Views/Dialogs/AddDiaryWindow.axaml" value="JADY/JADY.csproj" />
+        <entry key="JADY/Views/Dialogs/EditDiaryWindow.axaml" value="JADY/JADY.csproj" />
+        <entry key="JADY/Views/Dialogs/EndEntryWindow.axaml" value="JADY/JADY.csproj" />
+        <entry key="JADY/Views/Dialogs/UnsavedChangesWindow.axaml" value="JADY/JADY.csproj" />
+        <entry key="JADY/Views/Dialogs/YesNoDialogWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/Views/DiaryEntry.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/Views/DiaryEntryControl.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/Views/EditDiaryWindow.axaml" value="JADY/JADY.csproj" />
@@ -16,6 +21,8 @@
         <entry key="JADY/Views/Settings.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/Views/SettingsWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/Views/UnsavedChangesWindow.axaml" value="JADY/JADY.csproj" />
+        <entry key="JADY/Views/Windows/MainWindow.axaml" value="JADY/JADY.csproj" />
+        <entry key="JADY/Views/Windows/MessageWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/Views/YesNoDialogWindow.axaml" value="JADY/JADY.csproj" />
       </map>
     </option>

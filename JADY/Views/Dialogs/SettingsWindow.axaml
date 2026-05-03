@@ -1,0 +1,44 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="350"
+        x:Class="JADY.Views.Dialogs.SettingsWindow"
+        Title="Settings"
+        SizeToContent="Height"
+        Width="300"
+        MinWidth="300"
+        MinHeight="350">
+        
+    <Grid RowDefinitions="*, Auto" RowSpacing="25">
+        <StackPanel Grid.Row="0" Orientation="Vertical" Spacing="25" Margin="15">
+        
+            <TextBlock Classes="greyedOut" FontSize="18" Margin="0 0 0 -20">Saves:</TextBlock>
+            <StackPanel Margin="15 0" Orientation="Vertical">
+                <CheckBox Name="AutoSave">Auto save</CheckBox>
+        
+                <TextBlock Classes="greyedOut" FontSize="12" Margin="-5 5">Saves directory:</TextBlock>
+                <TextBox Name="SavePath" IsReadOnly="True"/>
+            </StackPanel>
+            
+            <TextBlock Classes="greyedOut" FontSize="18" Margin="0 0 0 -20">Miscellaneous:</TextBlock>
+            <StackPanel Margin="15 0" Orientation="Vertical">
+                <CheckBox Name="ShowHidden">Show hidden entries</CheckBox>
+                
+                <CheckBox Name="DarkTheme">Dark theme</CheckBox>
+        
+                <TextBlock Classes="greyedOut" FontSize="12" Margin="-5 5">Culture:</TextBlock>
+                <ComboBox Name="Cultures"></ComboBox>
+            </StackPanel>
+            
+        </StackPanel>
+        
+        <Border Grid.Row="1" Background="{DynamicResource SystemChromeMediumColor}">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="25" Margin="10">
+                <Button Click="Close_OnClick">CLOSE</Button>
+                <Button Click="SaveClose_OnClick" Content="SAVE &amp; CLOSE"></Button>
+            </StackPanel>
+        </Border>
+    </Grid>
+        
+</Window>

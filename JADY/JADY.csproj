@@ -28,4 +28,51 @@
     <ItemGroup>
       <Folder Include="Assets\Fonts\" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Views\Dialogs\EditEntryWindow.axaml.cs">
+        <DependentUpon>EditEntryWindow.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\Dialogs\EditDiaryWindow.axaml.cs">
+        <DependentUpon>EditDiaryWindow.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\Dialogs\AddEntryWindow.axaml.cs">
+        <DependentUpon>AddEntryWindow.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\Dialogs\EndEntryWindow.axaml.cs">
+        <DependentUpon>EndEntryWindow.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\Dialogs\SettingsWindow.axaml.cs">
+        <DependentUpon>SettingsWindow.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\Dialogs\UnsavedChangesWindow.axaml.cs">
+        <DependentUpon>UnsavedChangesWindow.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\Dialogs\YesNoDialogWindow.axaml.cs">
+        <DependentUpon>YesNoDialogWindow.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\Dialogs\AddDiaryWindow.axaml.cs">
+        <DependentUpon>AddDiaryWindow.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\Windows\MainWindow.axaml.cs">
+        <DependentUpon>MainWindow.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\Windows\MessageWindow.axaml.cs">
+        <DependentUpon>MessageWindow.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\Controls\DiaryEntryControl.axaml.cs">
+        <DependentUpon>DiaryEntryControl.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
 </Project>

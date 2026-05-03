@@ -7,11 +7,17 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using JADY.Backend;
-using JADY.Data;
+using JADY.Core;
+using JADY.Core.Attributes;
+using JADY.Core.Data;
+using JADY.Core.Models;
 using JADY.Factories;
-using JADY.Models;
 using JADY.Services;
 using JADY.Views;
+using AddDiaryWindow = JADY.Views.Dialogs.AddDiaryWindow;
+using AddEntryWindow = JADY.Views.Dialogs.AddEntryWindow;
+using SettingsWindow = JADY.Views.Dialogs.SettingsWindow;
+using UnsavedChangesWindow = JADY.Views.Dialogs.UnsavedChangesWindow;
 
 namespace JADY.ViewModels;
 

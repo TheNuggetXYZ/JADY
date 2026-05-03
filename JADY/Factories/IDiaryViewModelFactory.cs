@@ -1,4 +1,4 @@
-using JADY.Models;
+using JADY.Core.Models;
 using JADY.ViewModels;
 
 namespace JADY.Factories;

@@ -6,7 +6,10 @@ using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data;
 using JADY.Views;
+using JADY.Views.Base;
 using Microsoft.Extensions.DependencyInjection;
+using MessageWindow = JADY.Views.Windows.MessageWindow;
+using YesNoDialogWindow = JADY.Views.Dialogs.YesNoDialogWindow;
 
 namespace JADY.Backend;
 

@@ -1,7 +1,7 @@
 using System;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using JADY.Models;
+using JADY.Core.Models;
 
 namespace JADY.ViewModels;
 

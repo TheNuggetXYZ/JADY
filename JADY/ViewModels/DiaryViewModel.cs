@@ -6,9 +6,11 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using JADY.Backend;
+using JADY.Core;
+using JADY.Core.Models;
 using JADY.Factories;
-using JADY.Models;
 using JADY.Views;
+using EditDiaryWindow = JADY.Views.Dialogs.EditDiaryWindow;
 
 namespace JADY.ViewModels;
 
