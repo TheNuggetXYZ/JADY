@@ -40,11 +40,33 @@
         </DataTemplate>
         
         <converters:SaveIconTemplateConverter x:Key="SaveIconConverter" Saved="{StaticResource SaveIcon_SavedState}" Unsaved="{StaticResource SaveIcon_UnsavedState}"/>
+        
+        <DataTemplate x:Key="EntriesPanel_ListView" DataType="vm:DiaryViewModel">
+            <ScrollViewer AllowAutoHide="False">
+                <!-- Smooth scrolling -->
+                <Interaction.Behaviors>
+                    <ia:VerticalScrollViewerAnimatedBehavior />
+                </Interaction.Behaviors>
+                <ItemsRepeater ItemsSource="{Binding Entries}" Margin="10 5">
+                    <ItemsRepeater.ItemTemplate>
+                        <DataTemplate>
+                            <controls:DiaryEntryControl IsVisible="{Binding IsCurrentlyVisible}" Margin="0 1"/>
+                        </DataTemplate>
+                    </ItemsRepeater.ItemTemplate>
+                </ItemsRepeater>
+            </ScrollViewer>
+        </DataTemplate>
+        
+        <DataTemplate x:Key="EntriesPanel_Hint">
+            <TextBlock>Hint</TextBlock>
+        </DataTemplate>
+        
+        <converters:EntriesPanelTemplateConverter x:Key="EntriesPanelConverter" ListView="{StaticResource EntriesPanel_ListView}" Hint="{StaticResource EntriesPanel_Hint}"/>
     </Window.Resources>
     
     <Grid RowDefinitions="Auto, *">
         
-        <TabControl Grid.Row="1" ItemsSource="{Binding Diaries}" SelectedIndex="{Binding OpenDiaryIndex}" TabStripPlacement="Top">
+        <TabControl Name="DiaryTab" Grid.Row="1" ItemsSource="{Binding Diaries}" SelectedIndex="{Binding OpenDiaryIndex}" ContentTemplate="{Binding #DiaryTab.SelectedContent, Converter={StaticResource EntriesPanelConverter}}" TabStripPlacement="Top">
             <TabControl.Theme>
                 <ControlTheme TargetType="TabControl" BasedOn="{StaticResource {x:Type TabControl}}">
                     <Setter Property="Template">
@@ -154,23 +176,6 @@
                     <TextBlock Text="{Binding Name}" FontSize="16"></TextBlock>
                 </DataTemplate>
             </TabControl.ItemTemplate>
-            <TabControl.ContentTemplate>
-                <DataTemplate DataType="vm:DiaryViewModel">
-                    <ScrollViewer AllowAutoHide="False">
-                        <!-- Smooth scrolling -->
-                        <Interaction.Behaviors>
-                            <ia:VerticalScrollViewerAnimatedBehavior />
-                        </Interaction.Behaviors>
-                        <ItemsRepeater ItemsSource="{Binding Entries}" Margin="10 5">
-                            <ItemsRepeater.ItemTemplate>
-                                <DataTemplate>
-                                    <controls:DiaryEntryControl IsVisible="{Binding IsCurrentlyVisible}" Margin="0 1"/>
-                                </DataTemplate>
-                            </ItemsRepeater.ItemTemplate>
-                        </ItemsRepeater>
-                    </ScrollViewer>
-                </DataTemplate>
-            </TabControl.ContentTemplate>
         </TabControl>
     </Grid>
     
