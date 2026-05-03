@@ -20,7 +20,12 @@ public abstract class DialogWindow<T> : Window
     protected virtual async Task TrySubmitAsync(Optional<T> value)
     {
         if (await CanSubmitAsync())
-            await SubmitAsync(value);
+        {
+            if (value.HasValue)
+                await SubmitAsync(value);
+            else
+                await SubmitAsync();
+        }
     }
 
     protected virtual Task<bool> CanSubmitAsync() => Task.FromResult(true);
