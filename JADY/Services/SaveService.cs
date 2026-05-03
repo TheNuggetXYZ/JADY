@@ -42,6 +42,8 @@ public partial class SaveService : ObservableObject, ISaveService
     {
         JadySave.Diaries = diaries;
         
+        UnsavedChanges = false;
+        
         SaveFile();
     }
 
