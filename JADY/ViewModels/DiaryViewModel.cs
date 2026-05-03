@@ -1,3 +1,4 @@
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,8 +10,7 @@ using JADY.Backend;
 using JADY.Core;
 using JADY.Core.Models;
 using JADY.Factories;
-using JADY.Views;
-using EditDiaryWindow = JADY.Views.Dialogs.EditDiaryWindow;
+using JADY.Views.Dialogs;
 
 namespace JADY.ViewModels;
 
@@ -35,9 +35,9 @@ public partial class DiaryViewModel : ViewModelBase
         _diaryEntryViewModelFactory = diaryEntryViewModelFactory;
         _mainWindowViewModel = mainWindowViewModel;
         Name = diary.Name;
-        Entries = new ObservableCollection<DiaryEntryViewModel>(diary.Entries.OrderByDescending(Utils.GetMostRelevantDate).Select(x => diaryEntryViewModelFactory.Create(x, this)));
+        Entries = new ObservableCollection<DiaryEntryViewModel>(diary.Entries.OrderByDescending(GetMostRelevantDate).Select(x => diaryEntryViewModelFactory.Create(x, this)));
     }
-
+    
     /// <returns>
     /// a model using this view model's values.
     /// </returns>
@@ -59,10 +59,10 @@ public partial class DiaryViewModel : ViewModelBase
 
     private void InsertEntry(DiaryEntryViewModel newEntryViewModel)
     {
-        var compareDate = Utils.GetMostRelevantDate(newEntryViewModel);
+        var compareDate = GetMostRelevantDate(newEntryViewModel);
         
         int i = 0;
-        while (i < Entries.Count && Utils.GetMostRelevantDate(Entries[i]) > compareDate) i++;
+        while (i < Entries.Count && GetMostRelevantDate(Entries[i]) > compareDate) i++;
         
         Entries.Insert(i, newEntryViewModel);
 
@@ -102,4 +102,7 @@ public partial class DiaryViewModel : ViewModelBase
         Entries.Remove(item);
         InsertEntry(item); // readd entry
     }
+    
+    private static DateTimeOffset GetMostRelevantDate(DiaryEntryViewModel vm) => vm.Date ?? vm.EndDate ?? vm.LogDate;
+    private static DateTimeOffset GetMostRelevantDate(DiaryEntry m) => m.Date ?? m.EndDate ?? m.LogDate;
 }

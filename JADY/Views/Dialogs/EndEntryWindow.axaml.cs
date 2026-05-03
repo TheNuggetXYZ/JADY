@@ -17,7 +17,7 @@ public partial class EndEntryWindow : DialogWindow<DiaryEntry>, IDialogInitializ
         DataContext = data;
         InitializeComponent();
         
-        EndParameter.ItemsSource = Utils.EndEntryParameterToArray;
+        EndParameter.ItemsSource = new[]{"Completed", "Dropped"};
     }
 
     protected override Optional<DiaryEntry> GetValue()

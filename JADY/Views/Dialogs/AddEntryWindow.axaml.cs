@@ -15,7 +15,7 @@ public partial class AddEntryWindow : DialogWindow<DiaryEntry>
     {
         InitializeComponent();
 
-        EntryParameter.ItemsSource = Utils.NewEntryParameterToArray;
+        EntryParameter.ItemsSource = new[]{"One time", "Started"};
     }
 
     protected override Optional<DiaryEntry> GetValue()
