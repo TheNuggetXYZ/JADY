@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using System.IO;
 using System.Text.Json.Serialization;
 
 namespace JADY.Models;
@@ -37,7 +38,7 @@ public class Settings
     /// <summary>
     /// The path to the directory, that JADY saves should be saved in.
     /// </summary>
-    public string? SaveFilePath { get; set; }
+    public string? SaveFilePath { get; init; }
 
     public string CultureInfoName {get; init;} = "en-US";
     
@@ -46,7 +47,7 @@ public class Settings
 
     public Settings()
     {
-        SaveFilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        SaveFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "JADY");
         
         CultureInfo = CultureInfo.GetCultureInfo(CultureInfoName);
         CurrentShowHiddenEntries = ShowHiddenEntries;
