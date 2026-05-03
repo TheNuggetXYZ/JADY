@@ -6,6 +6,7 @@ using JADY.Services;
 using JADY.ViewModels;
 using JADY.Views;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace JADY;
 
@@ -38,6 +39,12 @@ public partial class App : Application
     private void ConfigureServices(out ServiceProvider serviceProvider)
     {
         var collection = new ServiceCollection();
+
+        collection.AddLogging(builder =>
+        {
+            builder.AddConsole();
+            builder.SetMinimumLevel(LogLevel.Information);
+        });
         
         // Services
         collection.AddSingleton<IAppVisualService, AppVisualService>();

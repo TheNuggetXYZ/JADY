@@ -9,6 +9,7 @@ using Avalonia.Platform.Storage;
 using JADY.Backend;
 using JADY.Models;
 using JADY.Services;
+using Microsoft.Extensions.Logging;
 
 namespace JADY.Views;
 
@@ -16,7 +17,8 @@ public partial class SettingsWindow : DialogWindow<Settings>
 {
     private readonly IAppVisualService _appVisualService;
     private readonly ISaveService _saveService;
-    
+    private readonly ILogger<SettingsWindow> _logger;
+
     private List<CultureInfo> AvailableCultures { get; } = new()
     {
         new CultureInfo("cs-CZ"),
@@ -26,13 +28,14 @@ public partial class SettingsWindow : DialogWindow<Settings>
         new CultureInfo("fr-FR"),
     };
     
-    public SettingsWindow(IAppVisualService appVisualService, ISaveService saveService)
+    public SettingsWindow(IAppVisualService appVisualService, ISaveService saveService, ILogger<SettingsWindow> logger)
     {
         InitializeComponent();
 
         _appVisualService = appVisualService;
         _saveService = saveService;
-        
+        _logger = logger;
+
         ShowHidden.IsChecked = _saveService.JadySave.Settings.ShowHiddenEntries;
         AutoSave.IsChecked = _saveService.JadySave.Settings.AutoSave;
         DarkTheme.IsChecked = _saveService.JadySave.Settings.IsThemeDark;
@@ -78,7 +81,7 @@ public partial class SettingsWindow : DialogWindow<Settings>
         }
         catch (InvalidOperationException e)
         {
-            Console.WriteLine($"Cannot set save path to the path of the found folder. Exception: {e}");
+            _logger.LogTrace(e, "Cannot set save path to the path of the found folder.");
             return false;
         }
 

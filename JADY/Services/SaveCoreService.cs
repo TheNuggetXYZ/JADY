@@ -2,23 +2,24 @@ using System;
 using System.IO;
 using System.Text.Json;
 using JADY.Models;
+using Microsoft.Extensions.Logging;
 
 namespace JADY.Services;
 
-public class SaveCoreService : ISaveCoreService
+public class SaveCoreService(ILogger<SaveCoreService> logger) : ISaveCoreService
 {
     public void Write(string savePath, JadySave saveInfo)
     {
         if (File.Exists(savePath))
         {
-            Console.WriteLine("Save file already exists, creating backup");
+            logger.LogInformation("Save file already exists, creating backup");
             MoveOldSaveToBackup(savePath);
         }
         
         using (FileStream fs = File.Create(savePath))
         {
             JsonSerializer.Serialize(fs, saveInfo, new JsonSerializerOptions { WriteIndented = true });
-            Console.WriteLine("Saved to: " + savePath);
+            logger.LogInformation("Saved to: " + savePath);
         }
     }
 
@@ -28,7 +29,7 @@ public class SaveCoreService : ISaveCoreService
         if (File.Exists(backupPath))
             File.Delete(backupPath);
         
-        Console.WriteLine("Renaming save file to backup");
+        logger.LogInformation("Renaming save file to backup");
         File.Move(savePath, backupPath);
     }
     
@@ -36,7 +37,7 @@ public class SaveCoreService : ISaveCoreService
     {
         if (!File.Exists(savePath))
         {
-            Console.WriteLine("Save file not found");
+            logger.LogWarning("Save file not found");
             return DeserializeBackup(savePath);
         }
         
@@ -48,18 +49,17 @@ public class SaveCoreService : ISaveCoreService
             }
             catch (JsonException e)
             {
-                Console.WriteLine(e);
+                logger.LogTrace(e, "Error deserializing save file");
                 
                 string corruptedPath = savePath + ".corrupted";
                 
-                Console.WriteLine("Renaming corrupted save file");
+                logger.LogInformation("Renaming corrupted save file");
                 
                 if (!File.Exists(corruptedPath))
                     File.Move(savePath, corruptedPath);
                 else
                 {
-                    Console.WriteLine($"Corrupted save file already exists: {savePath}.corrupted");
-                    Console.WriteLine("Please handle your corrupted save file first");
+                    logger.LogError($"Corrupted save file already exists: {savePath}.corrupted. Please handle your corrupted save file first");
                     throw;
                 }
                 
@@ -73,19 +73,19 @@ public class SaveCoreService : ISaveCoreService
         string backupPath = savePath + ".backup";
         if (File.Exists(backupPath))
         {
-            Console.WriteLine("Restoring backup");
+            logger.LogInformation("Restoring backup");
             File.Move(backupPath, savePath);
             
             using (FileStream fs = File.OpenRead(savePath))
             {
                 JadySave save = JsonSerializer.Deserialize<JadySave>(fs);
-                Console.WriteLine("Restored backup");
+                logger.LogInformation("Restored backup");
                 return save;
             }
         }
         
-        Console.WriteLine("Backup file not found");
-        Console.WriteLine("Creating empty save");
+        logger.LogWarning("Backup file not found");
+        logger.LogInformation("Creating empty save");
         
         return new();
     }
