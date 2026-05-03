@@ -6,9 +6,9 @@ using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data;
 using JADY.Views.Base;
+using JADY.Views.Dialogs;
+using JADY.Views.Windows;
 using Microsoft.Extensions.DependencyInjection;
-using MessageWindow = JADY.Views.Windows.MessageWindow;
-using YesNoDialogWindow = JADY.Views.Dialogs.YesNoDialogWindow;
 
 namespace JADY.Services;
 

@@ -4,16 +4,10 @@ using Avalonia.Markup.Xaml;
 using JADY.Factories;
 using JADY.Services;
 using JADY.ViewModels;
+using JADY.Views.Dialogs;
+using JADY.Views.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using AddDiaryWindow = JADY.Views.Dialogs.AddDiaryWindow;
-using AddEntryWindow = JADY.Views.Dialogs.AddEntryWindow;
-using EditDiaryWindow = JADY.Views.Dialogs.EditDiaryWindow;
-using EditEntryWindow = JADY.Views.Dialogs.EditEntryWindow;
-using EndEntryWindow = JADY.Views.Dialogs.EndEntryWindow;
-using MainWindow = JADY.Views.Windows.MainWindow;
-using SettingsWindow = JADY.Views.Dialogs.SettingsWindow;
-using UnsavedChangesWindow = JADY.Views.Dialogs.UnsavedChangesWindow;
 
 namespace JADY;
 

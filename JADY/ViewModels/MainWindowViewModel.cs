@@ -11,10 +11,7 @@ using JADY.Core.Data;
 using JADY.Core.Models;
 using JADY.Factories;
 using JADY.Services;
-using AddDiaryWindow = JADY.Views.Dialogs.AddDiaryWindow;
-using AddEntryWindow = JADY.Views.Dialogs.AddEntryWindow;
-using SettingsWindow = JADY.Views.Dialogs.SettingsWindow;
-using UnsavedChangesWindow = JADY.Views.Dialogs.UnsavedChangesWindow;
+using JADY.Views.Dialogs;
 
 namespace JADY.ViewModels;
 
