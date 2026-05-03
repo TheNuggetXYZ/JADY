@@ -9,6 +9,7 @@ namespace JADY.Services;
 
 public partial class SaveService : ObservableObject, ISaveService
 {
+    private readonly ISaveCoreService _saveCoreService;
     private readonly IAppVisualService _appVisualService;
     
     public JadySave JadySave { get; private set; } = new();
@@ -16,8 +17,9 @@ public partial class SaveService : ObservableObject, ISaveService
     [ObservableProperty]
     private bool _unsavedChanges;
 
-    public SaveService(IAppVisualService appVisualService)
+    public SaveService(ISaveCoreService saveCoreService, IAppVisualService appVisualService)
     {
+        _saveCoreService = saveCoreService;
         _appVisualService = appVisualService;
         
         WeakReferenceMessenger.Default.Register<Messages.UnsavedChangeCreated>(this, (r, m) =>
@@ -62,7 +64,7 @@ public partial class SaveService : ObservableObject, ISaveService
 
     private void SaveFile()
     {
-        DiaryJSON.Serialize(GetSavePath(), JadySave);
+        _saveCoreService.Write(GetSavePath(), JadySave);
         
         WeakReferenceMessenger.Default.Send(new Messages.SavePerformed());
         WeakReferenceMessenger.Default.Send(new Messages.JadySaveChanged());
@@ -70,7 +72,7 @@ public partial class SaveService : ObservableObject, ISaveService
 
     public void Load()
     {
-        JadySave = DiaryJSON.Deserialize(GetSavePath());
+        JadySave = _saveCoreService.Read(GetSavePath());
         JadySave.Load();
         
         UnsavedChanges = false;

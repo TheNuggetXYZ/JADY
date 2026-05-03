@@ -3,11 +3,11 @@ using System.IO;
 using System.Text.Json;
 using JADY.Models;
 
-namespace JADY.Backend;
+namespace JADY.Services;
 
-public static class DiaryJSON
+public class SaveCoreService : ISaveCoreService
 {
-    public static void Serialize(string savePath, JadySave saveInfo)
+    public void Write(string savePath, JadySave saveInfo)
     {
         if (File.Exists(savePath))
         {
@@ -22,7 +22,7 @@ public static class DiaryJSON
         }
     }
 
-    private static void MoveOldSaveToBackup(string savePath)
+    private void MoveOldSaveToBackup(string savePath)
     {
         string backupPath = savePath + ".backup";
         if (File.Exists(backupPath))
@@ -32,7 +32,7 @@ public static class DiaryJSON
         File.Move(savePath, backupPath);
     }
     
-    public static JadySave Deserialize(string savePath)
+    public JadySave Read(string savePath)
     {
         if (!File.Exists(savePath))
         {
@@ -68,7 +68,7 @@ public static class DiaryJSON
         }
     }
 
-    private static JadySave DeserializeBackup(string savePath)
+    private JadySave DeserializeBackup(string savePath)
     {
         string backupPath = savePath + ".backup";
         if (File.Exists(backupPath))

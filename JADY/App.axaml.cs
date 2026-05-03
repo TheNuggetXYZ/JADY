@@ -41,6 +41,7 @@ public partial class App : Application
         
         // Services
         collection.AddSingleton<IAppVisualService, AppVisualService>();
+        collection.AddSingleton<ISaveCoreService, SaveCoreService>();
         collection.AddSingleton<ISaveService, SaveService>();
         
         // Factories
