@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using Avalonia;
 using Avalonia.Data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -12,7 +11,6 @@ using JADY.Core.Data;
 using JADY.Core.Models;
 using JADY.Factories;
 using JADY.Services;
-using JADY.Views;
 using AddDiaryWindow = JADY.Views.Dialogs.AddDiaryWindow;
 using AddEntryWindow = JADY.Views.Dialogs.AddEntryWindow;
 using SettingsWindow = JADY.Views.Dialogs.SettingsWindow;

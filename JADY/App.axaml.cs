@@ -4,7 +4,6 @@ using Avalonia.Markup.Xaml;
 using JADY.Factories;
 using JADY.Services;
 using JADY.ViewModels;
-using JADY.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using AddDiaryWindow = JADY.Views.Dialogs.AddDiaryWindow;

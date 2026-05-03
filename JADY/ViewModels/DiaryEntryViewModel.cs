@@ -11,7 +11,6 @@ using JADY.Core.Attributes;
 using JADY.Core.Data;
 using JADY.Core.Models;
 using JADY.Services;
-using JADY.Views;
 using EditEntryWindow = JADY.Views.Dialogs.EditEntryWindow;
 using EndEntryWindow = JADY.Views.Dialogs.EndEntryWindow;
 
