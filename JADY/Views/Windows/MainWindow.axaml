@@ -58,8 +58,7 @@
     
     <MainTabControl ItemsSource="{Binding Diaries}" 
                     SelectedIndex="{Binding OpenDiaryIndex}" 
-                    TabStripPlacement="Top" 
-                    Padding="0">
+                    TabStripPlacement="Top">
         
         <MainTabControl.LeftPanelContent>
             <AppHeaderLeftPanel/>
@@ -69,19 +68,6 @@
             <AppHeaderRightPanel/>
         </MainTabControl.RightPanelContent>
         
-        <TabControl.ItemContainerTheme>
-            <ControlTheme TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}">
-                <Setter Property="ContextMenu">
-                    <ContextMenu>
-                        <MenuItem Header="Edit" Command="{Binding $parent[TabItem].((vm:DiaryViewModel)DataContext).ContextMenu_EditCommand}"/>
-                        <Separator/>
-                        <MenuItem Header="Delete" Command="{Binding $parent[TabItem].((vm:DiaryViewModel)DataContext).ContextMenu_RemoveCommand}"/>
-                    </ContextMenu>
-                </Setter>
-                <Setter Property="Padding" Value="5 5 5 0"/>
-                <Setter Property="VerticalAlignment" Value="Bottom"/>
-            </ControlTheme>
-        </TabControl.ItemContainerTheme>
         <TabControl.ContentTemplate>
             <DataTemplate DataType="vm:DiaryViewModel">
                 <ContentControl Content="{Binding}">

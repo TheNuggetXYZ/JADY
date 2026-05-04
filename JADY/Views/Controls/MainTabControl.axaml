@@ -9,7 +9,7 @@
 
     <ControlTheme x:Key="{x:Type MainTabControl}" TargetType="MainTabControl">
         <Setter Property="Margin" Value="0"/>
-        <Setter Property="Padding" Value="{DynamicResource TabItemMargin}"/>
+        <Setter Property="Padding" Value="0"/>
         <Setter Property="Background" Value="{DynamicResource TabControlBackground}"/>
         <Setter Property="Template">
             <ControlTemplate>
@@ -39,6 +39,7 @@
                     
                     <!-- Entries panel -->
                     <Panel ClipToBounds="True" Margin="0">
+                        <!-- Adds shadow over everything on top -->
                         <Border Classes="insetPanelLightless" ZIndex="99" Background="Transparent" IsHitTestVisible="False"/>
                         <ContentPresenter Name="PART_SelectedContentHost2"
                                           Margin="{TemplateBinding Padding}"
@@ -53,16 +54,20 @@
                 </DockPanel>
             </ControlTemplate>
         </Setter>
+        
         <Setter Property="ItemsPanel">
             <ItemsPanelTemplate>
+                <!-- Disables wrapping -->
                 <StackPanel Orientation="Horizontal" Height="45" Margin="10 0"/>
             </ItemsPanelTemplate>
         </Setter>
+        
         <Setter Property="ItemTemplate">
             <DataTemplate DataType="viewModels:DiaryViewModel">
                 <TextBlock Text="{Binding Name}" FontSize="16"></TextBlock>
             </DataTemplate>
         </Setter>
+        
         <Setter Property="ItemContainerTheme">
             <ControlTheme TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}">
                 <Setter Property="ContextMenu">
