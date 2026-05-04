@@ -1,5 +1,6 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:viewModels="clr-namespace:JADY.ViewModels">
     
     <Design.PreviewWith>
     </Design.PreviewWith>
@@ -56,6 +57,24 @@
             <ItemsPanelTemplate>
                 <StackPanel Orientation="Horizontal" Height="45" Margin="10 0"/>
             </ItemsPanelTemplate>
+        </Setter>
+        <Setter Property="ItemTemplate">
+            <DataTemplate DataType="viewModels:DiaryViewModel">
+                <TextBlock Text="{Binding Name}" FontSize="16"></TextBlock>
+            </DataTemplate>
+        </Setter>
+        <Setter Property="ItemContainerTheme">
+            <ControlTheme TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}">
+                <Setter Property="ContextMenu">
+                    <ContextMenu>
+                        <MenuItem Header="Edit" Command="{Binding $parent[TabItem].((viewModels:DiaryViewModel)DataContext).ContextMenu_EditCommand}"/>
+                        <Separator/>
+                        <MenuItem Header="Delete" Command="{Binding $parent[TabItem].((viewModels:DiaryViewModel)DataContext).ContextMenu_RemoveCommand}"/>
+                    </ContextMenu>
+                </Setter>
+                <Setter Property="Padding" Value="5 5 5 0"/>
+                <Setter Property="VerticalAlignment" Value="Bottom"/>
+            </ControlTheme>
         </Setter>
 
         <Style Selector="^[TabStripPlacement=Left] /template/ ItemsPresenter#PART_ItemsPresenter > WrapPanel">
