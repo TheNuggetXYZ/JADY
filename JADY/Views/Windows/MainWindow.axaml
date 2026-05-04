@@ -90,7 +90,7 @@
                 </Button>
                                             
                 <!-- Settings button -->
-                <Button Classes="iconButton" Click="Settings_OnClick">
+                <Button Classes="iconButton" Command="{Binding Menu_OpenSettingsWindowCommand}">
                     <ToolTip.Tip>Open settings</ToolTip.Tip>
                                                 
                     <PathIcon Data="{StaticResource SettingsIconSolid}" Width="18" Height="18"></PathIcon>
