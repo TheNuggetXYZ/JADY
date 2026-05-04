@@ -30,16 +30,6 @@
     </Window.KeyBindings>
     
     <Window.Resources>
-        <DataTemplate x:Key="SaveIcon_SavedState">
-            <PathIcon Data="{StaticResource RoundCheckIconSolid}" ToolTip.Tip="Everything is saved" Height="16" Margin="5 0"/>
-        </DataTemplate>
-        
-        <DataTemplate x:Key="SaveIcon_UnsavedState">
-            <PathIcon Data="{StaticResource RoundExclamationIconSolid}" ToolTip.Tip="Unsaved changes" Height="16" Margin="5 0"/>
-        </DataTemplate>
-        
-        <converters:SaveIconTemplateConverter x:Key="SaveIconConverter" Saved="{StaticResource SaveIcon_SavedState}" Unsaved="{StaticResource SaveIcon_UnsavedState}"/>
-        
         <DataTemplate x:Key="EntriesPanel_ListView" DataType="vm:DiaryViewModel">
             <ScrollViewer AllowAutoHide="False">
                 <!-- Smooth scrolling -->
@@ -71,19 +61,12 @@
                     TabStripPlacement="Top" 
                     Padding="0">
         
-        <MainTabControl.LeftPanelContent><AppHeaderLeftPanel/></MainTabControl.LeftPanelContent>
+        <MainTabControl.LeftPanelContent>
+            <AppHeaderLeftPanel/>
+        </MainTabControl.LeftPanelContent>
         
         <MainTabControl.RightPanelContent>
-            <StackPanel Grid.Column="2" Orientation="Horizontal">
-                
-                <!-- Save state icon -->
-                <TransitioningContentControl Content="{Binding SaveService.UnsavedChanges, Converter={StaticResource SaveIconConverter}}">
-                    <TransitioningContentControl.PageTransition>
-                        <CrossFade Duration="0:0:0.5"/>
-                    </TransitioningContentControl.PageTransition>
-                </TransitioningContentControl>
-                
-            </StackPanel>
+            <AppHeaderRightPanel/>
         </MainTabControl.RightPanelContent>
         
         <TabControl.ItemContainerTheme>
