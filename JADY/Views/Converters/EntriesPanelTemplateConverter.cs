@@ -19,11 +19,9 @@ public class EntriesPanelTemplateConverter : IMultiValueConverter
 
         if (values[0] is DiaryViewModel { Entries.Count: > 0 })
         {
-            Console.WriteLine("list view");
             return ListView;
         }
 
-        Console.WriteLine("hint view");
         return Hint;
     }
 
