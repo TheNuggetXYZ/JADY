@@ -139,6 +139,12 @@
              
              
     <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <MergeResourceInclude Source="Views/Controls/MainTabControl.axaml"></MergeResourceInclude>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+        
         <converters:EntryStatusIconConverter x:Key="EntryStatusIconConverter"/>
         
         <SolidColorBrush x:Key="SystemChromeMediumMediumBrush" Color="{DynamicResource SystemChromeMediumMediumColor}" />

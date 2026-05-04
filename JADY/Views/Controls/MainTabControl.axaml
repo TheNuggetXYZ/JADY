@@ -1,0 +1,72 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:JADY.Views.Controls">
+    
+    <Design.PreviewWith>
+    </Design.PreviewWith>
+
+    <Thickness x:Key="TabControlTopPlacementItemMargin">0 0 0 2</Thickness>
+
+    <ControlTheme x:Key="{x:Type controls:MainTabControl}" TargetType="controls:MainTabControl">
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Padding" Value="{DynamicResource TabItemMargin}"/>
+        <Setter Property="Background" Value="{DynamicResource TabControlBackground}"/>
+        <Setter Property="Template">
+            <ControlTemplate>
+                <DockPanel>
+                    <!-- App Header -->
+                    <Border DockPanel.Dock="{TemplateBinding TabStripPlacement}" Classes="outsetPanelShadowless">
+                        <Grid ColumnDefinitions="Auto, *, Auto" Margin="7 0">
+                            <!-- Left panel -->
+                            <ContentPresenter Grid.Column="0" 
+                                              Content="{TemplateBinding LeftPanelContent}"/>
+                        
+                            <!-- Diary panel -->
+                            <ScrollViewer Name="PART_TabStripScrollViewer"
+                                          Grid.Column="1"
+                                          HorizontalScrollBarVisibility="Hidden" 
+                                          VerticalScrollBarVisibility="Disabled">
+                                
+                                <ItemsPresenter Name="PART_ItemsPresenter"
+                                                ItemsPanel="{TemplateBinding ItemsPanel}"/>
+                            </ScrollViewer>
+                            
+                            <!-- Right panel -->
+                            <ContentPresenter Grid.Column="2" 
+                                              Content="{TemplateBinding RightPanelContent}"/>
+                        </Grid>
+                    </Border>
+                    
+                    <!-- Entries panel -->
+                    <Panel ClipToBounds="True" Margin="0">
+                        <Border Classes="insetPanelLightless" ZIndex="99" Background="Transparent" IsHitTestVisible="False"/>
+                        <ContentPresenter Name="PART_SelectedContentHost2"
+                                          Margin="{TemplateBinding Padding}"
+                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          IsVisible="False"/>
+                        <ContentPresenter Name="PART_SelectedContentHost"
+                                          Margin="{TemplateBinding Padding}"
+                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Panel>
+                </DockPanel>
+            </ControlTemplate>
+        </Setter>
+        <Setter Property="ItemsPanel">
+            <ItemsPanelTemplate>
+                <StackPanel Orientation="Horizontal" Height="45" Margin="10 0"/>
+            </ItemsPanelTemplate>
+        </Setter>
+
+        <Style Selector="^[TabStripPlacement=Left] /template/ ItemsPresenter#PART_ItemsPresenter > WrapPanel">
+            <Setter Property="Orientation" Value="Vertical"/>
+        </Style>
+        <Style Selector="^[TabStripPlacement=Right] /template/ ItemsPresenter#PART_ItemsPresenter > WrapPanel">
+            <Setter Property="Orientation" Value="Vertical"/>
+        </Style>
+        <Style Selector="^[TabStripPlacement=Top] /template/ ItemsPresenter#PART_ItemsPresenter">
+            <Setter Property="Margin" Value="{DynamicResource TabControlTopPlacementItemMargin}"/>
+        </Style>
+    </ControlTheme>
+</ResourceDictionary>
