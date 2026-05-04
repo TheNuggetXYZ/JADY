@@ -5,7 +5,6 @@
         xmlns:vm="using:JADY.ViewModels"
         xmlns:ia="using:Avalonia.Xaml.Interactions.Animated"
         xmlns:converters="clr-namespace:JADY.Views.Converters"
-        xmlns:controls="clr-namespace:JADY.Views.Controls"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="JADY.Views.Windows.MainWindow"
         x:DataType="vm:MainWindowViewModel"
@@ -50,7 +49,7 @@
                 <ItemsRepeater ItemsSource="{Binding Entries}" Margin="10 5">
                     <ItemsRepeater.ItemTemplate>
                         <DataTemplate>
-                            <controls:DiaryEntryControl IsVisible="{Binding IsCurrentlyVisible}" Margin="0 1"/>
+                            <DiaryEntryControl IsVisible="{Binding IsCurrentlyVisible}" Margin="0 1"/>
                         </DataTemplate>
                     </ItemsRepeater.ItemTemplate>
                 </ItemsRepeater>
@@ -67,8 +66,8 @@
         <converters:EntriesPanelTemplateConverter x:Key="EntriesPanelConverter" ListView="{StaticResource EntriesPanel_ListView}" Hint="{StaticResource EntriesPanel_Hint}"/>
     </Window.Resources>
     
-    <controls:MainTabControl ItemsSource="{Binding Diaries}" SelectedIndex="{Binding OpenDiaryIndex}" TabStripPlacement="Top" Padding="0">
-        <controls:MainTabControl.LeftPanelContent>
+    <MainTabControl ItemsSource="{Binding Diaries}" SelectedIndex="{Binding OpenDiaryIndex}" TabStripPlacement="Top" Padding="0">
+        <MainTabControl.LeftPanelContent>
             <StackPanel Grid.Column="0" Orientation="Horizontal">
                 
                 <!-- Burger menu button -->
@@ -112,9 +111,9 @@
                 </ToggleButton>
                 
             </StackPanel>
-        </controls:MainTabControl.LeftPanelContent>
+        </MainTabControl.LeftPanelContent>
         
-        <controls:MainTabControl.RightPanelContent>
+        <MainTabControl.RightPanelContent>
             <StackPanel Grid.Column="2" Orientation="Horizontal">
                 
                 <!-- Save state icon -->
@@ -125,7 +124,7 @@
                 </TransitioningContentControl>
                 
             </StackPanel>
-        </controls:MainTabControl.RightPanelContent>
+        </MainTabControl.RightPanelContent>
         
         <TabControl.ItemContainerTheme>
             <ControlTheme TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}">
@@ -158,6 +157,6 @@
                 </ContentControl>
             </DataTemplate>
         </TabControl.ContentTemplate>
-    </controls:MainTabControl>
+    </MainTabControl>
     
 </Window>

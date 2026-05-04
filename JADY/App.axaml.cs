@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Avalonia.Metadata;
 using JADY.Factories;
 using JADY.Services;
 using JADY.ViewModels;
@@ -8,6 +9,8 @@ using JADY.Views.Dialogs;
 using JADY.Views.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+
+[assembly: XmlnsDefinition("https://github.com/avaloniaui", "JADY.Views.Controls")]
 
 namespace JADY;
 

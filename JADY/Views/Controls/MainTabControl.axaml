@@ -1,13 +1,12 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:controls="clr-namespace:JADY.Views.Controls">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     
     <Design.PreviewWith>
     </Design.PreviewWith>
 
     <Thickness x:Key="TabControlTopPlacementItemMargin">0 0 0 2</Thickness>
 
-    <ControlTheme x:Key="{x:Type controls:MainTabControl}" TargetType="controls:MainTabControl">
+    <ControlTheme x:Key="{x:Type MainTabControl}" TargetType="MainTabControl">
         <Setter Property="Margin" Value="0"/>
         <Setter Property="Padding" Value="{DynamicResource TabItemMargin}"/>
         <Setter Property="Background" Value="{DynamicResource TabControlBackground}"/>
