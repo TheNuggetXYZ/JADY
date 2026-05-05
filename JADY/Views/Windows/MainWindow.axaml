@@ -45,20 +45,25 @@
             <AppHeaderRightPanel/>
         </MainTabControl.RightPanelContent>
         
-        <TabControl.ContentTemplate>
+        <MainTabControl.ContentTemplate>
             <DataTemplate DataType="vm:DiaryViewModel">
-                <ContentControl Content="{Binding}">
-                    <ContentControl.ContentTemplate>
-                        <MultiBinding Converter="{StaticResource EntriesPanelConverter}">
-                            <Binding/> 
-                            <!-- Triggers update -->
-                            <Binding Path="Entries.Count"/>
-                        </MultiBinding>
-                    </ContentControl.ContentTemplate>
-                </ContentControl>
-        <converters:EqualsConverter x:Key="EqualsZeroConverter" CompareTo="0"></converters:EqualsConverter>
-        <converters:EqualsConverter x:Key="EqualsZeroConverter" CompareTo="0"></converters:EqualsConverter>
-    </Window.Resources>
+                <Panel>
+                    <ScrollViewer AllowAutoHide="False">
+                        <!-- Smooth scrolling -->
+                        <Interaction.Behaviors>
+                            <ia:VerticalScrollViewerAnimatedBehavior />
+                        </Interaction.Behaviors>
+                        <ItemsRepeater ItemsSource="{Binding Entries}" Margin="10 5">
+                            <ItemsRepeater.ItemTemplate>
+                                <DataTemplate>
+                                    <DiaryEntryControl IsVisible="{Binding IsCurrentlyVisible}" Margin="0 1"/>
+                                </DataTemplate>
+                            </ItemsRepeater.ItemTemplate>
+                        </ItemsRepeater>
+                    </ScrollViewer>
+                    
+                    <TextBlock Classes="greyedOut" HorizontalAlignment="Center" VerticalAlignment="Center" IsVisible="{Binding Entries.Count, Converter={StaticResource EqualsZeroConverter}}">Create entry - Ctrl+E</TextBlock>
+                </Panel>
             </DataTemplate>
         </MainTabControl.ContentTemplate>
         
