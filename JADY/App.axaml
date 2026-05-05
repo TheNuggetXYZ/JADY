@@ -25,12 +25,18 @@
         <!-- BUTTON -->
         <Style Selector="Button /template/ ContentPresenter">
             <Setter Property="BoxShadow" Value="1 2 2 -1 black"/>
-            <Setter Property="Margin" Value="1 1 1 2"/>
+            <Setter Property="Margin" Value="2"/> 
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BoxShadowsTransition Property="BoxShadow" Duration="0:0:0.1"/>
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.1"/>
+                </Transitions>
+            </Setter>
         </Style>
         
         <Style Selector="Button:pointerover /template/ ContentPresenter">
             <Setter Property="BoxShadow" Value="2 3 2 -1 black"/>
-            <Setter Property="Margin" Value="0 0 2 3"/>
+            <Setter Property="RenderTransform" Value="translate(-1px, -1px)"/>
         </Style>
         
         <Style Selector="Button:pressed">
