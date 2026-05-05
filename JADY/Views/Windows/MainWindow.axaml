@@ -30,32 +30,6 @@
     </Window.KeyBindings>
     
     <Window.Resources>
-        <DataTemplate x:Key="EntriesPanel_ListView" DataType="vm:DiaryViewModel">
-            <ScrollViewer AllowAutoHide="False">
-                <!-- Smooth scrolling -->
-                <Interaction.Behaviors>
-                    <ia:VerticalScrollViewerAnimatedBehavior />
-                </Interaction.Behaviors>
-                <ItemsRepeater ItemsSource="{Binding Entries}" Margin="10 5">
-                    <ItemsRepeater.ItemTemplate>
-                        <DataTemplate>
-                            <DiaryEntryControl IsVisible="{Binding IsCurrentlyVisible}" Margin="0 1"/>
-                        </DataTemplate>
-                    </ItemsRepeater.ItemTemplate>
-                </ItemsRepeater>
-            </ScrollViewer>
-        </DataTemplate>
-        
-        <DataTemplate x:Key="EntriesPanel_Hint">
-            <StackPanel Orientation="Vertical" Spacing="5" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Classes="greyedOut">Create entry - Ctrl+E</TextBlock>
-                <TextBlock Classes="greyedOut">Create diary - Ctrl+D</TextBlock>
-            </StackPanel>
-        </DataTemplate>
-        
-        <converters:EntriesPanelTemplateConverter x:Key="EntriesPanelConverter" ListView="{StaticResource EntriesPanel_ListView}" Hint="{StaticResource EntriesPanel_Hint}"/>
-    </Window.Resources>
-    
     <MainTabControl ItemsSource="{Binding Diaries}" 
                     SelectedIndex="{Binding OpenDiaryIndex}" 
                     TabStripPlacement="Top">
@@ -80,6 +54,8 @@
                     </ContentControl.ContentTemplate>
                 </ContentControl>
         <converters:EqualsConverter x:Key="EqualsZeroConverter" CompareTo="0"></converters:EqualsConverter>
+        <converters:EqualsConverter x:Key="EqualsZeroConverter" CompareTo="0"></converters:EqualsConverter>
+    </Window.Resources>
             </DataTemplate>
         </MainTabControl.ContentTemplate>
         
