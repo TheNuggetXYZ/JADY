@@ -81,7 +81,11 @@
                 </ContentControl>
         <converters:EqualsConverter x:Key="EqualsZeroConverter" CompareTo="0"></converters:EqualsConverter>
             </DataTemplate>
-        </TabControl.ContentTemplate>
+        </MainTabControl.ContentTemplate>
+        
+        <MainTabControl.EmptyCollectionHint>
+            <TextBlock Classes="greyedOut">Create diary - Ctrl+D</TextBlock>
+        </MainTabControl.EmptyCollectionHint>
     </MainTabControl>
     
 </Window>
