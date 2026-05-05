@@ -28,6 +28,8 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <MergeResourceInclude Source="UI/Views/Controls/MainTabControl.axaml"></MergeResourceInclude>
+                <MergeResourceInclude Source="UI/Views/Controls/HoverButton.axaml"></MergeResourceInclude>
+                <MergeResourceInclude Source="UI/Views/Controls/IconButton.axaml"></MergeResourceInclude>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
         

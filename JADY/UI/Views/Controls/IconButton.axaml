@@ -1,0 +1,33 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <IconButton>
+                <PathIcon Data="{StaticResource SettingsIconSolid}" Width="18" Height="18"></PathIcon>
+            </IconButton>
+        </Border>
+    </Design.PreviewWith>
+
+    <ControlTheme x:Key="{x:Type IconButton}" TargetType="IconButton" 
+                  BasedOn="{StaticResource {x:Type HoverButton}}">
+    
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Padding" Value="4"/>
+        
+        <Style Selector="^ /template/ ContentPresenter">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BoxShadow" Value="0 0 0 0 Transparent"/>
+            <Setter Property="Padding" Value="4"/>
+        </Style>
+
+        <Style Selector="^:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BoxShadow" Value="0 0 0 0 Transparent"/>
+        </Style>
+        
+        <Style Selector="^:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BoxShadow" Value="0 0 0 0 Transparent"/>
+        </Style>
+    </ControlTheme>
+</ResourceDictionary>
