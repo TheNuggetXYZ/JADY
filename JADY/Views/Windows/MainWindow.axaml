@@ -30,6 +30,9 @@
     </Window.KeyBindings>
     
     <Window.Resources>
+        <converters:EqualsConverter x:Key="EqualsZeroConverter" CompareTo="0"></converters:EqualsConverter>
+    </Window.Resources>
+    
     <MainTabControl ItemsSource="{Binding Diaries}" 
                     SelectedIndex="{Binding OpenDiaryIndex}" 
                     TabStripPlacement="Top">
