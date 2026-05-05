@@ -8,7 +8,7 @@ using JADY.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-[assembly: XmlnsDefinition("https://github.com/avaloniaui", "JADY.Views.Controls")]
+[assembly: XmlnsDefinition("https://github.com/avaloniaui", "JADY.UI.Views.Controls")]
 
 namespace JADY;
 
