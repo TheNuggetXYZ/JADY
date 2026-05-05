@@ -25,6 +25,15 @@ public class MainTabControl : TabControl
         set => SetValue(RightPanelContentProperty, value);
     }
     
+    public static readonly StyledProperty<object?> EmptyCollectionHintProperty =
+        AvaloniaProperty.Register<MainTabControl, object?>(nameof(EmptyCollectionHint));
+
+    public object? EmptyCollectionHint
+    {
+        get => GetValue(EmptyCollectionHintProperty);
+        set => SetValue(EmptyCollectionHintProperty, value);
+    }
+    
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);

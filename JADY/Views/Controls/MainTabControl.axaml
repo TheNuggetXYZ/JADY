@@ -41,6 +41,7 @@
                     <Panel ClipToBounds="True" Margin="0">
                         <!-- Adds shadow over everything on top -->
                         <Border Classes="insetPanelLightless" ZIndex="99" Background="Transparent" IsHitTestVisible="False"/>
+                        
                         <ContentPresenter Name="PART_SelectedContentHost2"
                                           Margin="{TemplateBinding Padding}"
                                           HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -50,6 +51,11 @@
                                           Margin="{TemplateBinding Padding}"
                                           HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                           VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        <ContentPresenter Name="PART_EmptyCollectionHintHost"
+                                          Content="{TemplateBinding EmptyCollectionHint}"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          IsVisible="False" />
                     </Panel>
                 </DockPanel>
             </ControlTemplate>
@@ -81,6 +87,14 @@
                 <Setter Property="VerticalAlignment" Value="Bottom"/>
             </ControlTheme>
         </Setter>
+        
+        <Style Selector="^[ItemCount=0] /template/ ContentPresenter#PART_EmptyCollectionHintHost">
+            <Setter Property="IsVisible" Value="True" />
+        </Style>
+    
+        <Style Selector="^[ItemCount=0] /template/ ContentPresenter#PART_SelectedContentHost">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
 
         <Style Selector="^[TabStripPlacement=Left] /template/ ItemsPresenter#PART_ItemsPresenter > WrapPanel">
             <Setter Property="Orientation" Value="Vertical"/>
