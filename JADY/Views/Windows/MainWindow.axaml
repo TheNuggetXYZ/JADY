@@ -79,6 +79,7 @@
                         </MultiBinding>
                     </ContentControl.ContentTemplate>
                 </ContentControl>
+        <converters:EqualsConverter x:Key="EqualsZeroConverter" CompareTo="0"></converters:EqualsConverter>
             </DataTemplate>
         </TabControl.ContentTemplate>
     </MainTabControl>
