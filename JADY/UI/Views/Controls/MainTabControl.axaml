@@ -1,0 +1,115 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:viewModels="clr-namespace:JADY.ViewModels"
+                    xmlns:controls="clr-namespace:JADY.UI.Views.Controls"
+                    xmlns:behaviors="clr-namespace:JADY.UI.Behaviors">
+    
+    <Design.PreviewWith>
+    </Design.PreviewWith>
+
+    <Thickness x:Key="TabControlTopPlacementItemMargin">0 0 0 2</Thickness>
+
+    <ControlTheme x:Key="{x:Type controls:MainTabControl}" TargetType="controls:MainTabControl">
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Background" Value="{DynamicResource TabControlBackground}"/>
+        <Setter Property="Template">
+            <ControlTemplate>
+                <DockPanel>
+                    <!-- App Header -->
+                    <Border DockPanel.Dock="{TemplateBinding TabStripPlacement}" Classes="outsetPanelShadowless">
+                        <Grid ColumnDefinitions="Auto, *, Auto" Margin="7 0">
+                            <!-- Left panel -->
+                            <ContentPresenter Grid.Column="0" 
+                                              Content="{TemplateBinding LeftPanelContent}"/>
+                        
+                            <!-- Diary panel -->
+                            <ScrollViewer Name="PART_TabStripScrollViewer"
+                                          Grid.Column="1"
+                                          HorizontalScrollBarVisibility="Hidden" 
+                                          VerticalScrollBarVisibility="Disabled">
+                                
+                                <Interaction.Behaviors>
+                                    <behaviors:SmoothHorizontalScrollBehavior/>
+                                </Interaction.Behaviors>
+                                
+                                <ItemsPresenter Name="PART_ItemsPresenter"
+                                                ItemsPanel="{TemplateBinding ItemsPanel}"/>
+                            </ScrollViewer>
+                            
+                            <!-- Right panel -->
+                            <ContentPresenter Grid.Column="2" 
+                                              Content="{TemplateBinding RightPanelContent}"/>
+                        </Grid>
+                    </Border>
+                    
+                    <!-- Entries panel -->
+                    <Panel ClipToBounds="True" Margin="0">
+                        <!-- Adds shadow over everything on top -->
+                        <Border Classes="insetPanelLightless" ZIndex="99" Background="Transparent" IsHitTestVisible="False"/>
+                        
+                        <ContentPresenter Name="PART_SelectedContentHost2"
+                                          Margin="{TemplateBinding Padding}"
+                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          IsVisible="False"/>
+                        <ContentPresenter Name="PART_SelectedContentHost"
+                                          Margin="{TemplateBinding Padding}"
+                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        <ContentPresenter Name="PART_EmptyCollectionHintHost"
+                                          Content="{TemplateBinding EmptyCollectionHint}"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          IsVisible="False" />
+                    </Panel>
+                </DockPanel>
+            </ControlTemplate>
+        </Setter>
+        
+        <Setter Property="ItemsPanel">
+            <ItemsPanelTemplate>
+                <!-- Disables wrapping -->
+                <StackPanel Orientation="Horizontal" Height="45" Margin="10 0"/>
+            </ItemsPanelTemplate>
+        </Setter>
+        
+        <Setter Property="ItemTemplate">
+            <DataTemplate DataType="viewModels:DiaryViewModel">
+                <TextBlock Text="{Binding Name}" FontSize="16"></TextBlock>
+            </DataTemplate>
+        </Setter>
+        
+        <Setter Property="ItemContainerTheme">
+            <ControlTheme TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}">
+                <Setter Property="ContextMenu">
+                    <ContextMenu>
+                        <MenuItem Header="Edit" Command="{Binding $parent[TabItem].((viewModels:DiaryViewModel)DataContext).ContextMenu_EditCommand}"/>
+                        <Separator/>
+                        <MenuItem Header="Delete" Command="{Binding $parent[TabItem].((viewModels:DiaryViewModel)DataContext).ContextMenu_RemoveCommand}"/>
+                    </ContextMenu>
+                </Setter>
+                <Setter Property="Padding" Value="5 5 5 0"/>
+                <Setter Property="VerticalAlignment" Value="Bottom"/>
+            </ControlTheme>
+        </Setter>
+        
+        <Style Selector="^[ItemCount=0] /template/ ContentPresenter#PART_EmptyCollectionHintHost">
+            <Setter Property="IsVisible" Value="True" />
+        </Style>
+    
+        <Style Selector="^[ItemCount=0] /template/ ContentPresenter#PART_SelectedContentHost">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+
+        <Style Selector="^[TabStripPlacement=Left] /template/ ItemsPresenter#PART_ItemsPresenter > WrapPanel">
+            <Setter Property="Orientation" Value="Vertical"/>
+        </Style>
+        <Style Selector="^[TabStripPlacement=Right] /template/ ItemsPresenter#PART_ItemsPresenter > WrapPanel">
+            <Setter Property="Orientation" Value="Vertical"/>
+        </Style>
+        <Style Selector="^[TabStripPlacement=Top] /template/ ItemsPresenter#PART_ItemsPresenter">
+            <Setter Property="Margin" Value="{DynamicResource TabControlTopPlacementItemMargin}"/>
+        </Style>
+    </ControlTheme>
+</ResourceDictionary>

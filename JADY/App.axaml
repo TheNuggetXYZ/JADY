@@ -2,7 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="JADY.App"
              xmlns:local="using:JADY"
-             xmlns:converters="clr-namespace:JADY.Views.Converters"
+             xmlns:converters="clr-namespace:JADY.UI.Converters"
              RequestedThemeVariant="Dark">
              <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
@@ -147,7 +147,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <MergeResourceInclude Source="Views/Controls/MainTabControl.axaml"></MergeResourceInclude>
+                <MergeResourceInclude Source="UI/Views/Controls/MainTabControl.axaml"></MergeResourceInclude>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
         

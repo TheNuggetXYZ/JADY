@@ -10,7 +10,7 @@ using JADY.Core;
 using JADY.Core.Models;
 using JADY.Factories;
 using JADY.Services;
-using JADY.Views.Dialogs;
+using JADY.UI.Views.Dialogs;
 
 namespace JADY.ViewModels;
 

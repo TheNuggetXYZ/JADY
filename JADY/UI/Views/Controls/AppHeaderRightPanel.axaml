@@ -1,0 +1,34 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:JADY.ViewModels"
+             xmlns:converters="clr-namespace:JADY.UI.Converters"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="JADY.UI.Views.Controls.AppHeaderRightPanel"
+             x:DataType="viewModels:MainWindowViewModel">
+    
+    <UserControl.Resources>
+        <DataTemplate x:Key="SaveIcon_SavedState">
+            <PathIcon Data="{StaticResource RoundCheckIconSolid}" ToolTip.Tip="Everything is saved" Height="16" Margin="5 0"/>
+        </DataTemplate>
+        
+        <DataTemplate x:Key="SaveIcon_UnsavedState">
+            <PathIcon Data="{StaticResource RoundExclamationIconSolid}" ToolTip.Tip="Unsaved changes" Height="16" Margin="5 0"/>
+        </DataTemplate>
+        
+        <converters:SaveIconTemplateConverter x:Key="SaveIconConverter" Saved="{StaticResource SaveIcon_SavedState}" Unsaved="{StaticResource SaveIcon_UnsavedState}"/>
+    </UserControl.Resources>
+    
+    <StackPanel Orientation="Horizontal">
+                
+        <!-- Save state icon -->
+        <TransitioningContentControl Content="{Binding SaveService.UnsavedChanges, Converter={StaticResource SaveIconConverter}}">
+            <TransitioningContentControl.PageTransition>
+                <CrossFade Duration="0:0:0.5"/>
+            </TransitioningContentControl.PageTransition>
+        </TransitioningContentControl>
+                
+    </StackPanel>
+    
+</UserControl>

@@ -5,8 +5,6 @@ using Avalonia.Metadata;
 using JADY.Factories;
 using JADY.Services;
 using JADY.ViewModels;
-using JADY.Views.Dialogs;
-using JADY.Views.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -31,7 +29,7 @@ public partial class App : Application
         
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            desktop.MainWindow = new MainWindow
+            desktop.MainWindow = new UI.Views.Windows.MainWindow
             {
                 DataContext = serviceProvider.GetRequiredService<MainWindowViewModel>(),
             };
@@ -62,13 +60,13 @@ public partial class App : Application
         
         // View Models
         collection.AddSingleton<MainWindowViewModel>();
-        collection.AddTransient<SettingsWindow>();
-        collection.AddTransient<AddEntryWindow>();
-        collection.AddTransient<AddDiaryWindow>();
-        collection.AddTransient<EditDiaryWindow>();
-        collection.AddTransient<EditEntryWindow>();
-        collection.AddTransient<EndEntryWindow>();
-        collection.AddTransient<UnsavedChangesWindow>();
+        collection.AddTransient<UI.Views.Dialogs.SettingsWindow>();
+        collection.AddTransient<UI.Views.Dialogs.AddEntryWindow>();
+        collection.AddTransient<UI.Views.Dialogs.AddDiaryWindow>();
+        collection.AddTransient<UI.Views.Dialogs.EditDiaryWindow>();
+        collection.AddTransient<UI.Views.Dialogs.EditEntryWindow>();
+        collection.AddTransient<UI.Views.Dialogs.EndEntryWindow>();
+        collection.AddTransient<UI.Views.Dialogs.UnsavedChangesWindow>();
 
         serviceProvider = collection.BuildServiceProvider();
     }

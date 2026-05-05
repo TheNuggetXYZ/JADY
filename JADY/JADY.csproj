@@ -27,6 +27,7 @@
 
     <ItemGroup>
       <Folder Include="Assets\Fonts\" />
+      <Folder Include="UI\" />
     </ItemGroup>
 
     <ItemGroup>
@@ -74,5 +75,22 @@
         <DependentUpon>DiaryEntryControl.axaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="UI\Views\Controls\AppHeaderLeftPanel.axaml" />
+      <AdditionalFiles Include="UI\Views\Controls\AppHeaderRightPanel.axaml" />
+      <AdditionalFiles Include="UI\Views\Controls\DiaryEntryControl.axaml" />
+      <AdditionalFiles Include="UI\Views\Controls\MainTabControl.axaml" />
+      <AdditionalFiles Include="UI\Views\Dialogs\AddDiaryWindow.axaml" />
+      <AdditionalFiles Include="UI\Views\Dialogs\AddEntryWindow.axaml" />
+      <AdditionalFiles Include="UI\Views\Dialogs\EditDiaryWindow.axaml" />
+      <AdditionalFiles Include="UI\Views\Dialogs\EditEntryWindow.axaml" />
+      <AdditionalFiles Include="UI\Views\Dialogs\EndEntryWindow.axaml" />
+      <AdditionalFiles Include="UI\Views\Dialogs\SettingsWindow.axaml" />
+      <AdditionalFiles Include="UI\Views\Dialogs\UnsavedChangesWindow.axaml" />
+      <AdditionalFiles Include="UI\Views\Dialogs\YesNoDialogWindow.axaml" />
+      <AdditionalFiles Include="UI\Views\Windows\MainWindow.axaml" />
+      <AdditionalFiles Include="UI\Views\Windows\MessageWindow.axaml" />
     </ItemGroup>
 </Project>

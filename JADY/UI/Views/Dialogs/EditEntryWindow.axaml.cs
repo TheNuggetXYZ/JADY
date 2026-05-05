@@ -1,0 +1,39 @@
+using Avalonia.Data;
+using Avalonia.Input;
+using Avalonia.Interactivity;
+using JADY.Core.Data;
+using JADY.Core.Models;
+using JADY.UI.Base;
+using JADY.ViewModels;
+
+namespace JADY.UI.Views.Dialogs;
+
+public partial class EditEntryWindow : DialogWindow<DiaryEntry>, IDialogInitializable<DiaryEntryViewModel>
+{
+    public void Initialize(DiaryEntryViewModel data)
+    {
+        DataContext = data;
+        InitializeComponent();
+
+        EntryStatus.ItemsSource = new[] {"One time", "In progress", "Completed", "Dropped"};
+    }
+
+    protected override Optional<DiaryEntry> GetValue()
+    {
+        return new DiaryEntry()
+        {
+            Status = (EntryStatus)EntryStatus.SelectedIndex,
+            Date = EntryDate.SelectedDate,
+            EndDate = EntryEndDate.SelectedDate,
+            Category = EntryCategory.Text,
+            SubCategory = EntrySubcategory.Text,
+            Title = EntryTitle.Text,
+            Content = EntryContent.Text,
+            IsHidden = EntryIsHidden.IsChecked ?? false,
+        };
+    }
+    
+    protected override InputElement? FocusedElement() => EntryCategory;
+
+    private async void Submit_OnClick(object? sender, RoutedEventArgs e) => await TrySubmitAsync();
+}

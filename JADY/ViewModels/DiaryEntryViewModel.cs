@@ -11,7 +11,7 @@ using JADY.Core.Attributes;
 using JADY.Core.Data;
 using JADY.Core.Models;
 using JADY.Services;
-using JADY.Views.Dialogs;
+using JADY.UI.Views.Dialogs;
 
 namespace JADY.ViewModels;
 
