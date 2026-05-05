@@ -33,22 +33,4 @@ public class MainTabControl : TabControl
         get => GetValue(EmptyCollectionHintProperty);
         set => SetValue(EmptyCollectionHintProperty, value);
     }
-    
-    protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
-    {
-        base.OnApplyTemplate(e);
-
-        // Find the ScrollViewer by a Name you set in the XAML
-        var scrollViewer = e.NameScope.Find<ScrollViewer>("PART_TabStripScrollViewer");
-        
-        if (scrollViewer != null)
-        {
-            scrollViewer.PointerWheelChanged += (s, args) =>
-            {
-                var offset = scrollViewer.Offset;
-                scrollViewer.Offset = offset.WithX(offset.X - args.Delta.Y * 50);
-                args.Handled = true;
-            };
-        }
-    }
 }

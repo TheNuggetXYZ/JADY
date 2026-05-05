@@ -1,6 +1,7 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:viewModels="clr-namespace:JADY.ViewModels">
+                    xmlns:viewModels="clr-namespace:JADY.ViewModels"
+                    xmlns:behaviors="clr-namespace:JADY.Views.Behaviors">
     
     <Design.PreviewWith>
     </Design.PreviewWith>
@@ -26,6 +27,10 @@
                                           Grid.Column="1"
                                           HorizontalScrollBarVisibility="Hidden" 
                                           VerticalScrollBarVisibility="Disabled">
+                                
+                                <Interaction.Behaviors>
+                                    <behaviors:SmoothHorizontalScrollBehavior/>
+                                </Interaction.Behaviors>
                                 
                                 <ItemsPresenter Name="PART_ItemsPresenter"
                                                 ItemsPanel="{TemplateBinding ItemsPanel}"/>
