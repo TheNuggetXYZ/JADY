@@ -27,7 +27,6 @@
 
     <ItemGroup>
       <Folder Include="Assets\Fonts\" />
-      <Folder Include="UI\" />
     </ItemGroup>
 
     <ItemGroup>

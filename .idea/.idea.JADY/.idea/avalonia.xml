@@ -4,6 +4,7 @@
     <option name="projectPerEditor">
       <map>
         <entry key="JADY/App.axaml" value="JADY/JADY.csproj" />
+        <entry key="JADY/UI/AppDefaultStyles.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Controls/AppHeaderLeftPanel.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Controls/AppHeaderRightPanel.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Controls/MainTabControl.axaml" value="JADY/JADY.csproj" />
