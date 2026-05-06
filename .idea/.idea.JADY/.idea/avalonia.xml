@@ -8,6 +8,7 @@
         <entry key="JADY/UI/Views/Controls/AppHeaderLeftPanel.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Controls/AppHeaderRightPanel.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Controls/HoverButton.axaml" value="JADY/JADY.csproj" />
+        <entry key="JADY/UI/Views/Controls/HoverToggleButton.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Controls/IconButton.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Controls/MainTabControl.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Windows/MainWindow.axaml" value="JADY/JADY.csproj" />

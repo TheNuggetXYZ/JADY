@@ -1,0 +1,34 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <HoverToggleButton Content="Button"/>
+        </Border>
+    </Design.PreviewWith>
+
+    <ControlTheme x:Key="{x:Type HoverToggleButton}" TargetType="HoverToggleButton" 
+                  BasedOn="{StaticResource {x:Type ToggleButton}}">
+        
+        <Style Selector="^ /template/ ContentPresenter">
+            <Setter Property="BoxShadow" Value="1 2 2 -1 black"/>
+            <Setter Property="Margin" Value="2"/> 
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BoxShadowsTransition Property="BoxShadow" Duration="0:0:0.1"/>
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.1"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        
+        <Style Selector="^:pointerover /template/ ContentPresenter">
+            <Setter Property="BoxShadow" Value="2 3 2 -1 black"/>
+            <Setter Property="RenderTransform" Value="translate(-1px, -1px)"/>
+        </Style>
+        
+        <Style Selector="^:pressed /template/ ContentPresenter">
+            <Setter Property="BoxShadow" Value="1 2 2 -1 black"/>
+            <Setter Property="RenderTransform" Value="scale(0.95) translate(1px, 1px)"/>
+        </Style>
+        
+    </ControlTheme>
+</ResourceDictionary>
