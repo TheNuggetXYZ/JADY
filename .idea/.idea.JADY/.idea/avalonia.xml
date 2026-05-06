@@ -13,6 +13,7 @@
         <entry key="JADY/UI/Views/Controls/IconButton.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Controls/IconToggleButton.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Controls/MainTabControl.axaml" value="JADY/JADY.csproj" />
+        <entry key="JADY/UI/Views/Controls/SearchBar.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Dialogs/AddDiaryWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Dialogs/AddEntryWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Dialogs/EditDiaryWindow.axaml" value="JADY/JADY.csproj" />

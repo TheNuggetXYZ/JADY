@@ -63,6 +63,8 @@
                     </ScrollViewer>
                     
                     <TextBlock Classes="greyedOut" HorizontalAlignment="Center" VerticalAlignment="Center" IsVisible="{Binding Entries.Count, Converter={StaticResource EqualsZeroConverter}}">Create entry - Ctrl+E</TextBlock>
+                    
+                    <EntrySearchBar HorizontalAlignment="Stretch" VerticalAlignment="Bottom"/>
                 </Panel>
             </DataTemplate>
         </MainTabControl.ContentTemplate>
