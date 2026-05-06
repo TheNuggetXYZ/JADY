@@ -3,7 +3,7 @@
     <Design.PreviewWith>
         <Border Padding="20">
             <StackPanel Orientation="Vertical" Spacing="10">
-                <IconButton IconData="{StaticResource SettingsIconSolid}" IconText="Settings"/>
+                <IconButton IconData="{StaticResource SettingsIconSolid}" IconText="Settings" IconSize="8"/>
                 <IconButton IconData="{StaticResource BurgerMenuIconSolid}"/>
             </StackPanel>
         </Border>
@@ -26,7 +26,10 @@
                     
                     <ContentPresenter.Content>
                         <StackPanel Orientation="Horizontal" Spacing="5">
-                            <PathIcon Data="{Binding $parent[IconButton].IconData}"/>
+                            <PathIcon Data="{Binding $parent[IconButton].IconData}" 
+                                      Width="{Binding $parent[IconButton].IconSize}"
+                                      Height="{Binding $parent[IconButton].IconSize}"/>
+                            
                             <TextBlock Text="{Binding $parent[IconButton].IconText}"/>
                         </StackPanel>
                     </ContentPresenter.Content>
