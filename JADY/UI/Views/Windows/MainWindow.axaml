@@ -73,9 +73,17 @@
                             IsVisible="{Binding $parent[MainTabControl].((vm:MainWindowViewModel)DataContext).IsEntrySearchBarVisible}">
                         
                         <TextBox x:Name="SearchBox" 
+                                 Text="{Binding $parent[MainTabControl].((vm:MainWindowViewModel)DataContext).SearchBoxText}"
                                  AttachedToLogicalTree="SearchBox_OnAttachedToLogicalTree" 
                                  TextChanged="SearchBox_OnTextChanged" 
-                                 Margin="20"/>
+                                 Margin="20">
+                            
+                            <TextBox.KeyBindings>
+                                <KeyBinding Gesture="Enter"
+                                            Command="{Binding $parent[MainTabControl].((vm:MainWindowViewModel)DataContext).SearchBoxSubmitCommand}"/>
+                            </TextBox.KeyBindings>
+                            
+                        </TextBox>
                     </Border>
                 </Panel>
             </DataTemplate>

@@ -57,6 +57,9 @@ public partial class MainWindowViewModel : SaveDependentViewModel
 
     [ObservableProperty]
     private bool _isEntrySearchBarVisible;
+    
+    [ObservableProperty]
+    private string? _searchBoxText;
 
     public MainWindowViewModel(ISaveService saveService, IDiaryViewModelFactory diaryViewModelFactory, IWindowService windowService)
     {
@@ -100,6 +103,20 @@ public partial class MainWindowViewModel : SaveDependentViewModel
         }
 
         return cancelClosing;
+    }
+
+    partial void OnIsEntrySearchBarVisibleChanged(bool value)
+    {
+        if (!value)
+        {
+            // stop searching
+        }
+    }
+
+    [RelayCommand]
+    private void SearchBoxSubmit()
+    {
+        // search
     }
 
     [RelayCommand]
