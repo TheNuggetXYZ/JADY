@@ -1,0 +1,60 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <StackPanel Orientation="Vertical" Spacing="10">
+                <IconToggleButton IconData="{StaticResource SettingsIconSolid}" IconText="Settings" IconSize="8"/>
+                <IconToggleButton IconData="{StaticResource BurgerMenuIconSolid}"/>
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+
+    <ControlTheme x:Key="{x:Type IconToggleButton}" TargetType="IconToggleButton" 
+                  BasedOn="{StaticResource {x:Type HoverToggleButton}}">
+    
+        <Setter Property="Template">
+            <ControlTemplate>
+                <ContentPresenter x:Name="PART_ContentPresenter"
+                                  Background="{TemplateBinding Background}"
+                                  BorderBrush="{TemplateBinding BorderBrush}"
+                                  BorderThickness="{TemplateBinding BorderThickness}"
+                                  CornerRadius="{TemplateBinding CornerRadius}"
+                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                  Padding="{TemplateBinding Padding}"
+                                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
+                    
+                    <ContentPresenter.Content>
+                        <StackPanel Orientation="Horizontal" Spacing="5">
+                            <PathIcon Data="{Binding $parent[IconToggleButton].IconData}" 
+                                      Width="{Binding $parent[IconToggleButton].IconSize}"
+                                      Height="{Binding $parent[IconToggleButton].IconSize}"/>
+                            
+                            <TextBlock Text="{Binding $parent[IconToggleButton].IconText}"/>
+                        </StackPanel>
+                    </ContentPresenter.Content>
+                    
+                </ContentPresenter>
+            </ControlTemplate>
+        </Setter>
+        
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Padding" Value="4"/>
+        
+        <Style Selector="^ /template/ ContentPresenter">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BoxShadow" Value="0 0 0 0 Transparent"/>
+            <Setter Property="Padding" Value="4"/>
+        </Style>
+
+        <Style Selector="^:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BoxShadow" Value="0 0 0 0 Transparent"/>
+        </Style>
+        
+        <Style Selector="^:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BoxShadow" Value="0 0 0 0 Transparent"/>
+        </Style>
+    </ControlTheme>
+</ResourceDictionary>

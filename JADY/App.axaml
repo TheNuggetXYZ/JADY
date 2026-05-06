@@ -31,6 +31,7 @@
                 <MergeResourceInclude Source="UI/Views/Controls/HoverButton.axaml"></MergeResourceInclude>
                 <MergeResourceInclude Source="UI/Views/Controls/IconButton.axaml"></MergeResourceInclude>
                 <MergeResourceInclude Source="UI/Views/Controls/HoverToggleButton.axaml"></MergeResourceInclude>
+                <MergeResourceInclude Source="UI/Views/Controls/IconToggleButton.axaml"></MergeResourceInclude>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
         
