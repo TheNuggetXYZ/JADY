@@ -14,7 +14,7 @@
         
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10" Margin="10">
                 <TextBox Name="Name" PropertyChanged="NameOnPropertyChanged" Text="{Binding Name, Mode=OneTime}"></TextBox>
-                <Button Name="SubmitButton" Click="Submit_OnClick" HorizontalAlignment="Center">EDIT</Button>
+                <HoverButton Name="SubmitButton" Click="Submit_OnClick" HorizontalAlignment="Center">EDIT</HoverButton>
         </StackPanel>
         
 </Window>

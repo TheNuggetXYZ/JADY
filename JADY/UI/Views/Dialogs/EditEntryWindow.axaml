@@ -41,7 +41,7 @@
             
             <Panel Margin="5">
                 <CheckBox Name="EntryIsHidden" IsChecked="{Binding IsHidden, Mode=OneTime}" HorizontalAlignment="Left">Hidden</CheckBox>
-                <Button Click="Submit_OnClick" Margin="5" HorizontalAlignment="Center">EDIT</Button>
+                <HoverButton Click="Submit_OnClick" Margin="5" HorizontalAlignment="Center">EDIT</HoverButton>
             </Panel>
         </StackPanel>
     </Grid>

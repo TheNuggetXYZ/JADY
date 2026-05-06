@@ -18,7 +18,7 @@
                 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <ComboBox Name="EndParameter" SelectedIndex="0" Margin="5"></ComboBox>
-                        <Button Click="Submit_OnClick" HorizontalAlignment="Center" Margin="5">END</Button>
+                        <HoverButton Click="Submit_OnClick" HorizontalAlignment="Center" Margin="5">END</HoverButton>
                 </StackPanel>
         </StackPanel>
         

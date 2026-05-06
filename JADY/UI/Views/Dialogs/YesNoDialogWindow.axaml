@@ -16,8 +16,8 @@
         <StackPanel Orientation="Horizontal" Spacing="10" 
                     HorizontalAlignment="Center" VerticalAlignment="Center">
                     
-            <Button Name="YesButton" Click="YesButton_OnClick">YES</Button>
-            <Button Name="NoButton" Click="NoButton_OnClick">NO</Button>
+            <HoverButton Name="YesButton" Click="YesButton_OnClick">YES</HoverButton>
+            <HoverButton Name="NoButton" Click="NoButton_OnClick">NO</HoverButton>
         </StackPanel>
     </StackPanel>
     

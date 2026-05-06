@@ -16,7 +16,7 @@
         <StackPanel Orientation="Horizontal" Spacing="10" 
                     HorizontalAlignment="Center" VerticalAlignment="Center">
                     
-            <Button Name="OkButton" Click="OkButton_OnClick">OK</Button>
+            <HoverButton Name="OkButton" Click="OkButton_OnClick">OK</HoverButton>
         </StackPanel>
     </StackPanel>
         

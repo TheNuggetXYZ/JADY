@@ -16,9 +16,9 @@
         <StackPanel Orientation="Horizontal" Spacing="10" 
                     HorizontalAlignment="Center" VerticalAlignment="Center">
                     
-            <Button Name="SaveButton" Click="SaveButton_OnClick">SAVE</Button>
-            <Button Click="QuitButton_OnClick">QUIT</Button>
-            <Button Click="CancelButton_OnClick">CANCEL</Button>
+            <HoverButton Name="SaveButton" Click="SaveButton_OnClick">SAVE</HoverButton>
+            <HoverButton Click="QuitButton_OnClick">QUIT</HoverButton>
+            <HoverButton Click="CancelButton_OnClick">CANCEL</HoverButton>
         </StackPanel>
     </StackPanel>
         

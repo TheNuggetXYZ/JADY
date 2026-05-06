@@ -7,12 +7,22 @@
         <entry key="JADY/UI/AppDefaultStyles.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Controls/AppHeaderLeftPanel.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Controls/AppHeaderRightPanel.axaml" value="JADY/JADY.csproj" />
+        <entry key="JADY/UI/Views/Controls/DiaryEntryControl.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Controls/HoverButton.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Controls/HoverToggleButton.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Controls/IconButton.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Controls/IconToggleButton.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Controls/MainTabControl.axaml" value="JADY/JADY.csproj" />
+        <entry key="JADY/UI/Views/Dialogs/AddDiaryWindow.axaml" value="JADY/JADY.csproj" />
+        <entry key="JADY/UI/Views/Dialogs/AddEntryWindow.axaml" value="JADY/JADY.csproj" />
+        <entry key="JADY/UI/Views/Dialogs/EditDiaryWindow.axaml" value="JADY/JADY.csproj" />
+        <entry key="JADY/UI/Views/Dialogs/EditEntryWindow.axaml" value="JADY/JADY.csproj" />
+        <entry key="JADY/UI/Views/Dialogs/EndEntryWindow.axaml" value="JADY/JADY.csproj" />
+        <entry key="JADY/UI/Views/Dialogs/SettingsWindow.axaml" value="JADY/JADY.csproj" />
+        <entry key="JADY/UI/Views/Dialogs/UnsavedChangesWindow.axaml" value="JADY/JADY.csproj" />
+        <entry key="JADY/UI/Views/Dialogs/YesNoDialogWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Windows/MainWindow.axaml" value="JADY/JADY.csproj" />
+        <entry key="JADY/UI/Views/Windows/MessageWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/Views/AddDiaryWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/Views/AddEntryWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/Views/Controls/AppHeaderLeftPanel.axaml" value="JADY/JADY.csproj" />

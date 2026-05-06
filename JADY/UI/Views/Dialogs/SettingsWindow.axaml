@@ -35,8 +35,8 @@
         
         <Border Grid.Row="1" Background="{DynamicResource SystemChromeMediumColor}">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="25" Margin="10">
-                <Button Click="Close_OnClick">CLOSE</Button>
-                <Button Click="SaveClose_OnClick" Content="SAVE &amp; CLOSE"></Button>
+                <HoverButton Click="Close_OnClick">CLOSE</HoverButton>
+                <HoverButton Click="SaveClose_OnClick" Content="SAVE &amp; CLOSE"></HoverButton>
             </StackPanel>
         </Border>
     </Grid>
