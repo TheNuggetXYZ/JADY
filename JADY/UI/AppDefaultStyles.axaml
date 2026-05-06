@@ -1,69 +1,68 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
     <Design.PreviewWith>
         <Border Padding="20">
             <!-- Add Controls for Previewer Here -->
         </Border>
     </Design.PreviewWith>
-
-    <!-- Add Styles Here -->
+    
     <Style Selector="Window">
-            <Setter Property="FontFamily" Value="Consolas"></Setter>
-        </Style>
+        <Setter Property="FontFamily" Value="Consolas"></Setter>
+    </Style>
         
+    <!-- TEXT_BLOCK -->
+    <Style Selector="TextBlock.greyedOut">
+        <Setter Property="Foreground" Value="Gray"/>
+    </Style>
         
-        <!-- TEXT_BLOCK -->
-        <Style Selector="TextBlock.greyedOut">
-            <Setter Property="Foreground" Value="Gray"/>
-        </Style>
+    <!-- BORDER -->
+    <Style Selector="Border.outsetLighting">
+        <!--                                ====shadow====  ================lighting=============-->
+        <Setter Property="BoxShadow" Value="1 2 2 -1 black, inset 0.5 1 1 0 rgba(255,255,255,0.1)"/>
+        <!-- Set margin so shadow is not cut off -->
+        <Setter Property="Margin" Value="0 0 1 2"/>
+    </Style>
         
-        <!-- BORDER -->
-        <Style Selector="Border.outsetLighting">
-            <!--                                ====shadow====  ================lighting=============-->
-            <Setter Property="BoxShadow" Value="1 2 2 -1 black, inset 0.5 1 1 0 rgba(255,255,255,0.1)"/>
-            <!-- Set margin so shadow is not cut off -->
-            <Setter Property="Margin" Value="0 0 1 2"/>
-        </Style>
+    <Style Selector="Border:pointerover.outsetLighting.hover">
+        <!--                                ====shadow====  ================lighting===========-->
+        <Setter Property="BoxShadow" Value="2 3 3 -1 black, inset 1 2 1 0 rgba(255,255,255,0.1)"/>
+        <!-- Set margin so shadow is not cut off -->
+        <Setter Property="Margin" Value="0 0 2 3"/>
+    </Style>
         
-        <Style Selector="Border:pointerover.outsetLighting.hover">
-            <!--                                ====shadow====  ================lighting===========-->
-            <Setter Property="BoxShadow" Value="2 3 3 -1 black, inset 1 2 1 0 rgba(255,255,255,0.1)"/>
-            <!-- Set margin so shadow is not cut off -->
-            <Setter Property="Margin" Value="0 0 2 3"/>
-        </Style>
+    <Style Selector="Border:pointerover.outsetLighting.highlight">
+        <!--                                ====shadow====  ================lighting============-->
+        <Setter Property="BoxShadow" Value="1 2 2 -1 black, inset 1 2 1 0 rgba(255,255,255,0.15)"/>
+    </Style>
         
-        <Style Selector="Border:pointerover.outsetLighting.highlight">
-            <!--                                ====shadow====  ================lighting============-->
-            <Setter Property="BoxShadow" Value="1 2 2 -1 black, inset 1 2 1 0 rgba(255,255,255,0.15)"/>
-        </Style>
+    <Style Selector="Border.insetLighting">
+        <!--                                ========shadow======  ================lighting================-->
+        <Setter Property="BoxShadow" Value="inset 1 2 2 -1 black, inset -0.5 -1 1 0 rgba(255,255,255,0.15)"/>
+    </Style>
         
-        <Style Selector="Border.insetLighting">
-            <!--                                ========shadow======  ================lighting================-->
-            <Setter Property="BoxShadow" Value="inset 1 2 2 -1 black, inset -0.5 -1 1 0 rgba(255,255,255,0.15)"/>
-        </Style>
+    <Style Selector="Border.outsetPanelShadowless">
+        <Setter Property="BoxShadow" Value="inset 0 2 1 0 rgba(255,255,255,0.1)"/>
+    </Style>
         
-        <Style Selector="Border.outsetPanelShadowless">
-            <Setter Property="BoxShadow" Value="inset 0 2 1 0 rgba(255,255,255,0.1)"/>
-        </Style>
+    <Style Selector="Border.insetPanelLightless">
+        <Setter Property="BoxShadow" Value="inset 0 3 3 0 rgba(0,0,0,0.5)"/>
+    </Style>
         
-        <Style Selector="Border.insetPanelLightless">
-            <Setter Property="BoxShadow" Value="inset 0 3 3 0 rgba(0,0,0,0.5)"/>
-        </Style>
+    <!-- PATH_ICON -->
+    <Style Selector="PathIcon.expandIcon">
+        <Setter Property="Transitions">
+            <Transitions>
+                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.05"/>
+            </Transitions>
+        </Setter>
+    </Style>
         
-        <!-- PATH_ICON -->
-        <Style Selector="PathIcon.expandIcon">
-            <Setter Property="Transitions">
-                <Transitions>
-                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.05"/>
-                </Transitions>
-            </Setter>
-        </Style>
+    <Style Selector="PathIcon.expandIcon.isExpanded">
+        <Setter Property="RenderTransform" Value="rotate(180deg)"/>
+    </Style>
         
-        <Style Selector="PathIcon.expandIcon.isExpanded">
-            <Setter Property="RenderTransform" Value="rotate(180deg)"/>
-        </Style>
-        
-        <Style Selector="PathIcon.greyedOut">
-            <Setter Property="Opacity" Value="0.5"></Setter>
-        </Style>
+    <Style Selector="PathIcon.greyedOut">
+        <Setter Property="Opacity" Value="0.5"></Setter>
+    </Style>
 </Styles>
