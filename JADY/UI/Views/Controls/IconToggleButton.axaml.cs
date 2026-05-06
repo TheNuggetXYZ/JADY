@@ -16,6 +16,15 @@ public class IconToggleButton : HoverToggleButton
         set => SetValue(IconDataProperty, value);
     }
     
+    public static readonly StyledProperty<StreamGeometry?> CheckedIconDataProperty =
+        AvaloniaProperty.Register<IconButton, StreamGeometry?>(nameof(CheckedIconData));
+
+    public StreamGeometry? CheckedIconData
+    {
+        get => GetValue(CheckedIconDataProperty);
+        set => SetValue(CheckedIconDataProperty, value);
+    }
+    
     public static readonly StyledProperty<object?> IconTextProperty =
         AvaloniaProperty.Register<IconButton, object?>(nameof(IconText));
 
