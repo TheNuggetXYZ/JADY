@@ -64,7 +64,9 @@
                     
                     <TextBlock Classes="greyedOut" HorizontalAlignment="Center" VerticalAlignment="Center" IsVisible="{Binding Entries.Count, Converter={StaticResource EqualsZeroConverter}}">Create entry - Ctrl+E</TextBlock>
                     
-                    <EntrySearchBar HorizontalAlignment="Stretch" VerticalAlignment="Bottom"/>
+                    <Border BoxShadow="inset 0 -15 25 0 rgba(0,0,0,0.25)" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" IsVisible="{Binding $parent[MainTabControl].((vm:MainWindowViewModel)DataContext).IsEntrySearchBarVisible}">
+                        <TextBox x:Name="SearchBox" AttachedToLogicalTree="SearchBox_OnAttachedToLogicalTree" TextChanged="SearchBox_OnTextChanged" Margin="20"></TextBox>
+                    </Border>
                 </Panel>
             </DataTemplate>
         </MainTabControl.ContentTemplate>

@@ -55,6 +55,9 @@ public partial class MainWindowViewModel : SaveDependentViewModel
         }
     }
 
+    [ObservableProperty]
+    private bool _isEntrySearchBarVisible;
+
     public MainWindowViewModel(ISaveService saveService, IDiaryViewModelFactory diaryViewModelFactory, IWindowService windowService)
     {
         SaveService = saveService;

@@ -1,4 +1,8 @@
 using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Interactivity;
+using Avalonia.LogicalTree;
+using Avalonia.Threading;
 using JADY.ViewModels;
 
 namespace JADY.UI.Views.Windows;
@@ -6,10 +10,13 @@ namespace JADY.UI.Views.Windows;
 public partial class MainWindow : Window
 {
     private bool _handledUnsavedChanges;
+    private TextBox _searchBox;
     
     public MainWindow()
     {
         InitializeComponent();
+        
+        AddHandler(TextInputEvent, OnTextInput, RoutingStrategies.Tunnel);
     }
 
     protected override async void OnClosing(WindowClosingEventArgs e)
@@ -30,6 +37,48 @@ public partial class MainWindow : Window
                 _handledUnsavedChanges = true;
                 Close();
             }
+        }
+    }
+    
+    protected override void OnKeyDown(KeyEventArgs e)
+    {
+        base.OnKeyDown(e);
+
+        if (e.Key == Key.Escape)
+        {
+            _searchBox.Text = string.Empty;
+        }
+    }
+    
+    private void OnTextInput(object? sender, TextInputEventArgs e)
+    {
+        if (string.IsNullOrEmpty(e.Text))
+            return;
+
+        if (DataContext is MainWindowViewModel vm && !_searchBox.IsFocused)
+        {
+            vm.IsEntrySearchBarVisible = true;
+
+            Dispatcher.UIThread.Post(() =>
+            {
+                _searchBox.Focus();
+                _searchBox.Text = e.Text;
+                _searchBox.CaretIndex = _searchBox.Text.Length;
+            });
+        }
+    }
+
+    private void SearchBox_OnAttachedToLogicalTree(object? sender, LogicalTreeAttachmentEventArgs e)
+    {
+        _searchBox = sender as TextBox;
+    }
+
+    private void SearchBox_OnTextChanged(object? sender, TextChangedEventArgs e)
+    {
+        if (string.IsNullOrWhiteSpace(_searchBox.Text))
+        {
+            if (DataContext is MainWindowViewModel vm)
+                vm.IsEntrySearchBarVisible = false;
         }
     }
 }
