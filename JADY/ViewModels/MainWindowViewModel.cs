@@ -109,14 +109,14 @@ public partial class MainWindowViewModel : SaveDependentViewModel
     {
         if (!value)
         {
-            // stop searching
+            Diaries[OpenDiaryIndex].RemoveFilter();
         }
     }
 
     [RelayCommand]
     private void SearchBoxSubmit()
     {
-        // search
+        Diaries[OpenDiaryIndex].SetFilter(SearchBoxText);
     }
 
     [RelayCommand]

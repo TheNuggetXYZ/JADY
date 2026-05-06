@@ -54,7 +54,7 @@
                         <Interaction.Behaviors>
                             <ia:VerticalScrollViewerAnimatedBehavior />
                         </Interaction.Behaviors>
-                        <ItemsRepeater ItemsSource="{Binding Entries}" Margin="10 5">
+                        <ItemsRepeater ItemsSource="{Binding FilteredEntries}" Margin="10 5">
                             <ItemsRepeater.ItemTemplate>
                                 <DataTemplate>
                                     <DiaryEntryControl IsVisible="{Binding IsCurrentlyVisible}" Margin="0 1"/>

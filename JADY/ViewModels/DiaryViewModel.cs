@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,10 +27,15 @@ public partial class DiaryViewModel : ViewModelBase
     /// </summary>
     public ObservableCollection<DiaryEntryViewModel> Entries { get; }
     
+    public IEnumerable<DiaryEntryViewModel> FilteredEntries => 
+        string.IsNullOrWhiteSpace(_filter) ? Entries : Entries.Where(ApplyFilters);
+    
     private readonly MainWindowViewModel _mainWindowViewModel;
 
     private readonly IDiaryEntryViewModelFactory _diaryEntryViewModelFactory;
     private readonly IWindowService _windowService;
+
+    private string? _filter;
 
     public DiaryViewModel(Diary diary, MainWindowViewModel mainWindowViewModel, IDiaryEntryViewModelFactory diaryEntryViewModelFactory, IWindowService windowService)
     {
@@ -38,6 +44,8 @@ public partial class DiaryViewModel : ViewModelBase
         _mainWindowViewModel = mainWindowViewModel;
         Name = diary.Name;
         Entries = new ObservableCollection<DiaryEntryViewModel>(diary.Entries.OrderByDescending(GetMostRelevantDate).Select(x => diaryEntryViewModelFactory.Create(x, this)));
+
+        Entries.CollectionChanged += (_, _) => UpdateFilter(); // TODO: handle unsubscribing
     }
     
     /// <returns>
@@ -50,6 +58,34 @@ public partial class DiaryViewModel : ViewModelBase
             Name = Name,
             Entries = new(Entries.Select(x => x.GetModel()))
         };
+    }
+
+    private bool ApplyFilters(DiaryEntryViewModel entry)
+    {
+        if (_filter is null)
+            return true;
+        
+        return (entry.Title?.Contains(_filter, StringComparison.OrdinalIgnoreCase) ?? false) ||
+               (entry.Content?.Contains(_filter, StringComparison.OrdinalIgnoreCase) ?? false) ||
+               (entry.Category?.Contains(_filter, StringComparison.OrdinalIgnoreCase) ?? false) ||
+               (entry.SubCategory?.Contains(_filter, StringComparison.OrdinalIgnoreCase) ?? false);
+    }
+
+    private void UpdateFilter()
+    {
+        OnPropertyChanged(nameof(FilteredEntries));
+    }
+
+    public void SetFilter(string? filter)
+    {
+        _filter = filter;
+        UpdateFilter();
+    }
+    
+    public void RemoveFilter()
+    {
+        _filter = null;
+        UpdateFilter();
     }
 
     public void AddEntry(DiaryEntry model)
