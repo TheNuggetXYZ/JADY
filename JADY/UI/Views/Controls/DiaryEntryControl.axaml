@@ -7,7 +7,7 @@
              x:Class="JADY.UI.Views.Controls.DiaryEntryControl"
              x:DataType="viewModels:DiaryEntryViewModel">
     
-    <Button Classes="invisible" HorizontalAlignment="Stretch" Click="Control_OnClick">
+    <Button Classes="invisible diaryEntryButton" HorizontalAlignment="Stretch" Click="Control_OnClick">
         <Border Classes="outsetLighting highlight"
                 Background="{DynamicResource SystemChromeMediumLowColor}" 
                 CornerRadius="3">
@@ -34,12 +34,8 @@
                         <!-- Status icon -->
                         <PathIcon Height="16"
                                   Data="{Binding Status, Converter={StaticResource EntryStatusIconConverter}}"
-                                  Margin="0 0 5 0" >
-                        
-                            <ToolTip.Tip>
-                                <TextBlock Text="{Binding GetStatusDisplayName}"></TextBlock>
-                            </ToolTip.Tip>
-                        </PathIcon>
+                                  Margin="0 0 5 0"
+                                  ToolTip.Tip="{Binding GetStatusDisplayName}"/>
                     
                         <!-- Category -->
                         <TextBlock VerticalAlignment="Center" Text="{Binding Category}"/>
