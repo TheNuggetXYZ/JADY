@@ -48,6 +48,14 @@ public partial class MainWindow : Window
         {
             _searchBox.Text = string.Empty;
         }
+
+        if (e is { Key: Key.F, KeyModifiers: KeyModifiers.Control })
+        {
+            _searchBox.Focus();
+            
+            if (DataContext is MainWindowViewModel vm)
+                vm.IsEntrySearchBarVisible = true;
+        }
     }
     
     private void OnTextInput(object? sender, TextInputEventArgs e)
@@ -62,7 +70,7 @@ public partial class MainWindow : Window
             Dispatcher.UIThread.Post(() =>
             {
                 _searchBox.Focus();
-                _searchBox.Text = e.Text;
+                _searchBox.Text += e.Text;
                 _searchBox.CaretIndex = _searchBox.Text.Length;
             });
         }

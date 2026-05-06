@@ -20,7 +20,6 @@
     </Design.DataContext>
     
     <Window.KeyBindings>
-        <!-- Hotkeys for the menu -->
         <KeyBinding Gesture="Ctrl+S" Command="{Binding Menu_SaveCommand}"/>
         <KeyBinding Gesture="Ctrl+L" Command="{Binding Menu_LoadCommand}"/>
         <KeyBinding Gesture="Ctrl+Alt+S" Command="{Binding Menu_OpenSettingsWindowCommand}"/>
