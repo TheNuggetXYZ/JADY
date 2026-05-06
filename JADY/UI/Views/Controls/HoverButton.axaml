@@ -10,7 +10,22 @@
     <ControlTheme x:Key="{x:Type controls:HoverButton}" TargetType="controls:HoverButton" 
                   BasedOn="{StaticResource {x:Type Button}}">
         
-        <Style Selector="^ /template/ ContentPresenter">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border x:Name="PART_LayoutRoot"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        Padding="{TemplateBinding Padding}">
+                    
+                    <ContentPresenter x:Name="PART_MyContentPresenter" Content="{TemplateBinding Content}"></ContentPresenter>
+                    
+                </Border>
+            </ControlTemplate>
+        </Setter>
+        
+        <Style Selector="^ /template/ Border#PART_LayoutRoot">
             <Setter Property="BoxShadow" Value="1 2 2 -1 black"/>
             <Setter Property="Margin" Value="2"/> 
             <Setter Property="Transitions">
@@ -21,12 +36,12 @@
             </Setter>
         </Style>
         
-        <Style Selector="^:pointerover /template/ ContentPresenter">
+        <Style Selector="^:pointerover /template/ Border#PART_LayoutRoot">
             <Setter Property="BoxShadow" Value="2 3 2 -1 black"/>
             <Setter Property="RenderTransform" Value="translate(-1px, -1px)"/>
         </Style>
         
-        <Style Selector="^:pressed /template/ ContentPresenter">
+        <Style Selector="^:pressed /template/ Border#PART_LayoutRoot">
             <Setter Property="BoxShadow" Value="1 2 2 -1 black"/>
             <Setter Property="RenderTransform" Value="scale(0.95) translate(1px, 1px)"/>
         </Style>
