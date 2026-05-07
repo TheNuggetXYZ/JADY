@@ -1,0 +1,37 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch: # Allows manual testing from the Actions tab
+
+jobs: 
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Publish linux-x64
+        run: |
+          dotnet publish JADY/JADY.csproj \
+            -c Release \
+            -r linux-x64 \
+            --self-contained true \
+            -p:PublishSingleFile=true \
+            -o ./publish/linux-x64
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ./publish/linux-x64/JADY
+          body_path: CHANGELOG.md
+          # Only create an actual release if triggered by a tag
+          # If manual (dispatch), it marks it as a draft so it's hidden from users
+          draft: ${{ github.event_name == 'workflow_dispatch' }}
+          tag_name: ${{ github.ref_name }}
