@@ -13,9 +13,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Auto save
 - Select culture (for dates)
 - Select dark/light theme
-
-## [master]
-### Test
-- Test
-- Test
-- Test
