@@ -32,17 +32,27 @@ jobs:
             -o ./publish/linux-x64
           
       - name: Get Changelog Entry
-        id: changelog_reader
-        uses: anton-yurchenko/git-release@v6.0.0
-        with:
-          version: ${{ github.ref_name }}
-          path: ./CHANGELOG.md
+        id: changelog
+        run: |
+          # 1. Get the tag name (e.g., v1.0.4)
+          TAG="${{ github.ref_name }}"
+          # 2. Remove the 'v' prefix if CHANGELOG.md headers don't use it (e.g., [1.0.4])
+          VERSION=${TAG#v}
+          
+          # 3. Use sed to extract lines between the version header and the next header
+          # This assumes the file uses ## [1.0.4] or ## [v1.0.4]
+          sed -n "/## \[$VERSION\]/,/## \[/p" CHANGELOG.md | sed '1d;$d' > release_notes.txt
+          
+          # 4. Save to a multi-line output variable
+          echo "notes<<EOF" >> $GITHUB_OUTPUT
+          cat release_notes.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           files: ./publish/linux-x64/JADY
-          body: ${{ steps.changelog_reader.outputs.changes }}
+          body: ${{ steps.changelog.outputs.notes }}
           # Only create an actual release if triggered by a tag
           # If manual (dispatch), it marks it as a draft so it's hidden from users
           draft: ${{ github.event_name == 'workflow_dispatch' }}
