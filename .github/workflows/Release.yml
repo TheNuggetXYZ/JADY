@@ -30,12 +30,19 @@ jobs:
             -p:IncludeNativeLibrariesForSelfExtract=true \
             -p:IncludeAllContentForSelfExtract=true \
             -o ./publish/linux-x64
+          
+      - name: Get Changelog Entry
+        id: changelog_reader
+        uses: anton-yurchenko/git-release-changelog-reader@v3
+        with:
+          version: ${{ github.ref_name }}
+          path: ./CHANGELOG.md
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           files: ./publish/linux-x64/JADY
-          body_path: CHANGELOG.md
+          body: ${{ steps.changelog_reader.outputs.changes }}
           # Only create an actual release if triggered by a tag
           # If manual (dispatch), it marks it as a draft so it's hidden from users
           draft: ${{ github.event_name == 'workflow_dispatch' }}
