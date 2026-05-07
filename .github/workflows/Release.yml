@@ -33,7 +33,7 @@ jobs:
           
       - name: Get Changelog Entry
         id: changelog_reader
-        uses: anton-yurchenko/git-release-changelog-reader@v3
+        uses: anton-yurchenko/git-release@v6.0.0
         with:
           version: ${{ github.ref_name }}
           path: ./CHANGELOG.md
