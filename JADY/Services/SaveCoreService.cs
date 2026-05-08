@@ -101,6 +101,11 @@ public class SaveCoreService(ILogger<SaveCoreService> logger) : ISaveCoreService
         }
     }
 
+    public bool ExistsSave(string savePath)
+    {
+        return File.Exists(savePath);
+    }
+
     private T? DeserializeBackup<T>(string savePath) where T : new()
     {
         string backupPath = savePath + ".backup";

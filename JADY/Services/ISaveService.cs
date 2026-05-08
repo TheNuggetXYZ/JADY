@@ -15,4 +15,6 @@ public interface ISaveService : INotifyPropertyChanged
 
     void LoadSave();
     void LoadConfig();
+
+    bool ExistsConfig();
 }

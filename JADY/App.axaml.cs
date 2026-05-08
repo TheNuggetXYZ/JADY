@@ -1,8 +1,10 @@
+using System;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Metadata;
+using JADY.Core.Models;
 using JADY.Factories;
 using JADY.Services;
 using JADY.UI.Views.Windows;
@@ -42,14 +44,8 @@ public partial class App : Application
     {
         var saveService = serviceProvider.GetRequiredService<ISaveService>();
         
-        // Load config and check if welcome window needs to be shown
-        saveService.LoadConfig();
-
-        if (saveService.Config.ShowWelcomeWindow)
+        if (!saveService.ExistsConfig())
         {
-            saveService.Config.ShowWelcomeWindow = false;
-            saveService.Save(saveService.Config);
-            
             // Show welcome window
             var welcomeWindow = desktop.MainWindow = new WelcomeWindow()
             {

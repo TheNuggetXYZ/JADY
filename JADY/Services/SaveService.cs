@@ -70,6 +70,10 @@ public partial class SaveService : ObservableObject, ISaveService
             TriggerAutoSave();
         }
     }
+    public bool ExistsConfig()
+    {
+        return _saveCoreService.ExistsSave(GetConfigPath());
+    }
 
     private void OnSave()
     {

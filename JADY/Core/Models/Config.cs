@@ -7,8 +7,6 @@ namespace JADY.Core.Models;
 
 public class Config
 {
-    public bool ShowWelcomeWindow { get; set; } = true;
-    
     /// <summary>
     /// Should entries marked as hidden be displayed?
     /// </summary>

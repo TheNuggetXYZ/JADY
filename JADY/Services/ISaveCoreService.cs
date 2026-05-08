@@ -8,5 +8,8 @@ public interface ISaveCoreService
     
     void Write(string filePath, SaveData saveData);
     void Write(string savePath, Config config);
+    
     T Read<T>(string savePath) where T : new();
+
+    bool ExistsSave(string savePath);
 }
