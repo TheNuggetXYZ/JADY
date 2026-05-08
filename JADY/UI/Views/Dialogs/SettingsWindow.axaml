@@ -25,7 +25,8 @@
             <StackPanel Margin="15 0" Orientation="Vertical">
                 <CheckBox Name="ShowHidden">Show hidden entries</CheckBox>
                 
-                <CheckBox Name="DarkTheme">Dark theme</CheckBox>
+                <TextBlock Classes="greyedOut" FontSize="12" Margin="-5 5">App theme:</TextBlock>
+                <ComboBox Name="AppTheme"></ComboBox>
         
                 <TextBlock Classes="greyedOut" FontSize="12" Margin="-5 5">Culture:</TextBlock>
                 <ComboBox Name="Cultures"></ComboBox>

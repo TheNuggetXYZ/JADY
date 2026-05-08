@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
 using Avalonia.Data;
 using Avalonia.Input;
 using Avalonia.Interactivity;
+using JADY.Core.Data;
 using JADY.Core.Models;
 using JADY.Services;
 using JADY.UI.Base;
@@ -36,27 +38,26 @@ public partial class SettingsWindow : DialogWindow<Config>
 
         ShowHidden.IsChecked = _saveService.Config.ShowHiddenEntries;
         AutoSave.IsChecked = _saveService.Config.AutoSave;
-        DarkTheme.IsChecked = _saveService.Config.IsThemeDark;
         SavePath.Text = saveService.SavesDirectory;
+        AppTheme.ItemsSource = Enum.GetValues(typeof(AppTheme));
+        AppTheme.SelectedIndex = (int)_saveService.Config.AppTheme;
         Cultures.ItemsSource = AvailableCultures;
         Cultures.SelectedItem = new CultureInfo(_saveService.Config.CultureInfoName);
     }
     
     protected override Task SubmitAsync()
     {
-        UpdateApp();
         _saveService.Save(GetValue().Value);
+        UpdateApp();
         Close();
         return Task.CompletedTask;
     }
 
     private void UpdateApp()
     {
-        bool newIsDark = DarkTheme.IsChecked ?? false;
-        if (_saveService.Config.IsThemeDark != newIsDark)
-        {
-            _appVisualService.SetTheme(newIsDark);
-        }
+        Console.WriteLine($"App theme: {_saveService.Config.AppTheme}");
+        Console.WriteLine($"Is theme dark: {_saveService.Config.IsThemeDark}");
+        _appVisualService.SetTheme(_saveService.Config.IsThemeDark);
     }
 
     protected override Optional<Config> GetValue()
@@ -65,7 +66,7 @@ public partial class SettingsWindow : DialogWindow<Config>
         {
             ShowHiddenEntries = ShowHidden.IsChecked ?? false,
             AutoSave = AutoSave.IsChecked ?? false,
-            IsThemeDark = DarkTheme.IsChecked ?? false,
+            AppTheme = (AppTheme)AppTheme.SelectedIndex,
             CultureInfoName = AvailableCultures[Cultures.SelectedIndex].Name,
         };
     }

@@ -1,5 +1,7 @@
+using System;
 using System.Globalization;
 using System.Text.Json.Serialization;
+using JADY.Core.Data;
 
 namespace JADY.Core.Models;
 
@@ -20,30 +22,44 @@ public class Config
     
     [JsonIgnore]
     public bool CurrentShowHiddenEntries { get; set; }
-    
+
     /// <summary>
-    /// Should the apps theme be set to dark?
+    /// The visual theme of the app
     /// </summary>
-    public bool IsThemeDark { get; init; }
+    public AppTheme AppTheme
+    {
+        get; 
+        init
+        {
+            field = value;
+            IsThemeDark = AppTheme == AppTheme.Dark;
+        }
+    }
     
     /// <summary>
     /// Should the app automatically save?
     /// </summary>
     public bool AutoSave { get; init; }
 
-    public string CultureInfoName {get; init;} = "en-US";
+    public string CultureInfoName
+    {
+        get;
+        init
+        {
+            field = value;
+            CultureInfo = CultureInfo.GetCultureInfo(CultureInfoName);
+        }
+    } = "en-US";
+    
+    [JsonIgnore]
+    public bool IsThemeDark {get; set;}
     
     [JsonIgnore]
     public CultureInfo CultureInfo { get; set; }
 
-    public Config()
-    {
-        CultureInfo = CultureInfo.GetCultureInfo(CultureInfoName);
-        CurrentShowHiddenEntries = ShowHiddenEntries;
-    }
-
     public void Load()
     {
+        IsThemeDark = AppTheme == AppTheme.Dark;
         CultureInfo = CultureInfo.GetCultureInfo(CultureInfoName);
         CurrentShowHiddenEntries = ShowHiddenEntries;
     }
