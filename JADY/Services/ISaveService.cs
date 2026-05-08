@@ -13,5 +13,6 @@ public interface ISaveService : INotifyPropertyChanged
     void Save(Diary[] diaries);
     void Save(Config config);
 
-    void Load();
+    void LoadSave();
+    void LoadConfig();
 }

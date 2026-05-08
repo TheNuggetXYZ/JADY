@@ -175,7 +175,8 @@ public partial class MainWindowViewModel : SaveDependentViewModel
 
     private void Load()
     {
-        SaveService.Load();
+        SaveService.LoadSave();
+        SaveService.LoadConfig();
 
         Diaries = new ObservableCollection<DiaryViewModel>(
             SaveService.SaveData.Diaries.Select(model => _diaryViewModelFactory.Create(model, this)));

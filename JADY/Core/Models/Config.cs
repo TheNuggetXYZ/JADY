@@ -7,6 +7,8 @@ namespace JADY.Core.Models;
 
 public class Config
 {
+    public bool ShowWelcomeWindow { get; set; } = true;
+    
     /// <summary>
     /// Should entries marked as hidden be displayed?
     /// </summary>
@@ -56,11 +58,4 @@ public class Config
     
     [JsonIgnore]
     public CultureInfo CultureInfo { get; set; }
-
-    public void Load()
-    {
-        IsThemeDark = AppTheme == AppTheme.Dark;
-        CultureInfo = CultureInfo.GetCultureInfo(CultureInfoName);
-        CurrentShowHiddenEntries = ShowHiddenEntries;
-    }
 }

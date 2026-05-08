@@ -58,6 +58,8 @@ public partial class SaveService : ObservableObject, ISaveService
     {
         Config = config;
         Config.CultureInfo = new CultureInfo(config.CultureInfoName);
+        
+        OnChangeConfig();
 
         _saveCoreService.Write(GetConfigPath(), Config);
 
@@ -75,15 +77,24 @@ public partial class SaveService : ObservableObject, ISaveService
         WeakReferenceMessenger.Default.Send(new Messages.JadySaveChanged());
     }
 
-    public void Load()
+    public void LoadConfig()
+    {
+        Config = _saveCoreService.Read<Config>(GetConfigPath());
+        
+        OnChangeConfig();
+    }
+
+    private void OnChangeConfig()
+    {
+        _appVisualService.SetTheme(Config.IsThemeDark);
+    }
+
+    public void LoadSave()
     {
         SaveData = _saveCoreService.Read<SaveData>(GetSavePath());
-        Config = _saveCoreService.Read<Config>(GetConfigPath());
 
         UnsavedChanges = false;
-
-        _appVisualService.SetTheme(Config.IsThemeDark);
-
+        
         WeakReferenceMessenger.Default.Send(new Messages.JadySaveChanged());
     }
 

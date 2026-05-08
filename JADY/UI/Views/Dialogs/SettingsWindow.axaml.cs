@@ -48,16 +48,8 @@ public partial class SettingsWindow : DialogWindow<Config>
     protected override Task SubmitAsync()
     {
         _saveService.Save(GetValue().Value);
-        UpdateApp();
         Close();
         return Task.CompletedTask;
-    }
-
-    private void UpdateApp()
-    {
-        Console.WriteLine($"App theme: {_saveService.Config.AppTheme}");
-        Console.WriteLine($"Is theme dark: {_saveService.Config.IsThemeDark}");
-        _appVisualService.SetTheme(_saveService.Config.IsThemeDark);
     }
 
     protected override Optional<Config> GetValue()
