@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
 using Avalonia.Data;
@@ -18,15 +17,6 @@ public partial class SettingsWindow : DialogWindow<Config>
     private readonly IAppVisualService _appVisualService;
     private readonly ISaveService _saveService;
     private readonly ILogger<SettingsWindow> _logger;
-
-    private List<CultureInfo> AvailableCultures { get; } = new()
-    {
-        new CultureInfo("cs-CZ"),
-        new CultureInfo("en-US"),
-        new CultureInfo("en-GB"),
-        new CultureInfo("de-DE"),
-        new CultureInfo("fr-FR"),
-    };
     
     public SettingsWindow(IAppVisualService appVisualService, ISaveService saveService, ILogger<SettingsWindow> logger)
     {
@@ -41,7 +31,7 @@ public partial class SettingsWindow : DialogWindow<Config>
         SavePath.Text = saveService.SavesDirectory;
         AppTheme.ItemsSource = Enum.GetValues(typeof(AppTheme));
         AppTheme.SelectedIndex = (int)_saveService.Config.AppTheme;
-        Cultures.ItemsSource = AvailableCultures;
+        Cultures.ItemsSource = AppCultures.AvailableCultures;
         Cultures.SelectedItem = new CultureInfo(_saveService.Config.CultureInfoName);
     }
     
@@ -59,7 +49,7 @@ public partial class SettingsWindow : DialogWindow<Config>
             ShowHiddenEntries = ShowHidden.IsChecked ?? false,
             AutoSave = AutoSave.IsChecked ?? false,
             AppTheme = (AppTheme)AppTheme.SelectedIndex,
-            CultureInfoName = AvailableCultures[Cultures.SelectedIndex].Name,
+            CultureInfoName = AppCultures.AvailableCultures[Cultures.SelectedIndex].Name,
         };
     }
 
