@@ -7,6 +7,24 @@ namespace JADY.Core.Models;
 
 public class Config
 {
+    public Config()
+    {
+        ShowHiddenEntries = false;
+        AppTheme = AppTheme.System;
+        AutoSave = false;
+        CultureInfoName = "en-US";
+    }
+    
+    /// <summary>
+    /// The visual theme of the app
+    /// </summary>
+    public AppTheme AppTheme { get; set; }
+
+    /// <summary>
+    /// Should the app automatically save?
+    /// </summary>
+    public bool AutoSave { get; init; }
+
     /// <summary>
     /// Should entries marked as hidden be displayed?
     /// </summary>
@@ -23,18 +41,6 @@ public class Config
     [JsonIgnore]
     public bool CurrentShowHiddenEntries { get; set; }
 
-    /// <summary>
-    /// The visual theme of the app
-    /// </summary>
-    public AppTheme AppTheme
-    {
-        get; 
-        init
-        {
-            field = value;
-            IsThemeDark = AppTheme == AppTheme.Dark;
-        }
-    }
     
     /// <summary>
     /// Should the app automatically save?
@@ -51,8 +57,6 @@ public class Config
         }
     } = "en-US";
     
-    [JsonIgnore]
-    public bool IsThemeDark {get; set;}
     
     [JsonIgnore]
     public CultureInfo CultureInfo { get; set; }

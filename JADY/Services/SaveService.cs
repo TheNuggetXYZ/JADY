@@ -90,7 +90,7 @@ public partial class SaveService : ObservableObject, ISaveService
 
     private void OnChangeConfig()
     {
-        _appVisualService.SetTheme(Config.IsThemeDark);
+        _appVisualService.SetTheme(Config.AppTheme);
     }
 
     public void LoadSave()

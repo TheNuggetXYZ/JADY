@@ -2,6 +2,7 @@ namespace JADY.Core.Data;
 
 public enum AppTheme
 {
-    Dark = 0,
-    Light = 1,
+    System = 0,
+    Dark = 1,
+    Light = 2,
 }
