@@ -8,14 +8,12 @@ public class Config
     /// <summary>
     /// Should entries marked as hidden be displayed?
     /// </summary>
-    private readonly bool _showHiddenEntries;
-
     public bool ShowHiddenEntries
     {
-        get => _showHiddenEntries;
+        get;
         init
         {
-            _showHiddenEntries = value;
+            field = value;
             CurrentShowHiddenEntries = value;
         }
     }
