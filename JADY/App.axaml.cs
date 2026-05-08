@@ -47,7 +47,7 @@ public partial class App : Application
         if (!saveService.ExistsConfig())
         {
             // Show welcome window
-            var welcomeWindow = desktop.MainWindow = new WelcomeWindow()
+            var welcomeWindow = desktop.MainWindow = new WelcomeWindow(saveService)
             {
                 DataContext = serviceProvider.GetRequiredService<WelcomeWindowViewModel>(),
             };

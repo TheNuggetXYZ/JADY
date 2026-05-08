@@ -10,8 +10,23 @@
         Icon="/Assets/Icons/JADY_32x.png"
         SizeToContent="WidthAndHeight">
     
-    <StackPanel Orientation="Vertical" Spacing="10" Margin="20">
-        <HoverButton Click="ContinueButton_OnClick">Continue</HoverButton>
-    </StackPanel>
+    <Grid RowDefinitions="*, Auto" RowSpacing="25">
+        <StackPanel Grid.Row="0" Orientation="Vertical" Spacing="25" Margin="15">
+            
+            <TextBlock Classes="greyedOut" FontSize="18" Margin="0 0 0 -20">Let's set you up:</TextBlock>
+            <StackPanel Margin="15 0" Orientation="Vertical">
+                <TextBlock Classes="greyedOut" FontSize="12" Margin="-5 5">App theme:</TextBlock>
+                <ComboBox Name="AppTheme"></ComboBox>
+        
+                <TextBlock Classes="greyedOut" FontSize="12" Margin="-5 5">Culture:</TextBlock>
+                <ComboBox Name="Cultures"></ComboBox>
+            </StackPanel>
+            
+        </StackPanel>
+        
+        <Border Grid.Row="1" Background="{DynamicResource SystemChromeMediumColor}">
+            <HoverButton Click="ContinueButton_OnClick" HorizontalAlignment="Center" Margin="10">Continue</HoverButton>
+        </Border>
+    </Grid>
     
 </Window>

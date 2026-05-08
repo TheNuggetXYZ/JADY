@@ -37,27 +37,17 @@ public class Config
             CurrentShowHiddenEntries = value;
         }
     }
-    
-    [JsonIgnore]
-    public bool CurrentShowHiddenEntries { get; set; }
-
-    
-    /// <summary>
-    /// Should the app automatically save?
-    /// </summary>
-    public bool AutoSave { get; init; }
 
     public string CultureInfoName
     {
         get;
-        init
+        set
         {
             field = value;
-            CultureInfo = CultureInfo.GetCultureInfo(CultureInfoName);
+            CultureInfo = CultureInfo.GetCultureInfo(value);
         }
-    } = "en-US";
+    }
     
-    
-    [JsonIgnore]
-    public CultureInfo CultureInfo { get; set; }
+    [JsonIgnore] public CultureInfo CultureInfo { get; private set; }
+    [JsonIgnore] public bool CurrentShowHiddenEntries { get; set; }
 }

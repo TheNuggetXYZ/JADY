@@ -34,15 +34,6 @@ public partial class SaveService : ObservableObject, ISaveService
         });
     }
 
-    private void TriggerAutoSave()
-    {
-        if (!UnsavedChanges) return;
-
-        WeakReferenceMessenger.Default.Send(new Messages.PerformSave());
-
-        UnsavedChanges = false;
-    }
-
     public void Save(Diary[] diaries)
     {
         SaveData.Diaries = diaries;
@@ -57,7 +48,6 @@ public partial class SaveService : ObservableObject, ISaveService
     public void Save(Config config)
     {
         Config = config;
-        Config.CultureInfo = new CultureInfo(config.CultureInfoName);
         
         OnChangeConfig();
 
@@ -70,6 +60,23 @@ public partial class SaveService : ObservableObject, ISaveService
             TriggerAutoSave();
         }
     }
+
+    public void LoadConfig()
+    {
+        Config = _saveCoreService.Read<Config>(GetConfigPath());
+        
+        OnChangeConfig();
+    }
+
+    public void LoadSave()
+    {
+        SaveData = _saveCoreService.Read<SaveData>(GetSavePath());
+
+        UnsavedChanges = false;
+        
+        WeakReferenceMessenger.Default.Send(new Messages.JadySaveChanged());
+    }
+
     public bool ExistsConfig()
     {
         return _saveCoreService.ExistsSave(GetConfigPath());
@@ -81,25 +88,18 @@ public partial class SaveService : ObservableObject, ISaveService
         WeakReferenceMessenger.Default.Send(new Messages.JadySaveChanged());
     }
 
-    public void LoadConfig()
-    {
-        Config = _saveCoreService.Read<Config>(GetConfigPath());
-        
-        OnChangeConfig();
-    }
-
     private void OnChangeConfig()
     {
         _appVisualService.SetTheme(Config.AppTheme);
     }
 
-    public void LoadSave()
+    private void TriggerAutoSave()
     {
-        SaveData = _saveCoreService.Read<SaveData>(GetSavePath());
+        if (!UnsavedChanges) return;
+
+        WeakReferenceMessenger.Default.Send(new Messages.PerformSave());
 
         UnsavedChanges = false;
-        
-        WeakReferenceMessenger.Default.Send(new Messages.JadySaveChanged());
     }
 
     private string GetSavePath()
