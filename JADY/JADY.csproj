@@ -19,10 +19,10 @@
         <PackageReference Include="Avalonia.Fonts.Inter" Version="12.0.1" />
         <PackageReference Include="AvaloniaUI.DiagnosticsSupport" Version="2.2.1" />
         <PackageReference Include="brokiem.Egolds.Avalonia.Xaml.Interactions.Animated" Version="11.2.1" />
-        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1"/>
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="11.0.0-preview.3.26207.106" />
-        <PackageReference Include="Microsoft.Extensions.Logging" Version="11.0.0-preview.3.26207.106" />
-        <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="11.0.0-preview.3.26207.106" />
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.7" />
+        <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.7" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="10.0.7" />
     </ItemGroup>
 
     <ItemGroup>
