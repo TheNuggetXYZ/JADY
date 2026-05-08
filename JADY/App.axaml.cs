@@ -32,13 +32,34 @@ public partial class App : Application
         
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
+            SetupMainWindow(serviceProvider, desktop);
+        }
+
+        base.OnFrameworkInitializationCompleted();
+    }
+
+    private static void SetupMainWindow(ServiceProvider serviceProvider, IClassicDesktopStyleApplicationLifetime desktop)
+    {
+        var saveService = serviceProvider.GetRequiredService<ISaveService>();
+        
+        // Load config and check if welcome window needs to be shown
+        saveService.LoadConfig();
+
+        if (saveService.Config.ShowWelcomeWindow)
+        {
+            saveService.Config.ShowWelcomeWindow = false;
+            saveService.Save(saveService.Config);
+            
+            // Show welcome window
             var welcomeWindow = desktop.MainWindow = new WelcomeWindow()
             {
                 DataContext = serviceProvider.GetRequiredService<WelcomeWindowViewModel>(),
             };
 
+            // Make sure app doesnt shutdown
             desktop.ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
+            // Show main window once welcome window is closed
             welcomeWindow.Closing += (_, _) =>
             {
                 desktop.ShutdownMode = ShutdownMode.OnMainWindowClose;
@@ -51,8 +72,14 @@ public partial class App : Application
                 mainWindow.Show();
             };
         }
-
-        base.OnFrameworkInitializationCompleted();
+        else
+        {
+            // Skip welcome window
+            desktop.MainWindow = new MainWindow
+            {
+                DataContext = serviceProvider.GetRequiredService<MainWindowViewModel>(),
+            };
+        }
     }
 
     private void ConfigureServices(out ServiceProvider serviceProvider)
