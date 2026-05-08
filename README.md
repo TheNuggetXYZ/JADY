@@ -14,6 +14,8 @@ Your diary and journal *backwards*
 ## Plans
 - Windows support
 - Welcome screen to guide new users
+- Password and save encryption
+- Timeline view of entries
 
 ## License
 [GNU General Public License v3.0](LICENSE)
