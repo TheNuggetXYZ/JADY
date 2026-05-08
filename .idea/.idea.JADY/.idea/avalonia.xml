@@ -24,6 +24,7 @@
         <entry key="JADY/UI/Views/Dialogs/YesNoDialogWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Windows/MainWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Windows/MessageWindow.axaml" value="JADY/JADY.csproj" />
+        <entry key="JADY/UI/Views/Windows/WelcomeWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/Views/AddDiaryWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/Views/AddEntryWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/Views/Controls/AppHeaderLeftPanel.axaml" value="JADY/JADY.csproj" />

@@ -1,9 +1,12 @@
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Metadata;
 using JADY.Factories;
 using JADY.Services;
+using JADY.UI.Views.Windows;
+using JADY.UI.Views.Dialogs;
 using JADY.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -29,9 +32,23 @@ public partial class App : Application
         
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            desktop.MainWindow = new UI.Views.Windows.MainWindow
+            var welcomeWindow = desktop.MainWindow = new WelcomeWindow()
             {
-                DataContext = serviceProvider.GetRequiredService<MainWindowViewModel>(),
+                DataContext = serviceProvider.GetRequiredService<WelcomeWindowViewModel>(),
+            };
+
+            desktop.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+
+            welcomeWindow.Closing += (_, _) =>
+            {
+                desktop.ShutdownMode = ShutdownMode.OnMainWindowClose;
+                
+                var mainWindow = desktop.MainWindow = new MainWindow
+                {
+                    DataContext = serviceProvider.GetRequiredService<MainWindowViewModel>(),
+                };
+                
+                mainWindow.Show();
             };
         }
 
@@ -60,13 +77,16 @@ public partial class App : Application
         
         // View Models
         collection.AddSingleton<MainWindowViewModel>();
-        collection.AddTransient<UI.Views.Dialogs.SettingsWindow>();
-        collection.AddTransient<UI.Views.Dialogs.AddEntryWindow>();
-        collection.AddTransient<UI.Views.Dialogs.AddDiaryWindow>();
-        collection.AddTransient<UI.Views.Dialogs.EditDiaryWindow>();
-        collection.AddTransient<UI.Views.Dialogs.EditEntryWindow>();
-        collection.AddTransient<UI.Views.Dialogs.EndEntryWindow>();
-        collection.AddTransient<UI.Views.Dialogs.UnsavedChangesWindow>();
+        collection.AddTransient<WelcomeWindowViewModel>();
+        
+        // Views
+        collection.AddTransient<SettingsWindow>();
+        collection.AddTransient<AddEntryWindow>();
+        collection.AddTransient<AddDiaryWindow>();
+        collection.AddTransient<EditDiaryWindow>();
+        collection.AddTransient<EditEntryWindow>();
+        collection.AddTransient<EndEntryWindow>();
+        collection.AddTransient<UnsavedChangesWindow>();
 
         serviceProvider = collection.BuildServiceProvider();
     }
