@@ -6,9 +6,9 @@ public interface IEncryptionService
 {
     void StorePassword(string password, byte[] salt);
     
-    byte[] Encrypt(string data);
+    EncryptedData Encrypt(string data);
     
-    string Decrypt(byte[] data);
+    string Decrypt(EncryptedData encryptedData);
     
     byte[] GenerateSalt();
 }

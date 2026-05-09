@@ -1,6 +1,8 @@
 using System;
+using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using JADY.Core.Models;
 
 namespace JADY.Services;
 
@@ -11,6 +13,8 @@ public class EncryptionService : IEncryptionService
     private const int KeyGenIterations = 200_000;
     private const int KeySize = 32;
     private const int SaltSize = 16;
+    private const int TagSize = 16;
+    private const int NonceSize = 12;
     
     /// <summary>
     /// Call this when user enters a password
@@ -27,18 +31,35 @@ public class EncryptionService : IEncryptionService
 
     /// <summary>Encrypts a string.</summary>
     /// <returns>encrypted data in the format of a byte array</returns>
-    public byte[] Encrypt(string data)
+    public EncryptedData Encrypt(string data)
     {
         if (_key.Length == 0)
             throw new InvalidOperationException("No key loaded.");
         
-        // encrypt data with stored key
-        throw new System.NotImplementedException();
+        byte[] nonce = RandomNumberGenerator.GetBytes(NonceSize);
+
+        byte[] plainBytes = Encoding.UTF8.GetBytes(data);
+
+        byte[] cipherBytes = new byte[plainBytes.Length];
+        
+        byte[] tag = new byte[TagSize];
+        
+        using var aes = new AesGcm(_key, TagSize);
+        
+        // Writes to cipherBytes and tag
+        aes.Encrypt(nonce, plainBytes, cipherBytes, tag);
+
+        return new EncryptedData()
+        {
+            Data = cipherBytes,
+            Nonce = nonce,
+            Tag = tag,
+        };
     }
     
     /// <summary>Decrypts a byte array.</summary>
     /// <returns>decrypted data in the formate of a string.</returns>
-    public string Decrypt(byte[] data)
+    public string Decrypt(EncryptedData encryptedData)
     {
         if (_key.Length == 0)
             throw new InvalidOperationException("No key loaded.");
