@@ -64,8 +64,14 @@ public class EncryptionService : IEncryptionService
         if (_key.Length == 0)
             throw new InvalidOperationException("No key loaded.");
         
-        // decrypt data with stored key
-        throw new System.NotImplementedException();
+        byte[] plainBytes = new byte[encryptedData.Data.Length];
+        
+        using var aes = new AesGcm(_key, TagSize);
+        
+        // Writes to plainBytes
+        aes.Decrypt(encryptedData.Nonce, encryptedData.Data, encryptedData.Tag, plainBytes);
+        
+        return Encoding.UTF8.GetString(plainBytes);
     }
 
     public byte[] GenerateSalt() => RandomNumberGenerator.GetBytes(SaltSize);
