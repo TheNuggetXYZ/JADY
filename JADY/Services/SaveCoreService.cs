@@ -30,14 +30,6 @@ public class SaveCoreService(ILogger<SaveCoreService> logger, IEncryptionService
         WriteJson(path, encryptionService.Encrypt(jsonString), true);
     }
 
-    private void WriteJson<T>(string path, T obj, bool writeIndented)
-    {
-        using FileStream fs = File.Create(path);
-        
-        JsonSerializer.Serialize(fs, obj, new JsonSerializerOptions { WriteIndented = writeIndented });
-        logger.LogInformation("Saved to: " + path);
-    }
-
     public Config ReadConfig(string path)
     {
         if (!File.Exists(path))
@@ -76,33 +68,18 @@ public class SaveCoreService(ILogger<SaveCoreService> logger, IEncryptionService
             return ReadBackup(path);
         }
     }
-
-    private T ReadExistingFile<T>(string path) where T : new()
-    {
-        using FileStream fs = File.OpenRead(path);
-        var file = JsonSerializer.Deserialize<T>(fs);
-        
-        return file ?? CreateEmpty<T>("Reading file returned null");
-    }
-
-    private SaveData ReadBackup(string path)
+    
+    
+    
+    private void CreateBackupFrom(string path)
     {
         string backupPath = path + ".backup";
         
-        if (!File.Exists(backupPath)) 
-            return CreateEmpty<SaveData>("Backup file not found");
+        if (File.Exists(backupPath))
+            File.Delete(backupPath);
         
-        logger.LogInformation("Restoring backup...");
-        
-        File.Move(backupPath, path);
-        
-        using var fs = File.OpenRead(path);
-        var backup = JsonSerializer.Deserialize<SaveData>(fs);
-        
-        if (backup is not null)
-            return backup;
-        
-        return CreateEmpty<SaveData>("Reading backup file returned null");
+        logger.LogInformation($"Creating backup file from {path}");
+        File.Move(path, backupPath);
     }
 
     private void CreateCorruptedFrom(string path, string corruptedPath)
@@ -118,20 +95,41 @@ public class SaveCoreService(ILogger<SaveCoreService> logger, IEncryptionService
         }
     }
 
+    private SaveData ReadBackup(string path)
+    {
+        string backupPath = path + ".backup";
+        
+        if (!File.Exists(backupPath)) 
+            return CreateEmpty<SaveData>("Backup file not found");
+        
+        logger.LogInformation("Restoring backup...");
+        
+        File.Move(backupPath, path);
+        
+        return ReadExistingFile<SaveData>(path);
+    }
+    
+    
+    
+    private void WriteJson<T>(string path, T obj, bool writeIndented)
+    {
+        using FileStream fs = File.Create(path);
+        
+        JsonSerializer.Serialize(fs, obj, new JsonSerializerOptions { WriteIndented = writeIndented });
+        logger.LogInformation("Saved to: " + path);
+    }
+
+    private T ReadExistingFile<T>(string path) where T : new()
+    {
+        using FileStream fs = File.OpenRead(path);
+        var data = JsonSerializer.Deserialize<T>(fs);
+        
+        return data ?? CreateEmpty<T>("Reading file returned null");
+    }
+
     private T CreateEmpty<T>(string reason) where T : new()
     {
         logger.LogInformation($"{reason} -> Creating empty {nameof(T)}");
         return new T();
-    }
-
-    private void CreateBackupFrom(string path)
-    {
-        string backupPath = path + ".backup";
-        
-        if (File.Exists(backupPath))
-            File.Delete(backupPath);
-        
-        logger.LogInformation($"Creating backup file from {path}");
-        File.Move(path, backupPath);
     }
 }
