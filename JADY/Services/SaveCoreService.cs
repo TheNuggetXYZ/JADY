@@ -6,30 +6,33 @@ using Microsoft.Extensions.Logging;
 
 namespace JADY.Services;
 
-public class SaveCoreService(ILogger<SaveCoreService> logger) : ISaveCoreService
+public class SaveCoreService(ILogger<SaveCoreService> logger, IEncryptionService encryptionService) : ISaveCoreService
 {
     public string SavesDirectory { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "JADY");
 
-    public void Write(string savePath, SaveData saveData)
+    public void Write(string path, SaveData saveData)
     {
-        if (File.Exists(savePath))
+        if (File.Exists(path))
         {
             logger.LogInformation("Save file already exists, creating backup");
-            MoveOldSaveToBackup(savePath);
+            MoveOldSaveToBackup(path);
         }
-
-        using FileStream fs = File.Create(savePath);
         
-        JsonSerializer.Serialize(fs, saveData, new JsonSerializerOptions { WriteIndented = true });
-        logger.LogInformation("Saved to: " + savePath);
+        string jsonString = JsonSerializer.Serialize(saveData);
+
+        using FileStream fs = File.Create(path);
+        
+        JsonSerializer.Serialize(fs, encryptionService.Encrypt(jsonString), new JsonSerializerOptions{ WriteIndented = true });
+        
+        logger.LogInformation("Saved to: " + path);
     }
     
-    public void Write(string savePath, Config config)
+    public void Write(string path, Config config)
     {
-        using FileStream fs = File.Create(savePath);
+        using FileStream fs = File.Create(path);
         
         JsonSerializer.Serialize(fs, config, new JsonSerializerOptions { WriteIndented = true });
-        logger.LogInformation("Saved to: " + savePath);
+        logger.LogInformation("Saved to: " + path);
     }
 
     private void MoveOldSaveToBackup(string savePath)
