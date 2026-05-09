@@ -26,12 +26,6 @@ public class SaveCoreService(ILogger<SaveCoreService> logger) : ISaveCoreService
     
     public void Write(string savePath, Config config)
     {
-        if (File.Exists(savePath))
-        {
-            logger.LogInformation("Config file already exists, creating backup");
-            MoveOldSaveToBackup(savePath);
-        }
-
         using FileStream fs = File.Create(savePath);
         
         JsonSerializer.Serialize(fs, config, new JsonSerializerOptions { WriteIndented = true });
