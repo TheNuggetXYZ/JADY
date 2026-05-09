@@ -74,8 +74,10 @@ public class EncryptionService : IEncryptionService
     
     /// <summary>Decrypts a byte array if it is encrypted.</summary>
     /// <returns>decrypted data in the format of a string.</returns>
-    public string Decrypt(EncryptedData encryptedData)
+    public string Decrypt(EncryptedData encryptedData, out bool correctPassword)
     {
+        correctPassword = true;
+        
         if (!encryptedData.Encrypted)
         {
             return Encoding.UTF8.GetString(encryptedData.Data);
@@ -88,8 +90,16 @@ public class EncryptionService : IEncryptionService
         
         using var aes = new AesGcm(_key, TagSize);
         
-        // Writes to plainBytes
-        aes.Decrypt(encryptedData.Nonce, encryptedData.Data, encryptedData.Tag, plainBytes); // TODO: Implement check for if the decryption succeeded -> password was correct/wrong
+        try
+        {
+            // Writes to plainBytes
+            aes.Decrypt(encryptedData.Nonce, encryptedData.Data, encryptedData.Tag, plainBytes);
+        }
+        catch (AuthenticationTagMismatchException e)
+        {
+            correctPassword = false;
+            return string.Empty;
+        }
         
         return Encoding.UTF8.GetString(plainBytes);
     }

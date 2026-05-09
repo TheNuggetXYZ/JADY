@@ -8,7 +8,7 @@ public interface IEncryptionService
     
     EncryptedData Encrypt(string data);
     
-    string Decrypt(EncryptedData encryptedData);
+    string Decrypt(EncryptedData encryptedData, out bool correctPassword);
     
     byte[] GenerateSalt();
 }
