@@ -2,10 +2,11 @@ using System;
 using System.Security.Cryptography;
 using System.Text;
 using JADY.Core.Models;
+using Microsoft.Extensions.Logging;
 
 namespace JADY.Services;
 
-public class EncryptionService : IEncryptionService
+public class EncryptionService(ILogger<EncryptionService> logger) : IEncryptionService
 {
     private byte[] _key = [];
 
@@ -16,12 +17,14 @@ public class EncryptionService : IEncryptionService
     private const int SaltSize = 16;
     private const int TagSize = 16;
     private const int NonceSize = 12;
-    
+
     /// <summary>
     /// Call this when user enters a password
     /// </summary>
     public void StorePassword(string password, byte[] salt)
     {
+        logger.LogInformation("Storing password...");
+        
         _key = Rfc2898DeriveBytes.Pbkdf2(
             Encoding.UTF8.GetBytes(password), 
             salt, 
@@ -36,8 +39,12 @@ public class EncryptionService : IEncryptionService
     /// <returns>encrypted data in the format of a byte array if a password was entered, otherwise returns unencrypted byte array</returns>
     public EncryptedData Encrypt(string data)
     {
+        logger.LogInformation("Encrypting data...");
+        
         if (!_hasPassword)
         {
+            logger.LogInformation("No password found, skipping encryption");
+            
             return new EncryptedData()
             {
                 Encrypted = false,
@@ -48,7 +55,7 @@ public class EncryptionService : IEncryptionService
         }
         
         if (_key.Length == 0)
-            throw new InvalidOperationException("No key loaded.");
+            throw new InvalidOperationException("No key loaded");
         
         byte[] nonce = RandomNumberGenerator.GetBytes(NonceSize);
 
@@ -78,13 +85,17 @@ public class EncryptionService : IEncryptionService
     {
         correctPassword = true;
         
+        logger.LogInformation("Decrypting data...");
+        
         if (!encryptedData.Encrypted)
         {
+            logger.LogInformation("Data is not encrypted, skipping decryption");
+            
             return Encoding.UTF8.GetString(encryptedData.Data);
         }
         
         if (_key.Length == 0)
-            throw new InvalidOperationException("No key loaded.");
+            throw new InvalidOperationException("No key loaded");
         
         byte[] plainBytes = new byte[encryptedData.Data.Length];
         
@@ -97,6 +108,8 @@ public class EncryptionService : IEncryptionService
         }
         catch (AuthenticationTagMismatchException e)
         {
+            logger.LogWarning("Incorrect password");
+            
             correctPassword = false;
             return string.Empty;
         }
