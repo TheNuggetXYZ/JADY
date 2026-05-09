@@ -52,12 +52,12 @@ public class SaveCoreService(ILogger<SaveCoreService> logger, IEncryptionService
         {
             logger.LogWarning("Save file not found");
             
-            return ReadBackup(path);
+            return RestoreBackup(path);
         }
         
         try
         {
-            return ReadExistingFile<SaveData>(path);
+            return ReadExistingSaveFile(path);
         }
         catch (JsonException e)
         {
@@ -65,7 +65,7 @@ public class SaveCoreService(ILogger<SaveCoreService> logger, IEncryptionService
                 
             CreateCorruptedFrom(path, path + ".corrupted");
 
-            return ReadBackup(path);
+            return RestoreBackup(path);
         }
     }
     
@@ -95,18 +95,29 @@ public class SaveCoreService(ILogger<SaveCoreService> logger, IEncryptionService
         }
     }
 
-    private SaveData ReadBackup(string path)
+    private SaveData RestoreBackup(string path)
     {
         string backupPath = path + ".backup";
+        
+        logger.LogInformation("Restoring backup...");
         
         if (!File.Exists(backupPath)) 
             return CreateEmpty<SaveData>("Backup file not found");
         
-        logger.LogInformation("Restoring backup...");
-        
         File.Move(backupPath, path);
         
-        return ReadExistingFile<SaveData>(path);
+        return ReadExistingSaveFile(path);
+    }
+    
+    private SaveData ReadExistingSaveFile(string path)
+    {
+        using FileStream fs = File.OpenRead(path);
+        var data = JsonSerializer.Deserialize<EncryptedData>(fs);
+
+        if (data != null)
+            return JsonSerializer.Deserialize<SaveData>(encryptionService.Decrypt(data, out _))!;
+        
+        return CreateEmpty<SaveData>("Reading file returned null");
     }
     
     
