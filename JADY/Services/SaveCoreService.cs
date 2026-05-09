@@ -57,7 +57,7 @@ public class SaveCoreService(ILogger<SaveCoreService> logger, IEncryptionService
         
         try
         {
-            return ReadExistingSaveFile(path);
+            return ReadExistingSaveFile(path, true);
         }
         catch (JsonException e)
         {
@@ -109,13 +109,25 @@ public class SaveCoreService(ILogger<SaveCoreService> logger, IEncryptionService
         return ReadExistingSaveFile(path);
     }
     
-    private SaveData ReadExistingSaveFile(string path)
+    private SaveData ReadExistingSaveFile(string path, bool throwException = false)
     {
-        using FileStream fs = File.OpenRead(path);
-        var data = JsonSerializer.Deserialize<EncryptedData>(fs);
-
-        if (data != null)
-            return JsonSerializer.Deserialize<SaveData>(encryptionService.Decrypt(data, out _))!;
+        try
+        {
+            using FileStream fs = File.OpenRead(path);
+            var data = JsonSerializer.Deserialize<EncryptedData>(fs);
+            
+            if (data != null)
+                return JsonSerializer.Deserialize<SaveData>(encryptionService.Decrypt(data, out _))!;
+        }
+        catch (JsonException e)
+        {
+            logger.LogTrace(e, "Error deserializing save file");
+            
+            if (throwException)
+                throw;
+                
+            return CreateEmpty<SaveData>("Error deserializing save file");
+        }
         
         return CreateEmpty<SaveData>("Reading file returned null");
     }
