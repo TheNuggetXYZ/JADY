@@ -1,3 +1,15 @@
+<a href="https://avaloniaui.net/">
+  <img src="https://img.shields.io/badge/Avalonia-blue?logo=avaloniaui" alt="Avalonia">
+</a>
+
+<a href="https://en.wikipedia.org/wiki/Linux">
+  <img src="https://img.shields.io/badge/Linux-black?logo=linux" alt="Linux">
+</a>
+
+<a href="https://github.com/TheNuggetXYZ/JADY/blob/master/LICENSE">
+  <img src="https://img.shields.io/badge/License-GPL_v3-blue" alt="License GPL v3">
+</a>
+
 # JADY 💎
 Your diary and journal *backwards*
 
