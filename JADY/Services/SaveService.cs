@@ -4,11 +4,13 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 using JADY.Core;
 using JADY.Core.Models;
+using Microsoft.Extensions.Logging;
 
 namespace JADY.Services;
 
 public partial class SaveService : ObservableObject, ISaveService
 {
+    private readonly ILogger<SaveService> _logger;
     private readonly ISaveCoreService _saveCoreService;
     private readonly IAppVisualService _appVisualService;
 
@@ -20,8 +22,9 @@ public partial class SaveService : ObservableObject, ISaveService
     [ObservableProperty]
     private bool _unsavedChanges;
 
-    public SaveService(ISaveCoreService saveCoreService, IAppVisualService appVisualService)
+    public SaveService(ILogger<SaveService> logger, ISaveCoreService saveCoreService, IAppVisualService appVisualService)
     {
+        _logger = logger;
         _saveCoreService = saveCoreService;
         _appVisualService = appVisualService;
 
@@ -36,6 +39,8 @@ public partial class SaveService : ObservableObject, ISaveService
 
     public void Save(Diary[] diaries)
     {
+        _logger.LogInformation("Saving main save...");
+        
         SaveData.Diaries = diaries;
 
         _saveCoreService.Write(GetSavePath(), SaveData);
@@ -47,6 +52,8 @@ public partial class SaveService : ObservableObject, ISaveService
 
     public void Save(Config config)
     {
+        _logger.LogInformation("Saving config...");
+        
         Config = config;
         
         OnChangeConfig();
@@ -63,6 +70,8 @@ public partial class SaveService : ObservableObject, ISaveService
 
     public void LoadConfig()
     {
+        _logger.LogInformation("Loading config...");
+        
         Config = _saveCoreService.ReadConfig(GetConfigPath());
         
         OnChangeConfig();
@@ -70,6 +79,8 @@ public partial class SaveService : ObservableObject, ISaveService
 
     public void LoadSave()
     {
+        _logger.LogInformation("Loading main save...");
+        
         SaveData = _saveCoreService.ReadSave(GetSavePath());
 
         UnsavedChanges = false;
