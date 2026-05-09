@@ -15,7 +15,7 @@
 </div>
 
 ## ⚡ About
-- JADY or Jady is a lightning fast and very easy to use diary application for Linux built with <a href="https://avaloniaui.net/">Avalonia</a>.
+JADY or Jady is a lightning fast and very easy to use diary application for Linux built with <a href="https://avaloniaui.net/">Avalonia</a>.
 
 ## ✨ Features
 - Simple diary and entry management
