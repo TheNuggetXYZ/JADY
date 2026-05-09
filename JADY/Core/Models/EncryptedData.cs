@@ -2,6 +2,8 @@ namespace JADY.Core.Models;
 
 public sealed class EncryptedData
 {
+    public bool Encrypted {get; init;}
+    
     public required byte[] Data { get; init; }
 
     public required byte[] Nonce { get; init; }

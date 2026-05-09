@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using JADY.Core.Models;
@@ -9,6 +8,8 @@ namespace JADY.Services;
 public class EncryptionService : IEncryptionService
 {
     private byte[] _key = [];
+
+    private bool _hasPassword;
     
     private const int KeyGenIterations = 200_000;
     private const int KeySize = 32;
@@ -27,12 +28,25 @@ public class EncryptionService : IEncryptionService
             KeyGenIterations, 
             HashAlgorithmName.SHA256, 
             KeySize);
+        
+        _hasPassword = true;
     }
 
     /// <summary>Encrypts a string.</summary>
-    /// <returns>encrypted data in the format of a byte array</returns>
+    /// <returns>encrypted data in the format of a byte array if a password was entered, otherwise returns unencrypted byte array</returns>
     public EncryptedData Encrypt(string data)
     {
+        if (!_hasPassword)
+        {
+            return new EncryptedData()
+            {
+                Encrypted = false,
+                Data = Encoding.UTF8.GetBytes(data),
+                Nonce = [],
+                Tag = [],
+            };
+        }
+        
         if (_key.Length == 0)
             throw new InvalidOperationException("No key loaded.");
         
@@ -51,16 +65,22 @@ public class EncryptionService : IEncryptionService
 
         return new EncryptedData()
         {
+            Encrypted = true,
             Data = cipherBytes,
             Nonce = nonce,
             Tag = tag,
         };
     }
     
-    /// <summary>Decrypts a byte array.</summary>
-    /// <returns>decrypted data in the formate of a string.</returns>
+    /// <summary>Decrypts a byte array if it is encrypted.</summary>
+    /// <returns>decrypted data in the format of a string.</returns>
     public string Decrypt(EncryptedData encryptedData)
     {
+        if (!encryptedData.Encrypted)
+        {
+            return Encoding.UTF8.GetString(encryptedData.Data);
+        }
+        
         if (_key.Length == 0)
             throw new InvalidOperationException("No key loaded.");
         
@@ -69,7 +89,7 @@ public class EncryptionService : IEncryptionService
         using var aes = new AesGcm(_key, TagSize);
         
         // Writes to plainBytes
-        aes.Decrypt(encryptedData.Nonce, encryptedData.Data, encryptedData.Tag, plainBytes);
+        aes.Decrypt(encryptedData.Nonce, encryptedData.Data, encryptedData.Tag, plainBytes); // TODO: Implement check for if the decryption succeeded -> password was correct/wrong
         
         return Encoding.UTF8.GetString(plainBytes);
     }
