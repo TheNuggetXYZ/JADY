@@ -63,14 +63,14 @@ public partial class SaveService : ObservableObject, ISaveService
 
     public void LoadConfig()
     {
-        Config = _saveCoreService.Read<Config>(GetConfigPath());
+        Config = _saveCoreService.ReadConfig(GetConfigPath());
         
         OnChangeConfig();
     }
 
     public void LoadSave()
     {
-        SaveData = _saveCoreService.Read<SaveData>(GetSavePath());
+        SaveData = _saveCoreService.ReadSave(GetSavePath());
 
         UnsavedChanges = false;
         
@@ -79,7 +79,7 @@ public partial class SaveService : ObservableObject, ISaveService
 
     public bool ExistsConfig()
     {
-        return _saveCoreService.ExistsSave(GetConfigPath());
+        return _saveCoreService.ExistsFile(GetConfigPath());
     }
 
     private void OnSave()

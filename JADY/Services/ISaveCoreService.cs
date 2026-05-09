@@ -6,10 +6,11 @@ public interface ISaveCoreService
 {
     string SavesDirectory { get; }
     
-    void Write(string filePath, SaveData saveData);
-    void Write(string savePath, Config config);
-    
-    T Read<T>(string savePath) where T : new();
+    void Write(string path, SaveData saveData);
+    void Write(string path, Config config);
 
-    bool ExistsSave(string savePath);
+    Config ReadConfig(string path);
+    SaveData ReadSave(string path);
+
+    bool ExistsFile(string path);
 }

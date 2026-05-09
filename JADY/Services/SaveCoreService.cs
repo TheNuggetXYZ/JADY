@@ -9,118 +9,129 @@ namespace JADY.Services;
 public class SaveCoreService(ILogger<SaveCoreService> logger, IEncryptionService encryptionService) : ISaveCoreService
 {
     public string SavesDirectory { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "JADY");
-
+    
+    public bool ExistsFile(string path) => File.Exists(path);
+    
+    public void Write(string path, Config config)
+    {
+        WriteJson(path, config, true);
+    }
+    
     public void Write(string path, SaveData saveData)
     {
         if (File.Exists(path))
         {
             logger.LogInformation("Save file already exists, creating backup");
-            MoveOldSaveToBackup(path);
+            CreateBackupFrom(path);
         }
         
         string jsonString = JsonSerializer.Serialize(saveData);
 
+        WriteJson(path, encryptionService.Encrypt(jsonString), true);
+    }
+
+    private void WriteJson<T>(string path, T obj, bool writeIndented)
+    {
         using FileStream fs = File.Create(path);
         
-        JsonSerializer.Serialize(fs, encryptionService.Encrypt(jsonString), new JsonSerializerOptions{ WriteIndented = true });
-        
+        JsonSerializer.Serialize(fs, obj, new JsonSerializerOptions { WriteIndented = writeIndented });
         logger.LogInformation("Saved to: " + path);
+    }
+
+    public Config ReadConfig(string path)
+    {
+        if (!File.Exists(path))
+            return CreateEmpty<Config>("Config file not found");
+
+        try
+        {
+            return ReadExistingFile<Config>(path);
+        }
+        catch (JsonException e)
+        {
+            logger.LogTrace(e, "Error deserializing config file:");
+            return CreateEmpty<Config>("Error deserializing config file");
+        }
     }
     
-    public void Write(string path, Config config)
+    public SaveData ReadSave(string path)
     {
-        using FileStream fs = File.Create(path);
-        
-        JsonSerializer.Serialize(fs, config, new JsonSerializerOptions { WriteIndented = true });
-        logger.LogInformation("Saved to: " + path);
-    }
-
-    private void MoveOldSaveToBackup(string savePath)
-    {
-        string backupPath = savePath + ".backup";
-        if (File.Exists(backupPath))
-            File.Delete(backupPath);
-        
-        logger.LogInformation("Renaming save file to backup");
-        File.Move(savePath, backupPath);
-    }
-
-    public T Read<T>(string savePath) where T : new()
-    {
-        if (!File.Exists(savePath))
+        if (!File.Exists(path))
         {
             logger.LogWarning("Save file not found");
             
-            var backup = DeserializeBackup<T>(savePath);
-
-            if (backup is not null) 
-                return backup;
-
-            logger.LogInformation("Reading file returned null. Creating empty save.");
-            return new T();
+            return ReadBackup(path);
         }
-
-        using FileStream fs = File.OpenRead(savePath);
         
         try
         {
-            var save = JsonSerializer.Deserialize<T>(fs);
-
-            if (save is not null)
-                return save;
-            
-            logger.LogInformation("Reading file returned null. Creating empty save.");
-            return new T();
+            return ReadExistingFile<SaveData>(path);
         }
         catch (JsonException e)
         {
             logger.LogTrace(e, "Error deserializing save file");
                 
-            string corruptedPath = savePath + ".corrupted";
-                
-            logger.LogInformation("Renaming corrupted save file");
-                
-            if (!File.Exists(corruptedPath))
-                File.Move(savePath, corruptedPath);
-            else
-            {
-                logger.LogError($"Corrupted save file already exists: {savePath}.corrupted. Please handle your corrupted save file first");
-                throw;
-            }
-                
-            var backup = DeserializeBackup<T>(savePath);
+            CreateCorruptedFrom(path, path + ".corrupted");
 
-            if (backup is not null) 
-                return backup;
-
-            logger.LogInformation("Reading file returned null. Creating empty save.");
-            return new T();
+            return ReadBackup(path);
         }
     }
 
-    public bool ExistsSave(string savePath)
+    private T ReadExistingFile<T>(string path) where T : new()
     {
-        return File.Exists(savePath);
+        using FileStream fs = File.OpenRead(path);
+        var file = JsonSerializer.Deserialize<T>(fs);
+        
+        return file ?? CreateEmpty<T>("Reading file returned null");
     }
 
-    private T? DeserializeBackup<T>(string savePath) where T : new()
+    private SaveData ReadBackup(string path)
     {
-        string backupPath = savePath + ".backup";
-        if (File.Exists(backupPath))
+        string backupPath = path + ".backup";
+        
+        if (!File.Exists(backupPath)) 
+            return CreateEmpty<SaveData>("Backup file not found");
+        
+        logger.LogInformation("Restoring backup...");
+        
+        File.Move(backupPath, path);
+        
+        using var fs = File.OpenRead(path);
+        var backup = JsonSerializer.Deserialize<SaveData>(fs);
+        
+        if (backup is not null)
+            return backup;
+        
+        return CreateEmpty<SaveData>("Reading backup file returned null");
+    }
+
+    private void CreateCorruptedFrom(string path, string corruptedPath)
+    {
+        logger.LogInformation("Renaming corrupted save file");
+
+        if (!File.Exists(corruptedPath))
+            File.Move(path, corruptedPath);
+        else
         {
-            logger.LogInformation("Restoring backup");
-            File.Move(backupPath, savePath);
-
-            using FileStream fs = File.OpenRead(savePath);
-            
-            var save = JsonSerializer.Deserialize<T>(fs);
-            logger.LogInformation("Restored backup");
-            return save;
+            logger.LogError($"Corrupted save file already exists: {path}.corrupted. Please handle your corrupted save file first");
+            throw new InvalidOperationException($"Corrupted save file already exists: {path}.corrupted. Please handle your corrupted save file first");
         }
-        
-        logger.LogWarning("Backup file not found");
-        logger.LogInformation("Creating empty save");
-        
+    }
+
+    private T CreateEmpty<T>(string reason) where T : new()
+    {
+        logger.LogInformation($"{reason} -> Creating empty {nameof(T)}");
         return new T();
+    }
+
+    private void CreateBackupFrom(string path)
+    {
+        string backupPath = path + ".backup";
+        
+        if (File.Exists(backupPath))
+            File.Delete(backupPath);
+        
+        logger.LogInformation($"Creating backup file from {path}");
+        File.Move(path, backupPath);
     }
 }
