@@ -1,5 +1,6 @@
 using System;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace JADY.Services;
 
@@ -7,13 +8,21 @@ public class EncryptionService : IEncryptionService
 {
     private byte[] _key = [];
     
+    private const int KeyGenIterations = 200_000;
+    private const int KeySize = 32;
+    private const int SaltSize = 16;
+    
     /// <summary>
     /// Call this when user enters a password
     /// </summary>
     public void StorePassword(string password, byte[] salt)
     {
-        // generate key from password
-        throw new System.NotImplementedException();
+        _key = Rfc2898DeriveBytes.Pbkdf2(
+            Encoding.UTF8.GetBytes(password), 
+            salt, 
+            KeyGenIterations, 
+            HashAlgorithmName.SHA256, 
+            KeySize);
     }
 
     /// <summary>Encrypts a string.</summary>
@@ -38,5 +47,5 @@ public class EncryptionService : IEncryptionService
         throw new System.NotImplementedException();
     }
 
-    public byte[] GenerateSalt() => RandomNumberGenerator.GetBytes(16);
+    public byte[] GenerateSalt() => RandomNumberGenerator.GetBytes(SaltSize);
 }
