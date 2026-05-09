@@ -1,3 +1,6 @@
+<h1>💎 JADY</h1> 
+
+<div>
 <a href="https://avaloniaui.net/">
   <img src="https://img.shields.io/badge/Avalonia-blue?logo=avaloniaui" alt="Avalonia">
 </a>
@@ -9,21 +12,19 @@
 <a href="https://github.com/TheNuggetXYZ/JADY/blob/master/LICENSE">
   <img src="https://img.shields.io/badge/License-GPL_v3-blue" alt="License GPL v3">
 </a>
+</div>
 
-# JADY 💎
-Your diary and journal *backwards*
-
-## About
+## ⚡ About
 - JADY or Jady is a lightning fast and very easy to use diary application for Linux built with <a href="https://avaloniaui.net/">Avalonia</a>.
 
-## Features
+## ✨ Features
 - Simple diary and entry management
 - Searching
 - Dark/light theme
 - Auto save and auto backups
 - Fully offline - local saves
 
-## Plans
+## 🚀 Plans
 - Windows support
 - Welcome screen to guide new users
 - Password and save encryption
