@@ -60,8 +60,10 @@
     </Style>
     
     <Style Selector="TextBlock.paragraph">
-        <Setter Property="FontWeight" Value="Thin"/>
+        <Setter Property="FontWeight" Value="300"/>
         <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Opacity" Value="0.8"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
     </Style>
     
     <Style Selector="TextBlock.greyedOut">

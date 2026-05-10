@@ -78,10 +78,8 @@
                             <PathIcon Classes="greyedOut" 
                                       Height="16" 
                                       Data="{StaticResource EyeSlashIcon}" 
-                                      IsVisible="{Binding IsHidden}">
-                        
-                                <ToolTip.Tip>This entry is marked as hidden.</ToolTip.Tip>
-                            </PathIcon>
+                                      IsVisible="{Binding IsHidden}"
+                                      ToolTip.Tip="This entry is marked as hidden."/>
                     
                             <!-- Expand icon -->
                             <PathIcon Name="ExpandAngle" 
@@ -90,19 +88,13 @@
                                       Width="14" Height="14" 
                                       Data="{StaticResource AngleDownIcon}" 
                                       IsVisible="{Binding Content, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" 
-                                      Margin="0 0 5 0">
-                        
-                                <ToolTip.Tip>This entry is expandable.</ToolTip.Tip>
-                            </PathIcon>
+                                      Margin="0 0 5 0"
+                                      ToolTip.Tip="This entry is expandable."/>
                     
                             <!-- Date -->
                             <TextBlock HorizontalAlignment="Right" 
-                                       Text="{Binding DisplayDate}">
-                        
-                                <ToolTip.Tip>
-                                    <TextBlock HorizontalAlignment="Left" Text="{Binding FullDateTooltip}"/>
-                                </ToolTip.Tip>
-                            </TextBlock>
+                                       Text="{Binding DisplayDate}"
+                                       ToolTip.Tip="{Binding FullDateTooltip}"/>
                         </StackPanel>
                     </Grid>
             
@@ -120,8 +112,8 @@
                         </Border.IsVisible>
                 
                         <!-- Content -->
-                        <TextBlock Text="{Binding Content}"
-                                   TextWrapping="Wrap" 
+                        <TextBlock Classes="paragraph"
+                                   Text="{Binding Content}"
                                    Margin="5"/>
                     </Border>
                 </Grid>
