@@ -33,6 +33,18 @@
                 <MergeResourceInclude Source="UI/Views/Controls/HoverToggleButton.axaml"></MergeResourceInclude>
                 <MergeResourceInclude Source="UI/Views/Controls/IconToggleButton.axaml"></MergeResourceInclude>
             </ResourceDictionary.MergedDictionaries>
+            
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <Color x:Key="EntryColor">#ffececec</Color>
+                    <Color x:Key="AppHeaderColor">#ffe0e0e0</Color>
+                </ResourceDictionary>
+                
+                <ResourceDictionary x:Key="Dark">
+                    <Color x:Key="EntryColor">#ff222222</Color>
+                    <Color x:Key="AppHeaderColor">#ff292929</Color>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
         </ResourceDictionary>
         
         <converters:EntryStatusIconConverter x:Key="EntryStatusIconConverter"/>

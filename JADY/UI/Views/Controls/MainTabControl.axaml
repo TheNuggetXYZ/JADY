@@ -5,6 +5,10 @@
                     xmlns:behaviors="clr-namespace:JADY.UI.Behaviors">
     
     <Design.PreviewWith>
+        <MainTabControl>
+            <TabItem Header="Tab1">Tab1 content</TabItem>
+            <TabItem Header="Tab2">Tab2 content</TabItem>
+        </MainTabControl>
     </Design.PreviewWith>
 
     <Thickness x:Key="TabControlTopPlacementItemMargin">0 0 0 2</Thickness>
@@ -17,7 +21,7 @@
             <ControlTemplate>
                 <DockPanel>
                     <!-- App Header -->
-                    <Border DockPanel.Dock="{TemplateBinding TabStripPlacement}" Classes="outsetPanelShadowless">
+                    <Border DockPanel.Dock="{TemplateBinding TabStripPlacement}" Classes="outsetPanelShadowless" Background="{DynamicResource AppHeaderColor}">
                         <Grid ColumnDefinitions="Auto, *, Auto" Margin="7 0">
                             <!-- Left panel -->
                             <ContentPresenter Grid.Column="0" 
