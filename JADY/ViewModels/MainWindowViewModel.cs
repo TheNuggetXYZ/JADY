@@ -20,22 +20,20 @@ public partial class MainWindowViewModel : SaveDependentViewModel
     public ISaveService SaveService { get; }
     private readonly IDiaryViewModelFactory _diaryViewModelFactory;
     private readonly IWindowService _windowService;
-    
-    private ObservableCollection<DiaryViewModel> _diaries = new();
 
     public ObservableCollection<DiaryViewModel> Diaries
     {
-        get => _diaries;
+        get;
         private set
         {
-            if (_diaries != value)
+            if (field != value)
             {
-                _diaries = value;
+                field = value;
                 OnPropertyChanged();
             }
         }
-    }
-    
+    } = new();
+
     [ObservableProperty] 
     private int _openDiaryIndex;
     
@@ -69,7 +67,7 @@ public partial class MainWindowViewModel : SaveDependentViewModel
 
         Load();
 
-        WeakReferenceMessenger.Default.Register<Messages.PerformSave>(this, (r, m) =>
+        WeakReferenceMessenger.Default.Register<Messages.PerformSave>(this, (_, _) =>
         {
             Save();
         });

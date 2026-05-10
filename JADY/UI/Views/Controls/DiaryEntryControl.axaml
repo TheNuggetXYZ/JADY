@@ -22,7 +22,10 @@
                 </ContextMenu>
             </Border.ContextMenu>
         
-            <Border Classes="leftAccentStrip" CornerRadius="3">
+            <Panel>
+                <!-- Color strip -->
+                <Border Classes="leftAccentStrip" IsVisible="{Binding !IsHidden}" CornerRadius="3"/>
+            
                 <!-- Main grid -->
                 <Grid Margin="5" RowDefinitions="Auto, *">
                     <!-- Header -->
@@ -122,7 +125,8 @@
                                    Margin="5"/>
                     </Border>
                 </Grid>
-            </Border>
+            </Panel>
+            
         </Border>
     </Button>
 
