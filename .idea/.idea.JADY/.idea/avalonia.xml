@@ -5,6 +5,13 @@
       <map>
         <entry key="JADY/App.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/AppDefaultStyles.axaml" value="JADY/JADY.csproj" />
+        <entry key="JADY/UI/Styles/AppDefaultStyles.axaml" value="JADY/JADY.csproj" />
+        <entry key="JADY/UI/Styles/BorderStyles.axaml" value="JADY/JADY.csproj" />
+        <entry key="JADY/UI/Styles/ButtonStyles.axaml" value="JADY/JADY.csproj" />
+        <entry key="JADY/UI/Styles/LabelStyles.axaml" value="JADY/JADY.csproj" />
+        <entry key="JADY/UI/Styles/PathIconStyles.axaml" value="JADY/JADY.csproj" />
+        <entry key="JADY/UI/Styles/ScrollBarStyles.axaml" value="JADY/JADY.csproj" />
+        <entry key="JADY/UI/Styles/TextBlockStyles.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Controls/AppHeaderLeftPanel.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Controls/AppHeaderRightPanel.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Controls/DiaryEntryControl.axaml" value="JADY/JADY.csproj" />

@@ -19,8 +19,6 @@
         </FluentTheme>
         
         <StyleInclude Source="UI/Styles/AppDefaultStyles.axaml"/>
-        <StyleInclude Source="UI/Styles/ScrollBarStyles.axaml"/>
-        
     </Application.Styles>
              
              

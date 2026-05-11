@@ -1,160 +1,21 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     
+    <StyleInclude Source="BorderStyles.axaml"/>
+    <StyleInclude Source="ButtonStyles.axaml"/>
+    <StyleInclude Source="LabelStyles.axaml"/>
+    <StyleInclude Source="PathIconStyles.axaml"/>
+    <StyleInclude Source="ScrollBarStyles.axaml"/>
+    <StyleInclude Source="TextBlockStyles.axaml"/>
+    
     <Design.PreviewWith>
         <Border Padding="20">
-            <Grid RowDefinitions="*,*" ColumnDefinitions="*,*" ColumnSpacing="20" RowSpacing="20">
-                <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical" Spacing="10">
-                    <TextBlock Classes="h1">This is h1!</TextBlock>
-                    <TextBlock Classes="h2">This is h2!</TextBlock>
-                    <TextBlock Classes="h3">This is h3!</TextBlock>
-                    <TextBlock Classes="h4">This is h4!</TextBlock>
-                    <TextBlock>This is a TextBlock!</TextBlock>
-                    <TextBlock Classes="paragraph">This is a paragraph, paragraph, paragraph, paragraph, <LineBreak/> paragraph, paragraph, paragraph, paragraph!</TextBlock>
-                    <TextBlock Classes="greyedOut">This is greyed out</TextBlock>
-                </StackPanel>
-                
-                <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical" Spacing="10">
-                    <Label Classes="heavy">This is heavy!</Label>
-                    <Label>This is a label!</Label>
-                    <Label Classes="light">This is light!</Label>
-                    <Label Classes="greyedOut">This is greyed out</Label>
-                    
-                    <Label Classes="field">This is a field label!</Label>
-                    <TextBox Width="200"></TextBox>
-                    <Label Classes="field light">This is a light field label!</Label>
-                    <TextBox Width="200"></TextBox>
-                </StackPanel>
-            </Grid>
+            <!-- Add Controls for Previewer Here -->
         </Border>
     </Design.PreviewWith>
     
     <Style Selector="Window">
         <Setter Property="FontFamily" Value="Consolas"/>
     </Style>
-        
-    <!-- TEXT_BLOCK -->
-    <Style Selector="TextBlock.h1">
-        <Setter Property="FontWeight" Value="900"/>
-        <Setter Property="FontSize" Value="22"/>
-    </Style>
     
-    <Style Selector="TextBlock.h2">
-        <Setter Property="FontWeight" Value="700"/>
-        <Setter Property="FontSize" Value="20"/>
-    </Style>
-    
-    <Style Selector="TextBlock.h3">
-        <Setter Property="FontWeight" Value="500"/>
-        <Setter Property="FontSize" Value="18"/>
-    </Style>
-    
-    <Style Selector="TextBlock.h4">
-        <Setter Property="FontWeight" Value="400"/>
-        <Setter Property="FontSize" Value="16"/>
-    </Style>
-    
-    <Style Selector="TextBlock">
-        <Setter Property="FontWeight" Value="300"/>
-        <Setter Property="FontSize" Value="14"/>
-    </Style>
-    
-    <Style Selector="TextBlock.paragraph">
-        <Setter Property="FontWeight" Value="300"/>
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="Opacity" Value="0.8"/>
-        <Setter Property="TextWrapping" Value="Wrap"/>
-    </Style>
-    
-    <Style Selector="TextBlock.greyedOut">
-        <Setter Property="Foreground" Value="Gray"/>
-    </Style>
-    
-    <!-- LABEL -->
-    <Style Selector="Label">
-        <Setter Property="FontWeight" Value="400"/>
-        <Setter Property="FontSize" Value="14"/>
-    </Style>
-    
-    <Style Selector="Label.greyedOut">
-        <Setter Property="Foreground" Value="Gray"/>
-    </Style>
-    
-    <Style Selector="Label.field">
-        <Setter Property="Margin" Value="-5 0 0 -10"/>
-    </Style>
-    
-    <Style Selector="Label.light">
-        <Setter Property="Opacity" Value="0.7"/>
-    </Style>
-    
-    <Style Selector="Label.heavy">
-        <Setter Property="FontWeight" Value="500"/>
-    </Style>
-    
-    <!-- BUTTON -->
-    <Style Selector="Button.invisible /template/ ContentPresenter">
-        <Setter Property="BoxShadow" Value="0 0 0 0 transparent"/>
-        <Setter Property="Margin" Value="0 0 0 0"/>
-        <Setter Property="Padding" Value="0 0 0 0"/>
-        <Setter Property="Background" Value="Transparent"/>
-    </Style>
-    
-    <Style Selector="Button.diaryEntryButton:pressed">
-        <Setter Property="RenderTransform" Value="scale(0.995)"/>
-    </Style>
-        
-    <!-- BORDER -->
-    <Style Selector="Border.outsetLighting">
-        <!--                                ====shadow====  ================lighting=============-->
-        <Setter Property="BoxShadow" Value="1 2 2 -1 black, inset 0.5 1 1 0 rgba(255,255,255,0.1)"/>
-        <!-- Set margin so shadow is not cut off -->
-        <Setter Property="Margin" Value="0 0 1 2"/>
-    </Style>
-        
-    <Style Selector="Border:pointerover.outsetLighting.hover">
-        <!--                                ====shadow====  ================lighting===========-->
-        <Setter Property="BoxShadow" Value="2 3 3 -1 black, inset 1 2 1 0 rgba(255,255,255,0.1)"/>
-        <!-- Set margin so shadow is not cut off -->
-        <Setter Property="Margin" Value="0 0 2 3"/>
-    </Style>
-        
-    <Style Selector="Border:pointerover.outsetLighting.highlight">
-        <!--                                ====shadow====  ================lighting============-->
-        <Setter Property="BoxShadow" Value="1 2 2 -1 black, inset 1 2 1 0 rgba(255,255,255,0.15)"/>
-    </Style>
-        
-    <Style Selector="Border.insetLighting">
-        <!--                                ========shadow======  ================lighting================-->
-        <Setter Property="BoxShadow" Value="inset 1 2 2 -1 black, inset -0.5 -1 1 0 rgba(255,255,255,0.15)"/>
-    </Style>
-        
-    <Style Selector="Border.outsetPanelShadowless">
-        <Setter Property="BoxShadow" Value="inset 0 2 1 0 rgba(255,255,255,0.1)"/>
-    </Style>
-        
-    <Style Selector="Border.insetPanelLightless">
-        <Setter Property="BoxShadow" Value="inset 0 3 3 0 rgba(0,0,0,0.5)"/>
-    </Style>
-    
-    <Style Selector="Border.leftAccentStrip">
-        <Setter Property="BoxShadow" Value="inset 2 0 0 0 #ff089300"/>
-    </Style>
-        
-    <!-- PATH_ICON -->
-    <Style Selector="PathIcon.expandIcon">
-        <Setter Property="Transitions">
-            <Transitions>
-                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.05"/>
-            </Transitions>
-        </Setter>
-    </Style>
-        
-    <Style Selector="PathIcon.expandIcon.isExpanded">
-        <Setter Property="RenderTransform" Value="rotate(180deg)"/>
-    </Style>
-        
-    <Style Selector="PathIcon.greyedOut">
-        <Setter Property="Opacity" Value="0.5"></Setter>
-    </Style>
 </Styles>

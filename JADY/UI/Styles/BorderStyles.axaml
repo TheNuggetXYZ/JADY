@@ -1,0 +1,45 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="Border.outsetLighting">
+        <!--                                ====shadow====  ================lighting=============-->
+        <Setter Property="BoxShadow" Value="1 2 2 -1 black, inset 0.5 1 1 0 rgba(255,255,255,0.1)"/>
+        <!-- Set margin so shadow is not cut off -->
+        <Setter Property="Margin" Value="0 0 1 2"/>
+    </Style>
+        
+    <Style Selector="Border:pointerover.outsetLighting.hover">
+        <!--                                ====shadow====  ================lighting===========-->
+        <Setter Property="BoxShadow" Value="2 3 3 -1 black, inset 1 2 1 0 rgba(255,255,255,0.1)"/>
+        <!-- Set margin so shadow is not cut off -->
+        <Setter Property="Margin" Value="0 0 2 3"/>
+    </Style>
+        
+    <Style Selector="Border:pointerover.outsetLighting.highlight">
+        <!--                                ====shadow====  ================lighting============-->
+        <Setter Property="BoxShadow" Value="1 2 2 -1 black, inset 1 2 1 0 rgba(255,255,255,0.15)"/>
+    </Style>
+        
+    <Style Selector="Border.insetLighting">
+        <!--                                ========shadow======  ================lighting================-->
+        <Setter Property="BoxShadow" Value="inset 1 2 2 -1 black, inset -0.5 -1 1 0 rgba(255,255,255,0.15)"/>
+    </Style>
+        
+    <Style Selector="Border.outsetPanelShadowless">
+        <Setter Property="BoxShadow" Value="inset 0 2 1 0 rgba(255,255,255,0.1)"/>
+    </Style>
+        
+    <Style Selector="Border.insetPanelLightless">
+        <Setter Property="BoxShadow" Value="inset 0 3 3 0 rgba(0,0,0,0.5)"/>
+    </Style>
+    
+    <Style Selector="Border.leftAccentStrip">
+        <Setter Property="BoxShadow" Value="inset 2 0 0 0 #ff089300"/>
+    </Style>
+</Styles>
