@@ -14,7 +14,7 @@
         <Setter Property="Margin" Value="2"/>
         <Setter Property="Template">
             <ControlTemplate>
-                <Grid>
+                <Grid Name="PART_Grid">
                     <Track Name="PART_Track"
                            Minimum="{TemplateBinding Minimum}"
                            Maximum="{TemplateBinding Maximum}"
@@ -24,10 +24,11 @@
                            IsDirectionReversed="True">
                     
                         <Track.Thumb>
-                            <Thumb>
+                            <Thumb Name="PART_TrackThumb">
                                 <Thumb.Template>
                                     <ControlTemplate>
-                                        <Border Background="{DynamicResource SliderColor}" 
+                                        <Border Name="PART_TrackThumbBorder" 
+                                                Background="{TemplateBinding Background}" 
                                                 CornerRadius="4"
                                                 Margin="2"/>
                                     </ControlTemplate>
@@ -38,6 +39,19 @@
                 </Grid>
             </ControlTemplate>
         </Setter>
+        
+        <Style Selector="^ /template/ Thumb#PART_TrackThumb">
+            <Setter Property="Background" Value="{DynamicResource SliderColor}"></Setter>
+        </Style>
+        
+        <Style Selector="^:pointerover /template/ Thumb#PART_TrackThumb">
+            <Setter Property="Background" Value="{DynamicResource SliderPointerOverColor}"></Setter>
+        </Style>
+        
+        <Style Selector="^ /template/ Thumb#PART_TrackThumb:pressed">
+            <Setter Property="Background" Value="{DynamicResource SystemAccentColor}"></Setter>
+        </Style>
     </Style>
+    
         
 </Styles>
