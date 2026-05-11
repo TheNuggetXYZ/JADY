@@ -77,6 +77,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <AdditionalFiles Include="UI\SliderStyles.axaml" />
       <AdditionalFiles Include="UI\Views\Controls\AppHeaderLeftPanel.axaml" />
       <AdditionalFiles Include="UI\Views\Controls\AppHeaderRightPanel.axaml" />
       <AdditionalFiles Include="UI\Views\Controls\DiaryEntryControl.axaml" />

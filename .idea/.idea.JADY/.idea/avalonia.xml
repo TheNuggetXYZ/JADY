@@ -14,6 +14,7 @@
         <entry key="JADY/UI/Views/Controls/IconToggleButton.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Controls/MainTabControl.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Controls/SearchBar.axaml" value="JADY/JADY.csproj" />
+        <entry key="JADY/UI/Views/Controls/Slider.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Dialogs/AddDiaryWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Dialogs/AddEntryWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Dialogs/EditDiaryWindow.axaml" value="JADY/JADY.csproj" />
@@ -22,6 +23,7 @@
         <entry key="JADY/UI/Views/Dialogs/SettingsWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Dialogs/UnsavedChangesWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Dialogs/YesNoDialogWindow.axaml" value="JADY/JADY.csproj" />
+        <entry key="JADY/UI/Views/SliderStyles.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Windows/MainWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Windows/MessageWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Windows/WelcomeWindow.axaml" value="JADY/JADY.csproj" />

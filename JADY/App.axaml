@@ -19,6 +19,7 @@
         </FluentTheme>
         
         <StyleInclude Source="UI/AppDefaultStyles.axaml"/>
+        <StyleInclude Source="UI/ScrollBarStyles.axaml"/>
         
     </Application.Styles>
              
@@ -38,11 +39,13 @@
                 <ResourceDictionary x:Key="Light">
                     <Color x:Key="EntryColor">#ffececec</Color>
                     <Color x:Key="AppHeaderColor">#ffe0e0e0</Color>
+                    <Color x:Key="SliderColor">#ffc0c0c0</Color>
                 </ResourceDictionary>
                 
                 <ResourceDictionary x:Key="Dark">
                     <Color x:Key="EntryColor">#ff222222</Color>
                     <Color x:Key="AppHeaderColor">#ff292929</Color>
+                    <Color x:Key="SliderColor">#ff393939</Color>
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
         </ResourceDictionary>

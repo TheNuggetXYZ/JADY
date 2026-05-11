@@ -1,0 +1,43 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <Grid RowDefinitions="*,*" ColumnDefinitions="*,*" ColumnSpacing="20" RowSpacing="20">
+                <ScrollBar Grid.Row="0" Grid.Column="0"></ScrollBar>
+            </Grid>
+        </Border>
+    </Design.PreviewWith>
+    
+    <Style Selector="ScrollBar:horizontal, ScrollBar:vertical">
+        <Setter Property="Background" Value="Aqua"/>
+        <Setter Property="Margin" Value="2"/>
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Grid>
+                    <Track Name="PART_Track"
+                           Minimum="{TemplateBinding Minimum}"
+                           Maximum="{TemplateBinding Maximum}"
+                           Value="{TemplateBinding Value, Mode=TwoWay}"
+                           ViewportSize="{TemplateBinding ViewportSize}"
+                           Orientation="{TemplateBinding Orientation}" 
+                           IsDirectionReversed="True">
+                    
+                        <Track.Thumb>
+                            <Thumb>
+                                <Thumb.Template>
+                                    <ControlTemplate>
+                                        <Border Background="{DynamicResource SliderColor}" 
+                                                CornerRadius="4"
+                                                Margin="2"/>
+                                    </ControlTemplate>
+                                </Thumb.Template>
+                            </Thumb>
+                        </Track.Thumb>
+                    </Track>
+                </Grid>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+        
+</Styles>
