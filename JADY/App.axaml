@@ -18,8 +18,8 @@
             </FluentTheme.Palettes>
         </FluentTheme>
         
-        <StyleInclude Source="UI/AppDefaultStyles.axaml"/>
-        <StyleInclude Source="UI/ScrollBarStyles.axaml"/>
+        <StyleInclude Source="UI/Styles/AppDefaultStyles.axaml"/>
+        <StyleInclude Source="UI/Styles/ScrollBarStyles.axaml"/>
         
     </Application.Styles>
              
