@@ -1,12 +1,7 @@
 using System;
-using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
-using Avalonia.Data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
-using JADY.Core;
 using JADY.Core.Attributes;
 using JADY.Core.Data;
 using JADY.Core.Models;
@@ -70,6 +65,11 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     /// </summary>
     private readonly Guid _entryGuid;
     
+    /// <summary>
+    /// The global unique identifier of the parent of this entry note.
+    /// </summary>
+    private readonly Guid? _parentEntryGuid;
+    
     [ObservableProperty] private bool _isExpanded;
 
     public string GetStatusDisplayName
@@ -132,6 +132,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         Content = diaryEntry.Content;
         IsHidden = diaryEntry.IsHidden;
         _entryGuid = diaryEntry.EntryGuid;
+        _parentEntryGuid = diaryEntry.ParentEntryGuid;
     }
     
     /// <returns>
@@ -151,6 +152,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
             Content = Content,
             IsHidden = IsHidden,
             EntryGuid = _entryGuid,
+            ParentEntryGuid = _parentEntryGuid,
         };
     }
     

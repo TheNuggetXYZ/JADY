@@ -6,4 +6,5 @@ public enum EntryStatus
     InProgress = 1,
     Completed = 2,
     Dropped = 3,
+    Note = 4,
 }

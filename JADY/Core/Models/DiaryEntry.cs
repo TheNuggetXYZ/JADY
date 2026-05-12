@@ -52,4 +52,9 @@ public class DiaryEntry
     /// The global unique identifier of this exact entry.
     /// </summary>
     public Guid EntryGuid { get; init; } = Guid.NewGuid();
+    
+    /// <summary>
+    /// The global unique identifier of the parent of this entry note.
+    /// </summary>
+    public Guid? ParentEntryGuid { get; init; }
 }
