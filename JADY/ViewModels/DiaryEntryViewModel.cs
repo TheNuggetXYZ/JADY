@@ -63,12 +63,14 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     /// <summary>
     /// The global unique identifier of this exact entry.
     /// </summary>
-    private readonly Guid _entryGuid;
+    public readonly Guid EntryGuid;
     
     /// <summary>
     /// The global unique identifier of the parent of this entry note.
     /// </summary>
-    private readonly Guid? _parentEntryGuid;
+    public Guid? ParentEntryGuid { get; private set; }
+
+    public DiaryEntryViewModel? ParentEntry { get; private set; }
     
     [ObservableProperty] private bool _isExpanded;
 
@@ -131,8 +133,8 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         Title =  diaryEntry.Title;
         Content = diaryEntry.Content;
         IsHidden = diaryEntry.IsHidden;
-        _entryGuid = diaryEntry.EntryGuid;
-        _parentEntryGuid = diaryEntry.ParentEntryGuid;
+        EntryGuid = diaryEntry.EntryGuid;
+        ParentEntryGuid = diaryEntry.ParentEntryGuid;
     }
     
     /// <returns>
@@ -151,9 +153,15 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
             Title = Title,
             Content = Content,
             IsHidden = IsHidden,
-            EntryGuid = _entryGuid,
-            ParentEntryGuid = _parentEntryGuid,
+            EntryGuid = EntryGuid,
+            ParentEntryGuid = ParentEntryGuid,
         };
+    }
+
+    public void AssignParentEntry(DiaryEntryViewModel parentEntry)
+    {
+        ParentEntryGuid = parentEntry.EntryGuid;
+        ParentEntry = parentEntry;
     }
     
     [RelayCommand]

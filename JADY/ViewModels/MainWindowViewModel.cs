@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Avalonia.Data;
@@ -178,6 +180,21 @@ public partial class MainWindowViewModel : SaveDependentViewModel
 
         Diaries = new ObservableCollection<DiaryViewModel>(
             SaveService.SaveData.Diaries.Select(model => _diaryViewModelFactory.Create(model, this)));
+
+        // Load Guids
+        foreach (var diary in Diaries)
+        {
+            // Load cache
+            Dictionary<Guid, DiaryEntryViewModel> entryCache = new();
+            
+            foreach (var diaryEntry in diary.Entries)
+                entryCache.Add(diaryEntry.EntryGuid, diaryEntry);
+
+            // Assign Guids
+            foreach (var diaryEntry in entryCache.Values)
+                if (diaryEntry.ParentEntryGuid is { } parentEntryGuid)
+                    diaryEntry.AssignParentEntry(entryCache[parentEntryGuid]);
+        }
     }
 
     public async Task RemoveDiary(DiaryViewModel item)
