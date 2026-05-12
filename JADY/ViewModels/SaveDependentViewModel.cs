@@ -9,7 +9,7 @@ namespace JADY.ViewModels;
 
 public abstract class SaveDependentViewModel : ViewModelBase
 {
-    private static readonly Dictionary<Type, string[]> _cache = new();
+    private static readonly Dictionary<Type, string[]> Cache = new();
 
     protected SaveDependentViewModel()
     {
@@ -19,13 +19,13 @@ public abstract class SaveDependentViewModel : ViewModelBase
     private void OnSaveChanged()
     {
         var type = GetType();
-        if (!_cache.TryGetValue(type, out var props))
+        if (!Cache.TryGetValue(type, out var props))
         {
             props = type.GetProperties()
                 .Where(p => p.IsDefined(typeof(SaveDependentAttribute), true))
                 .Select(p => p.Name)
                 .ToArray();
-            _cache[type] = props;
+            Cache[type] = props;
         }
 
         foreach (var prop in props)

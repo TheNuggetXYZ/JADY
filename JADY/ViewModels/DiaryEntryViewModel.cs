@@ -68,7 +68,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     /// <summary>
     /// The global unique identifier of this exact entry.
     /// </summary>
-    private Guid _entryGuid;
+    private readonly Guid _entryGuid;
     
     [ObservableProperty] private bool _isExpanded;
 
@@ -139,7 +139,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     /// </returns>
     public DiaryEntry GetModel()
     {
-        return new()
+        return new DiaryEntry
         {
             Status = Status,
             LogDate = LogDate,
@@ -163,7 +163,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     [RelayCommand]
     private async Task ContextMenu_Edit()
     {
-        Optional<DiaryEntry> diaryEntry = await _windowService.OpenDialogWindowDI<EditEntryWindow, DiaryEntry, DiaryEntryViewModel>(_windowService.GetMainWindow(), this);
+        var diaryEntry = await _windowService.OpenDialogWindowDI<EditEntryWindow, DiaryEntry, DiaryEntryViewModel>(_windowService.GetMainWindow(), this);
 
         if (!diaryEntry.HasValue)
             return;
@@ -186,7 +186,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         if (!ShowEndEventInContextMenu)
             return;
         
-        Optional<DiaryEntry> diaryEntry = await _windowService.OpenDialogWindowDI<EndEntryWindow, DiaryEntry, DiaryEntryViewModel>(_windowService.GetMainWindow(), this);
+        var diaryEntry = await _windowService.OpenDialogWindowDI<EndEntryWindow, DiaryEntry, DiaryEntryViewModel>(_windowService.GetMainWindow(), this);
         
         if (!diaryEntry.HasValue)
             return;

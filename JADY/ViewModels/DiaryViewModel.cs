@@ -56,7 +56,7 @@ public partial class DiaryViewModel : ViewModelBase
         return new()
         {
             Name = Name,
-            Entries = new(Entries.Select(x => x.GetModel()))
+            Entries = [..Entries.Select(x => x.GetModel())]
         };
     }
 
@@ -90,7 +90,7 @@ public partial class DiaryViewModel : ViewModelBase
 
     public void AddEntry(DiaryEntry model)
     {
-        DiaryEntryViewModel newEntryViewModel = _diaryEntryViewModelFactory.Create(model, this);
+        var newEntryViewModel = _diaryEntryViewModelFactory.Create(model, this);
         
         InsertEntry(newEntryViewModel);
     }
@@ -116,7 +116,7 @@ public partial class DiaryViewModel : ViewModelBase
     [RelayCommand]
     private async Task ContextMenu_Edit()
     {
-        Optional<Diary> model = await _windowService.OpenDialogWindowDI<EditDiaryWindow, Diary, DiaryViewModel>(_windowService.GetMainWindow(), this);
+        var model = await _windowService.OpenDialogWindowDI<EditDiaryWindow, Diary, DiaryViewModel>(_windowService.GetMainWindow(), this);
 
         if (!model.HasValue)
             return;
@@ -128,7 +128,7 @@ public partial class DiaryViewModel : ViewModelBase
 
     public async Task RemoveEntry(DiaryEntryViewModel item)
     {
-        Optional<bool> pickedYes = await _windowService.OpenYesNoMessageBox(_windowService.GetMainWindow(), "Are you sure you want to remove this entry?", "Remove entry?");
+        var pickedYes = await _windowService.OpenYesNoMessageBox(_windowService.GetMainWindow(), "Are you sure you want to remove this entry?", "Remove entry?");
         if (!pickedYes.HasValue || pickedYes.Value == false) return;
         
         Entries.Remove(item);
