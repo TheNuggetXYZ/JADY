@@ -65,11 +65,6 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     [NotifyPropertyChangedFor(nameof(IsCurrentlyVisible))]
     [ObservableProperty] private bool _isHidden;
     
-    /// <summary>
-    /// E.g. [I automated red science, I finally destroyed those biter nests, ...]
-    /// </summary>
-    public ObservableCollection<DiarySubEntryViewModel> SubEntries { get; set; }// DiaryEntryViewModel
-    
     [ObservableProperty] private bool _isExpanded;
 
     public string GetStatusDisplayName
@@ -131,7 +126,6 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         Title =  diaryEntry.Title;
         Content = diaryEntry.Content;
         IsHidden = diaryEntry.IsHidden;
-        SubEntries = new(diaryEntry.SubEntries.Select(x => new DiarySubEntryViewModel(x, this)));
     }
     
     /// <returns>
@@ -150,7 +144,6 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
             Title = Title,
             Content = Content,
             IsHidden = IsHidden,
-            SubEntries = new(SubEntries.Select(x => x.GetModel()))
         };
     }
     
@@ -195,11 +188,5 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         Status = diaryEntry.Value.Status;
         
         _diaryViewModel.ResortEntry(this);
-    }
-    
-    public void RemoveSubentry(DiarySubEntryViewModel item)
-    {
-        SubEntries.Remove(item);
-        WeakReferenceMessenger.Default.Send(new Messages.UnsavedChangeCreated());
     }
 }
