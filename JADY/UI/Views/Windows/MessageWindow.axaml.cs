@@ -6,10 +6,14 @@ namespace JADY.UI.Views.Windows;
 
 public partial class MessageWindow : Window
 {
-    public MessageWindow(string message, string? title = null)
+    // Required for the compiler and previewer
+    public MessageWindow()
     {
         InitializeComponent();
-        
+    }
+    
+    public MessageWindow(string message, string? title = null) : this()
+    {
         if (!string.IsNullOrWhiteSpace(title))
             Title = title;
         

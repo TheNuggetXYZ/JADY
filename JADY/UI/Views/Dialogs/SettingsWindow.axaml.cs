@@ -8,23 +8,22 @@ using JADY.Core.Data;
 using JADY.Core.Models;
 using JADY.Services;
 using JADY.UI.Base;
-using Microsoft.Extensions.Logging;
 
 namespace JADY.UI.Views.Dialogs;
 
 public partial class SettingsWindow : DialogWindow<Config>
 {
-    private readonly IAppVisualService _appVisualService;
-    private readonly ISaveService _saveService;
-    private readonly ILogger<SettingsWindow> _logger;
-    
-    public SettingsWindow(IAppVisualService appVisualService, ISaveService saveService, ILogger<SettingsWindow> logger)
+    private readonly ISaveService? _saveService;
+
+    // Required for the compiler and previewer
+    public SettingsWindow()
     {
         InitializeComponent();
-
-        _appVisualService = appVisualService;
+    }
+    
+    public SettingsWindow(ISaveService saveService) : this()
+    {
         _saveService = saveService;
-        _logger = logger;
 
         ShowHidden.IsChecked = _saveService.Config.ShowHiddenEntries;
         AutoSave.IsChecked = _saveService.Config.AutoSave;
@@ -37,8 +36,13 @@ public partial class SettingsWindow : DialogWindow<Config>
     
     protected override Task SubmitAsync()
     {
+        if (_saveService is null) 
+            return Task.CompletedTask;
+        
         _saveService.Save(GetValue().Value);
+        
         Close();
+        
         return Task.CompletedTask;
     }
 

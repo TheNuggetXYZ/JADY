@@ -10,13 +10,17 @@ namespace JADY.UI.Views.Windows;
 
 public partial class WelcomeWindow : Window
 {
-    private readonly ISaveService _saveService;
+    private readonly ISaveService? _saveService;
 
-    public WelcomeWindow(ISaveService saveService)
+    // Required for the compiler and previewer
+    public WelcomeWindow()
+    {
+        InitializeComponent();
+    }
+    
+    public WelcomeWindow(ISaveService saveService) : this()
     {
         _saveService = saveService;
-        
-        InitializeComponent();
         
         AppTheme.ItemsSource = Enum.GetValues(typeof(AppTheme));
         AppTheme.SelectedIndex = (int)_saveService.Config.AppTheme;
@@ -26,10 +30,12 @@ public partial class WelcomeWindow : Window
 
     private void ContinueButton_OnClick(object? sender, RoutedEventArgs e)
     {
+        if (_saveService is null) return;
+        
         _saveService.Config.AppTheme = (AppTheme)AppTheme.SelectedIndex;
         _saveService.Config.CultureInfoName = AppCultures.AvailableCultures[Cultures.SelectedIndex].Name;
         _saveService.Save(_saveService.Config);
-        
+
         Close();
     }
 }

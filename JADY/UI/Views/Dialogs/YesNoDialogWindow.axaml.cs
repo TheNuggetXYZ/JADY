@@ -6,10 +6,14 @@ namespace JADY.UI.Views.Dialogs;
 
 public partial class YesNoDialogWindow : DialogWindow<bool>
 {
-    public YesNoDialogWindow(string message, string title)
+    // Required for the compiler and previewer
+    public YesNoDialogWindow()
     {
         InitializeComponent();
-        
+    }
+    
+    public YesNoDialogWindow(string message, string title) : this()
+    {
         Title = title;
         MessageText.Text = message;
     }

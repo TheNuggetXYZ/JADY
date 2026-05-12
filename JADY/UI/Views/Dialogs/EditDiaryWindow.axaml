@@ -13,7 +13,7 @@
         MinHeight="100">
         
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10" Margin="10">
-                <TextBox Name="Name" PropertyChanged="NameOnPropertyChanged" Text="{Binding Name, Mode=OneTime}"></TextBox>
+                <TextBox Name="DiaryName" PropertyChanged="DiaryNameOnPropertyChanged" Text="{Binding Name, Mode=OneTime}"></TextBox>
                 <HoverButton Name="SubmitButton" Click="Submit_OnClick" HorizontalAlignment="Center">EDIT</HoverButton>
         </StackPanel>
         

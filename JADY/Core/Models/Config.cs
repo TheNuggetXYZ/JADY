@@ -13,6 +13,7 @@ public class Config
         AppTheme = AppTheme.System;
         AutoSave = false;
         CultureInfoName = "en-US";
+        CultureInfo = CultureInfo.GetCultureInfo("en-US");
     }
     
     /// <summary>

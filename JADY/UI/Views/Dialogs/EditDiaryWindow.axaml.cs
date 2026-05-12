@@ -24,17 +24,17 @@ public partial class EditDiaryWindow : DialogWindow<Diary>, IDialogInitializable
     {
         return new Diary()
         {
-            Name = Name.Text
+            Name = DiaryName.Text
         };
     }
     
-    protected override InputElement? FocusedElement() => Name;
+    protected override InputElement? FocusedElement() => DiaryName;
 
     private async void Submit_OnClick(object? sender, RoutedEventArgs e) => await TrySubmitAsync();
     
-    private void NameOnPropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
+    private void DiaryNameOnPropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
     {
-        if (SubmitButton != null && Name != null)
-            SubmitButton.IsEnabled = !string.IsNullOrWhiteSpace(Name.Text);
+        if (SubmitButton != null && DiaryName != null)
+            SubmitButton.IsEnabled = !string.IsNullOrWhiteSpace(DiaryName.Text);
     }
 }

@@ -100,7 +100,7 @@ public abstract class DialogWindow<T> : Window
     }
     
     // Ensure we return the right type
-    protected new void Close(T value)
+    protected void Close(T value)
     {
         base.Close(new Optional<T>(value));
     }

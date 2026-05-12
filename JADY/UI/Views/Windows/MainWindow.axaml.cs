@@ -10,7 +10,7 @@ namespace JADY.UI.Views.Windows;
 public partial class MainWindow : Window
 {
     private bool _handledUnsavedChanges;
-    private TextBox _searchBox;
+    private TextBox? _searchBox;
     
     public MainWindow()
     {
@@ -46,11 +46,17 @@ public partial class MainWindow : Window
 
         if (e.Key == Key.Escape)
         {
+            if (_searchBox is null)
+                return;
+                
             _searchBox.Text = string.Empty;
         }
 
         if (e is { Key: Key.F, KeyModifiers: KeyModifiers.Control })
         {
+            if (_searchBox is null)
+                return;
+            
             _searchBox.Focus();
             
             if (DataContext is MainWindowViewModel vm)
@@ -63,7 +69,7 @@ public partial class MainWindow : Window
         if (string.IsNullOrEmpty(e.Text))
             return;
 
-        if (DataContext is MainWindowViewModel vm && !_searchBox.IsFocused)
+        if (DataContext is MainWindowViewModel vm && _searchBox is {IsFocused: false})
         {
             vm.IsEntrySearchBarVisible = true;
 
@@ -83,7 +89,7 @@ public partial class MainWindow : Window
 
     private void SearchBox_OnTextChanged(object? sender, TextChangedEventArgs e)
     {
-        if (string.IsNullOrWhiteSpace(_searchBox.Text))
+        if (_searchBox is not null && string.IsNullOrWhiteSpace(_searchBox.Text))
         {
             if (DataContext is MainWindowViewModel vm)
                 vm.IsEntrySearchBarVisible = false;

@@ -106,7 +106,7 @@ public class EncryptionService(ILogger<EncryptionService> logger) : IEncryptionS
             // Writes to plainBytes
             aes.Decrypt(encryptedData.Nonce, encryptedData.Data, encryptedData.Tag, plainBytes);
         }
-        catch (AuthenticationTagMismatchException e)
+        catch (AuthenticationTagMismatchException)
         {
             logger.LogWarning("Incorrect password");
             
