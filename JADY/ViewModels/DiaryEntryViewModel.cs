@@ -65,6 +65,11 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     [NotifyPropertyChangedFor(nameof(IsCurrentlyVisible))]
     [ObservableProperty] private bool _isHidden;
     
+    /// <summary>
+    /// The global unique identifier of this exact entry.
+    /// </summary>
+    private Guid _entryGuid;
+    
     [ObservableProperty] private bool _isExpanded;
 
     public string GetStatusDisplayName
@@ -126,6 +131,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         Title =  diaryEntry.Title;
         Content = diaryEntry.Content;
         IsHidden = diaryEntry.IsHidden;
+        _entryGuid = diaryEntry.EntryGuid;
     }
     
     /// <returns>
@@ -144,6 +150,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
             Title = Title,
             Content = Content,
             IsHidden = IsHidden,
+            EntryGuid = _entryGuid,
         };
     }
     

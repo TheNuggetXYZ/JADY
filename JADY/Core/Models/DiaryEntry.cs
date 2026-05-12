@@ -47,4 +47,9 @@ public class DiaryEntry
     /// Used if you don't want this entry to appear unless you toggle on a setting to show hidden entries.
     /// </summary>
     public bool IsHidden { get; set; }
+    
+    /// <summary>
+    /// The global unique identifier of this exact entry.
+    /// </summary>
+    public Guid EntryGuid { get; set; } = Guid.NewGuid();
 }
