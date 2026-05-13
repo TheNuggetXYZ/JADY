@@ -13,6 +13,7 @@ public partial class SaveService : ObservableObject, ISaveService
     private readonly ILogger<SaveService> _logger;
     private readonly ISaveCoreService _saveCoreService;
     private readonly IAppVisualService _appVisualService;
+    private readonly IEncryptionService _encryptionService;
 
     public SaveFile SaveFile { get; } = new();
     public SaveData SaveData { get; private set; } = new();
@@ -23,11 +24,12 @@ public partial class SaveService : ObservableObject, ISaveService
     [ObservableProperty]
     private bool _unsavedChanges;
 
-    public SaveService(ILogger<SaveService> logger, ISaveCoreService saveCoreService, IAppVisualService appVisualService)
+    public SaveService(ILogger<SaveService> logger, ISaveCoreService saveCoreService, IAppVisualService appVisualService, IEncryptionService encryptionService)
     {
         _logger = logger;
         _saveCoreService = saveCoreService;
         _appVisualService = appVisualService;
+        _encryptionService = encryptionService;
 
         WeakReferenceMessenger.Default.Register<Messages.UnsavedChangeCreated>(this, (r, m) =>
         {
@@ -36,6 +38,15 @@ public partial class SaveService : ObservableObject, ISaveService
             if (Config.AutoSave)
                 TriggerAutoSave();
         });
+    }
+
+    public void SavePassword(string password)
+    {
+        _logger.LogInformation("Saving password...");
+        
+        SaveFile.Salt ??= _encryptionService.GenerateSalt();
+
+        _encryptionService.StorePassword(password, SaveFile.Salt);
     }
 
     public void Save(Diary[] diaries)

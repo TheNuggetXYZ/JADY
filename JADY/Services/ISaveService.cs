@@ -10,7 +10,8 @@ public interface ISaveService : INotifyPropertyChanged
     Config Config { get; }
     bool UnsavedChanges { get; }
     string SavesDirectory { get; }
-    
+
+    void SavePassword(string password);
     void Save(Diary[] diaries);
     void Save(Config config);
 
