@@ -20,6 +20,12 @@
         
                 <TextBlock Classes="greyedOut" FontSize="12" Margin="-5 5">Culture:</TextBlock>
                 <ComboBox Name="Cultures"></ComboBox>
+                
+                <TextBlock Classes="greyedOut" FontSize="12" Margin="-5 5">Password:</TextBlock>
+                <TextBox Name="Password" PasswordChar="●" RevealPassword="False"></TextBox>
+                
+                <TextBlock Classes="greyedOut" FontSize="12" Margin="-5 5">Confirm password:</TextBlock>
+                <TextBox Name="ConfirmPassword" PasswordChar="●" RevealPassword="False"></TextBox>
             </StackPanel>
             
         </StackPanel>
