@@ -3,7 +3,6 @@ using System.Globalization;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using JADY.Core.Data;
-using JADY.Core.Models;
 using JADY.Services;
 
 namespace JADY.UI.Views.Windows;
@@ -24,7 +23,7 @@ public partial class WelcomeWindow : Window
         _saveService = saveService;
         _windowService = windowService;
 
-        AppTheme.ItemsSource = Enum.GetValues(typeof(AppTheme));
+        AppTheme.ItemsSource = Enum.GetValues<AppTheme>();
         AppTheme.SelectedIndex = (int)_saveService.Config.AppTheme;
         Cultures.ItemsSource = AppCultures.AvailableCultures;
         Cultures.SelectedItem = new CultureInfo(_saveService.Config.CultureInfoName);
@@ -33,8 +32,12 @@ public partial class WelcomeWindow : Window
     private void ContinueButton_OnClick(object? sender, RoutedEventArgs e)
     {
         if (_saveService is null) return;
-
-        if (!string.IsNullOrWhiteSpace(Password.Text) && Password.Text != ConfirmPassword.Text)
+        
+        if (!string.IsNullOrWhiteSpace(Password.Text) && Password.Text == ConfirmPassword.Text)
+        {
+            _saveService.SavePassword(Password.Text);
+        }
+        else if (!string.IsNullOrWhiteSpace(Password.Text))
         {
             _windowService.OpenMessageBox("Passwords do not match!");
             return;
