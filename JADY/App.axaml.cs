@@ -47,7 +47,7 @@ public partial class App : Application
         if (!saveService.ExistsConfig())
         {
             // Show welcome window
-            var welcomeWindow = desktop.MainWindow = new WelcomeWindow(saveService);
+            var welcomeWindow = desktop.MainWindow = serviceProvider.GetRequiredService<WelcomeWindow>();
 
             // Make sure app doesnt shutdown
             desktop.ShutdownMode = ShutdownMode.OnExplicitShutdown;
@@ -107,6 +107,7 @@ public partial class App : Application
         collection.AddTransient<EditEntryWindow>();
         collection.AddTransient<EndEntryWindow>();
         collection.AddTransient<UnsavedChangesWindow>();
+        collection.AddTransient<WelcomeWindow>();
 
         serviceProvider = collection.BuildServiceProvider();
     }
