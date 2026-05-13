@@ -152,7 +152,7 @@ public class SaveCoreService(ILogger<SaveCoreService> logger, IEncryptionService
 
     private T CreateEmpty<T>(string reason) where T : new()
     {
-        logger.LogInformation($"{reason} -> Creating empty {nameof(T)}");
+        logger.LogInformation($"{reason} -> Creating empty {typeof(T)}");
         return new T();
     }
 }
