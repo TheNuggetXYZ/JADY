@@ -67,11 +67,11 @@ public partial class MainWindowViewModel : SaveDependentViewModel
         _diaryViewModelFactory = diaryViewModelFactory;
         _windowService = windowService;
 
-        Load();
+        LoadDiaries(false);
 
         WeakReferenceMessenger.Default.Register<Messages.PerformSave>(this, (_, _) =>
         {
-            Save();
+            SaveDiaries();
         });
     }
 
@@ -96,7 +96,7 @@ public partial class MainWindowViewModel : SaveDependentViewModel
             }
             else if (choice.Value == UnsavedChangesChoice.Save)
             {
-                Save();
+                SaveDiaries();
                 
                 cancelClosing = false;
             }
@@ -163,21 +163,21 @@ public partial class MainWindowViewModel : SaveDependentViewModel
     }
 
     [RelayCommand]
-    private void Menu_Save() => Save();
+    private void Menu_Save() => SaveDiaries();
 
     [RelayCommand]
-    private void Menu_Load() => Load();
+    private void Menu_Load() => LoadDiaries(true);
 
-    private void Save()
+    private void SaveDiaries()
     {
         SaveService.Save(Diaries.Select(d => d.GetModel()).ToArray());
     }
 
-    private void Load()
+    private void LoadDiaries(bool loadSave)
     {
-        SaveService.LoadSave();
-        SaveService.LoadConfig();
-
+        if (loadSave)
+            SaveService.LoadSave();
+        
         Diaries = new ObservableCollection<DiaryViewModel>(
             SaveService.SaveData.Diaries.Select(model => _diaryViewModelFactory.Create(model, this)));
 

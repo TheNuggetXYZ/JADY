@@ -34,13 +34,13 @@ public partial class App : Application
         
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            SetupMainWindow(serviceProvider, desktop);
+            LaunchApp(serviceProvider, desktop);
         }
 
         base.OnFrameworkInitializationCompleted();
     }
 
-    private static void SetupMainWindow(ServiceProvider serviceProvider, IClassicDesktopStyleApplicationLifetime desktop)
+    private static void LaunchApp(ServiceProvider serviceProvider, IClassicDesktopStyleApplicationLifetime desktop)
     {
         var saveService = serviceProvider.GetRequiredService<ISaveService>();
         
@@ -57,10 +57,7 @@ public partial class App : Application
             {
                 desktop.ShutdownMode = ShutdownMode.OnMainWindowClose;
                 
-                var mainWindow = desktop.MainWindow = new MainWindow
-                {
-                    DataContext = serviceProvider.GetRequiredService<MainWindowViewModel>(),
-                };
+                InitializeMainWindow(serviceProvider, desktop, saveService, out var mainWindow);
                 
                 mainWindow.Show();
             };
@@ -68,14 +65,22 @@ public partial class App : Application
         else
         {
             // Skip welcome window
-            desktop.MainWindow = new MainWindow
-            {
-                DataContext = serviceProvider.GetRequiredService<MainWindowViewModel>(),
-            };
+            InitializeMainWindow(serviceProvider, desktop, saveService, out _);
         }
     }
 
-    private void ConfigureServices(out ServiceProvider serviceProvider)
+    private static void InitializeMainWindow(ServiceProvider serviceProvider, IClassicDesktopStyleApplicationLifetime desktop, ISaveService saveService, out MainWindow mainWindow)
+    {
+        saveService.LoadConfig();
+        saveService.LoadSave();
+        
+        desktop.MainWindow = mainWindow = new MainWindow
+        {
+            DataContext = serviceProvider.GetRequiredService<MainWindowViewModel>(),
+        };
+    }
+
+    private static void ConfigureServices(out ServiceProvider serviceProvider)
     {
         var collection = new ServiceCollection();
 
