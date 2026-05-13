@@ -6,7 +6,7 @@ public interface IEncryptionService
 {
     void StorePassword(string password, byte[] salt);
     
-    EncryptedData Encrypt(string data);
+    EncryptedData? Encrypt(string data);
     
     string Decrypt(EncryptedData encryptedData, out bool correctPassword);
     

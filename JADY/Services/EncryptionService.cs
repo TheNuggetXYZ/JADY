@@ -37,21 +37,15 @@ public class EncryptionService(ILogger<EncryptionService> logger) : IEncryptionS
 
     /// <summary>Encrypts a string.</summary>
     /// <returns>encrypted data in the format of a byte array if a password was entered, otherwise returns unencrypted byte array</returns>
-    public EncryptedData Encrypt(string data)
+    public EncryptedData? Encrypt(string data)
     {
         logger.LogInformation("Encrypting data...");
         
         if (!_hasPassword)
         {
             logger.LogInformation("No password found, skipping encryption");
-            
-            return new EncryptedData()
-            {
-                Encrypted = false,
-                Data = Encoding.UTF8.GetBytes(data),
-                Nonce = [],
-                Tag = [],
-            };
+
+            return null;
         }
         
         if (_key.Length == 0)
@@ -72,7 +66,6 @@ public class EncryptionService(ILogger<EncryptionService> logger) : IEncryptionS
 
         return new EncryptedData()
         {
-            Encrypted = true,
             Data = cipherBytes,
             Nonce = nonce,
             Tag = tag,
@@ -86,13 +79,6 @@ public class EncryptionService(ILogger<EncryptionService> logger) : IEncryptionS
         correctPassword = true;
         
         logger.LogInformation("Decrypting data...");
-        
-        if (!encryptedData.Encrypted)
-        {
-            logger.LogInformation("Data is not encrypted, skipping decryption");
-            
-            return Encoding.UTF8.GetString(encryptedData.Data);
-        }
         
         if (_key.Length == 0)
             throw new InvalidOperationException("No key loaded");
