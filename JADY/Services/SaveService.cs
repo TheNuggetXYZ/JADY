@@ -14,6 +14,7 @@ public partial class SaveService : ObservableObject, ISaveService
     private readonly ISaveCoreService _saveCoreService;
     private readonly IAppVisualService _appVisualService;
 
+    public SaveFile SaveFile { get; } = new();
     public SaveData SaveData { get; private set; } = new();
     public Config Config { get; private set; } = new();
 
@@ -43,7 +44,7 @@ public partial class SaveService : ObservableObject, ISaveService
         
         SaveData.Diaries = diaries;
 
-        _saveCoreService.Write(GetSavePath(), SaveData);
+        _saveCoreService.Write(GetSavePath(), SaveData, SaveFile);
 
         UnsavedChanges = false;
 
