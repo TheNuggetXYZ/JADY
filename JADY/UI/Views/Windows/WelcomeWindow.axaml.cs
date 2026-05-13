@@ -11,6 +11,7 @@ namespace JADY.UI.Views.Windows;
 public partial class WelcomeWindow : Window
 {
     private readonly ISaveService? _saveService;
+    private readonly IWindowService _windowService;
 
     // Required for the compiler and previewer
     public WelcomeWindow()
@@ -18,10 +19,11 @@ public partial class WelcomeWindow : Window
         InitializeComponent();
     }
     
-    public WelcomeWindow(ISaveService saveService) : this()
+    public WelcomeWindow(ISaveService saveService, IWindowService windowService) : this()
     {
         _saveService = saveService;
-        
+        _windowService = windowService;
+
         AppTheme.ItemsSource = Enum.GetValues(typeof(AppTheme));
         AppTheme.SelectedIndex = (int)_saveService.Config.AppTheme;
         Cultures.ItemsSource = AppCultures.AvailableCultures;
@@ -31,6 +33,12 @@ public partial class WelcomeWindow : Window
     private void ContinueButton_OnClick(object? sender, RoutedEventArgs e)
     {
         if (_saveService is null) return;
+
+        if (!string.IsNullOrWhiteSpace(Password.Text) && Password.Text != ConfirmPassword.Text)
+        {
+            _windowService.OpenMessageBox("Passwords do not match!");
+            return;
+        }
         
         _saveService.Config.AppTheme = (AppTheme)AppTheme.SelectedIndex;
         _saveService.Config.CultureInfoName = AppCultures.AvailableCultures[Cultures.SelectedIndex].Name;
