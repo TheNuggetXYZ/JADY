@@ -8,6 +8,8 @@ namespace JADY.Services;
 
 public class SaveCoreService(ILogger<SaveCoreService> logger, IEncryptionService encryptionService) : ISaveCoreService
 {
+    public SaveFile SaveFile { get; } = new();
+    
     public string SavesDirectory { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "JADY");
     
     public bool ExistsFile(string path) => File.Exists(path);
@@ -27,17 +29,15 @@ public class SaveCoreService(ILogger<SaveCoreService> logger, IEncryptionService
         
         string jsonString = JsonSerializer.Serialize(saveData);
 
-        var saveFile = new SaveFile();
-
         var encryptedData = encryptionService.Encrypt(jsonString);
 
         if (encryptedData is null)
-            saveFile.PlainData = saveData;
+            SaveFile.PlainData = saveData;
         else
-            saveFile.EncryptedData = encryptedData;
+            SaveFile.EncryptedData = encryptedData;
         
         WriteJson(path, 
-            saveFile, 
+            SaveFile, 
             true);
     }
 

@@ -4,6 +4,7 @@ namespace JADY.Services;
 
 public interface ISaveCoreService
 {
+    SaveFile SaveFile { get; }
     string SavesDirectory { get; }
     
     void Write(string path, SaveData saveData);
