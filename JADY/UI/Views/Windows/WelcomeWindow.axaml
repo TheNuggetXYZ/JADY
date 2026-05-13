@@ -11,21 +11,21 @@
         MinHeight="250">
     
     <Grid RowDefinitions="*, Auto" RowSpacing="25">
-        <StackPanel Grid.Row="0" Orientation="Vertical" Spacing="25" Margin="30">
+        <StackPanel Grid.Row="0" Orientation="Vertical" Spacing="25" Margin="60 30">
             
-            <TextBlock FontSize="22" Margin="0 0 0 -20">Let's set you up:</TextBlock>
-            <StackPanel Margin="15 0" Orientation="Vertical">
-                <TextBlock Classes="greyedOut" FontSize="12" Margin="-5 5">App theme:</TextBlock>
-                <ComboBox Name="AppTheme"></ComboBox>
+            <TextBlock Classes="h1" Text="Let's set you up:"/>
+            <StackPanel Margin="15 0" Orientation="Vertical" Spacing="10">
+                <Label Classes="field light" Content="App theme:"/>
+                <ComboBox Name="AppTheme"/>
         
-                <TextBlock Classes="greyedOut" FontSize="12" Margin="-5 5">Culture:</TextBlock>
-                <ComboBox Name="Cultures"></ComboBox>
+                <Label Classes="field light" Content="Culture:"/>
+                <ComboBox Name="Cultures"/>
                 
-                <TextBlock Classes="greyedOut" FontSize="12" Margin="-5 5">Password:</TextBlock>
-                <TextBox Name="Password" PlaceholderText="Enter password..." PasswordChar="●" RevealPassword="False"></TextBox>
+                <Label Classes="field light" Content="Password:"/>
+                <TextBox Name="Password" PlaceholderText="Enter password..." PasswordChar="●" RevealPassword="False"/>
                 
-                <TextBlock Classes="greyedOut" FontSize="12" Margin="-5 5">Confirm password:</TextBlock>
-                <TextBox Name="ConfirmPassword" PlaceholderText="Confirm password..." PasswordChar="●" RevealPassword="False"></TextBox>
+                <Label Classes="field light" Content="Confirm password:"/>
+                <TextBox Name="ConfirmPassword" PlaceholderText="Confirm password..." PasswordChar="●" RevealPassword="False"/>
             </StackPanel>
             
         </StackPanel>
