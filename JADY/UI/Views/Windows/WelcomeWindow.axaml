@@ -22,10 +22,10 @@
                 <ComboBox Name="Cultures"></ComboBox>
                 
                 <TextBlock Classes="greyedOut" FontSize="12" Margin="-5 5">Password:</TextBlock>
-                <TextBox Name="Password" PasswordChar="●" RevealPassword="False"></TextBox>
+                <TextBox Name="Password" PlaceholderText="Enter password..." PasswordChar="●" RevealPassword="False"></TextBox>
                 
                 <TextBlock Classes="greyedOut" FontSize="12" Margin="-5 5">Confirm password:</TextBlock>
-                <TextBox Name="ConfirmPassword" PasswordChar="●" RevealPassword="False"></TextBox>
+                <TextBox Name="ConfirmPassword" PlaceholderText="Confirm password..." PasswordChar="●" RevealPassword="False"></TextBox>
             </StackPanel>
             
         </StackPanel>
