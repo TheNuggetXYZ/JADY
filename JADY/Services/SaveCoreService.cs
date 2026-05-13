@@ -27,7 +27,18 @@ public class SaveCoreService(ILogger<SaveCoreService> logger, IEncryptionService
         
         string jsonString = JsonSerializer.Serialize(saveData);
 
-        WriteJson(path, encryptionService.Encrypt(jsonString), true);
+        var saveFile = new SaveFile();
+
+        var encryptedData = encryptionService.Encrypt(jsonString);
+
+        if (encryptedData is null)
+            saveFile.PlainData = saveData;
+        else
+            saveFile.EncryptedData = encryptedData;
+        
+        WriteJson(path, 
+            saveFile, 
+            true);
     }
 
     public Config ReadConfig(string path)
@@ -114,10 +125,16 @@ public class SaveCoreService(ILogger<SaveCoreService> logger, IEncryptionService
         try
         {
             using FileStream fs = File.OpenRead(path);
-            var data = JsonSerializer.Deserialize<EncryptedData>(fs);
+            var saveFile = JsonSerializer.Deserialize<SaveFile>(fs);
             
-            if (data != null)
-                return JsonSerializer.Deserialize<SaveData>(encryptionService.Decrypt(data, out _))!;
+            if (saveFile != null)
+            {
+                if (saveFile.EncryptedData is null)
+                    return saveFile.PlainData ?? CreateEmpty<SaveData>("PlainData and EncryptedData are both null.");
+
+                return JsonSerializer.Deserialize<SaveData>(encryptionService.Decrypt(saveFile.EncryptedData, out _)) ??
+                       CreateEmpty<SaveData>("Error deserializing EncryptedData");
+            }
         }
         catch (JsonException e)
         {
