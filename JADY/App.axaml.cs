@@ -31,53 +31,11 @@ public partial class App : Application
         ConfigureServices(out var serviceProvider);
         
         ServiceProvider = serviceProvider;
-        
+
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-        {
-            LaunchApp(serviceProvider, desktop);
-        }
+            serviceProvider.GetRequiredService<IAppStartupService>().AppStartup(desktop);
 
         base.OnFrameworkInitializationCompleted();
-    }
-
-    private static void LaunchApp(ServiceProvider serviceProvider, IClassicDesktopStyleApplicationLifetime desktop)
-    {
-        var saveService = serviceProvider.GetRequiredService<ISaveService>();
-        
-        if (!saveService.ExistsConfig())
-        {
-            // Show welcome window
-            var welcomeWindow = desktop.MainWindow = serviceProvider.GetRequiredService<WelcomeWindow>();
-
-            // Make sure app doesnt shutdown
-            desktop.ShutdownMode = ShutdownMode.OnExplicitShutdown;
-
-            // Show main window once welcome window is closed
-            welcomeWindow.Closing += (_, _) =>
-            {
-                desktop.ShutdownMode = ShutdownMode.OnMainWindowClose;
-                
-                InitializeMainWindow(serviceProvider, desktop, saveService, out var mainWindow);
-                
-                mainWindow.Show();
-            };
-        }
-        else
-        {
-            // Skip welcome window
-            InitializeMainWindow(serviceProvider, desktop, saveService, out _);
-        }
-    }
-
-    private static void InitializeMainWindow(ServiceProvider serviceProvider, IClassicDesktopStyleApplicationLifetime desktop, ISaveService saveService, out MainWindow mainWindow)
-    {
-        saveService.LoadConfig();
-        saveService.LoadSave();
-        
-        desktop.MainWindow = mainWindow = new MainWindow
-        {
-            DataContext = serviceProvider.GetRequiredService<MainWindowViewModel>(),
-        };
     }
 
     private static void ConfigureServices(out ServiceProvider serviceProvider)
@@ -95,6 +53,7 @@ public partial class App : Application
         collection.AddSingleton<IAppVisualService, AppVisualService>();
         collection.AddSingleton<ISaveCoreService, SaveCoreService>();
         collection.AddSingleton<ISaveService, SaveService>();
+        collection.AddSingleton<IAppStartupService, AppStartupService>();
         collection.AddSingleton<IWindowService, WindowService>();
         
         // Factories
