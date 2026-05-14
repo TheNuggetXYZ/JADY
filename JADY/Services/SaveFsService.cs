@@ -20,4 +20,7 @@ public class SaveFsService(ILogger<SaveFsService> logger) : ISaveFsService
         return true;
 
     }
+    
+    public Stream OpenWrite(string path) => File.Create(path);
+    public Stream OpenRead(string path) => File.OpenRead(path);
 }
