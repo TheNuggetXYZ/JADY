@@ -18,7 +18,7 @@ public class SaveIoService(ILogger<SaveIoService> logger, ISaveFsService saveFsS
     
     public void Write(string path, Config config)
     {
-        WriteJson(path, config, true);
+        WriteJson(path, config);
     }
     
     public void Write(string path, SaveData saveData, SaveFile saveFile)
@@ -31,13 +31,9 @@ public class SaveIoService(ILogger<SaveIoService> logger, ISaveFsService saveFsS
         saveFile.PlainData = encrypted == null ? saveData : null;
 
         // Move existing to a backup, then write new
-        if (File.Exists(path))
-        {
-            logger.LogInformation("Save file already exists, creating backup");
-            saveFsService.RotateFile(path, path + BackupExtension);
-        }
+        saveFsService.TryRotateFile(path, path + BackupExtension, true);
 
-        WriteJson(path, saveFile, true);
+        WriteJson(path, saveFile);
     }
 
     public Config ReadConfig(string path)
@@ -47,7 +43,7 @@ public class SaveIoService(ILogger<SaveIoService> logger, ISaveFsService saveFsS
 
         try
         {
-            return ReadExistingFile<Config>(path);
+            return ReadJson<Config>(path) ?? CreateEmpty<Config>("Reading file returned null");
         }
         catch (JsonException e)
         {
@@ -58,79 +54,76 @@ public class SaveIoService(ILogger<SaveIoService> logger, ISaveFsService saveFsS
     
     public SaveData ReadSave(string path)
     {
-        if (!File.Exists(path))
-        {
-            logger.LogWarning("Save file not found");
-            
-            saveFsService.RestoreFile(path + BackupExtension, path);
-            return ReadExistingSaveFile(path);
-        }
-        
-        try
-        {
-            return ReadExistingSaveFile(path, true);
-        }
-        catch (JsonException e)
-        {
-            logger.LogTrace(e, "Error deserializing save file");
-                
-            saveFsService.RotateFile(path, path + CorruptExtension);
+        var result = TryReadAndExtractSaveData(path);
 
-            saveFsService.RestoreFile(path + BackupExtension, path);
-            return ReadExistingSaveFile(path);
-        }
-    }
-    
-    private SaveData ReadExistingSaveFile(string path, bool throwException = false)
-    {
-        try
+        if (result is null)
         {
-            using FileStream fs = File.OpenRead(path);
-            var saveFile = JsonSerializer.Deserialize<SaveFile>(fs);
+            logger.LogWarning("Reading save file failed or it is missing. Restoring backup...");
             
-            if (saveFile != null)
+            if (saveFsService.TryRotateFile(path + BackupExtension, path, true)) // TODO: Use Copy instead of Rotate/Move here to keep the backup as a safety net
             {
-                if (saveFile.EncryptedData is null)
-                    return saveFile.PlainData ?? CreateEmpty<SaveData>("PlainData and EncryptedData are both null.");
-
-                return JsonSerializer.Deserialize<SaveData>(encryptionService.Decrypt(saveFile.EncryptedData, out _)) ??
-                       CreateEmpty<SaveData>("Error deserializing EncryptedData");
+                result = TryReadAndExtractSaveData(path);
             }
         }
-        catch (JsonException e)
-        {
-            logger.LogTrace(e, "Error deserializing save file");
-            
-            if (throwException)
-                throw;
-                
-            return CreateEmpty<SaveData>("Error deserializing save file");
-        }
-        
-        return CreateEmpty<SaveData>("Reading file returned null");
-    }
-    
-    
-    
-    private void WriteJson<T>(string path, T obj, bool writeIndented)
-    {
-        using FileStream fs = File.Create(path);
-        
-        JsonSerializer.Serialize(fs, obj, new JsonSerializerOptions { WriteIndented = writeIndented });
-        logger.LogInformation("Saved to: " + path);
+
+        return result ?? CreateEmpty<SaveData>("All recovery attempts failed.");
     }
 
-    private T ReadExistingFile<T>(string path) where T : new()
+    private SaveData? TryReadAndExtractSaveData(string path)
     {
-        using FileStream fs = File.OpenRead(path);
-        var data = JsonSerializer.Deserialize<T>(fs);
+        try
+        {
+            var save = ReadJson<SaveFile>(path);
+
+            return save is not null
+                ? ExtractSaveData(save)
+                : CreateEmpty<SaveData>("Reading file returned null");
+        }
+        catch (JsonException e)
+        {
+            logger.LogError(e, "Corruption detected at {Path}", path);
+            saveFsService.TryRotateFile(path, path + CorruptExtension, true);
+            return null;
+        }
+    }
+
+    private SaveData ExtractSaveData(SaveFile saveFile)
+    {
+        if (saveFile.EncryptedData is null)
+            return saveFile.PlainData ?? 
+                   CreateEmpty<SaveData>("PlainData and EncryptedData are both null.");
+
+        var decrypted = encryptionService.Decrypt(saveFile.EncryptedData, out bool correctPassword);
+
+        //TODO: Resolve correctPassword
         
-        return data ?? CreateEmpty<T>("Reading file returned null");
+        return JsonSerializer.Deserialize<SaveData>(decrypted) ??
+               CreateEmpty<SaveData>("Error deserializing EncryptedData");
     }
 
     private T CreateEmpty<T>(string reason) where T : new()
     {
         logger.LogInformation($"{reason} -> Creating empty {typeof(T)}");
         return new T();
+    }
+    
+    private void WriteJson<T>(string path, T obj)
+    {
+        logger.LogInformation("Saving to: {Path}", path);
+        
+        using var stream = saveFsService.OpenWrite(path);
+        JsonSerializer.Serialize(stream, obj, new JsonSerializerOptions{WriteIndented = true});
+    }
+
+    /// <exception cref="JsonException">Is thrown if the JSON file is incorrectly edited</exception>
+    private T? ReadJson<T>(string path) where T : class
+    {
+        logger.LogInformation("Reading: {Path}", path);
+
+        if (!File.Exists(path))
+            return null;
+        
+        using var stream = saveFsService.OpenRead(path);
+        return JsonSerializer.Deserialize<T>(stream);
     }
 }
