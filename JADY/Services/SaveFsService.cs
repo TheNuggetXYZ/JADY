@@ -1,27 +1,23 @@
-using System;
 using System.IO;
-using JADY.Core.Models;
 using Microsoft.Extensions.Logging;
 
 namespace JADY.Services;
 
 public class SaveFsService(ILogger<SaveFsService> logger) : ISaveFsService
 {
-    public void RestoreFile(string path, string newPath)
+    public bool TryRotateFile(string source, string destination, bool overwrite)
     {
-        logger.LogInformation("Restoring file from {Path} to {NewPath}", path, newPath);
+        if (!File.Exists(source))
+            return false;
         
-        File.Move(path, newPath);
-    }
+        logger.LogInformation("Rotating file from {Path} to {NewPath}", source, destination);
 
-    public void RotateFile(string path, string newPath)
-    {
-        logger.LogInformation("Rotating file from {Path} to {NewPath}", path, newPath);
+        if (File.Exists(destination) && !overwrite) 
+            return false;
         
-        // Delete old rotation
-        if (File.Exists(newPath))
-            File.Delete(newPath);
-        
-        File.Move(path, newPath);
+        File.Delete(destination);
+        File.Move(source, destination);
+        return true;
+
     }
 }

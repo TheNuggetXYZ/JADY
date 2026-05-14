@@ -1,7 +1,8 @@
+using System.IO;
+
 namespace JADY.Services;
 
 public interface ISaveFsService
 {
-    void RotateFile(string path, string newPath);
-    void RestoreFile(string path, string newPath);
+    bool TryRotateFile(string source, string destination, bool overwrite);
 }
