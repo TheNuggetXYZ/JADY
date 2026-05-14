@@ -10,6 +10,9 @@ public class SaveCoreService(ILogger<SaveCoreService> logger, IEncryptionService
 {
     public string SavesDirectory { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "JADY");
     
+    private const string BackupExtension = ".backup";
+    private const string CorruptExtension = ".corrupted";
+    
     public bool ExistsFile(string path) => File.Exists(path);
     
     public void Write(string path, Config config)
@@ -19,24 +22,21 @@ public class SaveCoreService(ILogger<SaveCoreService> logger, IEncryptionService
     
     public void Write(string path, SaveData saveData, SaveFile saveFile)
     {
+        // Prepare data
+        var json = JsonSerializer.Serialize(saveData);
+        var encrypted = encryptionService.Encrypt(json);
+
+        saveFile.EncryptedData = encrypted;
+        saveFile.PlainData = encrypted == null ? saveData : null;
+
+        // Move existing to a backup, then write new
         if (File.Exists(path))
         {
             logger.LogInformation("Save file already exists, creating backup");
             CreateBackupFrom(path);
         }
-        
-        string jsonString = JsonSerializer.Serialize(saveData);
 
-        var encryptedData = encryptionService.Encrypt(jsonString);
-
-        if (encryptedData is null)
-            saveFile.PlainData = saveData;
-        else
-            saveFile.EncryptedData = encryptedData;
-        
-        WriteJson(path, 
-            saveFile, 
-            true);
+        WriteJson(path, saveFile, true);
     }
 
     public Config ReadConfig(string path)
@@ -72,7 +72,7 @@ public class SaveCoreService(ILogger<SaveCoreService> logger, IEncryptionService
         {
             logger.LogTrace(e, "Error deserializing save file");
                 
-            CreateCorruptedFrom(path, path + ".corrupted");
+            CreateCorruptedFrom(path);
 
             return RestoreBackup(path);
         }
@@ -82,7 +82,7 @@ public class SaveCoreService(ILogger<SaveCoreService> logger, IEncryptionService
     
     private void CreateBackupFrom(string path)
     {
-        string backupPath = path + ".backup";
+        string backupPath = path + BackupExtension;
         
         if (File.Exists(backupPath))
             File.Delete(backupPath);
@@ -91,8 +91,10 @@ public class SaveCoreService(ILogger<SaveCoreService> logger, IEncryptionService
         File.Move(path, backupPath);
     }
 
-    private void CreateCorruptedFrom(string path, string corruptedPath)
+    private void CreateCorruptedFrom(string path)
     {
+        string corruptedPath = path + CorruptExtension;
+        
         logger.LogInformation("Renaming corrupted save file");
 
         if (!File.Exists(corruptedPath))
@@ -106,7 +108,7 @@ public class SaveCoreService(ILogger<SaveCoreService> logger, IEncryptionService
 
     private SaveData RestoreBackup(string path)
     {
-        string backupPath = path + ".backup";
+        string backupPath = path + BackupExtension;
         
         logger.LogInformation("Restoring backup...");
         
