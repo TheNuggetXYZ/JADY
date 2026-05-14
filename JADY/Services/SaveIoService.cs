@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace JADY.Services;
 
-public class SaveIoService(ILogger<SaveIoService> logger, IEncryptionService encryptionService) : ISaveIoService
+public class SaveIoService(ILogger<SaveIoService> logger, ISaveFsService saveFsService, IEncryptionService encryptionService) : ISaveIoService
 {
     public string SavesDirectory { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "JADY");
     
@@ -34,7 +34,7 @@ public class SaveIoService(ILogger<SaveIoService> logger, IEncryptionService enc
         if (File.Exists(path))
         {
             logger.LogInformation("Save file already exists, creating backup");
-            CreateBackupFrom(path);
+            saveFsService.RotateFile(path, path + BackupExtension);
         }
 
         WriteJson(path, saveFile, true);
@@ -62,7 +62,8 @@ public class SaveIoService(ILogger<SaveIoService> logger, IEncryptionService enc
         {
             logger.LogWarning("Save file not found");
             
-            return RestoreBackup(path);
+            saveFsService.RestoreFile(path + BackupExtension, path);
+            return ReadExistingSaveFile(path);
         }
         
         try
@@ -73,52 +74,11 @@ public class SaveIoService(ILogger<SaveIoService> logger, IEncryptionService enc
         {
             logger.LogTrace(e, "Error deserializing save file");
                 
-            CreateCorruptedFrom(path);
+            saveFsService.RotateFile(path, path + CorruptExtension);
 
-            return RestoreBackup(path);
+            saveFsService.RestoreFile(path + BackupExtension, path);
+            return ReadExistingSaveFile(path);
         }
-    }
-    
-    
-    
-    private void CreateBackupFrom(string path)
-    {
-        string backupPath = Path.ChangeExtension(path, BackupExtension);
-        
-        if (File.Exists(backupPath))
-            File.Delete(backupPath);
-        
-        logger.LogInformation($"Creating backup file from {path}");
-        File.Move(path, backupPath);
-    }
-
-    private void CreateCorruptedFrom(string path)
-    {
-        string corruptedPath = Path.ChangeExtension(path, CorruptExtension);
-        
-        logger.LogInformation("Renaming corrupted save file");
-
-        if (!File.Exists(corruptedPath))
-            File.Move(path, corruptedPath);
-        else
-        {
-            logger.LogError($"Corrupted save file already exists: {path}.corrupted. Please handle your corrupted save file first");
-            throw new InvalidOperationException($"Corrupted save file already exists: {path}.corrupted. Please handle your corrupted save file first");
-        }
-    }
-
-    private SaveData RestoreBackup(string path)
-    {
-        string backupPath = Path.ChangeExtension(path, BackupExtension);
-        
-        logger.LogInformation("Restoring backup...");
-        
-        if (!File.Exists(backupPath)) 
-            return CreateEmpty<SaveData>("Backup file not found");
-        
-        File.Move(backupPath, path);
-        
-        return ReadExistingSaveFile(path);
     }
     
     private SaveData ReadExistingSaveFile(string path, bool throwException = false)

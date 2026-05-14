@@ -48,6 +48,7 @@ public partial class App : Application
         // Services
         collection.AddSingleton<IEncryptionService, EncryptionService>();
         collection.AddSingleton<IAppVisualService, AppVisualService>();
+        collection.AddSingleton<ISaveFsService, SaveFsService>();
         collection.AddSingleton<ISaveIoService, SaveIoService>();
         collection.AddSingleton<ISaveService, SaveService>();
         collection.AddSingleton<IAppStartupService, AppStartupService>();
