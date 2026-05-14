@@ -77,7 +77,7 @@ public class SaveIoService(ILogger<SaveIoService> logger, ISaveFsService saveFsS
 
             return save is not null
                 ? ExtractSaveData(save)
-                : CreateEmpty<SaveData>("Reading file returned null");
+                : null;
         }
         catch (JsonException e)
         {
