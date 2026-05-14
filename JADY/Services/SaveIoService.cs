@@ -6,10 +6,11 @@ using Microsoft.Extensions.Logging;
 
 namespace JADY.Services;
 
-public class SaveCoreService(ILogger<SaveCoreService> logger, IEncryptionService encryptionService) : ISaveCoreService
+public class SaveIoService(ILogger<SaveIoService> logger, IEncryptionService encryptionService) : ISaveIoService
 {
     public string SavesDirectory { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "JADY");
     
+    private const string SaveExtension = ".save";
     private const string BackupExtension = ".backup";
     private const string CorruptExtension = ".corrupted";
     
@@ -82,7 +83,7 @@ public class SaveCoreService(ILogger<SaveCoreService> logger, IEncryptionService
     
     private void CreateBackupFrom(string path)
     {
-        string backupPath = path + BackupExtension;
+        string backupPath = Path.ChangeExtension(path, BackupExtension);
         
         if (File.Exists(backupPath))
             File.Delete(backupPath);
@@ -93,7 +94,7 @@ public class SaveCoreService(ILogger<SaveCoreService> logger, IEncryptionService
 
     private void CreateCorruptedFrom(string path)
     {
-        string corruptedPath = path + CorruptExtension;
+        string corruptedPath = Path.ChangeExtension(path, CorruptExtension);
         
         logger.LogInformation("Renaming corrupted save file");
 
@@ -108,7 +109,7 @@ public class SaveCoreService(ILogger<SaveCoreService> logger, IEncryptionService
 
     private SaveData RestoreBackup(string path)
     {
-        string backupPath = path + BackupExtension;
+        string backupPath = Path.ChangeExtension(path, BackupExtension);
         
         logger.LogInformation("Restoring backup...");
         

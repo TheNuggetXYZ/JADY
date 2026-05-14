@@ -1,10 +1,7 @@
-using System;
 using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Metadata;
-using JADY.Core.Models;
 using JADY.Factories;
 using JADY.Services;
 using JADY.UI.Views.Windows;
@@ -51,7 +48,7 @@ public partial class App : Application
         // Services
         collection.AddSingleton<IEncryptionService, EncryptionService>();
         collection.AddSingleton<IAppVisualService, AppVisualService>();
-        collection.AddSingleton<ISaveCoreService, SaveCoreService>();
+        collection.AddSingleton<ISaveIoService, SaveIoService>();
         collection.AddSingleton<ISaveService, SaveService>();
         collection.AddSingleton<IAppStartupService, AppStartupService>();
         collection.AddSingleton<IWindowService, WindowService>();

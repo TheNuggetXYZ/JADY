@@ -1,6 +1,6 @@
 namespace JADY.Services;
 
-public interface ISaveFSService
+public interface ISaveFsService
 {
     void RotateFile(string path, string newPath);
 }

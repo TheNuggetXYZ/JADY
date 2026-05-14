@@ -2,7 +2,7 @@ using JADY.Core.Models;
 
 namespace JADY.Services;
 
-public interface ISaveCoreService
+public interface ISaveIoService
 {
     string SavesDirectory { get; }
     

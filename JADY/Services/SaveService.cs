@@ -11,7 +11,7 @@ namespace JADY.Services;
 public partial class SaveService : ObservableObject, ISaveService
 {
     private readonly ILogger<SaveService> _logger;
-    private readonly ISaveCoreService _saveCoreService;
+    private readonly ISaveIoService _saveIoService;
     private readonly IAppVisualService _appVisualService;
     private readonly IEncryptionService _encryptionService;
 
@@ -19,15 +19,15 @@ public partial class SaveService : ObservableObject, ISaveService
     public SaveData SaveData { get; private set; } = new();
     public Config Config { get; private set; } = new();
 
-    public string SavesDirectory => _saveCoreService.SavesDirectory;
+    public string SavesDirectory => _saveIoService.SavesDirectory;
 
     [ObservableProperty]
     private bool _unsavedChanges;
 
-    public SaveService(ILogger<SaveService> logger, ISaveCoreService saveCoreService, IAppVisualService appVisualService, IEncryptionService encryptionService)
+    public SaveService(ILogger<SaveService> logger, ISaveIoService saveIoService, IAppVisualService appVisualService, IEncryptionService encryptionService)
     {
         _logger = logger;
-        _saveCoreService = saveCoreService;
+        _saveIoService = saveIoService;
         _appVisualService = appVisualService;
         _encryptionService = encryptionService;
 
@@ -55,7 +55,7 @@ public partial class SaveService : ObservableObject, ISaveService
         
         SaveData.Diaries = diaries;
 
-        _saveCoreService.Write(GetSavePath(), SaveData, SaveFile);
+        _saveIoService.Write(GetSavePath(), SaveData, SaveFile);
 
         UnsavedChanges = false;
 
@@ -70,7 +70,7 @@ public partial class SaveService : ObservableObject, ISaveService
         
         OnChangeConfig();
 
-        _saveCoreService.Write(GetConfigPath(), Config);
+        _saveIoService.Write(GetConfigPath(), Config);
 
         OnSave();
 
@@ -84,7 +84,7 @@ public partial class SaveService : ObservableObject, ISaveService
     {
         _logger.LogInformation("Loading config...");
         
-        Config = _saveCoreService.ReadConfig(GetConfigPath());
+        Config = _saveIoService.ReadConfig(GetConfigPath());
         
         OnChangeConfig();
     }
@@ -93,7 +93,7 @@ public partial class SaveService : ObservableObject, ISaveService
     {
         _logger.LogInformation("Loading main save...");
         
-        SaveData = _saveCoreService.ReadSave(GetSavePath());
+        SaveData = _saveIoService.ReadSave(GetSavePath());
 
         UnsavedChanges = false;
         
@@ -102,7 +102,7 @@ public partial class SaveService : ObservableObject, ISaveService
 
     public bool ExistsConfig()
     {
-        return _saveCoreService.ExistsFile(GetConfigPath());
+        return _saveIoService.ExistsFile(GetConfigPath());
     }
 
     private void OnSave()
@@ -127,11 +127,11 @@ public partial class SaveService : ObservableObject, ISaveService
 
     private string GetSavePath()
     {
-        return Path.Combine(_saveCoreService.SavesDirectory, "JADY.save");
+        return Path.Combine(_saveIoService.SavesDirectory, "JADY.save");
     }
 
     private string GetConfigPath()
     {
-        return Path.Combine(_saveCoreService.SavesDirectory, "JADY.config");
+        return Path.Combine(_saveIoService.SavesDirectory, "JADY.config");
     }
 }

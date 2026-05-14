@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace JADY.Services;
 
-public class SaveFSService(ILogger<SaveFSService> logger) : ISaveFSService
+public class SaveFsService(ILogger<SaveFsService> logger) : ISaveFsService
 {
     public void RestoreFile(string path, string newPath)
     {
