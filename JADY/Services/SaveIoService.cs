@@ -31,7 +31,7 @@ public class SaveIoService(ILogger<SaveIoService> logger, ISaveFsService saveFsS
         saveFile.PlainData = encrypted == null ? saveData : null;
 
         // Move existing to a backup, then write new
-        saveFsService.TryRotateFile(path, path + BackupExtension, true);
+        saveFsService.TryRotateFile(path, Path.ChangeExtension(path, BackupExtension), true);
 
         WriteJson(path, saveFile);
     }
@@ -60,7 +60,7 @@ public class SaveIoService(ILogger<SaveIoService> logger, ISaveFsService saveFsS
         {
             logger.LogWarning("Reading save file failed or it is missing. Restoring backup...");
             
-            if (saveFsService.TryRotateFile(path + BackupExtension, path, true)) // TODO: Use Copy instead of Rotate/Move here to keep the backup as a safety net
+            if (saveFsService.TryRotateFile(Path.ChangeExtension(path, BackupExtension), path, true)) // TODO: Use Copy instead of Rotate/Move here to keep the backup as a safety net
             {
                 result = TryReadAndExtractSaveData(path);
             }
@@ -82,7 +82,7 @@ public class SaveIoService(ILogger<SaveIoService> logger, ISaveFsService saveFsS
         catch (JsonException e)
         {
             logger.LogError(e, "Corruption detected at {Path}", path);
-            saveFsService.TryRotateFile(path, path + CorruptExtension, true);
+            saveFsService.TryRotateFile(path, Path.ChangeExtension(path, CorruptExtension), true);
             return null;
         }
     }
