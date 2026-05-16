@@ -53,22 +53,14 @@ public class SaveIoService(ILogger<SaveIoService> logger, ISaveFsService saveFsS
         if (!File.Exists(path))
             return CreateEmpty<Config>("Config file not found");
 
-        try
-        {
-            return ReadJson<Config>(path) ?? CreateEmpty<Config>("Reading file returned null");
-        }
-        catch (JsonException e)
-        {
-            logger.LogTrace(e, "Error deserializing config file:");
-            return CreateEmpty<Config>("Error deserializing config file");
-        }
+        return ReadJson<Config>(path).Data ?? CreateEmpty<Config>("Error reading config");
     }
     
-    public SaveData ReadSave(string path)
+    public LoadResult ReadSave(string path)
     {
         var result = TryReadAndExtractSaveData(path);
 
-        if (result is null)
+        if (result.Status is LoadStatus.FileNotFound or LoadStatus.Corrupted)
         {
             logger.LogWarning("Reading save file failed or it is missing. Restoring backup...");
             
@@ -78,45 +70,48 @@ public class SaveIoService(ILogger<SaveIoService> logger, ISaveFsService saveFsS
             }
         }
 
-        return result ?? CreateEmpty<SaveData>("All recovery attempts failed.");
+        return result;
     }
 
-    private SaveData? TryReadAndExtractSaveData(string path)
+    private LoadResult TryReadAndExtractSaveData(string path)
     {
-        try
-        {
-            var save = ReadJson<SaveFile>(path);
+        var save = ReadJson<SaveFile>(path);
 
-            return save is not null
-                ? ExtractSaveData(save)
-                : null;
-        }
-        catch (JsonException e)
+        switch (save.Status)
         {
-            logger.LogError(e, "Corruption detected at {Path}", path);
-            saveFsService.TryRotateFile(path, Path.ChangeExtension(path, CorruptExtension), true);
-            return null;
+            case ReadStatus.Success when save.Data is not null:
+                return ExtractSaveData(save.Data);
+                
+            case ReadStatus.Corrupted:
+            {
+                logger.LogError("Corruption detected at {Path}", path);
+                saveFsService.TryRotateFile(path, Path.ChangeExtension(path, CorruptExtension), true);
+                return new LoadResult(LoadStatus.Corrupted);
+            }
+            
+            case ReadStatus.FileNotFound:
+                return new LoadResult(LoadStatus.FileNotFound);
+            
+            default:
+                throw new InvalidOperationException("ReadStatus is out of range or ReadResult<T>.Data is null while ReadResult<T>.Status is Success.");
         }
     }
 
-    private SaveData ExtractSaveData(SaveFile saveFile)
+    private LoadResult ExtractSaveData(SaveFile saveFile)
     {
         if (saveFile.EncryptedData is null)
-            return saveFile.PlainData ?? 
-                   CreateEmpty<SaveData>("PlainData and EncryptedData are both null.");
+        {
+            var data = saveFile.PlainData ?? CreateEmpty<SaveData>("PlainData and EncryptedData are both null.");
+            return new LoadResult(LoadStatus.Success, data);
+        }
 
         var decrypted = encryptionService.Decrypt(saveFile.EncryptedData, out bool correctPassword);
 
-        //TODO: Resolve correctPassword
+        if (!correctPassword)
+            return new LoadResult(LoadStatus.InvalidPassword);
         
-        return JsonSerializer.Deserialize<SaveData>(decrypted) ??
-               CreateEmpty<SaveData>("Error deserializing EncryptedData");
-    }
-
-    private T CreateEmpty<T>(string reason) where T : new()
-    {
-        logger.LogInformation($"{reason} -> Creating empty {typeof(T)}");
-        return new T();
+        var data1 = JsonSerializer.Deserialize<SaveData>(decrypted) ?? CreateEmpty<SaveData>("Deserializing data returned null");
+        return new LoadResult(LoadStatus.Success, data1);
     }
     
     private void WriteJson<T>(string path, T obj)
@@ -128,14 +123,27 @@ public class SaveIoService(ILogger<SaveIoService> logger, ISaveFsService saveFsS
     }
 
     /// <exception cref="JsonException">Is thrown if the JSON file is incorrectly edited</exception>
-    private T? ReadJson<T>(string path) where T : class
+    private ReadResult<T> ReadJson<T>(string path) where T : class
     {
         logger.LogInformation("Reading: {Path}", path);
 
         if (!File.Exists(path))
-            return null;
+            return new ReadResult<T>(ReadStatus.FileNotFound);
         
-        using var stream = saveFsService.OpenRead(path);
-        return JsonSerializer.Deserialize<T>(stream);
+        try
+        {
+            using var stream = saveFsService.OpenRead(path);
+            return new ReadResult<T>(ReadStatus.Success, JsonSerializer.Deserialize<T>(stream));
+        }
+        catch (JsonException e)
+        {
+            return new ReadResult<T>(ReadStatus.Corrupted);
+        }
+    }
+
+    private T CreateEmpty<T>(string reason) where T : new()
+    {
+        logger.LogInformation($"{reason} -> Creating empty {typeof(T)}");
+        return new T();
     }
 }
