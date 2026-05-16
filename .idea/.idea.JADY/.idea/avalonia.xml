@@ -27,6 +27,7 @@
         <entry key="JADY/UI/Views/Dialogs/EditDiaryWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Dialogs/EditEntryWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Dialogs/EndEntryWindow.axaml" value="JADY/JADY.csproj" />
+        <entry key="JADY/UI/Views/Dialogs/LoginWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Dialogs/SettingsWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Dialogs/UnsavedChangesWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Dialogs/YesNoDialogWindow.axaml" value="JADY/JADY.csproj" />
