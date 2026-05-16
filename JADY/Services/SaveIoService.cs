@@ -129,13 +129,21 @@ public class SaveIoService(ILogger<SaveIoService> logger, ISaveFsService saveFsS
             return new LoadResult(LoadStatus.Success, saveFile, data);
         }
 
-        var decrypted = encryptionService.Decrypt(saveFile.EncryptedData, out bool correctPassword);
+        try
+        {
+            var decrypted = encryptionService.Decrypt(saveFile.EncryptedData, out bool correctPassword);
 
-        if (!correctPassword)
+            if (!correctPassword)
+                return new LoadResult(LoadStatus.InvalidPassword, saveFile);
+
+            var data1 = JsonSerializer.Deserialize<SaveData>(decrypted) ??
+                        CreateEmpty<SaveData>("Deserializing data returned null");
+            return new LoadResult(LoadStatus.Success, saveFile, data1);
+        }
+        catch (InvalidOperationException e)
+        {
             return new LoadResult(LoadStatus.InvalidPassword, saveFile);
-        
-        var data1 = JsonSerializer.Deserialize<SaveData>(decrypted) ?? CreateEmpty<SaveData>("Deserializing data returned null");
-        return new LoadResult(LoadStatus.Success, saveFile, data1);
+        }
     }
     
     private void WriteJson<T>(string path, T obj)

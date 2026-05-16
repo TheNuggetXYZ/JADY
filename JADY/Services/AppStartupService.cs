@@ -2,8 +2,6 @@ using System;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Data;
-using JADY.UI.Views.Dialogs;
 using JADY.UI.Views.Windows;
 using JADY.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
@@ -54,36 +52,10 @@ public class AppStartupService(IServiceProvider serviceProvider, ISaveService sa
         _desktop.MainWindow = new LoadingSaveWindow();
         _desktop.MainWindow.Show();
 
-        await LoadPassword();
-
         saveService.LoadConfig();
         await saveService.LoadSave();
         
         _desktop.MainWindow.Close();
-    }
-
-    private async Task LoadPassword()
-    {
-        var saveEncrypted = saveService.IsSaveEncrypted();
-        if (saveEncrypted is { encrypted: true, readSave: true })
-        {
-            Optional<string?> password;
-            
-            while (true)
-            {
-                password = await windowService.OpenDialogWindowDI<LoginWindow, string?>(_desktop.MainWindow);
-
-                if (password.HasValue && !string.IsNullOrWhiteSpace(password.Value))
-                    break;
-            }
-
-            if (saveService.SaveFile.Salt is null)
-                throw new ArgumentNullException(nameof(saveService.SaveFile.Salt));
-            
-            encryptionService.StorePassword(
-                password.Value,
-                saveService.SaveFile.Salt);
-        }
     }
 
     private void StartupMainWindow(out MainWindow mainWindow)
