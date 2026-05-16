@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Text.Json;
+using JADY.Core.Data;
 using JADY.Core.Models;
 using Microsoft.Extensions.Logging;
 
@@ -13,6 +14,17 @@ public class SaveIoService(ILogger<SaveIoService> logger, ISaveFsService saveFsS
     private const string SaveExtension = ".save";
     private const string BackupExtension = ".backup";
     private const string CorruptExtension = ".corrupted";
+    
+    public record LoadResult(LoadStatus Status, SaveData? Data = null);
+    
+    private record ReadResult<T>(ReadStatus Status, T? Data = null) where T : class;
+
+    private enum ReadStatus
+    {
+        Success = 0,
+        FileNotFound = 1,
+        Corrupted = 2,
+    }
     
     public bool ExistsFile(string path) => File.Exists(path);
     
