@@ -23,14 +23,14 @@ public partial class App : Application
         AvaloniaXamlLoader.Load(this);
     }
 
-    public override void OnFrameworkInitializationCompleted()
+    public override async void OnFrameworkInitializationCompleted()
     {
         ConfigureServices(out var serviceProvider);
         
         ServiceProvider = serviceProvider;
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-            serviceProvider.GetRequiredService<IAppStartupService>().AppStartup(desktop);
+            await serviceProvider.GetRequiredService<IAppStartupService>().AppStartup(desktop);
 
         base.OnFrameworkInitializationCompleted();
     }
@@ -70,6 +70,7 @@ public partial class App : Application
         collection.AddTransient<EndEntryWindow>();
         collection.AddTransient<UnsavedChangesWindow>();
         collection.AddTransient<WelcomeWindow>();
+        collection.AddTransient<LoginWindow>();
 
         serviceProvider = collection.BuildServiceProvider();
     }
