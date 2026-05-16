@@ -10,8 +10,8 @@ public interface ISaveIoService
     void Write(string path, Config config);
 
     Config ReadConfig(string path);
-    SaveIoService.LoadResult ReadSave(string path);
-    SaveIoService.LoadResult ReadSaveContainer(string path);
+    SaveIoService.LoadResult ReadSaveFromContainer(SaveFile saveFile);
+    SaveIoService.ReadResult<SaveFile> ReadSaveContainer(string path);
 
     bool ExistsFile(string path);
 }

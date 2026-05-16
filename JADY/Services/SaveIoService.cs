@@ -15,11 +15,11 @@ public class SaveIoService(ILogger<SaveIoService> logger, ISaveFsService saveFsS
     private const string BackupExtension = ".backup";
     private const string CorruptExtension = ".corrupted";
     
-    public record LoadResult(LoadStatus Status, SaveFile? Container = null, SaveData? Data = null);
+    public record LoadResult(LoadStatus Status, SaveData? Data = null);
     
-    private record ReadResult<T>(ReadStatus Status, T? Data = null) where T : class;
+    public record ReadResult<T>(ReadStatus Status, T? Data = null) where T : class;
 
-    private enum ReadStatus
+    public enum ReadStatus
     {
         Success = 0,
         FileNotFound = 1,
@@ -56,77 +56,12 @@ public class SaveIoService(ILogger<SaveIoService> logger, ISaveFsService saveFsS
         return ReadJson<Config>(path).Data ?? CreateEmpty<Config>("Error reading config");
     }
     
-    public LoadResult ReadSave(string path)
-    {
-        var result = TryReadAndExtractSaveData(path);
-
-        if (result.Status is LoadStatus.FileNotFound or LoadStatus.Corrupted)
-        {
-            logger.LogWarning("Reading save file failed or it is missing. Restoring backup...");
-            
-            if (saveFsService.TryRotateFile(Path.ChangeExtension(path, BackupExtension), path, true)) // TODO: Use Copy instead of Rotate/Move here to keep the backup as a safety net
-            {
-                result = TryReadAndExtractSaveData(path);
-            }
-        }
-
-        return result;
-    }
-
-    public LoadResult ReadSaveContainer(string path)
-    {
-        var save = ReadJson<SaveFile>(path);
-
-        switch (save.Status)
-        {
-            case ReadStatus.Success when save.Data is not null:
-                return new LoadResult(LoadStatus.Success, save.Data);
-                
-            case ReadStatus.Corrupted:
-            {
-                logger.LogError("Corruption detected at {Path}", path);
-                saveFsService.TryRotateFile(path, Path.ChangeExtension(path, CorruptExtension), true);
-                return new LoadResult(LoadStatus.Corrupted);
-            }
-            
-            case ReadStatus.FileNotFound:
-                return new LoadResult(LoadStatus.FileNotFound);
-            
-            default:
-                throw new InvalidOperationException("ReadStatus is out of range or ReadResult<T>.Data is null while ReadResult<T>.Status is Success.");
-        }
-    }
-
-    private LoadResult TryReadAndExtractSaveData(string path)
-    {
-        var save = ReadJson<SaveFile>(path);
-
-        switch (save.Status)
-        {
-            case ReadStatus.Success when save.Data is not null:
-                return ExtractSaveData(save.Data);
-                
-            case ReadStatus.Corrupted:
-            {
-                logger.LogError("Corruption detected at {Path}", path);
-                saveFsService.TryRotateFile(path, Path.ChangeExtension(path, CorruptExtension), true);
-                return new LoadResult(LoadStatus.Corrupted);
-            }
-            
-            case ReadStatus.FileNotFound:
-                return new LoadResult(LoadStatus.FileNotFound);
-            
-            default:
-                throw new InvalidOperationException("ReadStatus is out of range or ReadResult<T>.Data is null while ReadResult<T>.Status is Success.");
-        }
-    }
-
-    private LoadResult ExtractSaveData(SaveFile saveFile)
+    public LoadResult ReadSaveFromContainer(SaveFile saveFile)
     {
         if (saveFile.EncryptedData is null)
         {
             var data = saveFile.PlainData ?? CreateEmpty<SaveData>("PlainData and EncryptedData are both null.");
-            return new LoadResult(LoadStatus.Success, saveFile, data);
+            return new LoadResult(LoadStatus.Success, data);
         }
 
         try
@@ -134,16 +69,40 @@ public class SaveIoService(ILogger<SaveIoService> logger, ISaveFsService saveFsS
             var decrypted = encryptionService.Decrypt(saveFile.EncryptedData, out bool correctPassword);
 
             if (!correctPassword)
-                return new LoadResult(LoadStatus.InvalidPassword, saveFile);
+                return new LoadResult(LoadStatus.InvalidPassword);
 
             var data1 = JsonSerializer.Deserialize<SaveData>(decrypted) ??
                         CreateEmpty<SaveData>("Deserializing data returned null");
-            return new LoadResult(LoadStatus.Success, saveFile, data1);
+            return new LoadResult(LoadStatus.Success, data1);
         }
         catch (InvalidOperationException e)
         {
-            return new LoadResult(LoadStatus.InvalidPassword, saveFile);
+            return new LoadResult(LoadStatus.InvalidPassword);
         }
+    }
+
+    public ReadResult<SaveFile> ReadSaveContainer(string path)
+    {
+        var save = ReadJson<SaveFile>(path);
+
+        switch (save.Status)
+        {
+            case ReadStatus.FileNotFound:
+                logger.LogInformation("File not found: {Path}, reading backup.", path);
+                var backup = ReadJson<SaveFile>(Path.ChangeExtension(path, BackupExtension));
+                return backup;
+            
+            case ReadStatus.Corrupted:
+                logger.LogError("Corruption detected at {Path}", path);
+                saveFsService.TryRotateFile(path, Path.ChangeExtension(path, CorruptExtension), true);
+                break;
+            
+            case ReadStatus.Success when save.Data is null:
+                throw new InvalidOperationException(
+                    "ReadStatus is out of range or ReadResult<T>.Data is null while ReadResult<T>.Status is Success.");
+        }
+
+        return save;
     }
     
     private void WriteJson<T>(string path, T obj)
