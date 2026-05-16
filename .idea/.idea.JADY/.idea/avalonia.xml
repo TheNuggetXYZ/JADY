@@ -32,6 +32,7 @@
         <entry key="JADY/UI/Views/Dialogs/UnsavedChangesWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Dialogs/YesNoDialogWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/SliderStyles.axaml" value="JADY/JADY.csproj" />
+        <entry key="JADY/UI/Views/Windows/LoadingSaveWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Windows/MainWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Windows/MessageWindow.axaml" value="JADY/JADY.csproj" />
         <entry key="JADY/UI/Views/Windows/WelcomeWindow.axaml" value="JADY/JADY.csproj" />
