@@ -19,7 +19,5 @@ public interface ISaveService : INotifyPropertyChanged
     Task LoadSave();
     void LoadConfig();
 
-    (bool encrypted, bool readSave) IsSaveEncrypted();
-
     bool ExistsConfig();
 }

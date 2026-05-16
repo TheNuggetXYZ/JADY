@@ -95,39 +95,6 @@ public partial class SaveService : ObservableObject, ISaveService
         OnChangeConfig();
     }
 
-    private bool TryLoadSaveContainer()
-    {
-        var loadResult = _saveIoService.ReadSaveContainer(GetSavePath());
-        
-        switch (loadResult.Status)
-        {
-            case LoadStatus.Success:
-                SaveFile = loadResult.Container ?? throw new InvalidOperationException("LoadResult.Container should not be null while LoadResult.Status is Success");
-                return true;
-
-            case LoadStatus.InvalidPassword:
-                throw new InvalidOperationException("Invalid status");
-            
-            case LoadStatus.Corrupted: // TODO: corrupted save window
-                return false;
-            
-            case LoadStatus.FileNotFound:
-                return false;
-            
-            default:
-                throw new ArgumentOutOfRangeException(nameof(loadResult), loadResult.Status, null);
-        }
-    }
-
-    public (bool encrypted, bool readSave) IsSaveEncrypted()
-    {
-        if (SaveFile.Salt is null)
-            if (TryLoadSaveContainer())
-                return (SaveFile.EncryptedData is not null, true);
-
-        return (false, false);
-    }
-
     public async Task LoadSave()
     {
         _logger.LogInformation("Loading main save...");
