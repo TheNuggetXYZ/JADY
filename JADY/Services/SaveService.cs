@@ -113,6 +113,24 @@ public partial class SaveService : ObservableObject, ISaveService
             case LoadStatus.InvalidPassword:
                 SaveData = new SaveData();
                 SaveFile = loadResult.Container ?? throw new InvalidOperationException("LoadResult.Container should not be null while LoadResult.Status is InvalidPassword");
+
+                Optional<string?> result;
+
+                while (true)
+                {
+                    result = await _windowService.OpenDialogWindowDI<LoginWindow, string?>(_windowService.GetMainWindow());
+                    
+                    if (result.HasValue && !string.IsNullOrWhiteSpace(result.Value))
+                        break;
+                }
+
+                if (SaveFile.Salt is null)
+                    throw new InvalidOperationException("SaveFile.Salt is null and the save is encrypted, cannot login and load save");
+                
+                _encryptionService.StorePassword(result.Value, SaveFile.Salt);
+
+                await LoadSave();
+                
                 break;
             
             case LoadStatus.Corrupted: // TODO: corrupted save window
