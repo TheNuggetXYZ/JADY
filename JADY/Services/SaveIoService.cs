@@ -73,6 +73,30 @@ public class SaveIoService(ILogger<SaveIoService> logger, ISaveFsService saveFsS
         return result;
     }
 
+    public LoadResult ReadSaveContainer(string path)
+    {
+        var save = ReadJson<SaveFile>(path);
+
+        switch (save.Status)
+        {
+            case ReadStatus.Success when save.Data is not null:
+                return new LoadResult(LoadStatus.Success, save.Data);
+                
+            case ReadStatus.Corrupted:
+            {
+                logger.LogError("Corruption detected at {Path}", path);
+                saveFsService.TryRotateFile(path, Path.ChangeExtension(path, CorruptExtension), true);
+                return new LoadResult(LoadStatus.Corrupted);
+            }
+            
+            case ReadStatus.FileNotFound:
+                return new LoadResult(LoadStatus.FileNotFound);
+            
+            default:
+                throw new InvalidOperationException("ReadStatus is out of range or ReadResult<T>.Data is null while ReadResult<T>.Status is Success.");
+        }
+    }
+
     private LoadResult TryReadAndExtractSaveData(string path)
     {
         var save = ReadJson<SaveFile>(path);

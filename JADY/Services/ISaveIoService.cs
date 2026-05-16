@@ -11,6 +11,7 @@ public interface ISaveIoService
 
     Config ReadConfig(string path);
     SaveIoService.LoadResult ReadSave(string path);
+    SaveIoService.LoadResult ReadSaveContainer(string path);
 
     bool ExistsFile(string path);
 }
