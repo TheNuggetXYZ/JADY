@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Threading.Tasks;
 using JADY.Core.Models;
 
 namespace JADY.Services;
@@ -15,8 +16,10 @@ public interface ISaveService : INotifyPropertyChanged
     void Save(Diary[] diaries);
     void Save(Config config);
 
-    void LoadSave();
+    Task LoadSave();
     void LoadConfig();
+
+    (bool encrypted, bool readSave) IsSaveEncrypted();
 
     bool ExistsConfig();
 }

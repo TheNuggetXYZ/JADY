@@ -1,9 +1,13 @@
-using System.Globalization;
+using System;
 using System.IO;
+using System.Threading.Tasks;
+using Avalonia.Data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 using JADY.Core;
+using JADY.Core.Data;
 using JADY.Core.Models;
+using JADY.UI.Views.Dialogs;
 using Microsoft.Extensions.Logging;
 
 namespace JADY.Services;
@@ -14,8 +18,9 @@ public partial class SaveService : ObservableObject, ISaveService
     private readonly ISaveIoService _saveIoService;
     private readonly IAppVisualService _appVisualService;
     private readonly IEncryptionService _encryptionService;
+    private readonly IWindowService _windowService;
 
-    public SaveFile SaveFile { get; } = new();
+    public SaveFile SaveFile { get; private set; } = new();
     public SaveData SaveData { get; private set; } = new();
     public Config Config { get; private set; } = new();
 
@@ -24,12 +29,13 @@ public partial class SaveService : ObservableObject, ISaveService
     [ObservableProperty]
     private bool _unsavedChanges;
 
-    public SaveService(ILogger<SaveService> logger, ISaveIoService saveIoService, IAppVisualService appVisualService, IEncryptionService encryptionService)
+    public SaveService(ILogger<SaveService> logger, ISaveIoService saveIoService, IAppVisualService appVisualService, IEncryptionService encryptionService, IWindowService windowService)
     {
         _logger = logger;
         _saveIoService = saveIoService;
         _appVisualService = appVisualService;
         _encryptionService = encryptionService;
+        _windowService = windowService;
 
         WeakReferenceMessenger.Default.Register<Messages.UnsavedChangeCreated>(this, (r, m) =>
         {
@@ -87,6 +93,39 @@ public partial class SaveService : ObservableObject, ISaveService
         Config = _saveIoService.ReadConfig(GetConfigPath());
         
         OnChangeConfig();
+    }
+
+    private bool TryLoadSaveContainer()
+    {
+        var loadResult = _saveIoService.ReadSaveContainer(GetSavePath());
+        
+        switch (loadResult.Status)
+        {
+            case LoadStatus.Success:
+                SaveFile = loadResult.Container ?? throw new InvalidOperationException("LoadResult.Container should not be null while LoadResult.Status is Success");
+                return true;
+
+            case LoadStatus.InvalidPassword:
+                throw new InvalidOperationException("Invalid status");
+            
+            case LoadStatus.Corrupted: // TODO: corrupted save window
+                return false;
+            
+            case LoadStatus.FileNotFound:
+                return false;
+            
+            default:
+                throw new ArgumentOutOfRangeException(nameof(loadResult), loadResult.Status, null);
+        }
+    }
+
+    public (bool encrypted, bool readSave) IsSaveEncrypted()
+    {
+        if (SaveFile.Salt is null)
+            if (TryLoadSaveContainer())
+                return (SaveFile.EncryptedData is not null, true);
+
+        return (false, false);
     }
 
     public async Task LoadSave()
