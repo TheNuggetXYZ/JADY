@@ -15,7 +15,7 @@ public class SaveIoService(ILogger<SaveIoService> logger, ISaveFsService saveFsS
     private const string BackupExtension = ".backup";
     private const string CorruptExtension = ".corrupted";
     
-    public record LoadResult(LoadStatus Status, SaveData? Data = null);
+    public record LoadResult(LoadStatus Status, SaveFile? Container = null, SaveData? Data = null);
     
     private record ReadResult<T>(ReadStatus Status, T? Data = null) where T : class;
 
@@ -102,16 +102,16 @@ public class SaveIoService(ILogger<SaveIoService> logger, ISaveFsService saveFsS
         if (saveFile.EncryptedData is null)
         {
             var data = saveFile.PlainData ?? CreateEmpty<SaveData>("PlainData and EncryptedData are both null.");
-            return new LoadResult(LoadStatus.Success, data);
+            return new LoadResult(LoadStatus.Success, saveFile, data);
         }
 
         var decrypted = encryptionService.Decrypt(saveFile.EncryptedData, out bool correctPassword);
 
         if (!correctPassword)
-            return new LoadResult(LoadStatus.InvalidPassword);
+            return new LoadResult(LoadStatus.InvalidPassword, saveFile);
         
         var data1 = JsonSerializer.Deserialize<SaveData>(decrypted) ?? CreateEmpty<SaveData>("Deserializing data returned null");
-        return new LoadResult(LoadStatus.Success, data1);
+        return new LoadResult(LoadStatus.Success, saveFile, data1);
     }
     
     private void WriteJson<T>(string path, T obj)
