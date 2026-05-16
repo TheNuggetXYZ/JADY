@@ -99,54 +99,68 @@ public partial class SaveService : ObservableObject, ISaveService
     {
         _logger.LogInformation("Loading main save...");
 
-        var result = _saveIoService.ReadSave(GetSavePath());
-        await ResolveLoadResult(result);
+        await LoadSaveContainer_ExtractSaveData();
 
         UnsavedChanges = false;
         
         WeakReferenceMessenger.Default.Send(new Messages.JadySaveChanged());
     }
 
-    private async Task ResolveLoadResult(SaveIoService.LoadResult loadResult)
+    private async Task LoadSaveContainer_ExtractSaveData()
     {
-        switch (loadResult.Status)
+        var container = _saveIoService.ReadSaveContainer(GetSavePath());
+
+        switch (container.Status)
         {
-            case LoadStatus.Success:
-                SaveData = loadResult.Data ?? throw new InvalidOperationException("LoadResult.Data should not be null while LoadResult.Status is Success");
-                SaveFile = loadResult.Container ?? throw new InvalidOperationException("LoadResult.Container should not be null while LoadResult.Status is Success");
-                break;
+            case SaveIoService.ReadStatus.Success:
+                SaveFile = container.Data ?? throw new InvalidOperationException(
+                    "LoadResult.Data should not be null while LoadResult.Status is Success");
 
-            case LoadStatus.InvalidPassword:
-                SaveData = new SaveData();
-                SaveFile = loadResult.Container ?? throw new InvalidOperationException("LoadResult.Container should not be null while LoadResult.Status is InvalidPassword");
-
-                Optional<string?> result;
-
-                while (true)
-                {
-                    result = await _windowService.OpenDialogWindowDI<LoginWindow, string?>(_windowService.GetMainWindow());
-                    
-                    if (result.HasValue && !string.IsNullOrWhiteSpace(result.Value))
-                        break;
-                }
-
-                if (SaveFile.Salt is null)
-                    throw new InvalidOperationException("SaveFile.Salt is null and the save is encrypted, cannot login and load save");
-                
-                _encryptionService.StorePassword(result.Value, SaveFile.Salt);
-
-                await LoadSave();
-                
+                await LoadSaveFromContainer();
                 break;
             
-            case LoadStatus.Corrupted: // TODO: corrupted save window
-                break;
-            
-            case LoadStatus.FileNotFound:
-                break;
+            case SaveIoService.ReadStatus.Corrupted:
+                throw new ApplicationException("Corrupted save"); // TODO: notify user
             
             default:
-                throw new ArgumentOutOfRangeException(nameof(loadResult), loadResult.Status, null);
+                throw new ArgumentOutOfRangeException(nameof(container), container.Status, null);
+        }
+    }
+
+    private async Task LoadSaveFromContainer()
+    {
+        while (true)
+        {
+            var save = _saveIoService.ReadSaveFromContainer(SaveFile);
+
+            switch (save.Status)
+            {
+                case LoadStatus.Success:
+                    SaveData = save.Data ?? throw new InvalidOperationException("LoadResult.Data should not be null while LoadResult.Status is Success");
+                    break;
+                
+                case LoadStatus.InvalidPassword:
+                {
+                    Optional<string?> dialogResult;
+
+                    while (true)
+                    {
+                        dialogResult = await _windowService.OpenDialogWindowDI<LoginWindow, string?>(_windowService.GetMainWindow());
+
+                        if (dialogResult.HasValue && !string.IsNullOrWhiteSpace(dialogResult.Value)) break;
+                    }
+
+                    if (SaveFile.Salt is null) throw new InvalidOperationException("SaveFile.Salt is null and the save is encrypted, cannot login and load save");
+
+                    _encryptionService.StorePassword(dialogResult.Value, SaveFile.Salt);
+
+                    continue;
+                }
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(save.Status), save.Status, null);
+            }
+
+            break;
         }
     }
 
