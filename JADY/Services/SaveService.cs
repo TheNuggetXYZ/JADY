@@ -89,15 +89,41 @@ public partial class SaveService : ObservableObject, ISaveService
         OnChangeConfig();
     }
 
-    public void LoadSave()
+    public async Task LoadSave()
     {
         _logger.LogInformation("Loading main save...");
-        
-        SaveData = _saveIoService.ReadSave(GetSavePath());
+
+        var result = _saveIoService.ReadSave(GetSavePath());
+        await ResolveLoadResult(result);
 
         UnsavedChanges = false;
         
         WeakReferenceMessenger.Default.Send(new Messages.JadySaveChanged());
+    }
+
+    private async Task ResolveLoadResult(SaveIoService.LoadResult loadResult)
+    {
+        switch (loadResult.Status)
+        {
+            case LoadStatus.Success:
+                SaveData = loadResult.Data ?? throw new InvalidOperationException("LoadResult.Data should not be null while LoadResult.Status is Success");
+                SaveFile = loadResult.Container ?? throw new InvalidOperationException("LoadResult.Container should not be null while LoadResult.Status is Success");
+                break;
+
+            case LoadStatus.InvalidPassword:
+                SaveData = new SaveData();
+                SaveFile = loadResult.Container ?? throw new InvalidOperationException("LoadResult.Container should not be null while LoadResult.Status is InvalidPassword");
+                break;
+            
+            case LoadStatus.Corrupted: // TODO: corrupted save window
+                break;
+            
+            case LoadStatus.FileNotFound:
+                break;
+            
+            default:
+                throw new ArgumentOutOfRangeException(nameof(loadResult), loadResult.Status, null);
+        }
     }
 
     public bool ExistsConfig()
