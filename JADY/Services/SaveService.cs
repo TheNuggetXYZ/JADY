@@ -124,6 +124,9 @@ public partial class SaveService : ObservableObject, ISaveService
             case SaveIoService.ReadStatus.Corrupted:
                 throw new ApplicationException("Corrupted save"); // TODO: notify user
             
+            case SaveIoService.ReadStatus.FileNotFound:
+                break;
+            
             default:
                 throw new ArgumentOutOfRangeException(nameof(container), container.Status, null);
         }
