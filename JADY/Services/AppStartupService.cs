@@ -21,30 +21,18 @@ public class AppStartupService(IServiceProvider serviceProvider, ISaveService sa
         
         if (!saveService.ExistsConfig())
         {
-            StartupWelcomeWindow();
-        }
-        else
-        {
-            await LoadSave();
-            StartupMainWindow(out _);
-        }
-    }
-
-    private void StartupWelcomeWindow()
-    {
-        // Show welcome window
-        var welcomeWindow = _desktop.MainWindow = serviceProvider.GetRequiredService<WelcomeWindow>();
+            // Show welcome window
+            var welcomeWindow = _desktop.MainWindow = serviceProvider.GetRequiredService<WelcomeWindow>();
         
-        welcomeWindow.Closing += WelcomeWindowOnClosing;
-    }
-
-    private async void WelcomeWindowOnClosing(object? sender, WindowClosingEventArgs e)
-    {
-        // Show main window once welcome window is closed
+            var tcs = new TaskCompletionSource();
+            welcomeWindow.Closed += (_, _) => tcs.SetResult();
+            welcomeWindow.Show();
+            
+            await tcs.Task; // wait for welcome window to close
+        }
+        
         await LoadSave();
-        StartupMainWindow(out var mainWindow);
-                
-        mainWindow.Show();
+        StartupMainWindow();
     }
 
     private async Task LoadSave()
@@ -58,15 +46,15 @@ public class AppStartupService(IServiceProvider serviceProvider, ISaveService sa
         _desktop.MainWindow.Close();
     }
 
-    private void StartupMainWindow(out MainWindow mainWindow)
+    private void StartupMainWindow()
     {
-        _desktop.MainWindow = mainWindow = new MainWindow
+        // Set shutdown mode back to normal
+        _desktop.ShutdownMode = ShutdownMode.OnMainWindowClose;
+        
+        _desktop.MainWindow = new MainWindow
         {
             DataContext = serviceProvider.GetRequiredService<MainWindowViewModel>(),
         };
         _desktop.MainWindow.Show();
-        
-        // Set shutdown mode back to normal
-        _desktop.ShutdownMode = ShutdownMode.OnMainWindowClose;
     }
 }
