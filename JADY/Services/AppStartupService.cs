@@ -48,13 +48,14 @@ public class AppStartupService(IServiceProvider serviceProvider, ISaveService sa
 
     private void StartupMainWindow()
     {
-        // Set shutdown mode back to normal
-        _desktop.ShutdownMode = ShutdownMode.OnMainWindowClose;
-        
-        _desktop.MainWindow = new MainWindow
+        var mainWindow = new MainWindow
         {
             DataContext = serviceProvider.GetRequiredService<MainWindowViewModel>(),
         };
+        
+        mainWindow.Closed += (_, _) => _desktop?.Shutdown(0);
+        
+        _desktop.MainWindow = mainWindow;
         _desktop.MainWindow.Show();
     }
 }
