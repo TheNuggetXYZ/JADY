@@ -21,6 +21,18 @@ public class SaveFsService(ILogger<SaveFsService> logger) : ISaveFsService
 
     }
     
-    public Stream OpenWrite(string path) => File.Create(path);
+    public Stream OpenWrite(string path)
+    {
+        // Make sure saves folder is created
+        var directory = Path.GetDirectoryName(path);
+
+        if (!string.IsNullOrEmpty(directory))
+        {
+            Directory.CreateDirectory(directory);
+        }
+        
+        return File.Create(path);
+    }
+
     public Stream OpenRead(string path) => File.OpenRead(path);
 }
