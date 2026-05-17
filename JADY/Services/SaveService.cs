@@ -1,6 +1,8 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using Avalonia;
+using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
@@ -146,6 +148,10 @@ public partial class SaveService : ObservableObject, ISaveService
                     while (true)
                     {
                         dialogResult = await _windowService.OpenDialogWindowDI<LoginWindow, string?>(_windowService.GetMainWindow());
+
+                        if (!dialogResult.HasValue) // this is true when you explicitly close the login window
+                            if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+                                desktop.Shutdown(0);
 
                         if (dialogResult.HasValue && !string.IsNullOrWhiteSpace(dialogResult.Value)) break;
                     }
