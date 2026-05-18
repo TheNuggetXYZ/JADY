@@ -19,6 +19,18 @@ JADY or Jady is a lightning fast and very easy to use diary application for Linu
 
 <img src="https://github.com/TheNuggetXYZ/JADY/blob/master/docs/Example_EditingEntry.png?raw=true" alt="Example screenshot of editing an entry">
 
+## ❓ Why
+Why did I make this app?
+
+---
+
+It's hard to find a journaling app without overcluttered UI and a bunch of useless features:
+
+Cloud sync, weather, location tracking, advertisements. Most apps are filled with things you simply do not need.
+
+Actually, I did not find a single app that would work for me.
+That is why I decided to create Jady and publish it here for everyone to use.
+
 ## ✨ Features
 - Simple diary and entry management
 - Searching
