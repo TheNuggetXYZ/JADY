@@ -33,6 +33,8 @@ That is why I decided to create Jady and publish it here for everyone to use.
 
 ## ✨ Features
 - Simple diary and entry management
+- Welcome screen to guide new users
+- Password and save encryption
 - Searching
 - Dark/light theme
 - Auto save and auto backups
@@ -40,8 +42,6 @@ That is why I decided to create Jady and publish it here for everyone to use.
 
 ## 🚀 Plans
 - Windows support
-- Welcome screen to guide new users
-- Password and save encryption
 - Timeline view of entries
 
 ## License
