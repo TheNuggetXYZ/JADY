@@ -5,5 +5,5 @@ namespace JADY.Factories;
 
 public interface IDiaryEntryViewModelFactory
 {
-    DiaryEntryViewModel Create(DiaryEntry diaryEntry, DiaryViewModel diaryViewModel);
+    DiaryEntryViewModel Create(DiaryEntry diaryEntry, DiaryViewModel parentDiary, DiaryEntryViewModel? parentEntry = null);
 }

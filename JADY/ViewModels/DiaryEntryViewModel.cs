@@ -118,7 +118,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     private readonly ISaveService _saveService;
     private readonly IWindowService _windowService;
 
-    public DiaryEntryViewModel(DiaryEntry diaryEntry, DiaryViewModel diaryViewModel, ISaveService saveService, IWindowService windowService)
+    public DiaryEntryViewModel(DiaryEntry diaryEntry, DiaryViewModel diaryViewModel, DiaryEntryViewModel? parentEntry, ISaveService saveService, IWindowService windowService)
     {
         _saveService = saveService;
         _windowService = windowService;
@@ -135,6 +135,12 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         IsHidden = diaryEntry.IsHidden;
         EntryGuid = diaryEntry.EntryGuid;
         ParentEntryGuid = diaryEntry.ParentEntryGuid;
+
+        if (parentEntry != null)
+        {
+            AssignParentEntry(parentEntry);
+            Status = EntryStatus.Note;
+        }
     }
     
     /// <returns>

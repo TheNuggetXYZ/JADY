@@ -87,10 +87,10 @@ public partial class DiaryViewModel : ViewModelBase
         _filter = null;
         UpdateFilter();
     }
-
-    public void AddEntry(DiaryEntry model)
+    
+    public void AddEntry(DiaryEntry model, DiaryEntryViewModel? parentEntry = null)
     {
-        var newEntryViewModel = _diaryEntryViewModelFactory.Create(model, this);
+        var newEntryViewModel = _diaryEntryViewModelFactory.Create(model, this, parentEntry);
         
         InsertEntry(newEntryViewModel);
     }

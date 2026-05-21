@@ -6,8 +6,8 @@ namespace JADY.Factories;
 
 public class DiaryEntryViewModelFactory(ISaveService saveService, IWindowService windowService) : IDiaryEntryViewModelFactory
 {
-    public DiaryEntryViewModel Create(DiaryEntry diaryEntry, DiaryViewModel diaryViewModel)
+    public DiaryEntryViewModel Create(DiaryEntry diaryEntry, DiaryViewModel parentDiary, DiaryEntryViewModel? parentEntry = null)
     {
-        return new DiaryEntryViewModel(diaryEntry, diaryViewModel, saveService, windowService);
+        return new DiaryEntryViewModel(diaryEntry, parentDiary, parentEntry, saveService, windowService);
     }
 }
