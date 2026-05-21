@@ -13,6 +13,7 @@ namespace JADY.ViewModels;
 public partial class DiaryEntryViewModel : SaveDependentViewModel
 {
     [NotifyPropertyChangedFor(nameof(ShowEndEventInContextMenu))]
+    [NotifyPropertyChangedFor(nameof(ShowLinkInContextMenu))]
     [NotifyPropertyChangedFor(nameof(GetStatusDisplayName))]
     [ObservableProperty] private EntryStatus _status;
 
@@ -90,6 +91,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     }
 
     public bool ShowEndEventInContextMenu => Status == EntryStatus.InProgress;
+    public bool ShowLinkInContextMenu => Status != EntryStatus.Note && Status != EntryStatus.OneTime;
 
     [SaveDependent]
     public bool IsCurrentlyVisible => !IsHidden || _saveService.Config.CurrentShowHiddenEntries;
