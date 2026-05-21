@@ -195,6 +195,17 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
 
         _diaryViewModel.ResortEntry(this);
     }
+    
+    [RelayCommand]
+    private async Task ContextMenu_Link()
+    {
+        var diaryEntry = await _windowService.OpenDialogWindowDI<LinkEntryWindow, DiaryEntry, DiaryEntryViewModel>(_windowService.GetMainWindow(), this);
+
+        if (!diaryEntry.HasValue)
+            return;
+        
+        _diaryViewModel.AddEntry(diaryEntry.Value, this);
+    }
 
     [RelayCommand]
     private async Task ContextMenu_End()

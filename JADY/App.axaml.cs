@@ -71,6 +71,7 @@ public partial class App : Application
         collection.AddTransient<UnsavedChangesWindow>();
         collection.AddTransient<WelcomeWindow>();
         collection.AddTransient<LoginWindow>();
+        collection.AddTransient<LinkEntryWindow>();
 
         serviceProvider = collection.BuildServiceProvider();
     }
