@@ -6,7 +6,12 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="JADY.UI.Views.Dialogs.LinkEntryWindow"
         x:DataType="viewModels:DiaryEntryViewModel"
-        Title="LinkEntryWindow">
+        Title="LinkEntryWindow"
+        SizeToContent="Width"
+        Width="335"
+        Height="380"
+        MinWidth="335"
+        MinHeight="270">
     
     <Grid RowDefinitions="Auto, Auto, *, Auto" Margin="10">
         
