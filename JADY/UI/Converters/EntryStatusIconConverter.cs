@@ -21,6 +21,7 @@ public class EntryStatusIconConverter : IValueConverter
                     EntryStatus.InProgress => Application.Current.Resources["CalendarEmptyIcon"],
                     EntryStatus.Completed => Application.Current.Resources["CalendarCheckmarkIcon"],
                     EntryStatus.Dropped => Application.Current.Resources["CalendarXMarkIcon"],
+                    EntryStatus.Note => Application.Current.Resources["LinkIcon"],
                     _ => throw new ArgumentOutOfRangeException(nameof(status), status, null)
                 };
             }
