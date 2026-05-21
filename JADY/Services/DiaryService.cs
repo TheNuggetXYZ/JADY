@@ -50,16 +50,22 @@ public class DiaryService : IDiaryService
         foreach (var vm in loadedDiaries)
             Diaries.Add(vm);
 
-        // Load Guids
+        RelinkEntries();
+    }
+
+    private void RelinkEntries()
+    {
         foreach (var diary in Diaries)
         {
             // Load cache
             var entryCache = diary.Entries.ToDictionary(x => x.EntryGuid);
 
-            // Assign Guids
+            // Assign parent Guid and reference
             foreach (var diaryEntry in entryCache.Values)
+            {
                 if (diaryEntry.ParentEntryGuid is { } parentEntryGuid)
                     diaryEntry.AssignParentEntry(entryCache[parentEntryGuid]);
+            }
         }
     }
 
