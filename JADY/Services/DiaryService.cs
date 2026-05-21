@@ -44,18 +44,18 @@ public class DiaryService : IDiaryService
         if (loadSave)
             _saveService.LoadSave();
 
-        var loadedDiaries = _saveService.SaveData.Diaries.Select(model => _diaryViewModelFactory.Create(model));
+        var loadedDiaries = _saveService.SaveData.Diaries.Select(model => _diaryViewModelFactory.Create(model)).ToList();
+        
+        RelinkEntries(loadedDiaries);
         
         Diaries.Clear();
         foreach (var vm in loadedDiaries)
             Diaries.Add(vm);
-
-        RelinkEntries();
     }
 
-    private void RelinkEntries()
+    private static void RelinkEntries(List<DiaryViewModel> diaries)
     {
-        foreach (var diary in Diaries)
+        foreach (var diary in diaries)
         {
             // Load cache
             var entryCache = diary.Entries.ToDictionary(x => x.EntryGuid);
