@@ -125,7 +125,7 @@ public partial class DiaryViewModel : ViewModelBase
         WeakReferenceMessenger.Default.Send(new Messages.UnsavedChangeCreated());
     }
 
-    public async Task RemoveEntry(DiaryEntryViewModel item) // TODO: move to DiaryService
+    public async Task RemoveEntry(DiaryEntryViewModel item)
     {
         var pickedYes = await _windowService.OpenYesNoMessageBox(_windowService.GetMainWindow(), "Are you sure you want to remove this entry?", "Remove entry?");
         if (!pickedYes.HasValue || pickedYes.Value == false) return;

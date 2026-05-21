@@ -80,7 +80,7 @@ public class DiaryService : IDiaryService
 
     public async Task RemoveDiary(DiaryViewModel item)
     {
-        Optional<bool> pickedYes = await _windowService.OpenYesNoMessageBox(_windowService.GetMainWindow(), "Are you sure you want to remove this diary?", "Remove diary?");
+        var pickedYes = await _windowService.OpenYesNoMessageBox(_windowService.GetMainWindow(), "Are you sure you want to remove this diary?", "Remove diary?");
         if (!pickedYes.HasValue || pickedYes.Value == false) return;
             
         Diaries.Remove(item);
