@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace JADY.Services;
 
-public class AppStartupService(IServiceProvider serviceProvider, ISaveService saveService, IEncryptionService encryptionService, IWindowService windowService) : IAppStartupService
+public class AppStartupService(IServiceProvider serviceProvider, ISaveService saveService, IDiaryService diaryService) : IAppStartupService
 {
     private IClassicDesktopStyleApplicationLifetime? _desktop;
     
@@ -32,6 +32,9 @@ public class AppStartupService(IServiceProvider serviceProvider, ISaveService sa
         }
         
         await LoadSave();
+        
+        diaryService.LoadDiaries(false);
+        
         StartupMainWindow();
     }
 

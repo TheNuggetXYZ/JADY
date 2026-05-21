@@ -25,8 +25,6 @@ public class DiaryService : IDiaryService
         _saveService = saveService;
         _windowService = windowService;
         _diaryViewModelFactory = diaryViewModelFactory;
-        
-        LoadDiaries(false);
 
         WeakReferenceMessenger.Default.Register<Messages.PerformSave>(this, (_, _) =>
         {
