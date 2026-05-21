@@ -29,19 +29,18 @@ public partial class DiaryViewModel : ViewModelBase
     
     public IEnumerable<DiaryEntryViewModel> FilteredEntries => 
         string.IsNullOrWhiteSpace(_filter) ? Entries : Entries.Where(ApplyFilters);
-    
-    private readonly MainWindowViewModel _mainWindowViewModel;
 
     private readonly IDiaryEntryViewModelFactory _diaryEntryViewModelFactory;
     private readonly IWindowService _windowService;
+    private readonly IDiaryService _diaryService;
 
     private string? _filter;
 
-    public DiaryViewModel(Diary diary, MainWindowViewModel mainWindowViewModel, IDiaryEntryViewModelFactory diaryEntryViewModelFactory, IWindowService windowService)
+    public DiaryViewModel(Diary diary, IDiaryEntryViewModelFactory diaryEntryViewModelFactory, IWindowService windowService, IDiaryService diaryService)
     {
         _diaryEntryViewModelFactory = diaryEntryViewModelFactory;
         _windowService = windowService;
-        _mainWindowViewModel = mainWindowViewModel;
+        _diaryService = diaryService;
         Name = diary.Name;
         Entries = new ObservableCollection<DiaryEntryViewModel>(diary.Entries.OrderByDescending(GetMostRelevantDate).Select(x => diaryEntryViewModelFactory.Create(x, this)));
 
@@ -110,7 +109,7 @@ public partial class DiaryViewModel : ViewModelBase
     [RelayCommand]
     private async Task ContextMenu_Remove()
     {
-        await _mainWindowViewModel.RemoveDiary(this);
+        await _diaryService.RemoveDiary(this);
     }
 
     [RelayCommand]
@@ -126,7 +125,7 @@ public partial class DiaryViewModel : ViewModelBase
         WeakReferenceMessenger.Default.Send(new Messages.UnsavedChangeCreated());
     }
 
-    public async Task RemoveEntry(DiaryEntryViewModel item)
+    public async Task RemoveEntry(DiaryEntryViewModel item) // TODO: move to DiaryService
     {
         var pickedYes = await _windowService.OpenYesNoMessageBox(_windowService.GetMainWindow(), "Are you sure you want to remove this entry?", "Remove entry?");
         if (!pickedYes.HasValue || pickedYes.Value == false) return;

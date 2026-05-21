@@ -5,5 +5,5 @@ namespace JADY.Factories;
 
 public interface IDiaryViewModelFactory
 {
-    DiaryViewModel Create(Diary diary, MainWindowViewModel mainWindowViewModel);
+    DiaryViewModel Create(Diary diary);
 }

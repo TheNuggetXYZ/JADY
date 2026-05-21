@@ -11,30 +11,16 @@ using JADY.Core;
 using JADY.Core.Attributes;
 using JADY.Core.Data;
 using JADY.Core.Models;
-using JADY.Factories;
 using JADY.Services;
 using JADY.UI.Views.Dialogs;
 
 namespace JADY.ViewModels;
 
-public partial class MainWindowViewModel : SaveDependentViewModel
+public partial class MainWindowViewModel(IDiaryService diaryService, ISaveService saveService, IWindowService windowService) : SaveDependentViewModel
 {
-    public ISaveService SaveService { get; }
-    private readonly IDiaryViewModelFactory _diaryViewModelFactory;
-    private readonly IWindowService _windowService;
+    public ISaveService SaveService { get; } = saveService;
 
-    public ObservableCollection<DiaryViewModel> Diaries
-    {
-        get;
-        private set
-        {
-            if (field != value)
-            {
-                field = value;
-                OnPropertyChanged();
-            }
-        }
-    } = new();
+    public ObservableCollection<DiaryViewModel> Diaries => diaryService.Diaries;
 
     [ObservableProperty] 
     private int _openDiaryIndex;
@@ -61,20 +47,6 @@ public partial class MainWindowViewModel : SaveDependentViewModel
     [ObservableProperty]
     private string? _searchBoxText;
 
-    public MainWindowViewModel(ISaveService saveService, IDiaryViewModelFactory diaryViewModelFactory, IWindowService windowService)
-    {
-        SaveService = saveService;
-        _diaryViewModelFactory = diaryViewModelFactory;
-        _windowService = windowService;
-
-        LoadDiaries(false);
-
-        WeakReferenceMessenger.Default.Register<Messages.PerformSave>(this, (_, _) =>
-        {
-            SaveDiaries();
-        });
-    }
-
     public async Task<bool> OnClosing()
     {
         bool cancelClosing = false;
@@ -83,7 +55,7 @@ public partial class MainWindowViewModel : SaveDependentViewModel
         {
             cancelClosing = true;
             
-            Optional<UnsavedChangesChoice> choice = await _windowService.OpenDialogWindowDI<UnsavedChangesWindow, UnsavedChangesChoice>(_windowService.GetMainWindow());
+            Optional<UnsavedChangesChoice> choice = await windowService.OpenDialogWindowDI<UnsavedChangesWindow, UnsavedChangesChoice>(windowService.GetMainWindow());
 
             if (!choice.HasValue) // closed window
             {
@@ -96,7 +68,7 @@ public partial class MainWindowViewModel : SaveDependentViewModel
             }
             else if (choice.Value == UnsavedChangesChoice.Save)
             {
-                SaveDiaries();
+                diaryService.SaveDiaries();
                 
                 cancelClosing = false;
             }
@@ -123,15 +95,10 @@ public partial class MainWindowViewModel : SaveDependentViewModel
     private async Task Menu_OpenAddDiaryWindow()
     {
         // Open dialog and wait for result model
-        Optional<Diary> model = await _windowService.OpenDialogWindowDI<AddDiaryWindow, Diary>(_windowService.GetMainWindow());
+        Optional<Diary> model = await windowService.OpenDialogWindowDI<AddDiaryWindow, Diary>(windowService.GetMainWindow());
 
-        if (!model.HasValue)
-            return;
-        
-        // Construct and add a view model from model
-        Diaries.Add(_diaryViewModelFactory.Create(model.Value, this));
-        
-        WeakReferenceMessenger.Default.Send(new Messages.UnsavedChangeCreated());
+        if (model.HasValue)
+            diaryService.AddDiary(model.Value);
     }
 
     [RelayCommand]
@@ -141,19 +108,16 @@ public partial class MainWindowViewModel : SaveDependentViewModel
             return;
         
         // Open dialog and wait for result model
-        Optional<DiaryEntry> model = await _windowService.OpenDialogWindowDI<AddEntryWindow, DiaryEntry>(_windowService.GetMainWindow());
+        Optional<DiaryEntry> model = await windowService.OpenDialogWindowDI<AddEntryWindow, DiaryEntry>(windowService.GetMainWindow());
 
-        if (!model.HasValue)
-            return;
-        
-        // Construct and add a view model from model
-        Diaries[OpenDiaryIndex].AddEntry(model.Value);
+        if (model.HasValue)
+            diaryService.AddEntry(model.Value, OpenDiaryIndex);
     }
     
     [RelayCommand]
     private async Task Menu_OpenSettingsWindow()
     {
-        await _windowService.OpenDialogWindowDI<SettingsWindow, Config>(_windowService.GetMainWindow());
+        await windowService.OpenDialogWindowDI<SettingsWindow, Config>(windowService.GetMainWindow());
     }
     
     [RelayCommand]
@@ -163,46 +127,8 @@ public partial class MainWindowViewModel : SaveDependentViewModel
     }
 
     [RelayCommand]
-    private void Menu_Save() => SaveDiaries();
+    private void Menu_Save() => diaryService.SaveDiaries();
 
     [RelayCommand]
-    private void Menu_Load() => LoadDiaries(true);
-
-    private void SaveDiaries()
-    {
-        SaveService.Save(Diaries.Select(d => d.GetModel()).ToArray());
-    }
-
-    private void LoadDiaries(bool loadSave)
-    {
-        if (loadSave)
-            SaveService.LoadSave();
-        
-        Diaries = new ObservableCollection<DiaryViewModel>(
-            SaveService.SaveData.Diaries.Select(model => _diaryViewModelFactory.Create(model, this)));
-
-        // Load Guids
-        foreach (var diary in Diaries)
-        {
-            // Load cache
-            Dictionary<Guid, DiaryEntryViewModel> entryCache = new();
-            
-            foreach (var diaryEntry in diary.Entries)
-                entryCache.Add(diaryEntry.EntryGuid, diaryEntry);
-
-            // Assign Guids
-            foreach (var diaryEntry in entryCache.Values)
-                if (diaryEntry.ParentEntryGuid is { } parentEntryGuid)
-                    diaryEntry.AssignParentEntry(entryCache[parentEntryGuid]);
-        }
-    }
-
-    public async Task RemoveDiary(DiaryViewModel item)
-    {
-        Optional<bool> pickedYes = await _windowService.OpenYesNoMessageBox(_windowService.GetMainWindow(), "Are you sure you want to remove this diary?", "Remove diary?");
-        if (!pickedYes.HasValue || pickedYes.Value == false) return;
-            
-        Diaries.Remove(item);
-        WeakReferenceMessenger.Default.Send(new Messages.UnsavedChangeCreated());
-    }
+    private void Menu_Load() => diaryService.LoadDiaries(true);
 }
