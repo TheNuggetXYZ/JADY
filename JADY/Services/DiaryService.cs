@@ -54,10 +54,7 @@ public class DiaryService : IDiaryService
         foreach (var diary in Diaries)
         {
             // Load cache
-            Dictionary<Guid, DiaryEntryViewModel> entryCache = new();
-            
-            foreach (var diaryEntry in diary.Entries)
-                entryCache.Add(diaryEntry.EntryGuid, diaryEntry);
+            var entryCache = diary.Entries.ToDictionary(x => x.EntryGuid);
 
             // Assign Guids
             foreach (var diaryEntry in entryCache.Values)
