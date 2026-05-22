@@ -150,6 +150,15 @@ public partial class DiaryViewModel : ViewModelBase
             Entries.Remove(child);
     }
 
+    public void CascadeEditEntries(DiaryEntryViewModel entry)
+    {
+        foreach (var child in CascadeLookup(entry.EntryGuid))
+        {
+            child.Category = entry.Category;
+            child.SubCategory = entry.SubCategory;
+        }
+    }
+
     public void ResortEntry(DiaryEntryViewModel item)
     {
         Entries.Remove(item);

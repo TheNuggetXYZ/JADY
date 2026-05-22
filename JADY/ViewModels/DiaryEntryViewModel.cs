@@ -185,15 +185,21 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
 
         if (!diaryEntry.HasValue)
             return;
-        
+            
         Status = diaryEntry.Value.Status;
         Date = diaryEntry.Value.Date;
         EndDate = diaryEntry.Value.EndDate;
-        Category = diaryEntry.Value.Category;
-        SubCategory = diaryEntry.Value.SubCategory;
         Title = diaryEntry.Value.Title;
         Content = diaryEntry.Value.Content;
         IsHidden = diaryEntry.Value.IsHidden;
+
+        if (Category != diaryEntry.Value.Category || SubCategory != diaryEntry.Value.SubCategory)
+        {
+            Category = diaryEntry.Value.Category;
+            SubCategory = diaryEntry.Value.SubCategory;
+
+            _diaryViewModel.CascadeEditEntries(this);
+        }
 
         _diaryViewModel.ResortEntry(this);
     }
