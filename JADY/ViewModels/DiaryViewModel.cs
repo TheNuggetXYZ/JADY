@@ -139,11 +139,14 @@ public partial class DiaryViewModel : ViewModelBase
         WeakReferenceMessenger.Default.Send(new Messages.UnsavedChangeCreated());
     }
 
+    private List<DiaryEntryViewModel> CascadeLookup(Guid guid)
+    {
+        return Entries.Where(x => x.ParentEntryGuid?.Equals(guid) ?? false).ToList();
+    }
+
     private void CascadeRemoveEntries(Guid guid)
     {
-        var children = Entries.Where(x => x.ParentEntryGuid?.Equals(guid) ?? false);
-
-        foreach (var child in children.ToList())
+        foreach (var child in CascadeLookup(guid))
             Entries.Remove(child);
     }
 
