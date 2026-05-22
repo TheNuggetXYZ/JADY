@@ -134,12 +134,17 @@ public partial class DiaryViewModel : ViewModelBase
         
         Entries.Remove(item);
 
+        CascadeRemoveEntries(guid);
+
+        WeakReferenceMessenger.Default.Send(new Messages.UnsavedChangeCreated());
+    }
+
+    private void CascadeRemoveEntries(Guid guid)
+    {
         var children = Entries.Where(x => x.ParentEntryGuid?.Equals(guid) ?? false);
-        
+
         foreach (var child in children.ToList())
             Entries.Remove(child);
-        
-        WeakReferenceMessenger.Default.Send(new Messages.UnsavedChangeCreated());
     }
 
     public void ResortEntry(DiaryEntryViewModel item)
