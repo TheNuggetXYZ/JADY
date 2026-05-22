@@ -129,8 +129,16 @@ public partial class DiaryViewModel : ViewModelBase
     {
         var pickedYes = await _windowService.OpenYesNoMessageBox(_windowService.GetMainWindow(), "Are you sure you want to remove this entry?", "Remove entry?");
         if (!pickedYes.HasValue || pickedYes.Value == false) return;
+
+        var guid = item.EntryGuid;
         
         Entries.Remove(item);
+
+        var children = Entries.Where(x => x.ParentEntryGuid?.Equals(guid) ?? false);
+        
+        foreach (var child in children.ToList())
+            Entries.Remove(child);
+        
         WeakReferenceMessenger.Default.Send(new Messages.UnsavedChangeCreated());
     }
 
