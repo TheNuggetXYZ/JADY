@@ -20,8 +20,8 @@ public partial class EditEntryWindow : DialogWindow<DiaryEntry>, IDialogInitiali
         // Allow to go from link to normal entry, but disallow the opposite
         if (!EntryStatusExtensions.IsLink(data.Status))
             EntryStatus.ItemsSource = EntryStatusExtensions.DisplayValuesNoLink;
-            
-        EntryStatus.ItemsSource = EntryStatusExtensions.DisplayValues;
+        else
+            EntryStatus.ItemsSource = EntryStatusExtensions.DisplayValues;
     }
 
     protected override Optional<DiaryEntry> GetValue()
