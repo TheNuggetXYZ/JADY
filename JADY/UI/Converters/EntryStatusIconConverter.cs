@@ -18,10 +18,10 @@ public class EntryStatusIconConverter : IValueConverter
                 return status switch
                 {
                     EntryStatus.OneTime => Application.Current.Resources["RoundCheckIcon"],
-                    EntryStatus.InProgress => Application.Current.Resources["CalendarEmptyIcon"],
-                    EntryStatus.Completed => Application.Current.Resources["CalendarCheckmarkIcon"],
-                    EntryStatus.Dropped => Application.Current.Resources["CalendarXMarkIcon"],
-                    EntryStatus.Note => Application.Current.Resources["LinkIcon"],
+                    EntryStatus.EventInProgress => Application.Current.Resources["CalendarEmptyIcon"],
+                    EntryStatus.EventCompleted => Application.Current.Resources["CalendarCheckmarkIcon"],
+                    EntryStatus.EventDropped => Application.Current.Resources["CalendarXMarkIcon"],
+                    EntryStatus.LinkNote => Application.Current.Resources["LinkIcon"],
                     _ => throw new ArgumentOutOfRangeException(nameof(status), status, null)
                 };
             }

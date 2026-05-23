@@ -26,8 +26,8 @@ public partial class EndEntryWindow : DialogWindow<DiaryEntry>, IDialogInitializ
             EndDate = EndDate.SelectedDate,
             Status = (EndEntryParameter)EndParameter.SelectedIndex switch
             {
-                EndEntryParameter.Completed => EntryStatus.Completed,
-                EndEntryParameter.Dropped => EntryStatus.Dropped,
+                EndEntryParameter.Completed => EntryStatus.EventCompleted,
+                EndEntryParameter.Dropped => EntryStatus.EventDropped,
                 _ => throw new ArgumentOutOfRangeException()
             }
         };

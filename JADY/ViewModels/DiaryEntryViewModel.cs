@@ -82,16 +82,16 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
             return Status switch
             {
                 EntryStatus.OneTime => "One time event",
-                EntryStatus.InProgress => "In progress event",
-                EntryStatus.Completed => "Completed event",
-                EntryStatus.Dropped => "Dropped event",
+                EntryStatus.EventInProgress => "In progress event",
+                EntryStatus.EventCompleted => "Completed event",
+                EntryStatus.EventDropped => "Dropped event",
                 _ => throw new ArgumentOutOfRangeException(nameof(Status), Status, null)
             };
         }
     }
 
-    public bool ShowEndEventInContextMenu => Status == EntryStatus.InProgress;
-    public bool ShowLinkInContextMenu => Status != EntryStatus.Note && Status != EntryStatus.OneTime;
+    public bool ShowEndEventInContextMenu => Status == EntryStatus.EventInProgress;
+    public bool ShowLinkInContextMenu => Status != EntryStatus.LinkNote && Status != EntryStatus.OneTime;
 
     [SaveDependent]
     public bool IsCurrentlyVisible => !IsHidden || _saveService.Config.CurrentShowHiddenEntries;
@@ -141,7 +141,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         if (parentEntry != null)
         {
             AssignParentEntry(parentEntry);
-            Status = EntryStatus.Note;
+            Status = EntryStatus.LinkNote;
         }
     }
     
@@ -211,6 +211,9 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
 
         if (!diaryEntry.HasValue)
             return;
+
+        if (diaryEntry.Value.Status == EntryStatus.LinkEndNote)
+            Status = EntryStatus.EventCompleted;
         
         _diaryViewModel.AddEntry(diaryEntry.Value, this);
     }

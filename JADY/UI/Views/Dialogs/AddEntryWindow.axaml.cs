@@ -31,7 +31,7 @@ public partial class AddEntryWindow : DialogWindow<DiaryEntry>
             Status = (NewEntryParameter)EntryParameter.SelectedIndex switch
             {
                 NewEntryParameter.OneTime => EntryStatus.OneTime,
-                NewEntryParameter.Started => EntryStatus.InProgress,
+                NewEntryParameter.Started => EntryStatus.EventInProgress,
                 _ => throw new ArgumentOutOfRangeException(nameof(EntryParameter), EntryParameter, null)
             },
         };

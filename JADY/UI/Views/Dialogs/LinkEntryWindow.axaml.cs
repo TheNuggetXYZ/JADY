@@ -36,8 +36,8 @@ public partial class LinkEntryWindow : DialogWindow<DiaryEntry>, IDialogInitiali
             IsHidden = EntryIsHidden.IsChecked ?? false,
             Status = (LinkEntryParameter)EntryStatus.SelectedIndex switch
             {
-                LinkEntryParameter.Note => Core.Data.EntryStatus.Note,
-                LinkEntryParameter.EndNote => Core.Data.EntryStatus.EndNote,
+                LinkEntryParameter.Note => Core.Data.EntryStatus.LinkNote,
+                LinkEntryParameter.EndNote => Core.Data.EntryStatus.LinkEndNote,
                 _ => throw new ArgumentOutOfRangeException()
             }
         };
