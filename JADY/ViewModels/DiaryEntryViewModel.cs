@@ -91,7 +91,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     }
 
     public bool ShowEndEventInContextMenu => Status == EntryStatus.EventInProgress;
-    public bool ShowLinkInContextMenu => Status != EntryStatus.LinkNote && Status != EntryStatus.OneTime;
+    public bool ShowLinkInContextMenu => Status == EntryStatus.EventInProgress;
 
     [SaveDependent]
     public bool IsCurrentlyVisible => !IsHidden || _saveService.Config.CurrentShowHiddenEntries;
