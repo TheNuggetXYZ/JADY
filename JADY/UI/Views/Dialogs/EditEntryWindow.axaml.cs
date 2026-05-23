@@ -45,6 +45,8 @@ public partial class EditEntryWindow : DialogWindow<DiaryEntry>, IDialogInitiali
 
     private void EntryStatus_OnPropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
     {
+        if (EntryStatus is null) return;
+        
         if (EntryStatusExtensions.IsLink((EntryStatus)EntryStatus.SelectedIndex))
         {
             if (DataContext is not DiaryEntryViewModel entry)
