@@ -16,9 +16,11 @@ public partial class LinkEntryWindow : DialogWindow<DiaryEntry>, IDialogInitiali
 {
     public void Initialize(DiaryEntryViewModel data)
     {
+        DataContext = data;
+        
         InitializeComponent();
         
-        DataContext = data;
+        EntryStatus.ItemsSource = new[] {"Note", "End note"};
     }
 
     protected override Optional<DiaryEntry> GetValue()
@@ -32,7 +34,12 @@ public partial class LinkEntryWindow : DialogWindow<DiaryEntry>, IDialogInitiali
             LogDate = DateTimeOffset.Now,
             Date = EntryDate.SelectedDate,
             IsHidden = EntryIsHidden.IsChecked ?? false,
-            Status = EntryStatus.Note
+            Status = (LinkEntryParameter)EntryStatus.SelectedIndex switch
+            {
+                LinkEntryParameter.Note => Core.Data.EntryStatus.Note,
+                LinkEntryParameter.EndNote => Core.Data.EntryStatus.EndNote,
+                _ => throw new ArgumentOutOfRangeException()
+            }
         };
     }
 

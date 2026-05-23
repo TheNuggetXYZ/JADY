@@ -7,4 +7,5 @@ public enum EntryStatus
     Completed = 2,
     Dropped = 3,
     Note = 4,
+    EndNote = 5,
 }

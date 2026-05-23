@@ -20,7 +20,10 @@
             <TextBox Grid.Column="1" Name="EntrySubcategory" PlaceholderText="Subcategory..." Margin="5" Text="{Binding SubCategory}" IsReadOnly="True"/>
         </Grid>
         
-        <TextBox Grid.Row="1" Name="EntryTitle" PlaceholderText="Title..." Margin="10"/>
+        <Grid Grid.Row="1" ColumnDefinitions="*, Auto, Auto" Margin="5">
+            <TextBox Grid.Column="0" Name="EntryTitle" PlaceholderText="Title..." Margin="5"/>
+            <ComboBox Grid.Column="2" Name="EntryStatus" SelectedIndex="0" Margin="5"/>
+        </Grid>
         
         <TextBox Grid.Row="2" Name="EntryContent" TextWrapping="Wrap" PlaceholderText="Content..." Margin="10"/>
         
