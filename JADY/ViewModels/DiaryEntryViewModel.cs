@@ -139,10 +139,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         ParentEntryGuid = diaryEntry.ParentEntryGuid;
 
         if (parentEntry != null)
-        {
             AssignParentEntry(parentEntry);
-            Status = EntryStatus.LinkNote;
-        }
     }
     
     /// <returns>
