@@ -11,6 +11,8 @@ public static class EntryStatusExtensions
     
     public static bool IsInProgress(EntryStatus status) => status is EntryStatus.EventInProgress;
 
+    public static bool IsLinkEnd(EntryStatus status) => status is EntryStatus.LinkEndNote;
+
     public static string[] DisplayValues = ["One time", "Event - In progress", "Event - Completed", "Event - Dropped", "Link - Note", "Link - End note"];
     
     public static string[] DisplayValuesNoLink = ["One time", "Event - In progress", "Event - Completed", "Event - Dropped"];

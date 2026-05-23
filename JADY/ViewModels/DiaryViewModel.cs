@@ -8,6 +8,8 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using JADY.Core;
+using JADY.Core.Data;
+using JADY.Core.Helpers;
 using JADY.Core.Models;
 using JADY.Factories;
 using JADY.Services;
@@ -125,37 +127,41 @@ public partial class DiaryViewModel : ViewModelBase
         WeakReferenceMessenger.Default.Send(new Messages.UnsavedChangeCreated());
     }
 
-    public async Task RemoveEntry(DiaryEntryViewModel item)
+    public async Task RemoveEntry(DiaryEntryViewModel toRemove)
     {
         var pickedYes = await _windowService.OpenYesNoMessageBox(_windowService.GetMainWindow(), "Are you sure you want to remove this entry?", "Remove entry?");
         if (!pickedYes.HasValue || pickedYes.Value == false) return;
 
-        var guid = item.EntryGuid;
-        
-        Entries.Remove(item);
+        var toRemoveGuid = toRemove.EntryGuid;
 
-        CascadeRemoveEntries(guid);
+        // re-start parent event if were deleting an end note
+        if (toRemove.ParentEntry is not null && EntryStatusExtensions.IsLinkEnd(toRemove.Status))
+            toRemove.ParentEntry.RestartEvent();
+        
+        Entries.Remove(toRemove);
+
+        CascadeRemoveEntries(toRemoveGuid);
 
         WeakReferenceMessenger.Default.Send(new Messages.UnsavedChangeCreated());
     }
 
-    private List<DiaryEntryViewModel> CascadeLookup(Guid guid)
+    private List<DiaryEntryViewModel> CascadeLookup(Guid parentGuid)
     {
-        return Entries.Where(x => x.ParentEntryGuid?.Equals(guid) ?? false).ToList();
+        return Entries.Where(x => x.ParentEntryGuid?.Equals(parentGuid) ?? false).ToList();
     }
 
-    private void CascadeRemoveEntries(Guid guid)
+    private void CascadeRemoveEntries(Guid parentGuid)
     {
-        foreach (var child in CascadeLookup(guid))
+        foreach (var child in CascadeLookup(parentGuid))
             Entries.Remove(child);
     }
 
-    public void CascadeEditEntries(DiaryEntryViewModel entry)
+    public void CascadeEditEntries(DiaryEntryViewModel parentEntry)
     {
-        foreach (var child in CascadeLookup(entry.EntryGuid))
+        foreach (var child in CascadeLookup(parentEntry.EntryGuid))
         {
-            child.Category = entry.Category;
-            child.SubCategory = entry.SubCategory;
+            child.Category = parentEntry.Category;
+            child.SubCategory = parentEntry.SubCategory;
         }
     }
 

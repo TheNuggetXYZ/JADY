@@ -172,6 +172,12 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         ParentEntryGuid = parentEntry?.EntryGuid;
         ParentEntry = parentEntry;
     }
+
+    public void RestartEvent()
+    {
+        Status = EntryStatus.EventInProgress;
+        EndDate = null;
+    }
     
     [RelayCommand]
     private async Task ContextMenu_Remove()
