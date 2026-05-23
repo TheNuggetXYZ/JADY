@@ -36,4 +36,24 @@ public partial class EditEntryWindow : DialogWindow<DiaryEntry>, IDialogInitiali
     protected override InputElement? FocusedElement() => EntryCategory;
 
     private async void Submit_OnClick(object? sender, RoutedEventArgs e) => await TrySubmitAsync();
+
+    private void EntryStatus_OnPropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
+    {
+        if (EntryStatusExtensions.IsLink((EntryStatus)EntryStatus.SelectedIndex))
+        {
+            if (DataContext is not DiaryEntryViewModel entry)
+                return;
+            
+            EntryCategory.Text = entry.Category;
+            EntrySubcategory.Text = entry.SubCategory;
+            
+            EntryCategory.IsReadOnly = true;
+            EntrySubcategory.IsReadOnly = true;
+        }
+        else
+        {
+            EntryCategory.IsReadOnly = false;
+            EntrySubcategory.IsReadOnly = false;
+        }
+    }
 }
