@@ -139,9 +139,11 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         Content = diaryEntry.Content;
         IsHidden = diaryEntry.IsHidden;
         EntryGuid = diaryEntry.EntryGuid;
-        ParentEntryGuid = diaryEntry.ParentEntryGuid;
-
-        AssignParentEntry(parentEntry);
+        
+        if (parentEntry is not null)
+            AssignParentEntry(parentEntry);
+        else
+            ParentEntryGuid = diaryEntry.ParentEntryGuid;
     }
     
     /// <returns>
