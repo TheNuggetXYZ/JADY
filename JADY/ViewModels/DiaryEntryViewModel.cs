@@ -211,6 +211,11 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
 
         if (!diaryEntry.HasValue)
             return;
+
+        if (diaryEntry.Value.Status == EntryStatus.LinkEndNote)
+            Status = EntryStatus.EventCompleted;
+        
+        EndDate = diaryEntry.Value.Date;
         
         _diaryViewModel.AddEntry(diaryEntry.Value, this);
     }
