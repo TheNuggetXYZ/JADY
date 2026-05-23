@@ -15,7 +15,7 @@ public partial class EditEntryWindow : DialogWindow<DiaryEntry>, IDialogInitiali
         DataContext = data;
         InitializeComponent();
 
-        EntryStatus.ItemsSource = new[] {"One time", "In progress", "Completed", "Dropped"};
+        EntryStatus.ItemsSource = new[] {"One time", "Event - In progress", "Event - Completed", "Event - Dropped", "Link - Note", "Link - End note"};
     }
 
     protected override Optional<DiaryEntry> GetValue()
