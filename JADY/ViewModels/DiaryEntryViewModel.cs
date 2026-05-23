@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using JADY.Core.Attributes;
 using JADY.Core.Data;
+using JADY.Core.Helpers;
 using JADY.Core.Models;
 using JADY.Services;
 using JADY.UI.Views.Dialogs;
@@ -140,8 +141,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         EntryGuid = diaryEntry.EntryGuid;
         ParentEntryGuid = diaryEntry.ParentEntryGuid;
 
-        if (parentEntry != null)
-            AssignParentEntry(parentEntry);
+        AssignParentEntry(parentEntry);
     }
     
     /// <returns>
@@ -165,9 +165,9 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         };
     }
 
-    public void AssignParentEntry(DiaryEntryViewModel parentEntry)
+    public void AssignParentEntry(DiaryEntryViewModel? parentEntry)
     {
-        ParentEntryGuid = parentEntry.EntryGuid;
+        ParentEntryGuid = parentEntry?.EntryGuid;
         ParentEntry = parentEntry;
     }
     
@@ -199,6 +199,9 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
 
             _diaryViewModel.CascadeEditEntries(this);
         }
+
+        if (!EntryStatusExtensions.IsLink(diaryEntry.Value.Status))
+            AssignParentEntry(null);
 
         _diaryViewModel.ResortEntry(this);
     }
