@@ -1,7 +1,9 @@
+using Avalonia;
 using Avalonia.Data;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using JADY.Core.Data;
+using JADY.Core.Helpers;
 using JADY.Core.Models;
 using JADY.UI.Base;
 using JADY.ViewModels;
@@ -15,7 +17,11 @@ public partial class EditEntryWindow : DialogWindow<DiaryEntry>, IDialogInitiali
         DataContext = data;
         InitializeComponent();
 
-        EntryStatus.ItemsSource = new[] {"One time", "Event - In progress", "Event - Completed", "Event - Dropped", "Link - Note", "Link - End note"};
+        // Allow to go from link to normal entry, but disallow the opposite
+        if (!EntryStatusExtensions.IsLink(data.Status))
+            EntryStatus.ItemsSource = EntryStatusExtensions.DisplayValuesNoLink;
+            
+        EntryStatus.ItemsSource = EntryStatusExtensions.DisplayValues;
     }
 
     protected override Optional<DiaryEntry> GetValue()
