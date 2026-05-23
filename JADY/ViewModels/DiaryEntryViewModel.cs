@@ -81,10 +81,12 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         {
             return Status switch
             {
-                EntryStatus.OneTime => "One time event",
+                EntryStatus.OneTime => "One time entry",
                 EntryStatus.EventInProgress => "In progress event",
                 EntryStatus.EventCompleted => "Completed event",
                 EntryStatus.EventDropped => "Dropped event",
+                EntryStatus.LinkNote => "Linked note",
+                EntryStatus.LinkEndNote => "Linked end note",
                 _ => throw new ArgumentOutOfRangeException(nameof(Status), Status, null)
             };
         }
