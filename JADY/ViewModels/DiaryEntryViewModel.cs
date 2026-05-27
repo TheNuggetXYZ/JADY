@@ -192,13 +192,6 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
 
         if (!diaryEntry.HasValue)
             return;
-            
-        Status = diaryEntry.Value.Status;
-        Date = diaryEntry.Value.Date;
-        EndDate = diaryEntry.Value.EndDate;
-        Title = diaryEntry.Value.Title;
-        Content = diaryEntry.Value.Content;
-        IsHidden = diaryEntry.Value.IsHidden;
 
         if (Category != diaryEntry.Value.Category || SubCategory != diaryEntry.Value.SubCategory)
         {
@@ -207,6 +200,17 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
 
             _diaryViewModel.CascadeEditEntries(this);
         }
+
+        // Restart parent if changed from LinkEndNote
+        if (Status == EntryStatus.LinkEndNote && diaryEntry.Value.Status != Status) 
+            ParentEntry?.RestartEvent();
+            
+        Date = diaryEntry.Value.Date;
+        EndDate = diaryEntry.Value.EndDate;
+        Title = diaryEntry.Value.Title;
+        Content = diaryEntry.Value.Content;
+        IsHidden = diaryEntry.Value.IsHidden;
+        Status = diaryEntry.Value.Status;
 
         if (!EntryStatusExtensions.IsLink(diaryEntry.Value.Status))
             AssignParentEntry(null);
