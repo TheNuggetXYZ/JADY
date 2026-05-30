@@ -24,9 +24,15 @@ public partial class EditEntryWindow : DialogWindow<DiaryEntry>, IDialogInitiali
             EntryStatus.ItemsSource = EntryStatusExtensions.DisplayValues;
 
         if (EntryStatusExtensions.IsEnded(data.Status) && data.WasEndedByLinking)
+        {
             EntryStatus.IsEnabled = false;
+            EntryEndDate.IsEnabled = false;
+        }
         else
+        {
             EntryStatus.IsEnabled = true;
+            EntryEndDate.IsEnabled = true;
+        }
     }
 
     protected override Optional<DiaryEntry> GetValue()
