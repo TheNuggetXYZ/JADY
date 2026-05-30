@@ -99,7 +99,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     public bool ShowLinkInContextMenu => Status == EntryStatus.EventInProgress;
 
     [SaveDependent]
-    public bool IsCurrentlyVisible => !IsHidden || _saveService.Config.CurrentShowHiddenEntries;
+    public bool IsCurrentlyVisible => !(IsHidden || (ParentEntry is not null && ParentEntry.IsHidden)) || _saveService.Config.CurrentShowHiddenEntries;
     
     [SaveDependent]
     public string LogDateDisplayName => LogDate.Date.ToString("d", _saveService.Config.CultureInfo);
