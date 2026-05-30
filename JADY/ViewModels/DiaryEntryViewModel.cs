@@ -251,4 +251,10 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         
         _diaryViewModel.ResortEntry(this);
     }
+    
+    [RelayCommand]
+    private void OnClick()
+    {
+        IsExpanded = !IsExpanded;
+    }
 }
