@@ -200,8 +200,13 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
             return;
 
         // Update all children if category or subcategory was changed
-        if (Category != diaryEntry.Value.Category || SubCategory != diaryEntry.Value.SubCategory) 
+        if (Category != diaryEntry.Value.Category || SubCategory != diaryEntry.Value.SubCategory)
+        {
+            Category = diaryEntry.Value.Category;
+            SubCategory = diaryEntry.Value.SubCategory;
+            
             _diaryViewModel.CascadeEditEntries(this);
+        }
 
         // Restart parent if changed from LinkEndNote
         if (Status == EntryStatus.LinkEndNote && diaryEntry.Value.Status != Status) 
@@ -211,8 +216,6 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         if (Date != diaryEntry.Value.Date && diaryEntry.Value.Status == EntryStatus.LinkEndNote)
             ParentEntry?.EndEvent(diaryEntry.Value.Date);
             
-        Category = diaryEntry.Value.Category;
-        SubCategory = diaryEntry.Value.SubCategory;
         Date = diaryEntry.Value.Date;
         EndDate = diaryEntry.Value.EndDate;
         Title = diaryEntry.Value.Title;
