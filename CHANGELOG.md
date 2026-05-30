@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Linking notes to an in-progress event
+- Ending an event by linking an end note
+
+### Changed
+- Edit window entry type names
+
 ## [0.2.1] - 2026-5-17
 
 ### Fixed
