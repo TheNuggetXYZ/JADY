@@ -7,8 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-5-30
+
 ### Added
-- Linking notes to an in-progress event
+- Linking notes to events
 - Ending an event by linking an end note
 
 ### Changed
