@@ -178,6 +178,12 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         Status = EntryStatus.EventInProgress;
         EndDate = null;
     }
+
+    private void EndEvent(DateTimeOffset? endDate)
+    {
+        Status = EntryStatus.EventCompleted;
+        EndDate = endDate;
+    }
     
     [RelayCommand]
     private async Task ContextMenu_Remove()
@@ -193,18 +199,20 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         if (!diaryEntry.HasValue)
             return;
 
-        if (Category != diaryEntry.Value.Category || SubCategory != diaryEntry.Value.SubCategory)
-        {
-            Category = diaryEntry.Value.Category;
-            SubCategory = diaryEntry.Value.SubCategory;
-
+        // Update all children if category or subcategory was changed
+        if (Category != diaryEntry.Value.Category || SubCategory != diaryEntry.Value.SubCategory) 
             _diaryViewModel.CascadeEditEntries(this);
-        }
 
         // Restart parent if changed from LinkEndNote
         if (Status == EntryStatus.LinkEndNote && diaryEntry.Value.Status != Status) 
             ParentEntry?.RestartEvent();
+
+        // Update parent end date if we edited the date of an end note
+        if (Date != diaryEntry.Value.Date && diaryEntry.Value.Status == EntryStatus.LinkEndNote)
+            ParentEntry?.EndEvent(diaryEntry.Value.Date);
             
+        Category = diaryEntry.Value.Category;
+        SubCategory = diaryEntry.Value.SubCategory;
         Date = diaryEntry.Value.Date;
         EndDate = diaryEntry.Value.EndDate;
         Title = diaryEntry.Value.Title;
@@ -226,11 +234,8 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         if (!diaryEntry.HasValue)
             return;
 
-        if (diaryEntry.Value.Status == EntryStatus.LinkEndNote)
-        {
-            Status = EntryStatus.EventCompleted;
-            EndDate = diaryEntry.Value.Date;
-        }
+        if (diaryEntry.Value.Status == EntryStatus.LinkEndNote) 
+            EndEvent(diaryEntry.Value.Date);
         
         _diaryViewModel.AddEntry(diaryEntry.Value, this);
     }
