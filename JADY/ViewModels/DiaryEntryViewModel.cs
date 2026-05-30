@@ -76,6 +76,8 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     
     [ObservableProperty] private bool _isExpanded;
 
+    public bool WasEndedByLinking;
+
     public string GetStatusDisplayName
     {
         get
@@ -179,10 +181,11 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         EndDate = null;
     }
 
-    private void EndEvent(DateTimeOffset? endDate)
+    private void EndEvent(DateTimeOffset? endDate, EntryStatus status, bool endedByLinking)
     {
-        Status = EntryStatus.EventCompleted;
+        Status = status;
         EndDate = endDate;
+        WasEndedByLinking = endedByLinking;
     }
     
     [RelayCommand]
@@ -214,7 +217,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
 
         // Update parent end date if we edited the date of an end note
         if (Date != diaryEntry.Value.Date && diaryEntry.Value.Status == EntryStatus.LinkEndNote)
-            ParentEntry?.EndEvent(diaryEntry.Value.Date);
+            ParentEntry?.EndDate = diaryEntry.Value.Date;
             
         Date = diaryEntry.Value.Date;
         EndDate = diaryEntry.Value.EndDate;
@@ -238,7 +241,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
             return;
 
         if (diaryEntry.Value.Status == EntryStatus.LinkEndNote) 
-            EndEvent(diaryEntry.Value.Date);
+            EndEvent(diaryEntry.Value.Date, EntryStatus.EventCompleted, true);
         
         _diaryViewModel.AddEntry(diaryEntry.Value, this);
     }
@@ -254,8 +257,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         if (!diaryEntry.HasValue)
             return;
         
-        EndDate = diaryEntry.Value.EndDate;
-        Status = diaryEntry.Value.Status;
+        EndEvent(diaryEntry.Value.EndDate, diaryEntry.Value.Status, false);
         
         _diaryViewModel.ResortEntry(this);
     }

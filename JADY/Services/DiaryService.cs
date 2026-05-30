@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Avalonia.Data;
 using CommunityToolkit.Mvvm.Messaging;
 using JADY.Core;
+using JADY.Core.Helpers;
 using JADY.Core.Models;
 using JADY.Factories;
 using JADY.ViewModels;
@@ -62,7 +63,13 @@ public class DiaryService : IDiaryService
             foreach (var diaryEntry in entryCache.Values)
             {
                 if (diaryEntry.ParentEntryGuid is { } parentEntryGuid)
+                {
                     diaryEntry.AssignParentEntry(entryCache[parentEntryGuid]);
+                    
+                    // Let the parent know it has a linked end note
+                    if (EntryStatusExtensions.IsLinkEnd(diaryEntry.Status))
+                        entryCache[parentEntryGuid].WasEndedByLinking = true;
+                }
             }
         }
     }

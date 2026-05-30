@@ -9,6 +9,9 @@ public static class EntryStatusExtensions
     public static bool IsEvent(EntryStatus status) =>
         status is EntryStatus.EventCompleted or EntryStatus.EventDropped or EntryStatus.EventInProgress;
     
+    public static bool IsEnded(EntryStatus status) =>
+        status is EntryStatus.EventCompleted or EntryStatus.EventDropped;
+    
     public static bool IsInProgress(EntryStatus status) => status is EntryStatus.EventInProgress;
 
     public static bool IsLinkEnd(EntryStatus status) => status is EntryStatus.LinkEndNote;
