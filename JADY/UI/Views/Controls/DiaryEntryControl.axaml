@@ -10,7 +10,7 @@
     <Button Classes="invisible diaryEntryButton" HorizontalAlignment="Stretch" Command="{Binding ClickCommand}">
         <Border Classes="outsetLighting highlight"
                 Background="{DynamicResource EntryColor}" 
-                CornerRadius="3">
+                CornerRadius="6">
         
             <!-- Context menu -->
             <Border.ContextMenu>
@@ -25,12 +25,12 @@
         
             <Panel>
                 <!-- Color strip -->
-                <Border Classes="leftAccentStrip" IsVisible="{Binding !IsHidden}" CornerRadius="3"/>
+                <Border Classes="leftAccentStrip" IsVisible="{Binding !IsHidden}" CornerRadius="6"/>
             
                 <!-- Main grid -->
-                <Grid Margin="5" RowDefinitions="Auto, *">
+                <Grid Margin="6" RowDefinitions="Auto, *">
                     <!-- Header -->
-                    <Grid Grid.Row="0" ColumnDefinitions="*, 2*, *">
+                    <Grid Grid.Row="0" Margin="2" ColumnDefinitions="*, 2*, *">
                         <!-- Left panel -->
                         <StackPanel Grid.Column="0" 
                                     HorizontalAlignment="Left" VerticalAlignment="Center" 
@@ -103,7 +103,7 @@
                     <Border Grid.Row="1" 
                             Classes="insetLighting"
                             Background="{DynamicResource SystemRegionColor}" 
-                            Margin="0 5 0 0" CornerRadius="5">
+                            Margin="0 5 0 0" Padding="4" CornerRadius="6">
                 
                         <Border.IsVisible>
                             <MultiBinding Converter="{x:Static BoolConverters.And}">

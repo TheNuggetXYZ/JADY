@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Welcome window structure
+- Diary entry padding and corner radius
 
 ## [0.3.0] - 2026-5-30
 
