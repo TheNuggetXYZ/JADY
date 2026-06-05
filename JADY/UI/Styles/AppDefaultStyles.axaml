@@ -11,7 +11,8 @@
     <Design.PreviewWith>
         <Border Padding="20">
             <StackPanel Orientation="Horizontal">
-                <TextBox>blah blah blah</TextBox>
+                <TextBox VerticalAlignment="Center">blah blah blah</TextBox>
+                <ComboBox VerticalAlignment="Center">blah blah blah</ComboBox>
             </StackPanel>
         </Border>
     </Design.PreviewWith>
@@ -55,6 +56,34 @@
         </Setter>
     </Style>
     
+    <Style Selector="ComboBox">
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource InsetControlBackground}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource SystemControlBackgroundBaseLowBrush}"/>
+        <Setter Property="MinHeight" Value="38"/>
+        <Setter Property="CornerRadius" Value="6"/>
+        <Setter Property="Padding" Value="10, 9"/>
+    </Style>
     
+    <Style Selector="ComboBox /template/ Border#Background">
+    
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="BorderBrush" Duration="0:0:0.15"/>
+                <BrushTransition Property="Background" Duration="0:0:0.15"/>
+            </Transitions>
+        </Setter>
+    </Style>
+    
+    <Style Selector="ComboBox:pointerover /template/ Border#Background">
+        <Setter Property="BorderBrush" Value="{DynamicResource SystemControlBackgroundBaseMediumBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource InsetControlBackground}"/>
+    </Style>
+
+    <Style Selector="ComboBox:focused /template/ Border#Background">
+        <Setter Property="BorderBrush" Value="{DynamicResource SystemControlHighlightAccentBrush}"/>
+        <Setter Property="BorderThickness" Value="1.5"/>
+    </Style>
     
 </Styles>
