@@ -23,6 +23,7 @@
     <Style Selector="TextBox">
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource InsetControlBackground}"/>
     </Style>
     
     <Style Selector="TextBox /template/ Border#PART_BorderElement">
