@@ -10,7 +10,9 @@
     
     <Design.PreviewWith>
         <Border Padding="20">
-            <!-- Add Controls for Previewer Here -->
+            <StackPanel Orientation="Horizontal">
+                <TextBox>blah blah blah</TextBox>
+            </StackPanel>
         </Border>
     </Design.PreviewWith>
     
@@ -19,15 +21,18 @@
     </Style>
     
     <Style Selector="TextBox">
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
+    </Style>
+    
+    <Style Selector="TextBox /template/ Border#PART_BorderElement">
         <Setter Property="MinHeight" Value="38"/>
         <Setter Property="CornerRadius" Value="6"/>
         <Setter Property="Padding" Value="10,6"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
     
         <Setter Property="Background" Value="{DynamicResource InsetControlBackground}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource SystemControlBackgroundBaseLowBrush}"/>
         <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
     
         <Setter Property="Transitions">
             <Transitions>
