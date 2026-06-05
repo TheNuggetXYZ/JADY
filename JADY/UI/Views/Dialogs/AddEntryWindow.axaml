@@ -22,7 +22,7 @@
         
         <Grid Grid.Row="1" ColumnDefinitions="*, Auto" Margin="5">
             <TextBox Grid.Column="0" Name="EntryTitle" PlaceholderText="Title..." Margin="5"></TextBox>
-            <ComboBox Grid.Column="1" Name="EntryParameter" SelectedIndex="0" Margin="5"></ComboBox>
+            <ComboBox Grid.Column="1" Name="EntryParameter" VerticalAlignment="Center" SelectedIndex="0" Margin="5"></ComboBox>
         </Grid>
         
         <TextBox Grid.Row="2" Name="EntryContent" TextWrapping="Wrap" PlaceholderText="Content..." Margin="10"></TextBox>

@@ -21,7 +21,7 @@
         
         <Grid Grid.Row="1" ColumnDefinitions="*, Auto, Auto" Margin="5">
             <TextBox Grid.Column="0" Name="EntryTitle" Text="{Binding Title, Mode=OneTime}" PlaceholderText="Title..." Margin="5"></TextBox>
-            <ComboBox Grid.Column="2" Name="EntryStatus" PropertyChanged="EntryStatus_OnPropertyChanged" SelectedIndex="{Binding Status, Mode=OneTime}" Margin="5"></ComboBox>
+            <ComboBox Grid.Column="2" Name="EntryStatus" VerticalAlignment="Center" PropertyChanged="EntryStatus_OnPropertyChanged" SelectedIndex="{Binding Status, Mode=OneTime}" Margin="5"></ComboBox>
         </Grid>
         
         <TextBox Grid.Row="2" Name="EntryContent" Text="{Binding Content, Mode=OneTime}" TextWrapping="Wrap" PlaceholderText="Content..." Margin="10"></TextBox>
