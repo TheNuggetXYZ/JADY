@@ -39,6 +39,7 @@
                     <Color x:Key="AppHeaderColor">#ffe0e0e0</Color>
                     <Color x:Key="SliderColor">#ffc4c4c4</Color>
                     <Color x:Key="SliderPointerOverColor">#ffbcbcbc</Color>
+                    <Color x:Key="InsetControlBackground">#fffafafa</Color>
                 </ResourceDictionary>
                 
                 <ResourceDictionary x:Key="Dark">
@@ -46,6 +47,7 @@
                     <Color x:Key="AppHeaderColor">#ff292929</Color>
                     <Color x:Key="SliderColor">#ff393939</Color>
                     <Color x:Key="SliderPointerOverColor">#ff414141</Color>
+                    <Color x:Key="InsetControlBackground">#ff141414</Color>
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
         </ResourceDictionary>
