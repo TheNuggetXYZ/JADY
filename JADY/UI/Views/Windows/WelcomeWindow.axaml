@@ -7,25 +7,31 @@
         Title="Welcome!"
         Icon="/Assets/Icons/JADY_32x.png"
         SizeToContent="WidthAndHeight"
-        MinWidth="180"
+        MinWidth="350"
         MinHeight="250">
     
     <Grid RowDefinitions="*, Auto" RowSpacing="25">
         <StackPanel Grid.Row="0" Orientation="Vertical" Spacing="25" Margin="60 30">
             
-            <TextBlock Classes="h1" Text="Let's set you up:"/>
+            <TextBlock HorizontalAlignment="Center" Classes="h1" Text="Let's set you up:"/>
             <StackPanel Margin="15 0" Orientation="Vertical" Spacing="10">
-                <Label Classes="field light" Content="App theme:"/>
-                <ComboBox Name="AppTheme"/>
-        
-                <Label Classes="field light" Content="Culture:"/>
-                <ComboBox Name="Cultures"/>
-                
                 <Label Classes="field light" Content="Password:"/>
                 <TextBox Name="Password" PlaceholderText="Enter password..." PasswordChar="●" RevealPassword="False"/>
                 
                 <Label Classes="field light" Content="Confirm password:"/>
                 <TextBox Name="ConfirmPassword" PlaceholderText="Confirm password..." PasswordChar="●" RevealPassword="False"/>
+                
+                <Grid ColumnDefinitions="*, *">
+                    <StackPanel Grid.Column="0" Orientation="Vertical" Spacing="10">
+                        <Label Classes="field light" Content="App theme:"/>
+                        <ComboBox Name="AppTheme"/>
+                    </StackPanel>
+        
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Vertical" Spacing="10">
+                        <Label Classes="field light" Content="Culture:"/>
+                        <ComboBox Name="Cultures"/>
+                    </StackPanel>
+                </Grid>
             </StackPanel>
             
         </StackPanel>
