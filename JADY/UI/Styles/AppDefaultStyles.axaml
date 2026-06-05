@@ -14,6 +14,7 @@
                 <TextBox VerticalAlignment="Center">blah blah blah</TextBox>
                 <ComboBox VerticalAlignment="Center">blah blah blah</ComboBox>
                 <DatePicker VerticalAlignment="Center"></DatePicker>
+                <CheckBox VerticalAlignment="Center">dwdawd</CheckBox>
             </StackPanel>
         </Border>
     </Design.PreviewWith>
