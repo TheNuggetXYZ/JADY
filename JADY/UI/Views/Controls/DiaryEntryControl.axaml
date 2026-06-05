@@ -67,7 +67,8 @@
                         <TextBlock Grid.Column="1" Text="{Binding Title}" 
                                    HorizontalAlignment="Center" 
                                    TextTrimming="CharacterEllipsis" 
-                                   Margin="50 0"/>
+                                   Margin="50 0"
+                                   ToolTip.Tip="{Binding Title}"/>
                 
                         <!-- Right panel -->
                         <StackPanel Grid.Column="2" 
