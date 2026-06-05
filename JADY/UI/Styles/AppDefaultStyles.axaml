@@ -24,17 +24,14 @@
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
         <Setter Property="Background" Value="{DynamicResource InsetControlBackground}"/>
-    </Style>
-    
-    <Style Selector="TextBox /template/ Border#PART_BorderElement">
+        <Setter Property="BorderBrush" Value="{DynamicResource SystemControlBackgroundBaseLowBrush}"/>
         <Setter Property="MinHeight" Value="38"/>
         <Setter Property="CornerRadius" Value="6"/>
         <Setter Property="Padding" Value="10,6"/>
-        <Setter Property="Margin" Value="2"/>
+    </Style>
     
-        <Setter Property="Background" Value="{DynamicResource InsetControlBackground}"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource SystemControlBackgroundBaseLowBrush}"/>
-        <Setter Property="BorderThickness" Value="1"/>
+    <Style Selector="TextBox /template/ Border#PART_BorderElement">
+        <Setter Property="Margin" Value="2"/>
     
         <Setter Property="Transitions">
             <Transitions>
@@ -57,5 +54,7 @@
             <DropShadowEffect BlurRadius="2" Color="{DynamicResource SystemAccentColor}" OffsetX="0" OffsetY="0" Opacity="1"/>
         </Setter>
     </Style>
+    
+    
     
 </Styles>
