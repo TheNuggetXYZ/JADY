@@ -17,7 +17,7 @@
         <converters:DateTimeToOffsetConverter x:Key="DateConverter"></converters:DateTimeToOffsetConverter>
     </Window.Resources>
         
-    <Grid RowDefinitions="Auto, Auto, *, Auto" Margin="10">
+    <Grid RowDefinitions="Auto, Auto, *, Auto, Auto" Margin="10">
         
         <Grid Grid.Row="0" ColumnDefinitions="*, *" Margin="5">
             <TextBox Grid.Column="0" Name="EntryCategory" Text="{Binding Category, Mode=OneTime}" PlaceholderText="Category..." Margin="5"></TextBox>
@@ -31,24 +31,26 @@
         
         <TextBox Grid.Row="2" Name="EntryContent" Text="{Binding Content, Mode=OneTime}" TextWrapping="Wrap" PlaceholderText="Content..." Margin="10"></TextBox>
         
-        <StackPanel Grid.Row="3" Orientation="Vertical" Margin="5" HorizontalAlignment="Center">
-            <StackPanel Orientation="Horizontal" Margin="5">
-                <CalendarDatePicker Name="EntryDate" SelectedDate="{Binding Date, Mode=OneTime, Converter={StaticResource DateConverter}}" SelectedDateFormat="Custom">
-                    <ToolTip.Tip>Actual start date of an event or a date of a one time entry. (The date of adding an entry is saved automatically.)</ToolTip.Tip>
-                </CalendarDatePicker>
-            </StackPanel>
+        <Panel Grid.Row="3" Margin="5">
+            <CalendarDatePicker Name="EntryDate" 
+                                SelectedDate="{Binding Date, Mode=OneTime, Converter={StaticResource DateConverter}}" 
+                                SelectedDateFormat="Custom"
+                                HorizontalAlignment="Left"
+                                Margin="5"
+                                ToolTip.Tip="Actual start date of an event or a date of a one time entry. (The date of adding an entry is saved automatically.)"/>
             
-            <StackPanel Orientation="Horizontal" Margin="5">
-                <CalendarDatePicker Name="EntryEndDate" SelectedDate="{Binding EndDate, Mode=OneTime, Converter={StaticResource DateConverter}}" SelectedDateFormat="Custom">
-                    <ToolTip.Tip>End date of an event</ToolTip.Tip>
-                </CalendarDatePicker>
-            </StackPanel>
-            
-            <Panel Margin="5">
-                <CheckBox Name="EntryIsHidden" IsChecked="{Binding IsHidden, Mode=OneTime}" HorizontalAlignment="Left">Hidden</CheckBox>
-                <HoverButton Click="Submit_OnClick" Margin="5" HorizontalAlignment="Center">EDIT</HoverButton>
-            </Panel>
-        </StackPanel>
+            <CalendarDatePicker Name="EntryEndDate" 
+                                SelectedDate="{Binding EndDate, Mode=OneTime, Converter={StaticResource DateConverter}}" 
+                                SelectedDateFormat="Custom" 
+                                HorizontalAlignment="Right"
+                                Margin="5"
+                                ToolTip.Tip="End date of an event"/>
+        </Panel>
+        
+        <Panel Grid.Row="4" Margin="5">
+            <CheckBox Name="EntryIsHidden" IsChecked="{Binding IsHidden, Mode=OneTime}" HorizontalAlignment="Left" Margin="5">Hidden</CheckBox>
+            <HoverButton Click="Submit_OnClick" Margin="5" HorizontalAlignment="Right">EDIT</HoverButton>
+        </Panel>
     </Grid>
         
 </Window>

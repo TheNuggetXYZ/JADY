@@ -9,7 +9,7 @@
         x:DataType="viewModels:DiaryEntryViewModel"
         Title="End entry"
         SizeToContent="WidthAndHeight"
-        MinWidth="340"
+        MinWidth="150"
         MinHeight="100">
     
     <Window.Resources>
@@ -21,13 +21,13 @@
         <CalendarDatePicker Name="EndDate" 
                             SelectedDate="{Binding EndDate, Mode=OneTime, Converter={StaticResource DateConverter}}" 
                             SelectedDateFormat="Custom" 
+                            HorizontalAlignment="Center"
                             Margin="5"
                             ToolTip.Tip="End date of an event"/>
-                
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <ComboBox Name="EndParameter" VerticalAlignment="Center" SelectedIndex="0" Margin="5"></ComboBox>
-            <HoverButton Click="Submit_OnClick" HorizontalAlignment="Center" Margin="5">END</HoverButton>
-        </StackPanel>
+        
+        <ComboBox Name="EndParameter" HorizontalAlignment="Center" SelectedIndex="0" Margin="5"/>
+        
+        <HoverButton Click="Submit_OnClick" HorizontalAlignment="Center" Margin="5">END</HoverButton>
         
     </StackPanel>
         

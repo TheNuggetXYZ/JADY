@@ -27,18 +27,19 @@
         
         <TextBox Grid.Row="2" Name="EntryContent" TextWrapping="Wrap" PlaceholderText="Content..." Margin="10"/>
         
-        <StackPanel Grid.Row="3" Orientation="Vertical" Margin="5" HorizontalAlignment="Center">
-            <StackPanel Orientation="Horizontal" Margin="5">
-                <CalendarDatePicker Name="EntryDate" SelectedDateFormat="Custom">
-                    <ToolTip.Tip>Actual start date of an event or a date of a one time entry. (The date of adding an entry is saved automatically.)</ToolTip.Tip>
-                </CalendarDatePicker>
-            </StackPanel>
+        <Panel Grid.Row="3" Margin="5">
             
-            <Panel Margin="5">
-                <CheckBox Name="EntryIsHidden" HorizontalAlignment="Left">Hidden</CheckBox>
-                <HoverButton Click="Submit_OnClick" Margin="5" HorizontalAlignment="Center">ADD</HoverButton>
-            </Panel>
-        </StackPanel>
+            <CheckBox Name="EntryIsHidden" HorizontalAlignment="Left" Margin="5">Hidden</CheckBox>
+            
+            <CalendarDatePicker Name="EntryDate" 
+                                SelectedDateFormat="Custom" 
+                                HorizontalAlignment="Center"
+                                Margin="5"
+                                ToolTip.Tip="Actual start date of an event or a date of a one time entry. (The date of adding an entry is saved automatically.)"/>
+            
+            <HoverButton Click="Submit_OnClick" Margin="5" HorizontalAlignment="Right">ADD</HoverButton>
+            
+        </Panel>
     </Grid>
         
 </Window>
