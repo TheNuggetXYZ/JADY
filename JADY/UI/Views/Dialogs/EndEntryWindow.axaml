@@ -27,7 +27,7 @@
         
         <ComboBox Name="EndParameter" HorizontalAlignment="Center" SelectedIndex="0" Margin="5"/>
         
-        <HoverButton Click="Submit_OnClick" HorizontalAlignment="Center" Margin="5">END</HoverButton>
+        <IconButton IconData="{StaticResource CalendarCheckmarkIconSolid}" Click="Submit_OnClick" HorizontalAlignment="Center" Margin="5"/>
         
     </StackPanel>
         
