@@ -22,6 +22,7 @@ public partial class LinkEntryWindow(ISaveService saveService) : DialogWindow<Di
         InitializeComponent();
         
         EntryStatus.ItemsSource = new[] {"Note", "End note"};
+        EntryDate.SelectedDate = DateTime.Now;
         EntryDate.CustomDateFormatString = saveService.Config.CultureInfo.DateTimeFormat.ShortDatePattern;
     }
 

@@ -17,6 +17,7 @@ public partial class AddEntryWindow : DialogWindow<DiaryEntry>
         InitializeComponent();
 
         EntryParameter.ItemsSource = new[]{"One time", "Started"};
+        EntryDate.SelectedDate = DateTime.Now;
         EntryDate.CustomDateFormatString = saveService.Config.CultureInfo.DateTimeFormat.ShortDatePattern;
     }
 

@@ -18,6 +18,7 @@ public partial class EndEntryWindow(ISaveService saveService) : DialogWindow<Dia
         InitializeComponent();
         
         EndParameter.ItemsSource = new[]{"Completed", "Dropped"};
+        EndDate.SelectedDate = DateTime.Now;
         EndDate.CustomDateFormatString = saveService.Config.CultureInfo.DateTimeFormat.ShortDatePattern;
     }
 
