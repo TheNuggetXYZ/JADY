@@ -137,7 +137,7 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
 
-    <Style Selector="DatePicker /template/ Button#PART_Button">
+    <Style Selector="DatePicker /template/ Button#PART_FlyoutButton">
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         
         <Setter Property="Transitions">
@@ -148,12 +148,13 @@
         </Setter>
     </Style>
 
-    <Style Selector="DatePicker:pointerover /template/ Button#PART_Button">
+    <Style Selector="DatePicker:pointerover /template/ Button#PART_FlyoutButton">
         <Setter Property="BorderBrush" Value="{DynamicResource SystemControlBackgroundBaseMediumBrush}"/>
     </Style>
 
-    <Style Selector="DatePicker:focused /template/ Button#PART_Button">
+    <Style Selector="DatePicker:focused /template/ Button#PART_FlyoutButton">
         <Setter Property="BorderBrush" Value="{DynamicResource SystemControlHighlightAccentBrush}"/>
+        <Setter Property="BorderThickness" Value="1.5"/>
     </Style>
     
     <Style Selector="CheckBox">
