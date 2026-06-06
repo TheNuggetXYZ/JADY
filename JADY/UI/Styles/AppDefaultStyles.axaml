@@ -12,6 +12,8 @@
         <Border Padding="20">
             <StackPanel Orientation="Horizontal">
                 <TextBox VerticalAlignment="Center">blah blah blah</TextBox>
+                <TextBox VerticalAlignment="Center" IsReadOnly="True">blah blah blah</TextBox>
+                <TextBox VerticalAlignment="Center" IsEnabled="False">blah blah blah</TextBox>
                 <ComboBox VerticalAlignment="Center">blah blah blah</ComboBox>
                 <DatePicker VerticalAlignment="Center"></DatePicker>
                 <CheckBox VerticalAlignment="Center">dwdawd</CheckBox>
@@ -55,6 +57,42 @@
         <Setter Property="Effect">
             <DropShadowEffect BlurRadius="2" Color="{DynamicResource SystemAccentColor}" OffsetX="0" OffsetY="0" Opacity="1"/>
         </Setter>
+    </Style>
+    
+    <Style Selector="TextBox[IsReadOnly=True] /template/ Border#PART_BorderElement">
+        <Setter Property="Background" Value="{DynamicResource InsetControlBackgroundReadonly}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource SystemControlBackgroundBaseLowBrush}"/>
+        <Setter Property="Cursor" Value="Arrow"/>
+    </Style>
+
+    <Style Selector="TextBox[IsReadOnly=True]:pointerover /template/ Border#PART_BorderElement">
+        <Setter Property="Background" Value="{DynamicResource InsetControlBackgroundReadonly}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource SystemControlBackgroundBaseLowBrush}"/>
+    </Style>
+
+    <Style Selector="TextBox[IsReadOnly=True]:focus /template/ Border#PART_BorderElement">
+        <Setter Property="Background" Value="{DynamicResource InsetControlBackgroundReadonly}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource SystemControlBackgroundBaseLowBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Effect" Value="{x:Null}"/> 
+    </Style>
+    
+    <Style Selector="TextBox[IsEnabled=False] /template/ Border#PART_BorderElement">
+        <Setter Property="Background" Value="{DynamicResource InsetControlBackgroundReadonly}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource SystemControlBackgroundBaseLowBrush}"/>
+        <Setter Property="Cursor" Value="Arrow"/>
+    </Style>
+
+    <Style Selector="TextBox[IsEnabled=False]:pointerover /template/ Border#PART_BorderElement">
+        <Setter Property="Background" Value="{DynamicResource InsetControlBackgroundReadonly}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource SystemControlBackgroundBaseLowBrush}"/>
+    </Style>
+
+    <Style Selector="TextBox[IsEnabled=False]:focus /template/ Border#PART_BorderElement">
+        <Setter Property="Background" Value="{DynamicResource InsetControlBackgroundReadonly}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource SystemControlBackgroundBaseLowBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Effect" Value="{x:Null}"/> 
     </Style>
     
     <Style Selector="ComboBox">
