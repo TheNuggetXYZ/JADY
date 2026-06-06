@@ -3,6 +3,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:JADY.ViewModels"
+        xmlns:converters="clr-namespace:JADY.UI.Converters"
         mc:Ignorable="d" d:DesignWidth="350" d:DesignHeight="100"
         x:Class="JADY.UI.Views.Dialogs.EndEntryWindow"
         x:DataType="viewModels:DiaryEntryViewModel"
@@ -10,16 +11,24 @@
         SizeToContent="WidthAndHeight"
         MinWidth="340"
         MinHeight="100">
+    
+    <Window.Resources>
+        <converters:DateTimeToOffsetConverter x:Key="DateConverter"></converters:DateTimeToOffsetConverter>
+    </Window.Resources>
         
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="10">
-                <DatePicker Name="EndDate" SelectedDate="{Binding EndDate, Mode=OneTime}" Margin="5">
-                        <ToolTip.Tip>End date of an event</ToolTip.Tip>
-                </DatePicker>
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="10">
+        
+        <CalendarDatePicker Name="EndDate" 
+                            SelectedDate="{Binding EndDate, Mode=OneTime, Converter={StaticResource DateConverter}}" 
+                            SelectedDateFormat="Custom" 
+                            Margin="5"
+                            ToolTip.Tip="End date of an event"/>
                 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <ComboBox Name="EndParameter" VerticalAlignment="Center" SelectedIndex="0" Margin="5"></ComboBox>
-                        <HoverButton Click="Submit_OnClick" HorizontalAlignment="Center" Margin="5">END</HoverButton>
-                </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <ComboBox Name="EndParameter" VerticalAlignment="Center" SelectedIndex="0" Margin="5"></ComboBox>
+            <HoverButton Click="Submit_OnClick" HorizontalAlignment="Center" Margin="5">END</HoverButton>
         </StackPanel>
+        
+    </StackPanel>
         
 </Window>

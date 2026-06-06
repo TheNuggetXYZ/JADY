@@ -7,12 +7,13 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using JADY.Core.Data;
 using JADY.Core.Models;
+using JADY.Services;
 using JADY.UI.Base;
 using JADY.ViewModels;
 
 namespace JADY.UI.Views.Dialogs;
 
-public partial class LinkEntryWindow : DialogWindow<DiaryEntry>, IDialogInitializable<DiaryEntryViewModel>
+public partial class LinkEntryWindow(ISaveService saveService) : DialogWindow<DiaryEntry>, IDialogInitializable<DiaryEntryViewModel>
 {
     public void Initialize(DiaryEntryViewModel data)
     {
@@ -21,6 +22,7 @@ public partial class LinkEntryWindow : DialogWindow<DiaryEntry>, IDialogInitiali
         InitializeComponent();
         
         EntryStatus.ItemsSource = new[] {"Note", "End note"};
+        EntryDate.CustomDateFormatString = saveService.Config.CultureInfo.DateTimeFormat.ShortDatePattern;
     }
 
     protected override Optional<DiaryEntry> GetValue()

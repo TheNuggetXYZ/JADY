@@ -29,9 +29,9 @@
         
         <StackPanel Grid.Row="3" Orientation="Vertical" Margin="5" HorizontalAlignment="Center">
             <StackPanel Orientation="Horizontal" Margin="5">
-                <DatePicker Name="EntryDate">
+                <CalendarDatePicker Name="EntryDate" SelectedDateFormat="Custom">
                     <ToolTip.Tip>Actual start date of an event or a date of a one time entry. (The date of adding an entry is saved automatically.)</ToolTip.Tip>
-                </DatePicker>
+                </CalendarDatePicker>
             </StackPanel>
             
             <Panel Margin="5">

@@ -4,12 +4,13 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using JADY.Core.Data;
 using JADY.Core.Models;
+using JADY.Services;
 using JADY.UI.Base;
 using JADY.ViewModels;
 
 namespace JADY.UI.Views.Dialogs;
 
-public partial class EndEntryWindow : DialogWindow<DiaryEntry>, IDialogInitializable<DiaryEntryViewModel>
+public partial class EndEntryWindow(ISaveService saveService) : DialogWindow<DiaryEntry>, IDialogInitializable<DiaryEntryViewModel>
 {
     public void Initialize(DiaryEntryViewModel data)
     {
@@ -17,6 +18,7 @@ public partial class EndEntryWindow : DialogWindow<DiaryEntry>, IDialogInitializ
         InitializeComponent();
         
         EndParameter.ItemsSource = new[]{"Completed", "Dropped"};
+        EndDate.CustomDateFormatString = saveService.Config.CultureInfo.DateTimeFormat.ShortDatePattern;
     }
 
     protected override Optional<DiaryEntry> GetValue()

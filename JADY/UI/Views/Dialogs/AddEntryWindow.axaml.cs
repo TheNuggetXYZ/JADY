@@ -1,20 +1,23 @@
 using System;
+using Avalonia.Controls;
 using Avalonia.Data;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using JADY.Core.Data;
 using JADY.Core.Models;
+using JADY.Services;
 using JADY.UI.Base;
 
 namespace JADY.UI.Views.Dialogs;
 
 public partial class AddEntryWindow : DialogWindow<DiaryEntry>
 {
-    public AddEntryWindow()
+    public AddEntryWindow(ISaveService saveService)
     {
         InitializeComponent();
 
         EntryParameter.ItemsSource = new[]{"One time", "Started"};
+        EntryDate.CustomDateFormatString = saveService.Config.CultureInfo.DateTimeFormat.ShortDatePattern;
     }
 
     protected override Optional<DiaryEntry> GetValue()

@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using Avalonia;
@@ -187,6 +188,9 @@ public partial class SaveService : ObservableObject, ISaveService
     private void OnChangeConfig()
     {
         _appVisualService.SetTheme(Config.AppTheme);
+
+        CultureInfo.CurrentCulture = Config.CultureInfo;
+        CultureInfo.CurrentUICulture = Config.CultureInfo;
     }
 
     private void TriggerAutoSave()
