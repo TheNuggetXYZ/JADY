@@ -131,6 +131,10 @@
         </Setter>
     </Style>
     
+    <Style Selector="ComboBox:focus /template/ Border#HighlightBackground">
+        <Setter Property="Background" Value="Transparent"/>
+    </Style>
+    
     <Style Selector="DatePicker">
         <Setter Property="MinHeight" Value="38"/>
         <Setter Property="CornerRadius" Value="6"/>
