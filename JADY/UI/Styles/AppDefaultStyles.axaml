@@ -16,6 +16,7 @@
                 <TextBox VerticalAlignment="Center" IsEnabled="False">blah blah blah</TextBox>
                 <ComboBox VerticalAlignment="Center">blah blah blah</ComboBox>
                 <DatePicker VerticalAlignment="Center"></DatePicker>
+                <CalendarDatePicker VerticalAlignment="Center"></CalendarDatePicker>
                 <CheckBox VerticalAlignment="Center">dwdawd</CheckBox>
             </StackPanel>
         </Border>
@@ -165,6 +166,58 @@
     <Style Selector="DatePicker:focus /template/ Button#PART_FlyoutButton">
         <Setter Property="BorderBrush" Value="{DynamicResource SystemControlHighlightAccentBrush}"/>
         <Setter Property="BorderThickness" Value="1.5"/>
+    </Style>
+    
+    <Style Selector="CalendarDatePicker">
+        <Setter Property="MinHeight" Value="38"/>
+        <Setter Property="Height" Value="38"/>
+        <Setter Property="CornerRadius" Value="6"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource SystemControlBackgroundBaseLowBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource InsetControlBackground}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="8"></Setter>
+    </Style>
+
+    <Style Selector="CalendarDatePicker /template/ Border#Background">
+        
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="BorderBrush" Duration="0:0:0.15"/>
+                <BrushTransition Property="Background" Duration="0:0:0.15"/>
+            </Transitions>
+        </Setter>
+    </Style>
+
+    <Style Selector="CalendarDatePicker:pointerover /template/ Border#Background">
+        <Setter Property="BorderBrush" Value="{DynamicResource SystemControlBackgroundBaseMediumBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource InsetControlBackground}"/>
+    </Style>
+
+    <Style Selector="CalendarDatePicker:focus /template/ Border#Background">
+        <Setter Property="BorderBrush" Value="{DynamicResource SystemControlHighlightAccentBrush}"/>
+        <Setter Property="BorderThickness" Value="1.5"/>
+        <Setter Property="Background" Value="{DynamicResource InsetControlBackground}"/>
+    </Style>
+
+    <Style Selector="CalendarDatePicker:focus-within /template/ Border#Background">
+        <Setter Property="BorderBrush" Value="{DynamicResource SystemControlHighlightAccentBrush}"/>
+        <Setter Property="BorderThickness" Value="1.5"/>
+        <Setter Property="Background" Value="{DynamicResource InsetControlBackground}"/>
+    </Style>
+
+    <Style Selector="CalendarDatePicker /template/ Border#Background">
+        <Setter Property="BorderBrush" Value="{DynamicResource SystemControlHighlightAccentBrush}"/>
+        <Setter Property="BorderThickness" Value="1.5"/>
+        <Setter Property="Background" Value="{DynamicResource InsetControlBackground}"/>
+    </Style>
+
+    <Style Selector="CalendarDatePicker /template/ TextBox#PART_TextBox /template/ Border#PART_BorderElement">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Transitions" Value="{x:Null}"></Setter>
+    </Style>
+
+    <Style Selector="CalendarDatePicker:pointerover /template/ TextBox#PART_TextBox /template/ Border#PART_BorderElement">
+        <Setter Property="Background" Value="Transparent"/>
     </Style>
     
     <Style Selector="CheckBox">
