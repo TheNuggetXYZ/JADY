@@ -208,4 +208,14 @@
         </Setter>
     </Style>
     
+    <Style Selector="HoverButton, Button, DatePicker, CheckBox, Menu, MenuItem, IconButton, IconToggleButton">
+        <Setter Property="FocusAdorner">
+            <FocusAdornerTemplate>
+                <Border BorderBrush="{DynamicResource SystemControlHighlightAccentBrush}"
+                        BorderThickness="1.5"
+                        CornerRadius="8"/> 
+            </FocusAdornerTemplate>
+        </Setter>
+    </Style>
+    
 </Styles>
