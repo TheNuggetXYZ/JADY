@@ -12,9 +12,9 @@
         MinWidth="100"
         MinHeight="100">
         
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10" Margin="10">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10" Margin="10">
                 <TextBox Name="DiaryName" PropertyChanged="DiaryNameOnPropertyChanged" Text="{Binding Name, Mode=OneTime}"></TextBox>
-                <HoverButton Name="SubmitButton" Click="Submit_OnClick" HorizontalAlignment="Center">EDIT</HoverButton>
+                <IconButton Name="SubmitButton" IconData="{StaticResource PencilIconSolid}" Click="Submit_OnClick" HorizontalAlignment="Center"/>
         </StackPanel>
         
 </Window>
