@@ -29,7 +29,11 @@
         
         <Panel Grid.Row="3" Margin="5">
             
-            <CheckBox Name="EntryIsHidden" HorizontalAlignment="Left" Margin="5">Hidden</CheckBox>
+            <IconToggleButton Name="EntryIsHidden"
+                              IconData="{StaticResource EyeIconSolid}" 
+                              CheckedIconData="{StaticResource EyeSlashIconSolid}" 
+                              HorizontalAlignment="Left" 
+                              Margin="5"/>
             
             <CalendarDatePicker Name="EntryDate" 
                                 SelectedDateFormat="Custom" 

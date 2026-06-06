@@ -48,7 +48,14 @@
         </Panel>
         
         <Panel Grid.Row="4" Margin="5">
-            <CheckBox Name="EntryIsHidden" IsChecked="{Binding IsHidden, Mode=OneTime}" HorizontalAlignment="Left" Margin="5">Hidden</CheckBox>
+            
+            <IconToggleButton Name="EntryIsHidden" 
+                              IsChecked="{Binding IsHidden, Mode=OneTime}" 
+                              IconData="{StaticResource EyeIconSolid}" 
+                              CheckedIconData="{StaticResource EyeSlashIconSolid}" 
+                              HorizontalAlignment="Left" 
+                              Margin="5"/>
+            
             <HoverButton Click="Submit_OnClick" Margin="5" HorizontalAlignment="Right">EDIT</HoverButton>
         </Panel>
     </Grid>
