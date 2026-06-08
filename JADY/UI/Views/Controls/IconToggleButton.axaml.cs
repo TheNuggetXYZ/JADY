@@ -5,7 +5,7 @@ using Avalonia.Media;
 
 namespace JADY.UI.Views.Controls;
 
-public class IconToggleButton : HoverToggleButton
+public class IconToggleButton : ToggleButton
 {
     public static readonly StyledProperty<StreamGeometry?> IconDataProperty =
         AvaloniaProperty.Register<IconButton, StreamGeometry?>(nameof(IconData));

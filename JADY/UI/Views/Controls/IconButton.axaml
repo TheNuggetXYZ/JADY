@@ -10,8 +10,27 @@
     </Design.PreviewWith>
 
     <ControlTheme x:Key="{x:Type IconButton}" TargetType="IconButton" 
-                  BasedOn="{StaticResource {x:Type HoverButton}}">
+                  BasedOn="{StaticResource {x:Type Button}}">
         
+        
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Padding" Value="4"/>
+    
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border x:Name="PART_LayoutRoot"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        Padding="{TemplateBinding Padding}">
+                
+                    <ContentPresenter x:Name="PART_MyContentPresenter" 
+                                      Content="{TemplateBinding Content}"/>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    
         <Style Selector="^ /template/ ContentPresenter#PART_MyContentPresenter">
             <Setter Property="ContentTemplate">
                 <DataTemplate>
@@ -19,30 +38,37 @@
                         <PathIcon Data="{Binding $parent[IconButton].IconData}" 
                                   Width="{Binding $parent[IconButton].IconSize}"
                                   Height="{Binding $parent[IconButton].IconSize}"/>
-                            
+                        
                         <TextBlock Text="{Binding $parent[IconButton].IconText}"/>
                     </StackPanel>
                 </DataTemplate>
             </Setter>
         </Style>
-        
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Padding" Value="4"/>
-        
+    
         <Style Selector="^ /template/ Border#PART_LayoutRoot">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BoxShadow" Value="0 0 0 0 Transparent"/>
             <Setter Property="Padding" Value="4"/>
+            <Setter Property="Margin" Value="2"/> 
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BoxShadowsTransition Property="BoxShadow" Duration="0:0:0.1"/>
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.1"/>
+                </Transitions>
+            </Setter>
         </Style>
-
+    
         <Style Selector="^:pointerover /template/ Border#PART_LayoutRoot">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BoxShadow" Value="0 0 0 0 Transparent"/>
+            <Setter Property="RenderTransform" Value="translate(0, -2px)"/>
         </Style>
-        
+    
         <Style Selector="^:pressed /template/ Border#PART_LayoutRoot">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BoxShadow" Value="0 0 0 0 Transparent"/>
+            <Setter Property="RenderTransform" Value="scale(0.95) translate(0, 1px)"/>
         </Style>
+        
     </ControlTheme>
 </ResourceDictionary>

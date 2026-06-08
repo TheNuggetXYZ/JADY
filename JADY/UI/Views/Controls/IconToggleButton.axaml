@@ -11,8 +11,8 @@
     </Design.PreviewWith>
 
     <ControlTheme x:Key="{x:Type IconToggleButton}" TargetType="IconToggleButton" 
-                  BasedOn="{StaticResource {x:Type HoverToggleButton}}">
-    
+                  BasedOn="{StaticResource {x:Type ToggleButton}}">
+        
         <Setter Property="Template">
             <ControlTemplate>
                 <Border x:Name="PART_LayoutRoot"
@@ -32,6 +32,17 @@
             </ControlTemplate>
         </Setter>
         
+        <Style Selector="^ /template/ Border#PART_LayoutRoot">
+            <Setter Property="BoxShadow" Value="1 2 2 -1 black"/>
+            <Setter Property="Margin" Value="2"/> 
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BoxShadowsTransition Property="BoxShadow" Duration="0:0:0.1"/>
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.1"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Padding" Value="4"/>
         
@@ -50,11 +61,13 @@
         <Style Selector="^:pointerover /template/ Border#PART_LayoutRoot">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BoxShadow" Value="0 0 0 0 Transparent"/>
+            <Setter Property="RenderTransform" Value="translate(0, -2px)"/>
         </Style>
         
         <Style Selector="^:pressed /template/ Border#PART_LayoutRoot">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BoxShadow" Value="0 0 0 0 Transparent"/>
+            <Setter Property="RenderTransform" Value="scale(0.95) translate(0, 1px)"/>
         </Style>
         
         <Style Selector="^:checked /template/ PathIcon#PART_Icon">
