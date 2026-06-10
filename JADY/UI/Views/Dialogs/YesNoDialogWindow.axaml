@@ -7,17 +7,17 @@
         Title="?"
         SizeToContent="WidthAndHeight">
     
-    <StackPanel Orientation="Vertical" Spacing="10" 
+    <StackPanel Orientation="Vertical" Spacing="30" 
                 HorizontalAlignment="Center" VerticalAlignment="Center" 
-                Margin="10">
+                Margin="50 30">
         
-        <TextBlock Name="MessageText" HorizontalAlignment="Center"/>
+        <SelectableTextBlock Name="MessageText" Classes="h4" HorizontalAlignment="Center"/>
                 
         <StackPanel Orientation="Horizontal" Spacing="10" 
                     HorizontalAlignment="Center" VerticalAlignment="Center">
                     
-            <HoverButton Name="YesButton" Click="YesButton_OnClick">YES</HoverButton>
-            <HoverButton Name="NoButton" Click="NoButton_OnClick">NO</HoverButton>
+            <Button Name="YesButton" Classes="round accent" Click="YesButton_OnClick">Yes</Button>
+            <Button Name="NoButton" Classes="round" Click="NoButton_OnClick">No</Button>
         </StackPanel>
     </StackPanel>
     
