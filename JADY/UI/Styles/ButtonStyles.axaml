@@ -2,11 +2,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     
     <Design.PreviewWith>
-        <Border Padding="20">
-            <StackPanel Orientation="Vertical">
-                <Button Classes="round">Round</Button>
-            </StackPanel>
-        </Border>
+        <ThemeVariantScope RequestedThemeVariant="Light">
+            <Border Padding="20" Background="White">
+                <StackPanel Orientation="Horizontal">
+                    <Button Classes="round">Round</Button>
+                    <Button Classes="round accent">Accent</Button>
+                </StackPanel>
+            </Border>
+        </ThemeVariantScope>
     </Design.PreviewWith>
 
     <Style Selector="Button.invisible /template/ ContentPresenter">
@@ -37,8 +40,17 @@
     
         <Setter Property="Transitions">
             <Transitions>
-                <BrushTransition Property="Background" Duration="0:0:0.12"/>
-                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.1"/>
+                <BrushTransition Property="Background" Duration="0:0:0.15"/>
+                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.15"/>
+            </Transitions>
+        </Setter>
+    </Style>
+    
+    <Style Selector="Button.round /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Background" Duration="0:0:0.15"/>
+                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.15"/>
             </Transitions>
         </Setter>
     </Style>
@@ -53,6 +65,20 @@
     </Style>
 
     <Style Selector="Button.round:pressed /template/ ContentPresenter#PART_ContentPresenter">
-        <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundBaseLowBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundBaseMediumBrush}"/>
+    </Style>
+    
+    <Style Selector="Button.accent /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource SystemAccentColor}"></Setter>
+    </Style>
+    
+    <Style Selector="Button.accent:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource SystemAccentColorDark1}"></Setter>
+        <Setter Property="Foreground" Value="White"></Setter>
+    </Style>
+    
+    <Style Selector="Button.accent:pressed /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource SystemAccentColorDark2}"></Setter>
+        <Setter Property="Foreground" Value="White"></Setter>
     </Style>
 </Styles>
