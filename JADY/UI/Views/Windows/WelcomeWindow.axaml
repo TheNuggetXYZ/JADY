@@ -10,10 +10,14 @@
         MinWidth="350"
         MinHeight="250">
     
-    <Grid RowDefinitions="*, Auto" RowSpacing="25">
+    <Grid RowDefinitions="*, Auto">
         <StackPanel Grid.Row="0" Orientation="Vertical" Spacing="25" Margin="60 30">
             
-            <TextBlock HorizontalAlignment="Center" Classes="h1" Text="Let's set you up:"/>
+            <TextBlock HorizontalAlignment="Center" Classes="h1">
+                <Run>Welcome to </Run>
+                <Run FontSize="32" Foreground="{DynamicResource SystemAccentColorLight3}">JADY</Run>
+            </TextBlock>
+            
             <StackPanel Margin="15 0" Orientation="Vertical" Spacing="10">
                 <Label Classes="field light" Content="Password:"/>
                 <TextBox Name="Password" PlaceholderText="Enter password..." PasswordChar="●" RevealPassword="False"/>
@@ -36,7 +40,7 @@
             
         </StackPanel>
         
-        <Border Grid.Row="1" Background="{DynamicResource SystemChromeMediumColor}">
+        <Border Grid.Row="1" Background="Transparent" Padding="30">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Classes="round" Click="ExitButton_OnClick" HorizontalAlignment="Center" Margin="10">Exit</Button>
                 <Button Classes="round accent" Click="ContinueButton_OnClick" HorizontalAlignment="Center" Margin="10">Continue</Button>
