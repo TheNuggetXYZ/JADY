@@ -37,7 +37,10 @@
         </StackPanel>
         
         <Border Grid.Row="1" Background="{DynamicResource SystemChromeMediumColor}">
-            <HoverButton Click="ContinueButton_OnClick" HorizontalAlignment="Center" Margin="10">Continue</HoverButton>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Classes="round" Click="ExitButton_OnClick" HorizontalAlignment="Center" Margin="10">Exit</Button>
+                <Button Classes="round accent" Click="ContinueButton_OnClick" HorizontalAlignment="Center" Margin="10">Continue</Button>
+            </StackPanel>
         </Border>
     </Grid>
     

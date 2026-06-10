@@ -11,6 +11,7 @@ public partial class WelcomeWindow : Window
 {
     private readonly ISaveService? _saveService;
     private readonly IWindowService _windowService;
+    private readonly IShutdownService _shutdownService;
 
     // Required for the compiler and previewer
     public WelcomeWindow()
@@ -18,10 +19,11 @@ public partial class WelcomeWindow : Window
         InitializeComponent();
     }
     
-    public WelcomeWindow(ISaveService saveService, IWindowService windowService) : this()
+    public WelcomeWindow(ISaveService saveService, IWindowService windowService, IShutdownService shutdownService) : this()
     {
         _saveService = saveService;
         _windowService = windowService;
+        _shutdownService = shutdownService;
 
         AppTheme.ItemsSource = Enum.GetValues<AppTheme>();
         AppTheme.SelectedIndex = (int)_saveService.Config.AppTheme;
@@ -48,5 +50,10 @@ public partial class WelcomeWindow : Window
         _saveService.Save(_saveService.Config);
 
         Close();
+    }
+
+    private void ExitButton_OnClick(object? sender, RoutedEventArgs e)
+    {
+        _shutdownService.Shutdown();
     }
 }
