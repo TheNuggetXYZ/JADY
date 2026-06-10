@@ -2,23 +2,23 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="230" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="450"
         x:Class="JADY.UI.Views.Dialogs.UnsavedChangesWindow"
         Title="Unsaved changes!"
         SizeToContent="Height"
-        Width="230">
+        Width="450">
         
-    <StackPanel Orientation="Vertical" Spacing="10" 
+    <StackPanel Orientation="Vertical" Spacing="30" 
                 HorizontalAlignment="Center" VerticalAlignment="Center" 
-                Margin="10">
-        <TextBlock HorizontalAlignment="Center">You have unsaved changes</TextBlock>
+                Margin="30">
+        <TextBlock HorizontalAlignment="Center" Classes="h2">You have unsaved changes!</TextBlock>
                 
         <StackPanel Orientation="Horizontal" Spacing="10" 
                     HorizontalAlignment="Center" VerticalAlignment="Center">
                     
-            <HoverButton Name="SaveButton" Click="SaveButton_OnClick">SAVE</HoverButton>
-            <HoverButton Click="QuitButton_OnClick">QUIT</HoverButton>
-            <HoverButton Click="CancelButton_OnClick">CANCEL</HoverButton>
+            <Button Name="SaveButton" Classes="round accent" Click="SaveButton_OnClick">Save</Button>
+            <Button Classes="round" Click="QuitButton_OnClick">Quit</Button>
+            <Button Classes="round" Click="CancelButton_OnClick">Cancel</Button>
         </StackPanel>
     </StackPanel>
         
