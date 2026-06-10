@@ -14,7 +14,7 @@
         
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10" Margin="10">
                 <TextBox Name="DiaryName" PropertyChanged="DiaryNameOnPropertyChanged" Text="{Binding Name, Mode=OneTime}"></TextBox>
-                <IconButton Name="SubmitButton" IconData="{StaticResource PencilIconSolid}" Click="Submit_OnClick" HorizontalAlignment="Center"/>
+                <IconButton Classes="accent" Name="SubmitButton" IconData="{StaticResource PencilIconSolid}" Click="Submit_OnClick" HorizontalAlignment="Center"/>
         </StackPanel>
         
 </Window>

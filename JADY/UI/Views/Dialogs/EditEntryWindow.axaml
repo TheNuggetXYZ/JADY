@@ -67,7 +67,7 @@
                                     ToolTip.Tip="End date of an event"/>
             </Grid>
             
-            <IconButton Grid.Column="2" IconData="{StaticResource PencilIconSolid}" Click="Submit_OnClick" Margin="5" HorizontalAlignment="Right"/>
+            <IconButton Grid.Column="2" Classes="accent" IconData="{StaticResource PencilIconSolid}" Click="Submit_OnClick" Margin="5" HorizontalAlignment="Right"/>
         </Grid>
     </Grid>
         

@@ -40,7 +40,7 @@
                                 SelectedDateFormat="Custom" 
                                 ToolTip.Tip="Actual start date of an event or a date of a one time entry. (The date of adding an entry is saved automatically.)"/>
             
-            <IconButton IconData="{StaticResource AddIconSolid}" Click="Submit_OnClick" HorizontalAlignment="Right" Margin="5"/>
+            <IconButton Classes="accent" IconData="{StaticResource AddIconSolid}" Click="Submit_OnClick" HorizontalAlignment="Right" Margin="5"/>
             
         </Panel>
     </Grid>
