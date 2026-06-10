@@ -25,9 +25,15 @@ public partial class EditEntryWindow(ISaveService saveService) : DialogWindow<Di
             EntryStatus.ItemsSource = EntryStatusExtensions.DisplayValues;
 
         if (!EntryStatusExtensions.IsEvent(data.Status))
+        {
             EntryEndDate.IsVisible = false;
+            DatePickerGrid.HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center;
+        }
         else
+        {
             EntryEndDate.IsVisible = true;
+            DatePickerGrid.HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Stretch;
+        }
 
         if (EntryStatusExtensions.IsEnded(data.Status) && data.WasEndedByLinking)
         {
