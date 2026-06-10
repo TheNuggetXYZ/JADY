@@ -14,8 +14,8 @@
         <StackPanel Grid.Row="0" Orientation="Vertical" Spacing="25" Margin="60 30">
             
             <TextBlock HorizontalAlignment="Center" Classes="h1">
-                <Run>Welcome to </Run>
-                <Run FontSize="32" Foreground="{DynamicResource SystemAccentColorLight3}">JADY</Run>
+                <Run FontSize="32">Welcome to </Run>
+                <Run FontSize="48" Foreground="{DynamicResource SystemAccentColorLight3}">JADY</Run>
             </TextBlock>
             
             <StackPanel Margin="15 0" Orientation="Vertical" Spacing="10">
