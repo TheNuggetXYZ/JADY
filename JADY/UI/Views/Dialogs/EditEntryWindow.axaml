@@ -31,21 +31,29 @@
         
         <TextBox Grid.Row="2" Name="EntryContent" Text="{Binding Content, Mode=OneTime}" TextWrapping="Wrap" PlaceholderText="Content..." Margin="10"></TextBox>
         
-        <Panel Grid.Row="3" Margin="5">
-            <CalendarDatePicker Name="EntryDate" 
+        <Grid Grid.Row="3" ColumnDefinitions="Auto, *, Auto, *, Auto" Margin="5">
+            
+            <CalendarDatePicker Grid.Column="0" Name="EntryDate" 
                                 SelectedDate="{Binding Date, Mode=OneTime, Converter={StaticResource DateConverter}}" 
                                 SelectedDateFormat="Custom"
-                                HorizontalAlignment="Left"
                                 Margin="5"
                                 ToolTip.Tip="Actual start date of an event or a date of a one time entry. (The date of adding an entry is saved automatically.)"/>
             
-            <CalendarDatePicker Name="EntryEndDate" 
+            <PathIcon Grid.Column="2" Data="{StaticResource ArrowRightThickLong}" Height="20">
+                <PathIcon.IsVisible>
+                    <MultiBinding Converter="{x:Static BoolConverters.And}">
+                        <Binding Path="#EntryEndDate.IsVisible"></Binding>
+                        <Binding Path="#EntryDate.IsVisible"></Binding>
+                    </MultiBinding>
+                </PathIcon.IsVisible>
+            </PathIcon>
+            
+            <CalendarDatePicker Grid.Column="4" Name="EntryEndDate" 
                                 SelectedDate="{Binding EndDate, Mode=OneTime, Converter={StaticResource DateConverter}}" 
                                 SelectedDateFormat="Custom" 
-                                HorizontalAlignment="Right"
                                 Margin="5"
                                 ToolTip.Tip="End date of an event"/>
-        </Panel>
+        </Grid>
         
         <Panel Grid.Row="4" Margin="5">
             
