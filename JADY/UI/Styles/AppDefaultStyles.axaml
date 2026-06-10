@@ -261,7 +261,7 @@
         </Setter>
     </Style>
     
-    <Style Selector="HoverButton, Button, DatePicker, CheckBox, Menu, MenuItem, IconButton, IconToggleButton">
+    <Style Selector="Button, DatePicker, CheckBox, Menu, MenuItem, IconButton, IconToggleButton">
         <Setter Property="FocusAdorner">
             <FocusAdornerTemplate>
                 <Border BorderBrush="{DynamicResource SystemControlHighlightAccentBrush}"
