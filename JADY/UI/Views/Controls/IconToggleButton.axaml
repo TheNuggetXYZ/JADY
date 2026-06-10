@@ -26,7 +26,7 @@
                     
                         <PathIcon x:Name="PART_Icon"/>
                     
-                        <TextBlock Text="{Binding $parent[IconToggleButton].IconText}"/>
+                        <TextBlock Text="{Binding $parent[IconToggleButton].IconText}" IsVisible="{Binding $parent[IconToggleButton].IconText, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
                     </StackPanel>
                 </Border>
             </ControlTemplate>

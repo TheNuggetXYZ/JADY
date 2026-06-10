@@ -39,7 +39,7 @@
                                   Width="{Binding $parent[IconButton].IconSize}"
                                   Height="{Binding $parent[IconButton].IconSize}"/>
                         
-                        <TextBlock Text="{Binding $parent[IconButton].IconText}"/>
+                        <TextBlock Text="{Binding $parent[IconButton].IconText}" IsVisible="{Binding $parent[IconButton].IconText, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
                     </StackPanel>
                 </DataTemplate>
             </Setter>
