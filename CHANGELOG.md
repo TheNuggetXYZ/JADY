@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Modern text box, combo box, date picker and checkbox styling
+- Modern text box, combo box, date picker, checkbox and button styling
 
 ### Changed
 - Welcome window structure
