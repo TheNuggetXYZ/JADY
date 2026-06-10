@@ -8,17 +8,13 @@
         Title="Message"
         SizeToContent="WidthAndHeight">
         
-    <StackPanel Orientation="Vertical" Spacing="10" 
+    <StackPanel Orientation="Vertical" Spacing="30" 
                 HorizontalAlignment="Center" VerticalAlignment="Center" 
-                Margin="10">
+                Margin="50 30">
         
-        <TextBlock Name="MessageText" HorizontalAlignment="Center"/>
+        <SelectableTextBlock Name="MessageText" Classes="h4" HorizontalAlignment="Center"/>
                 
-        <StackPanel Orientation="Horizontal" Spacing="10" 
-                    HorizontalAlignment="Center" VerticalAlignment="Center">
-                    
-            <HoverButton Name="OkButton" Click="OkButton_OnClick">OK</HoverButton>
-        </StackPanel>
+        <Button Name="OkButton" Classes="round" Click="OkButton_OnClick" HorizontalAlignment="Center" VerticalAlignment="Center" >OK</Button>
     </StackPanel>
         
 </Window>
