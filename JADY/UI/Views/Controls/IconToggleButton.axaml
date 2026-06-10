@@ -1,13 +1,19 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
-        <Border Padding="20">
-            <StackPanel Orientation="Vertical" Spacing="10">
-                <IconToggleButton IconData="{StaticResource SettingsIconSolid}" IconText="Settings" IconSize="8"/>
-                <IconToggleButton IconData="{StaticResource BurgerMenuIconSolid}"/>
-                <IconToggleButton IconData="{StaticResource EyeIconSolid}" CheckedIconData="{StaticResource EyeSlashIconSolid}"/>
-            </StackPanel>
-        </Border>
+        
+        <ThemeVariantScope RequestedThemeVariant="Light">
+            <Border Padding="20" Background="White">
+                <StackPanel Orientation="Vertical" Spacing="10">
+                    <IconToggleButton IconData="{StaticResource SettingsIconSolid}" IconText="Settings" IconSize="8"/>
+                    <IconToggleButton Classes="accent" IconData="{StaticResource SettingsIconSolid}" IconText="Settings" IconSize="8"/>
+                    <IconToggleButton IconData="{StaticResource BurgerMenuIconSolid}"/>
+                    <IconToggleButton Classes="accent" IconData="{StaticResource BurgerMenuIconSolid}"/>
+                    <IconToggleButton IconData="{StaticResource EyeIconSolid}" CheckedIconData="{StaticResource EyeSlashIconSolid}"/>
+                    <IconToggleButton Classes="accent" IconData="{StaticResource EyeIconSolid}" CheckedIconData="{StaticResource EyeSlashIconSolid}"/>
+                </StackPanel>
+            </Border>
+        </ThemeVariantScope>
     </Design.PreviewWith>
 
     <ControlTheme x:Key="{x:Type IconToggleButton}" TargetType="IconToggleButton" 
@@ -28,7 +34,7 @@
                     
                     <StackPanel Orientation="Horizontal" Spacing="5">
                     
-                        <PathIcon x:Name="PART_Icon"/>
+                        <PathIcon x:Name="PART_Icon" Foreground="{Binding $parent[IconToggleButton].Foreground}"/>
                     
                         <TextBlock Text="{Binding $parent[IconToggleButton].IconText}" IsVisible="{Binding $parent[IconToggleButton].IconText, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
                     </StackPanel>
@@ -74,5 +80,30 @@
         <Style Selector="^:checked /template/ PathIcon#PART_Icon">
             <Setter Property="Data" Value="{Binding $parent[IconToggleButton].CheckedIconData}"/>
         </Style>
+        
+        <Style Selector="^.accent /template/ Border#PART_LayoutRoot">
+            <Setter Property="Background" Value="{DynamicResource SystemAccentColor}"></Setter>
+        </Style>
+        
+        <Style Selector="^.accent">
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+
+        <Style Selector="^.accent:pointerover /template/ Border#PART_LayoutRoot">
+            <Setter Property="Background" Value="{DynamicResource SystemAccentColorDark1}"></Setter>
+        </Style>
+        
+        <Style Selector="^.accent:pointerover">
+            <Setter Property="Foreground" Value="White"></Setter>
+        </Style>
+
+        <Style Selector="^.accent:pressed /template/ Border#PART_LayoutRoot">
+            <Setter Property="Background" Value="{DynamicResource SystemAccentColorDark2}"></Setter>
+        </Style>
+        
+        <Style Selector="^.accent:pressed">
+            <Setter Property="Foreground" Value="White"></Setter>
+        </Style>
+        
     </ControlTheme>
 </ResourceDictionary>
