@@ -2,16 +2,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="350"
+        mc:Ignorable="d" d:DesignWidth="350" d:DesignHeight="350"
         x:Class="JADY.UI.Views.Dialogs.SettingsWindow"
         Title="Settings"
         SizeToContent="Height"
-        Width="300"
+        Width="350"
         MinWidth="300"
         MinHeight="350">
         
     <Grid RowDefinitions="*, Auto" RowSpacing="25">
-        <StackPanel Grid.Row="0" Orientation="Vertical" Spacing="25" Margin="15">
+        <StackPanel Grid.Row="0" Orientation="Vertical" Spacing="25" Margin="30">
         
             <TextBlock Classes="greyedOut" FontSize="18" Margin="0 0 0 -20">Saves:</TextBlock>
             <StackPanel Margin="15 0" Orientation="Vertical">
@@ -34,10 +34,10 @@
             
         </StackPanel>
         
-        <Border Grid.Row="1" Background="{DynamicResource SystemChromeMediumColor}">
+        <Border Grid.Row="1" Background="Transparent" Padding="30">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="25" Margin="10">
-                <HoverButton Click="Close_OnClick">CLOSE</HoverButton>
-                <HoverButton Click="SaveClose_OnClick" Content="SAVE &amp; CLOSE"></HoverButton>
+                <Button Classes="round" Click="Close_OnClick">Close</Button>
+                <Button Classes="round accent" Click="SaveClose_OnClick" Content="Save"></Button>
             </StackPanel>
         </Border>
     </Grid>
