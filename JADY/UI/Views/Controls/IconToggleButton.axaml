@@ -126,11 +126,11 @@
         </Style>
 
         <Style Selector="^.highlightOnlyBg:pointerover /template/ Border#PART_LayoutRoot">
-            <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundBaseLowBrush}"></Setter>
+            <Setter Property="Background" Value="{DynamicResource ButtonTransparencyBgPointerover}"></Setter>
         </Style>
 
         <Style Selector="^.highlightOnlyBg:pressed /template/ Border#PART_LayoutRoot">
-            <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundBaseMediumLowBrush}"></Setter>
+            <Setter Property="Background" Value="{DynamicResource ButtonTransparencyBgPressed}"></Setter>
         </Style>
         
         <Style Selector="^.highlightOnlyBg.accent">

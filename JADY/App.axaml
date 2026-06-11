@@ -39,6 +39,8 @@
                     <Color x:Key="SliderPointerOverColor">#ffbcbcbc</Color>
                     <Color x:Key="InsetControlBackground">#fffafafa</Color>
                     <Color x:Key="InsetControlBackgroundReadonly">#fff0f0f0</Color>
+                    <Color x:Key="ButtonTransparencyBgPointerover">#7fcccccc</Color>
+                    <Color x:Key="ButtonTransparencyBgPressed">#7f737373</Color>
                 </ResourceDictionary>
                 
                 <ResourceDictionary x:Key="Dark">
@@ -48,6 +50,8 @@
                     <Color x:Key="SliderPointerOverColor">#ff414141</Color>
                     <Color x:Key="InsetControlBackground">#ff141414</Color>
                     <Color x:Key="InsetControlBackgroundReadonly">#ff1c1c1c</Color>
+                    <Color x:Key="ButtonTransparencyBgPointerover">#7fcccccc</Color>
+                    <Color x:Key="ButtonTransparencyBgPressed">#7f737373</Color>
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
         </ResourceDictionary>
