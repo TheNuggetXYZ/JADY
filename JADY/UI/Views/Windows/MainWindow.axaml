@@ -12,7 +12,8 @@
         Title="JADY"
         MinWidth="500"
         MinHeight="300"
-        WindowDecorations="None">
+        WindowDecorations="None"
+        Background="Transparent">
 
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
@@ -33,65 +34,74 @@
         <converters:EqualsConverter x:Key="EqualsZeroConverter" CompareTo="0"></converters:EqualsConverter>
     </Window.Resources>
     
-    <MainTabControl ItemsSource="{Binding Diaries}" 
-                    SelectedIndex="{Binding OpenDiaryIndex}" 
-                    TabStripPlacement="Top">
+    <Border Background="{DynamicResource SystemControlBackgroundBaseMediumLowBrush}"
+            BorderBrush="{DynamicResource SystemControlBackgroundBaseMediumLowBrush}" 
+            BorderThickness="1" 
+            CornerRadius="4">
         
-        <MainTabControl.LeftPanelContent>
-            <AppHeaderLeftPanel/>
-        </MainTabControl.LeftPanelContent>
+        <Border Background="{DynamicResource SystemRegionColor}" CornerRadius="4" ClipToBounds="True">
+            
+            <MainTabControl ItemsSource="{Binding Diaries}" 
+                            SelectedIndex="{Binding OpenDiaryIndex}" 
+                            TabStripPlacement="Top">
         
-        <MainTabControl.RightPanelContent>
-            <AppHeaderRightPanel/>
-        </MainTabControl.RightPanelContent>
+                <MainTabControl.LeftPanelContent>
+                    <AppHeaderLeftPanel/>
+                </MainTabControl.LeftPanelContent>
         
-        <MainTabControl.ContentTemplate>
-            <DataTemplate DataType="vm:DiaryViewModel">
-                <Panel>
-                    <!-- Entries -->
-                    <ScrollViewer AllowAutoHide="False">
-                        <!-- Smooth scrolling -->
-                        <Interaction.Behaviors>
-                            <ia:VerticalScrollViewerAnimatedBehavior />
-                        </Interaction.Behaviors>
-                        <ItemsRepeater ItemsSource="{Binding FilteredEntries}" Margin="10 5">
-                            <ItemsRepeater.ItemTemplate>
-                                <DataTemplate>
-                                    <DiaryEntryControl IsVisible="{Binding IsCurrentlyVisible}" Margin="0 1"/>
-                                </DataTemplate>
-                            </ItemsRepeater.ItemTemplate>
-                        </ItemsRepeater>
-                    </ScrollViewer>
+                <MainTabControl.RightPanelContent>
+                    <AppHeaderRightPanel/>
+                </MainTabControl.RightPanelContent>
+        
+                <MainTabControl.ContentTemplate>
+                    <DataTemplate DataType="vm:DiaryViewModel">
+                        <Panel>
+                            <!-- Entries -->
+                            <ScrollViewer AllowAutoHide="False">
+                                <!-- Smooth scrolling -->
+                                <Interaction.Behaviors>
+                                    <ia:VerticalScrollViewerAnimatedBehavior />
+                                </Interaction.Behaviors>
+                                <ItemsRepeater ItemsSource="{Binding FilteredEntries}" Margin="10 5">
+                                    <ItemsRepeater.ItemTemplate>
+                                        <DataTemplate>
+                                            <DiaryEntryControl IsVisible="{Binding IsCurrentlyVisible}" Margin="0 1"/>
+                                        </DataTemplate>
+                                    </ItemsRepeater.ItemTemplate>
+                                </ItemsRepeater>
+                            </ScrollViewer>
                     
-                    <!-- Hint -->
-                    <TextBlock Classes="greyedOut" HorizontalAlignment="Center" VerticalAlignment="Center" IsVisible="{Binding Entries.Count, Converter={StaticResource EqualsZeroConverter}}">Create entry - Ctrl+E</TextBlock>
+                            <!-- Hint -->
+                            <TextBlock Classes="greyedOut" HorizontalAlignment="Center" VerticalAlignment="Center" IsVisible="{Binding Entries.Count, Converter={StaticResource EqualsZeroConverter}}">Create entry - Ctrl+E</TextBlock>
                     
-                    <!-- Search box -->
-                    <Border BoxShadow="inset 0 -15 25 0 rgba(0,0,0,0.25)" 
-                            HorizontalAlignment="Stretch" 
-                            VerticalAlignment="Bottom" 
-                            IsVisible="{Binding $parent[MainTabControl].((vm:MainWindowViewModel)DataContext).IsEntrySearchBarVisible}">
+                            <!-- Search box -->
+                            <Border BoxShadow="inset 0 -15 25 0 rgba(0,0,0,0.25)" 
+                                    HorizontalAlignment="Stretch" 
+                                    VerticalAlignment="Bottom" 
+                                    IsVisible="{Binding $parent[MainTabControl].((vm:MainWindowViewModel)DataContext).IsEntrySearchBarVisible}">
                         
-                        <TextBox x:Name="SearchBox" 
-                                 Text="{Binding $parent[MainTabControl].((vm:MainWindowViewModel)DataContext).SearchBoxText}"
-                                 AttachedToLogicalTree="SearchBox_OnAttachedToLogicalTree" 
-                                 TextChanged="SearchBox_OnTextChanged" 
-                                 Margin="20">
+                                <TextBox x:Name="SearchBox" 
+                                         Text="{Binding $parent[MainTabControl].((vm:MainWindowViewModel)DataContext).SearchBoxText}"
+                                         AttachedToLogicalTree="SearchBox_OnAttachedToLogicalTree" 
+                                         TextChanged="SearchBox_OnTextChanged" 
+                                         Margin="20">
                             
-                            <TextBox.KeyBindings>
-                                <KeyBinding Gesture="Enter"
-                                            Command="{Binding $parent[MainTabControl].((vm:MainWindowViewModel)DataContext).SearchBoxSubmitCommand}"/>
-                            </TextBox.KeyBindings>
+                                    <TextBox.KeyBindings>
+                                        <KeyBinding Gesture="Enter"
+                                                    Command="{Binding $parent[MainTabControl].((vm:MainWindowViewModel)DataContext).SearchBoxSubmitCommand}"/>
+                                    </TextBox.KeyBindings>
                             
-                        </TextBox>
-                    </Border>
-                </Panel>
-            </DataTemplate>
-        </MainTabControl.ContentTemplate>
+                                </TextBox>
+                            </Border>
+                        </Panel>
+                    </DataTemplate>
+                </MainTabControl.ContentTemplate>
         
-        <MainTabControl.EmptyCollectionHint>
-            <TextBlock Classes="greyedOut">Create diary - Ctrl+D</TextBlock>
-        </MainTabControl.EmptyCollectionHint>
-    </MainTabControl>
+                <MainTabControl.EmptyCollectionHint>
+                    <TextBlock Classes="greyedOut">Create diary - Ctrl+D</TextBlock>
+                </MainTabControl.EmptyCollectionHint>
+            </MainTabControl>
+        </Border>
+    </Border>
     
 </Window>
