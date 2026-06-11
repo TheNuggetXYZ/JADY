@@ -55,8 +55,5 @@ public partial class WelcomeWindow : Window
         Close();
     }
 
-    private void ExitButton_OnClick(object? sender, RoutedEventArgs e)
-    {
-        _shutdownService.Shutdown();
-    }
+    private void ExitButton_OnClick(object? sender, RoutedEventArgs e) => Close();
 }
