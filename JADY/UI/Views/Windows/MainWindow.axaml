@@ -34,12 +34,12 @@
         <converters:EqualsConverter x:Key="EqualsZeroConverter" CompareTo="0"></converters:EqualsConverter>
     </Window.Resources>
     
-    <Border Background="{DynamicResource SystemControlBackgroundBaseMediumLowBrush}"
-            BorderBrush="{DynamicResource SystemControlBackgroundBaseMediumLowBrush}" 
+    <Border Name="PART_WindowBorder" 
+            Background="{DynamicResource SystemControlBackgroundBaseMediumLowBrush}"
             BorderThickness="1" 
             CornerRadius="4">
         
-        <Border Background="{DynamicResource SystemRegionColor}" CornerRadius="4" ClipToBounds="True">
+        <Border Name="PART_WindowBorderClip" Background="{DynamicResource SystemRegionColor}" CornerRadius="4" ClipToBounds="True">
             
             <MainTabControl ItemsSource="{Binding Diaries}" 
                             SelectedIndex="{Binding OpenDiaryIndex}" 

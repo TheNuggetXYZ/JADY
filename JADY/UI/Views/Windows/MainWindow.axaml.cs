@@ -1,4 +1,5 @@
 using System.Windows.Input;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
@@ -16,18 +17,35 @@ public partial class MainWindow : Window
     
     public ICommand MinimizeWindowCommand { get; }
     public ICommand MaximizeWindowCommand { get; }
-    
+
     public MainWindow()
     {
         InitializeComponent();
-        
+
+        var windowBorderBackgroundBrush = PART_WindowBorder.Background;
+        var windowBorderCornerRadius = PART_WindowBorder.CornerRadius;
+        var windowBorderClipCornerRadius = PART_WindowBorderClip.CornerRadius;
+
         // Simple commands to bridge the view states
         MinimizeWindowCommand = new RelayCommand(() => WindowState = WindowState.Minimized);
-        MaximizeWindowCommand = new RelayCommand(() => 
+        MaximizeWindowCommand = new RelayCommand(() =>
         {
-            WindowState = WindowState == WindowState.Maximized 
-                ? WindowState.Normal 
-                : WindowState.Maximized;
+            if (WindowState == WindowState.Maximized)
+            {
+                WindowState = WindowState.Normal;
+                PART_WindowBorder.Background = windowBorderBackgroundBrush;
+                PART_WindowBorder.CornerRadius = windowBorderCornerRadius;
+                PART_WindowBorderClip.ClipToBounds = true;
+                PART_WindowBorderClip.CornerRadius = windowBorderClipCornerRadius;
+            }
+            else
+            {
+                WindowState = WindowState.Maximized;
+                PART_WindowBorder.Background = null;
+                PART_WindowBorder.CornerRadius = new CornerRadius();
+                PART_WindowBorderClip.ClipToBounds = false;
+                PART_WindowBorderClip.CornerRadius = new CornerRadius();
+            }
         });
         
         AddHandler(TextInputEvent, OnTextInput, RoutingStrategies.Tunnel);
