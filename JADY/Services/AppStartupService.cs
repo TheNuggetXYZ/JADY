@@ -15,27 +15,31 @@ public class AppStartupService(IServiceProvider serviceProvider, ISaveService sa
     public async Task AppStartup(IClassicDesktopStyleApplicationLifetime desktop)
     {
         _desktop = desktop;
+        _desktop.ShutdownMode = ShutdownMode.OnExplicitShutdown; // Make sure app doesnt shutdown
         
-        // Make sure app doesnt shutdown
-        _desktop.ShutdownMode = ShutdownMode.OnExplicitShutdown;
-        
-        if (!saveService.ExistsConfig())
-        {
-            // Show welcome window
-            var welcomeWindow = _desktop.MainWindow = serviceProvider.GetRequiredService<WelcomeWindow>();
-        
-            var tcs = new TaskCompletionSource();
-            welcomeWindow.Closed += (_, _) => tcs.SetResult();
-            welcomeWindow.Show();
-            
-            await tcs.Task; // wait for welcome window to close
-        }
+        if (!saveService.ExistsConfig()) 
+            await ShowWelcomeWindow();
         
         await LoadSave();
         
         diaryService.LoadDiaries(false);
         
         StartupMainWindow();
+    }
+
+    private async Task ShowWelcomeWindow()
+    {
+        var welcomeWindow = serviceProvider.GetRequiredService<WelcomeWindow>();
+        _desktop.MainWindow = welcomeWindow;
+        
+        var tcs = new TaskCompletionSource<bool>();
+        welcomeWindow.Closed += (_, _) => tcs.SetResult(welcomeWindow.ContinueStartup);
+        welcomeWindow.Show();
+            
+        bool continueStartup = await tcs.Task;
+            
+        if (!continueStartup)
+            shutdownService.Shutdown();
     }
 
     private async Task LoadSave()

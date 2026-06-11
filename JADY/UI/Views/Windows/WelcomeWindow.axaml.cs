@@ -13,6 +13,8 @@ public partial class WelcomeWindow : Window
     private readonly IWindowService _windowService;
     private readonly IShutdownService _shutdownService;
 
+    public bool ContinueStartup;
+
     // Required for the compiler and previewer
     public WelcomeWindow()
     {
@@ -49,6 +51,7 @@ public partial class WelcomeWindow : Window
         _saveService.Config.CultureInfoName = AppCultures.AvailableCultures[Cultures.SelectedIndex].Name;
         _saveService.Save(_saveService.Config);
 
+        ContinueStartup = true;
         Close();
     }
 
