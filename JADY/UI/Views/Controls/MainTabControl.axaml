@@ -21,7 +21,7 @@
             <ControlTemplate>
                 <DockPanel>
                     <!-- App Header -->
-                    <Border DockPanel.Dock="{TemplateBinding TabStripPlacement}" Classes="outsetPanelShadowless" Background="{DynamicResource AppHeaderColor}">
+                    <Border DockPanel.Dock="{TemplateBinding TabStripPlacement}" Classes="outsetPanelShadowless" Background="{DynamicResource SystemAccentColorDark1}">
                         <Grid ColumnDefinitions="Auto, *, Auto" Margin="7 0">
                             <!-- Left panel -->
                             <ContentPresenter Grid.Column="0" 
