@@ -10,6 +10,7 @@
                     <IconButton Classes="accent" IconData="{StaticResource BurgerMenuIconSolid}"/>
                     <IconButton Classes="highlightOnlyBg" IconData="{StaticResource BurgerMenuIconSolid}"/>
                     <IconButton Classes="accent highlightOnlyBg" IconData="{StaticResource BurgerMenuIconSolid}"/>
+                    <IconButton>dwadawd</IconButton>
                 </StackPanel>
             </Border>
         </ThemeVariantScope>
@@ -44,7 +45,10 @@
                         <PathIcon Data="{Binding $parent[IconButton].IconData}" 
                                   Width="{Binding $parent[IconButton].IconSize}"
                                   Height="{Binding $parent[IconButton].IconSize}"
-                                  Foreground="{Binding $parent[IconButton].Foreground}"/>
+                                  Foreground="{Binding $parent[IconButton].Foreground}"
+                                  IsVisible="{Binding $parent[IconButton].Content, Converter={x:Static StringConverters.IsNullOrEmpty}}"/>
+                        
+                        <ContentPresenter Content="{Binding $parent[IconButton].Content}" IsVisible="{Binding $parent[IconButton].Content, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"></ContentPresenter>
                         
                         <TextBlock Text="{Binding $parent[IconButton].IconText}" IsVisible="{Binding $parent[IconButton].IconText, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
                     </StackPanel>
