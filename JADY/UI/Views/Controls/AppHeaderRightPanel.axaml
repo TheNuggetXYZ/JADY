@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:JADY.ViewModels"
              xmlns:converters="clr-namespace:JADY.UI.Converters"
+             xmlns:windows="clr-namespace:JADY.UI.Views.Windows"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="JADY.UI.Views.Controls.AppHeaderRightPanel"
              x:DataType="viewModels:MainWindowViewModel">
@@ -28,6 +29,25 @@
                 <CrossFade Duration="0:0:0.5"/>
             </TransitioningContentControl.PageTransition>
         </TransitioningContentControl>
+        
+    
+        <IconButton Classes="highlightOnlyBg white" 
+                    IconData="{StaticResource MinusIcon}"
+                    IconSize="12"
+                    Command="{Binding $parent[windows:MainWindow].MinimizeWindowCommand}"
+                    ToolTip.Tip="Minimize"/>
+    
+        <IconButton Classes="highlightOnlyBg white" 
+                    IconData="{StaticResource DiamondIcon}"
+                    IconSize="12"
+                    Command="{Binding $parent[windows:MainWindow].MaximizeWindowCommand}"
+                    ToolTip.Tip="Maximize"/>
+    
+        <IconButton Classes="highlightOnlyBg white" 
+                    IconData="{StaticResource XMarkIcon}"
+                    IconSize="12"
+                    Command="{Binding $parent[Window].Close}"
+                    ToolTip.Tip="Close"/>
                 
     </StackPanel>
     

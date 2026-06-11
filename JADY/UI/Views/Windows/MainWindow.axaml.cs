@@ -1,8 +1,10 @@
+using System.Windows.Input;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.LogicalTree;
 using Avalonia.Threading;
+using CommunityToolkit.Mvvm.Input;
 using JADY.ViewModels;
 
 namespace JADY.UI.Views.Windows;
@@ -12,9 +14,21 @@ public partial class MainWindow : Window
     private bool _handledUnsavedChanges;
     private TextBox? _searchBox;
     
+    public ICommand MinimizeWindowCommand { get; }
+    public ICommand MaximizeWindowCommand { get; }
+    
     public MainWindow()
     {
         InitializeComponent();
+        
+        // Simple commands to bridge the view states
+        MinimizeWindowCommand = new RelayCommand(() => WindowState = WindowState.Minimized);
+        MaximizeWindowCommand = new RelayCommand(() => 
+        {
+            WindowState = WindowState == WindowState.Maximized 
+                ? WindowState.Normal 
+                : WindowState.Maximized;
+        });
         
         AddHandler(TextInputEvent, OnTextInput, RoutingStrategies.Tunnel);
     }

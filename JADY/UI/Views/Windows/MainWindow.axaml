@@ -11,7 +11,8 @@
         Icon="/Assets/Icons/JADY_32x.png"
         Title="JADY"
         MinWidth="500"
-        MinHeight="300">
+        MinHeight="300"
+        WindowDecorations="None">
 
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
