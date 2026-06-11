@@ -42,6 +42,8 @@
                           CheckedIconData="{StaticResource EyeSlashIconSolid}"
                           IconSize="18"
                           ToolTip.Tip="Show/hide hidden entries"/>
+        
+        <Separator Classes="vertical"></Separator>
     </StackPanel>
     
 </UserControl>

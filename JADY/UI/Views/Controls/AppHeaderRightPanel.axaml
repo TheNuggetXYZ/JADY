@@ -30,6 +30,7 @@
             </TransitioningContentControl.PageTransition>
         </TransitioningContentControl>
         
+        <Separator Classes="vertical"/>
     
         <IconButton Classes="highlightOnlyBg white" 
                     IconData="{StaticResource MinusIcon}"
