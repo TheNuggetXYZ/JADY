@@ -136,19 +136,19 @@ public partial class MainWindow : Window
 
         if (!e.GetCurrentPoint(this).Properties.IsLeftButtonPressed) return;
 
+        // RESIZE
+        
         Point pos = e.GetPosition(this);
         WindowEdge? edge = GetWindowEdgeAtPosition(pos);
 
-        if (edge.HasValue)
-        {
-            // This manually hands the drag operation over to the OS resize engine
+        if (edge.HasValue && WindowState != WindowState.Maximized) 
             BeginResizeDrag(edge.Value, e);
-        }
-        else
-        {
-            // If they aren't on an edge, let them drag the window around normally
-            BeginMoveDrag(e);
-        }
+    }
+
+    private void AppHeader_OnPointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        // DRAG
+        BeginMoveDrag(e);
     }
 
     private WindowEdge? GetWindowEdgeAtPosition(Point pos)

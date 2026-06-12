@@ -46,7 +46,7 @@
                             TabStripPlacement="Top">
         
                 <MainTabControl.AppHeader>
-                    <AppHeader ItemsPanel="{Binding $parent[MainTabControl].ItemsPanel}">
+                    <AppHeader ItemsPanel="{Binding $parent[MainTabControl].ItemsPanel}" PointerPressed="AppHeader_OnPointerPressed">
                         <AppHeader.LeftPanelContent>
                             <AppHeaderLeftPanel/>
                         </AppHeader.LeftPanelContent>
