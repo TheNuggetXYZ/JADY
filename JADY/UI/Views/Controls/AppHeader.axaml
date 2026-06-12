@@ -16,8 +16,7 @@
                 <Border Classes="outsetPanelShadowless" Background="{DynamicResource SystemAccentColorDark1}">
                     <Grid ColumnDefinitions="Auto, *, Auto" Margin="7 0">
                         <!-- Left panel -->
-                        <ContentPresenter Grid.Column="0" 
-                                          Content="{TemplateBinding LeftPanelContent}"/>
+                        <AppHeaderLeftPanel Grid.Column="0"/>
                         
                         <!-- Diary panel -->
                         <ScrollViewer Name="PART_TabStripScrollViewer"
@@ -34,8 +33,7 @@
                         </ScrollViewer>
                             
                         <!-- Right panel -->
-                        <ContentPresenter Grid.Column="2" 
-                                          Content="{TemplateBinding RightPanelContent}"/>
+                        <AppHeaderRightPanel Grid.Column="2"/>
                     </Grid>
                 </Border>
             </ControlTemplate>
