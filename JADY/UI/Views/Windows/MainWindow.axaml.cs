@@ -25,6 +25,7 @@ public partial class MainWindow : Window
 
     private readonly IBrush? _windowBorderBackgroundBrush;
     private readonly CornerRadius _windowBorderCornerRadius;
+    private readonly Thickness _windowBorderBorderThickness;
     private readonly CornerRadius _windowBorderClipCornerRadius;
 
     public MainWindow()
@@ -33,6 +34,7 @@ public partial class MainWindow : Window
 
         _windowBorderBackgroundBrush = PART_WindowBorder.Background;
         _windowBorderCornerRadius = PART_WindowBorder.CornerRadius;
+        _windowBorderBorderThickness = PART_WindowBorder.BorderThickness;
         _windowBorderClipCornerRadius = PART_WindowBorderClip.CornerRadius;
 
         // Simple commands to bridge the view states
@@ -57,6 +59,7 @@ public partial class MainWindow : Window
             {
                 PART_WindowBorder.Background = null;
                 PART_WindowBorder.CornerRadius = new CornerRadius();
+                PART_WindowBorder.BorderThickness = new Thickness();
                 PART_WindowBorderClip.ClipToBounds = false;
                 PART_WindowBorderClip.CornerRadius = new CornerRadius();
             }
@@ -64,6 +67,7 @@ public partial class MainWindow : Window
             {
                 PART_WindowBorder.Background = _windowBorderBackgroundBrush;
                 PART_WindowBorder.CornerRadius = _windowBorderCornerRadius;
+                PART_WindowBorder.BorderThickness = _windowBorderBorderThickness;
                 PART_WindowBorderClip.ClipToBounds = true;
                 PART_WindowBorderClip.CornerRadius = _windowBorderClipCornerRadius;
             }
