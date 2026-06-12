@@ -78,6 +78,12 @@ public partial class MainWindow : Window
         Point pos = e.GetPosition(this);
         WindowEdge? edge = GetWindowEdgeAtPosition(pos);
 
+        if (WindowState is WindowState.Maximized or WindowState.FullScreen)
+        {
+            Cursor = Cursor.Default;
+            return;
+        }
+        
         Cursor = edge switch
         {
             WindowEdge.North => new Cursor(StandardCursorType.TopSide),
@@ -180,7 +186,7 @@ public partial class MainWindow : Window
         Point pos = e.GetPosition(this);
         WindowEdge? edge = GetWindowEdgeAtPosition(pos);
 
-        if (edge.HasValue && WindowState != WindowState.Maximized) 
+        if (edge.HasValue && WindowState is not WindowState.Maximized and not WindowState.FullScreen) 
             BeginResizeDrag(edge.Value, e);
     }
 
