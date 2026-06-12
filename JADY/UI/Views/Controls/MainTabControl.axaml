@@ -78,7 +78,7 @@
         
         <Setter Property="ItemTemplate">
             <DataTemplate DataType="viewModels:DiaryViewModel">
-                <TextBlock Text="{Binding Name}" FontSize="16"></TextBlock>
+                <TextBlock Classes="h4" Text="{Binding Name}"></TextBlock>
             </DataTemplate>
         </Setter>
         
