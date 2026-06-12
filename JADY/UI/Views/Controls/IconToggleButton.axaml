@@ -4,7 +4,7 @@
         
         <ThemeVariantScope RequestedThemeVariant="Light">
             <Border Padding="20" Background="White">
-                <StackPanel Orientation="Horizontal" Spacing="10">
+                <StackPanel Orientation="Horizontal" Spacing="0">
                     <IconToggleButton IconData="{StaticResource SettingsIconSolid}" IconText="Settings" IconSize="8"/>
                     <IconToggleButton Classes="accent" IconData="{StaticResource SettingsIconSolid}" IconText="Settings" IconSize="8"/>
                     <IconToggleButton IconData="{StaticResource BurgerMenuIconSolid}"/>
@@ -27,19 +27,21 @@
         
         <Setter Property="Template">
             <ControlTemplate>
-                <Border x:Name="PART_LayoutRoot"
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="{TemplateBinding CornerRadius}"
-                        Padding="{TemplateBinding Padding}">
+                <Border Name="PART_HitboxBorder" Background="Transparent">
+                    <Border x:Name="PART_LayoutRoot"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            Padding="{TemplateBinding Padding}">
                     
-                    <StackPanel Orientation="Horizontal" Spacing="5">
+                        <StackPanel Orientation="Horizontal" Spacing="5">
                     
-                        <PathIcon x:Name="PART_Icon" Foreground="{Binding $parent[IconToggleButton].Foreground}"/>
+                            <PathIcon x:Name="PART_Icon" Foreground="{Binding $parent[IconToggleButton].Foreground}"/>
                     
-                        <TextBlock Text="{Binding $parent[IconToggleButton].IconText}" IsVisible="{Binding $parent[IconToggleButton].IconText, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
-                    </StackPanel>
+                            <TextBlock Text="{Binding $parent[IconToggleButton].IconText}" IsVisible="{Binding $parent[IconToggleButton].IconText, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+                        </StackPanel>
+                    </Border>
                 </Border>
             </ControlTemplate>
         </Setter>

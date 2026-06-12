@@ -3,7 +3,7 @@
     <Design.PreviewWith>
         <ThemeVariantScope RequestedThemeVariant="Light">
             <Border Padding="20" Background="White">
-                <StackPanel Orientation="Horizontal" Spacing="10">
+                <StackPanel Orientation="Horizontal" Spacing="0">
                     <IconButton IconData="{StaticResource SettingsIconSolid}" IconText="Settings" IconSize="8"/>
                     <IconButton Classes="accent" IconData="{StaticResource SettingsIconSolid}" IconText="Settings" IconSize="8"/>
                     <IconButton IconData="{StaticResource BurgerMenuIconSolid}"/>
@@ -25,15 +25,17 @@
     
         <Setter Property="Template">
             <ControlTemplate>
-                <Border x:Name="PART_LayoutRoot"
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="{TemplateBinding CornerRadius}"
-                        Padding="{TemplateBinding Padding}">
+                <Border Name="PART_HitboxBorder" Background="Transparent">
+                    <Border x:Name="PART_LayoutRoot"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            Padding="{TemplateBinding Padding}">
                 
-                    <ContentPresenter x:Name="PART_MyContentPresenter" 
-                                      Content="{TemplateBinding Content}"/>
+                        <ContentPresenter x:Name="PART_MyContentPresenter" 
+                                          Content="{TemplateBinding Content}"/>
+                    </Border>
                 </Border>
             </ControlTemplate>
         </Setter>
