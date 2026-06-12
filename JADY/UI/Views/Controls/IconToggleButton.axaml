@@ -50,7 +50,6 @@
             <Setter Property="Transitions">
                 <Transitions>
                     <BoxShadowsTransition Property="BoxShadow" Duration="0:0:0.1"/>
-                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.1"/>
                 </Transitions>
             </Setter>
         </Style>
@@ -70,13 +69,12 @@
         <Style Selector="^:pointerover /template/ Border#PART_LayoutRoot">
             <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundBaseMediumLowBrush}"/>
             <Setter Property="BoxShadow" Value="0 0 0 0 Transparent"/>
-            <Setter Property="RenderTransform" Value="translate(0, -2px)"/>
         </Style>
         
         <Style Selector="^:pressed /template/ Border#PART_LayoutRoot">
             <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundBaseMediumBrush}"/>
             <Setter Property="BoxShadow" Value="0 0 0 0 Transparent"/>
-            <Setter Property="RenderTransform" Value="scale(0.95) translate(0, 1px)"/>
+            <Setter Property="RenderTransform" Value="scale(0.95)"/>
         </Style>
         
         <Style Selector="^:checked /template/ PathIcon#PART_Icon">
