@@ -5,22 +5,13 @@ namespace JADY.UI.Views.Controls;
 
 public class MainTabControl : TabControl
 {
-    public static readonly StyledProperty<object?> LeftPanelContentProperty =
-        AvaloniaProperty.Register<MainTabControl, object?>(nameof(LeftPanelContent));
+    public static readonly StyledProperty<object?> AppHeaderProperty =
+        AvaloniaProperty.Register<MainTabControl, object?>(nameof(AppHeader));
 
-    public object? LeftPanelContent
+    public object? AppHeader
     {
-        get => GetValue(LeftPanelContentProperty);
-        set => SetValue(LeftPanelContentProperty, value);
-    }
-
-    public static readonly StyledProperty<object?> RightPanelContentProperty =
-        AvaloniaProperty.Register<MainTabControl, object?>(nameof(RightPanelContent));
-
-    public object? RightPanelContent
-    {
-        get => GetValue(RightPanelContentProperty);
-        set => SetValue(RightPanelContentProperty, value);
+        get => GetValue(AppHeaderProperty);
+        set => SetValue(AppHeaderProperty, value);
     }
     
     public static readonly StyledProperty<object?> EmptyCollectionHintProperty =

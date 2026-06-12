@@ -21,31 +21,7 @@
             <ControlTemplate>
                 <DockPanel>
                     <!-- App Header -->
-                    <Border DockPanel.Dock="{TemplateBinding TabStripPlacement}" Classes="outsetPanelShadowless" Background="{DynamicResource SystemAccentColorDark1}">
-                        <Grid ColumnDefinitions="Auto, *, Auto" Margin="7 0">
-                            <!-- Left panel -->
-                            <ContentPresenter Grid.Column="0" 
-                                              Content="{TemplateBinding LeftPanelContent}"/>
-                        
-                            <!-- Diary panel -->
-                            <ScrollViewer Name="PART_TabStripScrollViewer"
-                                          Grid.Column="1"
-                                          HorizontalScrollBarVisibility="Hidden" 
-                                          VerticalScrollBarVisibility="Disabled">
-                                
-                                <Interaction.Behaviors>
-                                    <behaviors:SmoothHorizontalScrollBehavior/>
-                                </Interaction.Behaviors>
-                                
-                                <ItemsPresenter Name="PART_ItemsPresenter"
-                                                ItemsPanel="{TemplateBinding ItemsPanel}"/>
-                            </ScrollViewer>
-                            
-                            <!-- Right panel -->
-                            <ContentPresenter Grid.Column="2" 
-                                              Content="{TemplateBinding RightPanelContent}"/>
-                        </Grid>
-                    </Border>
+                    <ContentPresenter DockPanel.Dock="Top" Content="{TemplateBinding AppHeader}"/>
                     
                     <!-- Entries panel -->
                     <Panel ClipToBounds="True" Margin="0">
