@@ -21,7 +21,7 @@
             <ControlTemplate>
                 <DockPanel>
                     <!-- App Header -->
-                    <Border DockPanel.Dock="Top" Name="PART_AppHeader" Classes="outsetPanelShadowless" Background="{DynamicResource SystemAccentColorDark1}">
+                    <Border DockPanel.Dock="Top" Name="PART_AppHeader" Classes="outsetPanelShadowless" Background="{DynamicResource SystemAccentColorDark1}" Height="40">
                         <Grid ColumnDefinitions="Auto, *, Auto" Margin="7 0">
                             <!-- Left panel -->
                             <AppHeaderLeftPanel Grid.Column="0"/>
