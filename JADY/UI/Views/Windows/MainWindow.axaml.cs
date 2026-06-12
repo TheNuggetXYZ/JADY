@@ -1,9 +1,12 @@
+using System;
 using System.Windows.Input;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.LogicalTree;
+using Avalonia.Media;
+using Avalonia.Reactive;
 using Avalonia.Threading;
 using CommunityToolkit.Mvvm.Input;
 using JADY.ViewModels;
@@ -20,37 +23,52 @@ public partial class MainWindow : Window
     
     private const int ResizeThickness = 5;
 
+    private readonly IBrush? _windowBorderBackgroundBrush;
+    private readonly CornerRadius _windowBorderCornerRadius;
+    private readonly CornerRadius _windowBorderClipCornerRadius;
+
     public MainWindow()
     {
         InitializeComponent();
 
-        var windowBorderBackgroundBrush = PART_WindowBorder.Background;
-        var windowBorderCornerRadius = PART_WindowBorder.CornerRadius;
-        var windowBorderClipCornerRadius = PART_WindowBorderClip.CornerRadius;
+        _windowBorderBackgroundBrush = PART_WindowBorder.Background;
+        _windowBorderCornerRadius = PART_WindowBorder.CornerRadius;
+        _windowBorderClipCornerRadius = PART_WindowBorderClip.CornerRadius;
 
         // Simple commands to bridge the view states
         MinimizeWindowCommand = new RelayCommand(() => WindowState = WindowState.Minimized);
         MaximizeWindowCommand = new RelayCommand(() =>
         {
-            if (WindowState == WindowState.Maximized)
+            WindowState = WindowState == WindowState.Maximized 
+                ? WindowState.Normal 
+                : WindowState.Maximized;
+        });
+        
+        AddHandler(TextInputEvent, OnTextInput, RoutingStrategies.Tunnel);
+    }
+
+    protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
+    {
+        base.OnPropertyChanged(change);
+        
+        if (change.Property == WindowStateProperty && change.NewValue is WindowState state)
+        {
+            if (state is WindowState.Maximized or WindowState.FullScreen)
             {
-                WindowState = WindowState.Normal;
-                PART_WindowBorder.Background = windowBorderBackgroundBrush;
-                PART_WindowBorder.CornerRadius = windowBorderCornerRadius;
-                PART_WindowBorderClip.ClipToBounds = true;
-                PART_WindowBorderClip.CornerRadius = windowBorderClipCornerRadius;
-            }
-            else
-            {
-                WindowState = WindowState.Maximized;
                 PART_WindowBorder.Background = null;
                 PART_WindowBorder.CornerRadius = new CornerRadius();
                 PART_WindowBorderClip.ClipToBounds = false;
                 PART_WindowBorderClip.CornerRadius = new CornerRadius();
             }
-        });
-        
-        AddHandler(TextInputEvent, OnTextInput, RoutingStrategies.Tunnel);
+            else
+            {
+                PART_WindowBorder.Background = _windowBorderBackgroundBrush;
+                PART_WindowBorder.CornerRadius = _windowBorderCornerRadius;
+                PART_WindowBorderClip.ClipToBounds = true;
+                PART_WindowBorderClip.CornerRadius = _windowBorderClipCornerRadius;
+            }
+        }
+            
     }
 
     protected override async void OnClosing(WindowClosingEventArgs e)
