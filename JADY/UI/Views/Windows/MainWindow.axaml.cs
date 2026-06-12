@@ -17,6 +17,8 @@ public partial class MainWindow : Window
     
     public ICommand MinimizeWindowCommand { get; }
     public ICommand MaximizeWindowCommand { get; }
+    
+    private const int ResizeThickness = 5;
 
     public MainWindow()
     {
@@ -126,5 +128,48 @@ public partial class MainWindow : Window
             if (DataContext is MainWindowViewModel vm)
                 vm.IsEntrySearchBarVisible = false;
         }
+    }
+    
+    protected override void OnPointerPressed(PointerPressedEventArgs e)
+    {
+        base.OnPointerPressed(e);
+
+        if (!e.GetCurrentPoint(this).Properties.IsLeftButtonPressed) return;
+
+        Point pos = e.GetPosition(this);
+        WindowEdge? edge = GetWindowEdgeAtPosition(pos);
+
+        if (edge.HasValue)
+        {
+            // This manually hands the drag operation over to the OS resize engine
+            BeginResizeDrag(edge.Value, e);
+        }
+        else
+        {
+            // If they aren't on an edge, let them drag the window around normally
+            BeginMoveDrag(e);
+        }
+    }
+
+    private WindowEdge? GetWindowEdgeAtPosition(Point pos)
+    {
+        bool top = pos.Y < ResizeThickness;
+        bool bottom = pos.Y > Bounds.Height - ResizeThickness;
+        bool left = pos.X < ResizeThickness;
+        bool right = pos.X > Bounds.Width - ResizeThickness;
+
+        // Determine corners first
+        if (top && left) return WindowEdge.NorthWest;
+        if (top && right) return WindowEdge.NorthEast;
+        if (bottom && left) return WindowEdge.SouthWest;
+        if (bottom && right) return WindowEdge.SouthEast;
+
+        // Determine flat edges
+        if (top) return WindowEdge.North;
+        if (bottom) return WindowEdge.South;
+        if (left) return WindowEdge.West;
+        if (right) return WindowEdge.East;
+
+        return null; // Mouse is inside the window content area
     }
 }
