@@ -29,7 +29,6 @@
                 <MergeResourceInclude Source="UI/Views/Controls/MainTabControl.axaml"></MergeResourceInclude>
                 <MergeResourceInclude Source="UI/Views/Controls/IconButton.axaml"></MergeResourceInclude>
                 <MergeResourceInclude Source="UI/Views/Controls/IconToggleButton.axaml"></MergeResourceInclude>
-                <MergeResourceInclude Source="UI/Views/Controls/AppHeader.axaml"></MergeResourceInclude>
             </ResourceDictionary.MergedDictionaries>
             
             <ResourceDictionary.ThemeDictionaries>

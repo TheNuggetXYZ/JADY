@@ -1,5 +1,8 @@
+using System;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
+using Avalonia.Input;
 
 namespace JADY.UI.Views.Controls;
 
@@ -21,5 +24,29 @@ public class MainTabControl : TabControl
     {
         get => GetValue(EmptyCollectionHintProperty);
         set => SetValue(EmptyCollectionHintProperty, value);
+    }
+    
+    public static readonly StyledProperty<EventHandler<PointerPressedEventArgs>?> AppHeaderPointerPressedProperty =
+        AvaloniaProperty.Register<MainTabControl, EventHandler<PointerPressedEventArgs>?>(nameof(AppHeaderPointerPressed));
+
+    public EventHandler<PointerPressedEventArgs>? AppHeaderPointerPressed
+    {
+        get => GetValue(AppHeaderPointerPressedProperty);
+        set => SetValue(AppHeaderPointerPressedProperty, value);
+    }
+    
+    protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
+    {
+        base.OnApplyTemplate(e);
+
+        var dragRegion = e.NameScope.Find<Border>("PART_AppHeader");
+        
+        if (dragRegion != null)
+        {
+            dragRegion.PointerPressed += (sender, args) =>
+            {
+                AppHeaderPointerPressed?.Invoke(sender, args);
+            };
+        }
     }
 }

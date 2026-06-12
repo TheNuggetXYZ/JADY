@@ -43,18 +43,8 @@
             
             <MainTabControl ItemsSource="{Binding Diaries}" 
                             SelectedIndex="{Binding OpenDiaryIndex}" 
-                            TabStripPlacement="Top">
-        
-                <MainTabControl.AppHeader>
-                    <AppHeader ItemsPanel="{Binding $parent[MainTabControl].ItemsPanel}" PointerPressed="AppHeader_OnPointerPressed">
-                        <AppHeader.LeftPanelContent>
-                            <AppHeaderLeftPanel/>
-                        </AppHeader.LeftPanelContent>
-                        <AppHeader.RightPanelContent>
-                            <AppHeaderRightPanel></AppHeaderRightPanel>
-                        </AppHeader.RightPanelContent>
-                    </AppHeader>
-                </MainTabControl.AppHeader>
+                            TabStripPlacement="Top"
+                            AppHeaderPointerPressed="AppHeader_OnPointerPressed">
         
                 <MainTabControl.ContentTemplate>
                     <DataTemplate DataType="vm:DiaryViewModel">
