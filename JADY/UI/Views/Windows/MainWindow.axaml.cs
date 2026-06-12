@@ -70,6 +70,27 @@ public partial class MainWindow : Window
         }
             
     }
+    
+    protected override void OnPointerMoved(PointerEventArgs e)
+    {
+        base.OnPointerMoved(e);
+
+        Point pos = e.GetPosition(this);
+        WindowEdge? edge = GetWindowEdgeAtPosition(pos);
+
+        Cursor = edge switch
+        {
+            WindowEdge.North => new Cursor(StandardCursorType.TopSide),
+            WindowEdge.South => new Cursor(StandardCursorType.BottomSide),
+            WindowEdge.West => new Cursor(StandardCursorType.LeftSide),
+            WindowEdge.East => new Cursor(StandardCursorType.RightSide),
+            WindowEdge.NorthEast => new Cursor(StandardCursorType.TopRightCorner),
+            WindowEdge.NorthWest => new Cursor(StandardCursorType.TopLeftCorner),
+            WindowEdge.SouthEast => new Cursor(StandardCursorType.BottomRightCorner),
+            WindowEdge.SouthWest => new Cursor(StandardCursorType.BottomLeftCorner),
+            _ => Cursor.Default
+        };
+    }
 
     protected override async void OnClosing(WindowClosingEventArgs e)
     {
