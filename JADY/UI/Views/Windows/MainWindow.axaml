@@ -35,7 +35,7 @@
     </Window.Resources>
     
     <Border Name="PART_WindowBorder" 
-            Background="{DynamicResource SystemControlBackgroundBaseMediumLowBrush}"
+            BorderBrush="{DynamicResource SystemControlBackgroundBaseMediumLowBrush}"
             BorderThickness="1" 
             CornerRadius="4">
         
