@@ -8,8 +8,8 @@
     </Design.PreviewWith>
 
     <Style Selector="Border.outsetLighting">
-        <!--                                ====shadow====  ================lighting=============-->
-        <Setter Property="BoxShadow" Value="1 2 2 -1 black, inset 0.5 1 1 0 rgba(255,255,255,0.1)"/>
+        <!--                                ====shadow====-->
+        <Setter Property="BoxShadow" Value="1 2 2 -1 black"/>
         <!-- Set margin so shadow is not cut off -->
         <Setter Property="Margin" Value="0 0 1 2"/>
     </Style>
