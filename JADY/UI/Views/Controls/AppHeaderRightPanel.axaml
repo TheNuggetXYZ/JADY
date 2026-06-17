@@ -32,19 +32,19 @@
         
         <Separator Classes="vertical"/>
     
-        <IconButton Classes="highlightOnlyBg white" 
+        <IconButton Classes="highlightOnlyBg" 
                     IconData="{StaticResource MinusIcon}"
                     IconSize="12"
                     Command="{Binding $parent[windows:MainWindow].MinimizeWindowCommand}"
                     ToolTip.Tip="Minimize"/>
     
-        <IconButton Classes="highlightOnlyBg white" 
+        <IconButton Classes="highlightOnlyBg" 
                     IconData="{StaticResource DiamondIcon}"
                     IconSize="12"
                     Command="{Binding $parent[windows:MainWindow].MaximizeWindowCommand}"
                     ToolTip.Tip="Maximize"/>
     
-        <IconButton Classes="highlightOnlyBg white" 
+        <IconButton Classes="highlightOnlyBg" 
                     IconData="{StaticResource XMarkIcon}"
                     IconSize="12"
                     Command="{Binding $parent[Window].Close}"

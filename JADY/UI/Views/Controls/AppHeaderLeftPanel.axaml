@@ -10,7 +10,7 @@
     <StackPanel Orientation="Horizontal">
                 
         <!-- Burger menu button -->
-        <IconButton Classes="highlightOnlyBg white" 
+        <IconButton Classes="highlightOnlyBg" 
                     IconData="{StaticResource BurgerMenuIconSolid}" 
                     IconSize="18" 
                     ToolTip.Tip="Open menu">
@@ -29,14 +29,14 @@
         </IconButton>
                                             
         <!-- Settings button -->
-        <IconButton Classes="highlightOnlyBg white" 
+        <IconButton Classes="highlightOnlyBg" 
                     Command="{Binding Menu_OpenSettingsWindowCommand}"
                     IconData="{StaticResource SettingsIconSolid}" 
                     IconSize="18"
                     ToolTip.Tip="Open settings"/>
                                             
         <!-- Toggle hidden entries button -->
-        <IconToggleButton Classes="highlightOnlyBg white" 
+        <IconToggleButton Classes="highlightOnlyBg" 
                           IsChecked="{Binding ShowHiddenEntries}" 
                           IconData="{StaticResource EyeIconSolid}"
                           CheckedIconData="{StaticResource EyeSlashIconSolid}"
