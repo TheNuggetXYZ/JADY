@@ -23,7 +23,7 @@
         
     <Style Selector="Border:pointerover.outsetLighting.highlight">
         <!--                                ====shadow====  ================lighting============-->
-        <Setter Property="BoxShadow" Value="1 2 2 -1 black, inset 1 2 1 0 rgba(255,255,255,0.15)"/>
+        <Setter Property="BoxShadow" Value="1 2 2 -1 black, inset 1 1 1 0 rgba(255,255,255,0.1)"/>
     </Style>
         
     <Style Selector="Border.insetLighting">
