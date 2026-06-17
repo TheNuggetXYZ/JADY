@@ -13,7 +13,7 @@
     <Application.Styles>
         <FluentTheme>
             <FluentTheme.Palettes>
-                <ColorPaletteResources x:Key="Light" Accent="#ff089300" AltHigh="White" AltLow="White" AltMedium="White" AltMediumHigh="White" AltMediumLow="White" BaseHigh="Black" BaseLow="#ffcccccc" BaseMedium="#ff898989" BaseMediumHigh="#ff5d5d5d" BaseMediumLow="#ff737373" ChromeAltLow="#ff5d5d5d" ChromeBlackHigh="Black" ChromeBlackLow="#ffcccccc" ChromeBlackMedium="#ff5d5d5d" ChromeBlackMediumLow="#ff898989" ChromeDisabledHigh="#ffcccccc" ChromeDisabledLow="#ff898989" ChromeGray="#ff737373" ChromeHigh="#ffcccccc" ChromeLow="#ffececec" ChromeMedium="#ffe6e6e6" ChromeMediumLow="#ffececec" ChromeWhite="White" ListLow="#ffe6e6e6" ListMedium="#ffcccccc" RegionColor="White"/>
+                <ColorPaletteResources x:Key="Light" Accent="#ff089300" AltHigh="White" AltLow="White" AltMedium="White" AltMediumHigh="White" AltMediumLow="White" BaseHigh="Black" BaseLow="#ffcccccc" BaseMedium="#ff898989" BaseMediumHigh="#ff5d5d5d" BaseMediumLow="#ff737373" ChromeAltLow="#ff5d5d5d" ChromeBlackHigh="Black" ChromeBlackLow="#ffcccccc" ChromeBlackMedium="#ff5d5d5d" ChromeBlackMediumLow="#ff898989" ChromeDisabledHigh="#ffcccccc" ChromeDisabledLow="#ff898989" ChromeGray="#ff737373" ChromeHigh="#ffcccccc" ChromeLow="#ffececec" ChromeMedium="#ffe6e6e6" ChromeMediumLow="#ffececec" ChromeWhite="White" ListLow="#ffe6e6e6" ListMedium="#ffcccccc" RegionColor="#FFF3F5F3"/>
                 <ColorPaletteResources x:Key="Dark" Accent="#ff089300" AltHigh="Black" AltLow="Black" AltMedium="Black" AltMediumHigh="Black" AltMediumLow="Black" BaseHigh="White" BaseLow="#ff3c3c3c" BaseMedium="#ff9e9e9e" BaseMediumHigh="#ffb7b7b7" BaseMediumLow="#ff6d6d6d" ChromeAltLow="#ffb7b7b7" ChromeBlackHigh="Black" ChromeBlackLow="#ffb7b7b7" ChromeBlackMedium="Black" ChromeBlackMediumLow="Black" ChromeDisabledHigh="#ff3c3c3c" ChromeDisabledLow="#ff9e9e9e" ChromeGray="#ff868686" ChromeHigh="#ff868686" ChromeLow="#ff191919" ChromeMedium="#ff222222" ChromeMediumLow="#ff292929" ChromeWhite="White" ListLow="#ff222222" ListMedium="#ff3c3c3c" RegionColor="#ff191919"/>
             </FluentTheme.Palettes>
         </FluentTheme>
@@ -33,8 +33,8 @@
             
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Light">
-                    <Color x:Key="EntryColor">#ffececec</Color>
-                    <Color x:Key="AppHeaderColor">#ffe0e0e0</Color>
+                    <Color x:Key="EntryColor">#ffffffff</Color>
+                    <Color x:Key="AppHeaderColor">#fff9f9f9</Color>
                     <Color x:Key="SliderColor">#ffc4c4c4</Color>
                     <Color x:Key="SliderPointerOverColor">#ffbcbcbc</Color>
                     <Color x:Key="InsetControlBackground">#fffafafa</Color>
@@ -45,7 +45,7 @@
                 
                 <ResourceDictionary x:Key="Dark">
                     <Color x:Key="EntryColor">#ff222222</Color>
-                    <Color x:Key="AppHeaderColor">#ff292929</Color>
+                    <Color x:Key="AppHeaderColor">#ff282828</Color>
                     <Color x:Key="SliderColor">#ff393939</Color>
                     <Color x:Key="SliderPointerOverColor">#ff414141</Color>
                     <Color x:Key="InsetControlBackground">#ff141414</Color>
