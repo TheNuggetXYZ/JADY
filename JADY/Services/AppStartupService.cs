@@ -44,13 +44,8 @@ public class AppStartupService(IServiceProvider serviceProvider, ISaveService sa
 
     private async Task LoadSave()
     {
-        _desktop.MainWindow = new LoadingSaveWindow();
-        _desktop.MainWindow.Show();
-
         saveService.LoadConfig();
         await saveService.LoadSave();
-        
-        _desktop.MainWindow.Close();
     }
 
     private void StartupMainWindow()

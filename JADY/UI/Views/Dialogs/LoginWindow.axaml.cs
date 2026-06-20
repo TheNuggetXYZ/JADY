@@ -1,23 +1,27 @@
+using Avalonia.Controls;
 using Avalonia.Data;
 using Avalonia.Input;
 using JADY.UI.Base;
 
 namespace JADY.UI.Views.Dialogs;
 
-public partial class LoginWindow : DialogWindow<string?>
+public partial class LoginWindow : Window
 {
+    public bool EnteredPassword;
+    public string? RawPassword;
+    
     public LoginWindow()
     {
         InitializeComponent();
     }
 
-    protected override InputElement? FocusedElement() => Password;
-
-    protected override Optional<string?> GetValue() => Password.Text;
-
-    private async void Password_OnKeyUp(object? sender, KeyEventArgs e)
+    private void Password_OnKeyUp(object? sender, KeyEventArgs e)
     {
         if (e.Key == Key.Enter)
-            await TrySubmitAsync();
+        {
+            EnteredPassword = true;
+            RawPassword = Password.Text;
+            Close();
+        }
     }
 }

@@ -147,22 +147,40 @@ public partial class SaveService : ObservableObject, ISaveService
                 
                 case LoadStatus.InvalidPassword:
                 {
-                    Optional<string?> dialogResult;
+                    IClassicDesktopStyleApplicationLifetime desktop;
+                    if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime _desktop)
+                        desktop = _desktop;
+                    else
+                        throw new InvalidOperationException("Invalid ApplicationLifetime");
+
+                    string password;
 
                     while (true)
                     {
-                        dialogResult = await _windowService.OpenDialogWindowDI<LoginWindow, string?>(_windowService.GetMainWindow());
+                        var loginWindow = new LoginWindow();
+                        desktop.MainWindow = loginWindow;
+                        desktop.MainWindow.Show();
 
-                        if (!dialogResult.HasValue) // this is true when you explicitly close the login window
-                            if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-                                desktop.Shutdown(0);
+                        TaskCompletionSource<bool> tcs = new();
+                        loginWindow.Closed += (_, __) => tcs.TrySetResult(true);
+                        await tcs.Task;
+                        
+                        var wasPasswordEntered = loginWindow.EnteredPassword;
+                        var rawPassword = loginWindow.RawPassword;
+                        
+                        if (!wasPasswordEntered) // this is true when you explicitly close the login window
+                            desktop.Shutdown(0);
 
-                        if (dialogResult.HasValue && !string.IsNullOrWhiteSpace(dialogResult.Value)) break;
+                        if (wasPasswordEntered && !string.IsNullOrWhiteSpace(rawPassword))
+                        {
+                            password = rawPassword;
+                            break;
+                        }
                     }
 
                     if (SaveFile.Salt is null) throw new InvalidOperationException("SaveFile.Salt is null and the save is encrypted, cannot login and load save");
 
-                    _encryptionService.StorePassword(dialogResult.Value, SaveFile.Salt);
+                    _encryptionService.StorePassword(password, SaveFile.Salt);
 
                     continue;
                 }
