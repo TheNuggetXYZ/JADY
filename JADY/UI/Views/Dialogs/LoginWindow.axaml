@@ -2,14 +2,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="170" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="450"
         x:Class="JADY.UI.Views.Dialogs.LoginWindow"
         Title="Login"
         SizeToContent="Height"
-        Width="170">
+        Width="250"
+        Icon="/Assets/Icons/JADY_32x.png">
     
     
-    <StackPanel Orientation="Vertical" Spacing="10" Margin="10">
+    <StackPanel Orientation="Vertical" Spacing="10" Margin="50, 30">
         <Label Classes="field light" Content="Password:"/>
         <TextBox Name="Password" PlaceholderText="Enter password..." PasswordChar="●" RevealPassword="False" 
                  ToolTip.Tip="Press enter to continue" KeyUp="Password_OnKeyUp"/>
