@@ -8,9 +8,25 @@
              x:DataType="viewModels:DiaryEntryViewModel">
     
     <Button Classes="invisible diaryEntryButton" HorizontalAlignment="Stretch" Command="{Binding ClickCommand}">
-        <Border Classes="outsetLighting highlight"
-                Background="{DynamicResource EntryColor}" 
-                CornerRadius="6">
+        <Border Classes="outsetLighting highlight IHateStyles"
+                CornerRadius="6"
+                Tag="{Binding IsHighlighted}">
+            
+            <Border.Transitions>
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.2" Easing="QuadraticEaseOut"/>
+                </Transitions>
+            </Border.Transitions>
+            
+            <Border.Styles>
+                <Style Selector="Border.IHateStyles">
+                    <Setter Property="Background" Value="{DynamicResource EntryColor}"/>
+                </Style>
+                
+                <Style Selector="Border[Tag=True]">
+                    <Setter Property="Background" Value="{DynamicResource EntryColorHighlight}"/>
+                </Style>
+            </Border.Styles>
         
             <!-- Context menu -->
             <Border.ContextMenu>

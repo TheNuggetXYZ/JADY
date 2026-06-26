@@ -1,4 +1,5 @@
 using System;
+using System.Timers;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -119,6 +120,11 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         $"Date: {DateDisplayName ?? "none"}\n" +
         $"End date: {EndDateDisplayName ?? "none"}";
     
+    private Timer? _highlightTimer;
+
+    [ObservableProperty]
+    private bool _isHighlighted;
+    
     
     private readonly DiaryViewModel _diaryViewModel;
 
@@ -146,6 +152,8 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
             AssignParentEntry(parentEntry);
         else
             ParentEntryGuid = diaryEntry.ParentEntryGuid;
+        
+        HighlightEntry();
     }
     
     /// <returns>
@@ -230,6 +238,8 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
             AssignParentEntry(null);
 
         _diaryViewModel.ResortEntry(this);
+        
+        HighlightEntry();
     }
     
     [RelayCommand]
@@ -260,11 +270,31 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         EndEvent(diaryEntry.Value.EndDate, diaryEntry.Value.Status, false);
         
         _diaryViewModel.ResortEntry(this);
+        
+        HighlightEntry();
     }
     
     [RelayCommand]
     private void OnClick()
     {
         IsExpanded = !IsExpanded;
+    }
+
+    private void HighlightEntry()
+    {
+        IsHighlighted = true;
+
+        _highlightTimer?.Stop();
+        _highlightTimer?.Dispose();
+
+        _highlightTimer = new Timer(400);
+        _highlightTimer.AutoReset = false; // Only run once
+        
+        _highlightTimer.Elapsed += (_, _) =>
+        {
+            IsHighlighted = false;
+        };
+
+        _highlightTimer.Start();
     }
 }

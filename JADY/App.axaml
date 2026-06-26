@@ -34,6 +34,7 @@
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Light">
                     <Color x:Key="EntryColor">#ffffffff</Color>
+                    <Color x:Key="EntryColorHighlight">#ffc4c4c4</Color>
                     <Color x:Key="AppHeaderColor">#fff9f9f9</Color>
                     <Color x:Key="SliderColor">#ffc4c4c4</Color>
                     <Color x:Key="SliderPointerOverColor">#ffbcbcbc</Color>
@@ -45,6 +46,7 @@
                 
                 <ResourceDictionary x:Key="Dark">
                     <Color x:Key="EntryColor">#ff222222</Color>
+                    <Color x:Key="EntryColorHighlight">#ff393939</Color>
                     <Color x:Key="AppHeaderColor">#ff282828</Color>
                     <Color x:Key="SliderColor">#ff393939</Color>
                     <Color x:Key="SliderPointerOverColor">#ff414141</Color>
