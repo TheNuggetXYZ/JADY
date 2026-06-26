@@ -196,8 +196,12 @@ public partial class MainWindow : Window
 
     private void AppHeader_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
-        // DRAG
         BeginMoveDrag(e);
+    }
+
+    private void AppHeader_OnDoubleTapped(object? sender, TappedEventArgs e)
+    {
+        MaximizeWindowCommand.Execute(null);
     }
 
     private WindowEdge? GetWindowEdgeAtPosition(Point pos)

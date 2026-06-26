@@ -44,7 +44,8 @@
             <MainTabControl ItemsSource="{Binding Diaries}" 
                             SelectedIndex="{Binding OpenDiaryIndex}" 
                             TabStripPlacement="Top"
-                            AppHeaderPointerPressed="AppHeader_OnPointerPressed">
+                            AppHeaderPointerPressed="AppHeader_OnPointerPressed"
+                            AppHeaderDoubledTapped="AppHeader_OnDoubleTapped">
         
                 <MainTabControl.ContentTemplate>
                     <DataTemplate DataType="vm:DiaryViewModel">

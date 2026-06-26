@@ -35,6 +35,15 @@ public class MainTabControl : TabControl
         set => SetValue(AppHeaderPointerPressedProperty, value);
     }
     
+    public static readonly StyledProperty<EventHandler<TappedEventArgs>?> AppHeaderDoubledTappedProperty =
+        AvaloniaProperty.Register<MainTabControl, EventHandler<TappedEventArgs>?>(nameof(AppHeaderDoubledTapped));
+
+    public EventHandler<TappedEventArgs>? AppHeaderDoubledTapped
+    {
+        get => GetValue(AppHeaderDoubledTappedProperty);
+        set => SetValue(AppHeaderDoubledTappedProperty, value);
+    }
+    
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);
@@ -46,6 +55,11 @@ public class MainTabControl : TabControl
             dragRegion.PointerPressed += (sender, args) =>
             {
                 AppHeaderPointerPressed?.Invoke(sender, args);
+            };
+
+            dragRegion.DoubleTapped += (sender, args) =>
+            {
+                AppHeaderDoubledTapped?.Invoke(sender, args);
             };
         }
     }
