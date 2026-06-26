@@ -205,36 +205,40 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     [RelayCommand]
     private async Task ContextMenu_Edit()
     {
-        var diaryEntry = await _windowService.OpenDialogWindowDI<EditEntryWindow, DiaryEntry, DiaryEntryViewModel>(_windowService.GetMainWindow(), this);
+        var newEntry = await _windowService.OpenDialogWindowDI<EditEntryWindow, DiaryEntry, DiaryEntryViewModel>(_windowService.GetMainWindow(), this);
 
-        if (!diaryEntry.HasValue)
+        if (!newEntry.HasValue)
             return;
 
         // Update all children if category or subcategory was changed
-        if (Category != diaryEntry.Value.Category || SubCategory != diaryEntry.Value.SubCategory)
+        if (Category != newEntry.Value.Category || SubCategory != newEntry.Value.SubCategory)
         {
-            Category = diaryEntry.Value.Category;
-            SubCategory = diaryEntry.Value.SubCategory;
+            Category = newEntry.Value.Category;
+            SubCategory = newEntry.Value.SubCategory;
             
             _diaryViewModel.CascadeEditEntries(this);
         }
 
         // Restart parent if changed from LinkEndNote
-        if (Status == EntryStatus.LinkEndNote && diaryEntry.Value.Status != Status) 
+        if (Status == EntryStatus.LinkEndNote && newEntry.Value.Status != Status) 
             ParentEntry?.RestartEvent();
 
-        // Update parent end date if we edited the date of an end note
-        if (Date != diaryEntry.Value.Date && diaryEntry.Value.Status == EntryStatus.LinkEndNote)
-            ParentEntry?.EndDate = diaryEntry.Value.Date;
-            
-        Date = diaryEntry.Value.Date;
-        EndDate = diaryEntry.Value.EndDate;
-        Title = diaryEntry.Value.Title;
-        Content = diaryEntry.Value.Content;
-        IsHidden = diaryEntry.Value.IsHidden;
-        Status = diaryEntry.Value.Status;
+        // End parent if edited to LinkEndNote
+        if (newEntry.Value.Status == EntryStatus.LinkEndNote && Status != EntryStatus.LinkEndNote)
+            ParentEntry?.EndEvent(newEntry.Value.Date, EntryStatus.EventCompleted, true);
 
-        if (!EntryStatusExtensions.IsLink(diaryEntry.Value.Status))
+        // Update parent end date if we edited the date of an end note
+        if (Date != newEntry.Value.Date && newEntry.Value.Status == EntryStatus.LinkEndNote)
+            ParentEntry?.EndDate = newEntry.Value.Date;
+            
+        Date = newEntry.Value.Date;
+        EndDate = newEntry.Value.EndDate;
+        Title = newEntry.Value.Title;
+        Content = newEntry.Value.Content;
+        IsHidden = newEntry.Value.IsHidden;
+        Status = newEntry.Value.Status;
+
+        if (!EntryStatusExtensions.IsLink(newEntry.Value.Status))
             AssignParentEntry(null);
 
         _diaryViewModel.ResortEntry(this);
