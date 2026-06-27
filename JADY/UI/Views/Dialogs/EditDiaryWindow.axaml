@@ -12,9 +12,9 @@
         MinWidth="100"
         MinHeight="100">
         
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10" Margin="10">
-                <TextBox Name="DiaryName" PropertyChanged="DiaryNameOnPropertyChanged" Text="{Binding Name, Mode=OneTime}"></TextBox>
-                <IconButton Classes="accent" Name="SubmitButton" IconData="{StaticResource PencilIconSolid}" Click="Submit_OnClick" HorizontalAlignment="Center"/>
-        </StackPanel>
+        <Grid ColumnDefinitions="*, Auto"  HorizontalAlignment="Center" VerticalAlignment="Center" ColumnSpacing="10" Margin="10">
+                <TextBox Grid.Column="0" Name="DiaryName" PropertyChanged="DiaryNameOnPropertyChanged" Text="{Binding Name, Mode=OneTime}"></TextBox>
+                <IconButton Grid.Column="1" Classes="accent" Name="SubmitButton" IconData="{StaticResource PencilIconSolid}" Click="Submit_OnClick" HorizontalAlignment="Center"/>
+        </Grid>
         
 </Window>
