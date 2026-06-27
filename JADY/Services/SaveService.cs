@@ -206,6 +206,7 @@ public partial class SaveService : ObservableObject, ISaveService
     private void OnChangeConfig()
     {
         _appVisualService.SetTheme(Config.AppTheme);
+        _appVisualService.SetFont(Config.Font);
 
         CultureInfo.CurrentCulture = Config.CultureInfo;
         CultureInfo.CurrentUICulture = Config.CultureInfo;

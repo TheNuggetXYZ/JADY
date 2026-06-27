@@ -1,9 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 using Avalonia.Data;
 using Avalonia.Input;
 using Avalonia.Interactivity;
+using Avalonia.Media;
 using JADY.Core.Data;
 using JADY.Core.Models;
 using JADY.Services;
@@ -14,6 +17,8 @@ namespace JADY.UI.Views.Dialogs;
 public partial class SettingsWindow : DialogWindow<Config>
 {
     private readonly ISaveService? _saveService;
+    
+    private readonly List<string> _systemFonts;
 
     // Required for the compiler and previewer
     public SettingsWindow()
@@ -32,6 +37,17 @@ public partial class SettingsWindow : DialogWindow<Config>
         AppTheme.SelectedIndex = (int)_saveService.Config.AppTheme;
         Cultures.ItemsSource = AppCultures.AvailableCultures;
         Cultures.SelectedItem = new CultureInfo(_saveService.Config.CultureInfoName);
+        
+        _systemFonts = FontManager.Current.SystemFonts
+            .Select(fontFamily => fontFamily.Name)
+            .OrderBy(name => name)
+            .ToList();
+        
+        Fonts.ItemsSource = _systemFonts;
+
+        var requestedFont = _systemFonts.FirstOrDefault(x => x == _saveService.Config.Font);
+
+        Fonts.SelectedIndex = _systemFonts.IndexOf(requestedFont ?? "Consolas");
     }
     
     protected override Task SubmitAsync()
@@ -54,6 +70,7 @@ public partial class SettingsWindow : DialogWindow<Config>
             AutoSave = AutoSave.IsChecked ?? false,
             AppTheme = (AppTheme)AppTheme.SelectedIndex,
             CultureInfoName = AppCultures.AvailableCultures[Cultures.SelectedIndex].Name,
+            Font = _systemFonts[Fonts.SelectedIndex]
         };
     }
 

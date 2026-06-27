@@ -30,6 +30,9 @@
         
                 <TextBlock Classes="greyedOut" FontSize="12" Margin="-5 5">Culture:</TextBlock>
                 <ComboBox Name="Cultures"></ComboBox>
+                
+                <TextBlock Classes="greyedOut" FontSize="12" Margin="-5 5">Font:</TextBlock>
+                <ComboBox Name="Fonts"></ComboBox>
             </StackPanel>
             
         </StackPanel>

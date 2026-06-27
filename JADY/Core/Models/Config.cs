@@ -20,6 +20,11 @@ public class Config
     /// The visual theme of the app
     /// </summary>
     public AppTheme AppTheme { get; set; }
+    
+    /// <summary>
+    /// The name of the font used by the whole app
+    /// </summary>
+    public string Font { get; set; }
 
     /// <summary>
     /// Should the app automatically save?

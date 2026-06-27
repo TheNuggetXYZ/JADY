@@ -5,4 +5,5 @@ namespace JADY.Services;
 public interface IAppVisualService
 {
     void SetTheme(AppTheme theme);
+    void SetFont(string fontName);
 }
