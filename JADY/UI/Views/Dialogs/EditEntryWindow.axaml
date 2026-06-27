@@ -8,9 +8,9 @@
         x:Class="JADY.UI.Views.Dialogs.EditEntryWindow"
         x:DataType="vm:DiaryEntryViewModel"
         Title="Edit entry"
-        Width="420"
+        Width="440"
         Height="400"
-        MinWidth="335"
+        MinWidth="400"
         MinHeight="290">
     
     <Window.Resources>
