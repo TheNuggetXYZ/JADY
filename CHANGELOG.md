@@ -8,11 +8,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Modern text box, combo box, date picker, checkbox and button styling
+- Custom window decorations
+- Font picker
+- Highlight entry after adding or editing it
 
 ### Changed
-- Welcome window structure
+- Modern text box, combo box, date picker, checkbox and button styling
+- More of a flat, modern look
+- Improved welcome window structure
+- App header and diary entry colors
+- Icon buttons now replace a lot of previous buttons with text
+- Old date pickers -> calendar date pickers
 - Diary entry padding and corner radius
+
+### Removed
+- OS window decorations
+- Loading window
 
 ## [0.3.0] - 2026-5-30
 
