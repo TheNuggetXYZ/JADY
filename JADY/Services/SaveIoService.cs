@@ -93,9 +93,10 @@ public class SaveIoService(ILogger<SaveIoService> logger, ISaveFsService saveFsS
                 return backup;
             
             case ReadStatus.Corrupted:
-                logger.LogError("Corruption detected at {Path}", path);
+                logger.LogError("Corruption detected at {Path}, reading backup.", path);
                 saveFsService.TryRotateFile(path, Path.ChangeExtension(path, CorruptExtension), true);
-                break;
+                var backup1 = ReadJson<SaveFile>(Path.ChangeExtension(path, BackupExtension));
+                return new ReadResult<SaveFile>(ReadStatus.Corrupted, backup1.Data);
             
             case ReadStatus.Success when save.Data is null:
                 throw new InvalidOperationException(

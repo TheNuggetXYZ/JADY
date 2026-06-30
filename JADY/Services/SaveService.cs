@@ -123,7 +123,20 @@ public partial class SaveService : ObservableObject, ISaveService
                 break;
             
             case SaveIoService.ReadStatus.Corrupted:
-                throw new ApplicationException("Corrupted save"); // TODO: notify user
+                if (container.Data is not null)
+                {
+                    _windowService.OpenMessageBox("Your save file is corrupted, but a backup was found. This is likely due to tampering with the save.", "Corrupted save");
+                    
+                    SaveFile = container.Data;
+                    await LoadSaveFromContainer();
+                }
+                else
+                {
+                    _windowService.OpenMessageBox("Your save file is corrupted and a backup was not found. This is likely due to tampering with the save.", "Corrupted save");
+                }
+                    
+                
+                break;
             
             case SaveIoService.ReadStatus.FileNotFound:
                 _windowService.OpenMessageBox("No save found. New save initialized.", "No save found");
