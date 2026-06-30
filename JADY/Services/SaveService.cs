@@ -126,6 +126,7 @@ public partial class SaveService : ObservableObject, ISaveService
                 throw new ApplicationException("Corrupted save"); // TODO: notify user
             
             case SaveIoService.ReadStatus.FileNotFound:
+                _windowService.OpenMessageBox("No save found. New save initialized.", "No save found");
                 break;
             
             default:

@@ -6,7 +6,8 @@
         x:Class="JADY.UI.Views.Windows.MessageWindow"
         Icon="/Assets/Icons/JADY_32x.png"
         Title="Message"
-        SizeToContent="WidthAndHeight">
+        SizeToContent="WidthAndHeight"
+        Topmost="True">
         
     <StackPanel Orientation="Vertical" Spacing="30" 
                 HorizontalAlignment="Center" VerticalAlignment="Center" 
