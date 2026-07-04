@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=JADY
+Comment=A secure, tactical diary application.
+Exec=AppRun %U
+Icon=jady
+Categories=Office;Utility;
+Terminal=false

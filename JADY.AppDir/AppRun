@@ -1,0 +1,6 @@
+#!/bin/sh
+# Get the absolute root directory where the AppImage is temporarily mounted
+SELF=$(dirname "$(readlink -f "$0")")
+
+# Run the primary .NET application binary hidden inside usr/bin/
+exec "$SELF/usr/bin/JADY" "$@"
