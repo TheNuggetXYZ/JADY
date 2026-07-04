@@ -45,6 +45,9 @@ jobs:
           
       - name: Assemble AppDir
         run: |
+          # bin directories are not commited
+          mkdir -p JADY.AppDir/usr/bin/
+          
           # Move bin file
           cp ./publish/linux-x64/JADY JADY.AppDir/usr/bin/
         
