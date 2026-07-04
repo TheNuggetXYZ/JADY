@@ -82,7 +82,9 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: ./publish/linux-x64/JADY
+          files: |
+            JADY.AppImage
+            ./publish/win-x64/JADY.exe
           body: ${{ steps.changelog.outputs.notes }}
           # Only create an actual release if triggered by a tag
           # If manual (dispatch), it marks it as a draft so it's hidden from users
