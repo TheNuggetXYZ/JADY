@@ -43,6 +43,22 @@ jobs:
             -p:PublishReadyToRun=true \
             -o ./publish/win-x64
           
+      - name: Assemble AppDir
+        run: |
+          # Move bin file
+          cp ./publish/linux-x64/JADY JADY.AppDir/usr/bin/
+        
+          chmod +x JADY.AppDir/AppRun
+          chmod +x JADY.AppDir/usr/bin/JADY
+
+      - name: Package AppImage
+        run: |
+          # Download the official stable continuous binary tool
+          wget -q https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage -O appimagetool
+          chmod +x appimagetool
+          
+          ./appimagetool --appimage-extract-and-run JADY.AppDir JADY.AppImage
+          
       - name: Get Changelog Entry
         id: changelog
         run: |
