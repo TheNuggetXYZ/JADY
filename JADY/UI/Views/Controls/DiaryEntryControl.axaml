@@ -32,7 +32,8 @@
             <Border.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Edit" Command="{Binding ContextMenu_EditCommand}"/>
-                    <MenuItem Header="Link" Command="{Binding ContextMenu_LinkCommand}" IsVisible="{Binding ShowLinkInContextMenu}"/>
+                    <MenuItem Header="Add note" Command="{Binding ContextMenu_LinkCommand}" IsVisible="{Binding ShowLinkInContextMenu}"/>
+                    <MenuItem Header="End with note" Command="{Binding ContextMenu_LinkEndCommand}" IsVisible="{Binding ShowLinkInContextMenu}"/>
                     <MenuItem Header="End" Command="{Binding ContextMenu_EndCommand}" IsVisible="{Binding ShowEndEventInContextMenu}"/>
                     <Separator/>
                     <MenuItem Header="Delete" Command="{Binding ContextMenu_RemoveCommand}"/>

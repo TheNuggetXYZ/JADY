@@ -13,15 +13,16 @@ using JADY.ViewModels;
 
 namespace JADY.UI.Views.Dialogs;
 
-public partial class LinkEntryWindow(ISaveService saveService) : DialogWindow<DiaryEntry>, IDialogInitializable<DiaryEntryViewModel>
+public partial class LinkEntryWindow(ISaveService saveService) : DialogWindow<DiaryEntry>, IDialogInitializable<LinkEntryInitData>
 {
-    public void Initialize(DiaryEntryViewModel data)
+    public void Initialize(LinkEntryInitData data)
     {
-        DataContext = data;
+        DataContext = data.Entry;
         
         InitializeComponent();
         
         EntryStatus.ItemsSource = new[] {"Note", "End note"};
+        EntryStatus.SelectedIndex = data.DefaultToEndNote ? 1 : 0;
         EntryDate.SelectedDate = DateTime.Now;
         EntryDate.CustomDateFormatString = saveService.Config.CultureInfo.DateTimeFormat.ShortDatePattern;
     }
