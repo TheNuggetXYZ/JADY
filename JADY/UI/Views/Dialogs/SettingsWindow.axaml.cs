@@ -47,7 +47,7 @@ public partial class SettingsWindow : DialogWindow<Config>
 
         var requestedFont = _systemFonts.FirstOrDefault(x => x == _saveService.Config.Font);
 
-        Fonts.SelectedIndex = _systemFonts.IndexOf(requestedFont ?? "Consolas");
+        Fonts.SelectedIndex = _systemFonts.IndexOf(requestedFont ?? "Noto Sans");
     }
     
     protected override Task SubmitAsync()

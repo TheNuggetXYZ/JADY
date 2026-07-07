@@ -11,6 +11,7 @@ public class Config
     {
         ShowHiddenEntries = false;
         AppTheme = AppTheme.System;
+        Font = "Noto Sans";
         AutoSave = false;
         CultureInfoName = "en-US";
         CultureInfo = CultureInfo.GetCultureInfo("en-US");

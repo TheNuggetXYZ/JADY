@@ -23,10 +23,6 @@
         </Border>
     </Design.PreviewWith>
     
-    <Style Selector="Window">
-        <Setter Property="FontFamily" Value="Consolas"/>
-    </Style>
-    
     <Style Selector="Separator">
         <Setter Property="Background" Value="White"/>
         <Setter Property="Opacity" Value="0.5"></Setter>
