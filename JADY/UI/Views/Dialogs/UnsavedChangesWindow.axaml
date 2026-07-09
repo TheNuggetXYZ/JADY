@@ -4,6 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="450"
         x:Class="JADY.UI.Views.Dialogs.UnsavedChangesWindow"
+        Icon="/Assets/Icons/JADY_32x.png"
         Title="Unsaved changes!"
         SizeToContent="Height"
         Width="450">

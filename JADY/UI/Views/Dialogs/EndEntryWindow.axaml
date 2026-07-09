@@ -7,6 +7,7 @@
         mc:Ignorable="d" d:DesignWidth="350" d:DesignHeight="100"
         x:Class="JADY.UI.Views.Dialogs.EndEntryWindow"
         x:DataType="viewModels:DiaryEntryViewModel"
+        Icon="/Assets/Icons/JADY_32x.png"
         Title="End entry"
         SizeToContent="WidthAndHeight"
         MinWidth="150"

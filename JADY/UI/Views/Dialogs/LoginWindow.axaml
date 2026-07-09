@@ -4,10 +4,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="450"
         x:Class="JADY.UI.Views.Dialogs.LoginWindow"
+        Icon="/Assets/Icons/JADY_32x.png"
         Title="Login"
         SizeToContent="Height"
-        Width="250"
-        Icon="/Assets/Icons/JADY_32x.png">
+        Width="250">
     
     
     <StackPanel Orientation="Vertical" Spacing="10" Margin="50, 30">

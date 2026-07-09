@@ -6,6 +6,7 @@
         mc:Ignorable="d" d:DesignWidth="335" d:DesignHeight="340"
         x:Class="JADY.UI.Views.Dialogs.AddEntryWindow"
         x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/Icons/JADY_32x.png"
         Title="Add an entry"
         SizeToContent="Width"
         Width="335"

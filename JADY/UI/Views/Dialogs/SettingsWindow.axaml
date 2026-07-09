@@ -4,6 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="350" d:DesignHeight="350"
         x:Class="JADY.UI.Views.Dialogs.SettingsWindow"
+        Icon="/Assets/Icons/JADY_32x.png"
         Title="Settings"
         SizeToContent="Height"
         Width="350"

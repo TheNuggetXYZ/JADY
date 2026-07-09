@@ -8,7 +8,7 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="JADY.UI.Views.Windows.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/Icons/JADY_64x.png"
+        Icon="/Assets/Icons/JADY_32x.png"
         Title="JADY"
         MinWidth="500"
         MinHeight="300"

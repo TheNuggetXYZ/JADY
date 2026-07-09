@@ -6,6 +6,7 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="JADY.UI.Views.Dialogs.LinkEntryWindow"
         x:DataType="viewModels:DiaryEntryViewModel"
+        Icon="/Assets/Icons/JADY_32x.png"
         Title="Link a note"
         SizeToContent="Width"
         Width="335"
