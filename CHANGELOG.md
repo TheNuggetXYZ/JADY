@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- Message boxes notifying the user of issues that happened while loading the save
+- Windows support
+- (QOL) item in entry context menu that opens the link dialog with the status set to EndNote for ending events more quickly
+
+### Changed
+- Jady icon
+- Linux release is now .AppImage
+
+### Fixed
+- Consolas font appearing in font picker even though it's not installed and causing crashes if it is chosen
+
 ## [0.4.0] - 2026-6-29
 
 ### Added
