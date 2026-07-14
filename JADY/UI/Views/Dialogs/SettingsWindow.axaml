@@ -2,48 +2,66 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="350" d:DesignHeight="350"
+        mc:Ignorable="d" d:DesignWidth="430" d:DesignHeight="400"
         x:Class="JADY.UI.Views.Dialogs.SettingsWindow"
         Icon="/Assets/Icons/JADY_32x.png"
         Title="Settings"
-        SizeToContent="Height"
-        Width="350"
+        Height="400"
+        Width="430"
         MinWidth="300"
         MinHeight="350">
         
-    <Grid RowDefinitions="*, Auto" RowSpacing="25">
-        <StackPanel Grid.Row="0" Orientation="Vertical" Spacing="25" Margin="30">
+    <Grid ColumnDefinitions="Auto, *">
+        <ListBox Grid.Column="0" Name="CategoryListBox">
+            <ListBoxItem>Saves</ListBoxItem>
+            <ListBoxItem>Appearance</ListBoxItem>
+            <ListBoxItem>Misc</ListBoxItem>
+        </ListBox>
         
-            <TextBlock Classes="greyedOut" FontSize="18" Margin="0 0 0 -20">Saves:</TextBlock>
-            <StackPanel Margin="15 0" Orientation="Vertical">
-                <CheckBox Name="AutoSave">Auto save</CheckBox>
+        <Grid Grid.Column="1" RowDefinitions="*, Auto">
+            <Carousel Grid.Row="0" SelectedIndex="{Binding #CategoryListBox.SelectedIndex}">
+                <StackPanel>
+                    <TextBlock FontSize="18" Margin="10">General:</TextBlock>
+                    <Separator/>
+                    <StackPanel Margin="25 10" Orientation="Vertical">
+                        <CheckBox Name="AutoSave">Auto save</CheckBox>
         
-                <TextBlock Classes="greyedOut" FontSize="12" Margin="-5 5">Saves directory:</TextBlock>
-                <TextBox Name="SavePath" IsReadOnly="True"/>
-            </StackPanel>
+                        <TextBlock FontSize="12" Margin="-5 5">Saves directory:</TextBlock>
+                        <TextBox Name="SavePath" IsReadOnly="True"/>
+        
+                        <TextBlock FontSize="12" Margin="-5 5">Culture:</TextBlock>
+                        <ComboBox Name="Cultures"></ComboBox>
+                    </StackPanel>
+                </StackPanel>
             
-            <TextBlock Classes="greyedOut" FontSize="18" Margin="0 0 0 -20">Miscellaneous:</TextBlock>
-            <StackPanel Margin="15 0" Orientation="Vertical">
-                <CheckBox Name="ShowHidden">Show hidden entries</CheckBox>
+                <StackPanel>
+                    <TextBlock FontSize="18" Margin="10">Appearance:</TextBlock>
+                    <Separator/>
+                    <StackPanel Margin="25 10" Orientation="Vertical">
+                        <TextBlock FontSize="12" Margin="-5 5">App theme:</TextBlock>
+                        <ComboBox Name="AppTheme"></ComboBox>
                 
-                <TextBlock Classes="greyedOut" FontSize="12" Margin="-5 5">App theme:</TextBlock>
-                <ComboBox Name="AppTheme"></ComboBox>
-        
-                <TextBlock Classes="greyedOut" FontSize="12" Margin="-5 5">Culture:</TextBlock>
-                <ComboBox Name="Cultures"></ComboBox>
-                
-                <TextBlock Classes="greyedOut" FontSize="12" Margin="-5 5">Font:</TextBlock>
-                <ComboBox Name="Fonts"></ComboBox>
-            </StackPanel>
+                        <TextBlock FontSize="12" Margin="-5 5">Font:</TextBlock>
+                        <ComboBox Name="Fonts"></ComboBox>
+                    </StackPanel>
+                </StackPanel>
             
-        </StackPanel>
-        
-        <Border Grid.Row="1" Background="Transparent" Padding="30">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="25" Margin="10">
-                <Button Classes="round" Click="Close_OnClick">Close</Button>
-                <Button Classes="round accent" Click="SaveClose_OnClick" Content="Save"></Button>
-            </StackPanel>
-        </Border>
+                <StackPanel>
+                    <TextBlock FontSize="18" Margin="10">Miscellaneous:</TextBlock>
+                    <Separator/>
+                    <StackPanel Margin="25 10" Orientation="Vertical">
+                        <CheckBox Name="ShowHidden">Show hidden entries</CheckBox>
+                    </StackPanel>
+                </StackPanel>
+            </Carousel>
+            
+            <Border Grid.Row="1" Background="Transparent" Padding="15">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="25" Margin="10">
+                    <Button Classes="round" Click="Close_OnClick">Close</Button>
+                    <Button Classes="round accent" Click="SaveClose_OnClick" Content="Save"></Button>
+                </StackPanel>
+            </Border>
+        </Grid>
     </Grid>
         
 </Window>
