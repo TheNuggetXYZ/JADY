@@ -26,7 +26,7 @@
             <ComboBox Grid.Column="2" VerticalAlignment="Center" Name="EntryStatus" SelectedIndex="0" Margin="5"/>
         </Grid>
         
-        <TextBox Grid.Row="2" Name="EntryContent" TextWrapping="Wrap" PlaceholderText="Content..." Margin="10"/>
+        <TextBox Grid.Row="2" Name="EntryContent" AcceptsReturn="True" TextWrapping="Wrap" PlaceholderText="Content..." Margin="10"/>
         
         <Panel Grid.Row="3" Margin="5">
             
