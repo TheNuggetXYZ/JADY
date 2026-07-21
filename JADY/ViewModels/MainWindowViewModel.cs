@@ -130,5 +130,9 @@ public partial class MainWindowViewModel(IDiaryService diaryService, ISaveServic
     private void Menu_Save() => diaryService.SaveDiaries();
 
     [RelayCommand]
-    private void Menu_Load() => diaryService.LoadDiaries(true);
+    private void Menu_Load()
+    {
+        diaryService.LoadDiaries(true);
+        SaveService.LoadConfig();
+    }
 }
