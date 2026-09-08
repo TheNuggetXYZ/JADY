@@ -57,4 +57,9 @@ public class DiaryEntry
     /// The global unique identifier of the parent of this entry note.
     /// </summary>
     public Guid? ParentEntryGuid { get; init; }
+
+    /// <summary>
+    /// The list of files attached to this diary entry.
+    /// </summary>
+    public List<FileAttachment> FileAttachments { get; init; } = new List<FileAttachment>();
 }
