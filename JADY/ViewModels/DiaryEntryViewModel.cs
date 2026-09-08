@@ -258,11 +258,11 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         await Link(true);
     }
 
-    private async Task Link(bool endOnly)
+    private async Task Link(bool defaultToEndNote)
     {
         var diaryEntry =
             await _windowService.OpenDialogWindowDI<LinkEntryWindow, DiaryEntry, LinkEntryInitData>(
-                _windowService.GetMainWindow(), new() { Entry = this, DefaultToEndNote = endOnly });
+                _windowService.GetMainWindow(), new() { Entry = this, DefaultToEndNote = defaultToEndNote });
 
         if (!diaryEntry.HasValue)
             return;
