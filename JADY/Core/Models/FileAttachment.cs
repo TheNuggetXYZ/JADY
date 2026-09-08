@@ -6,7 +6,7 @@ public class FileAttachment
 {
     public string? OriginalFileName { get; init; }
     
-    public long FileSizeBytes { get; init; }
+    public ulong? FileSizeBytes { get; init; }
     
     public DateTimeOffset DateAdded { get; init; }
     

@@ -50,6 +50,7 @@ public partial class App : Application
         });
         
         // Services
+        collection.AddSingleton<IFileAttachmentService, FileAttachmentService>();
         collection.AddSingleton<IEncryptionService, EncryptionService>();
         collection.AddSingleton<IAppVisualService, AppVisualService>();
         collection.AddSingleton<ISaveFsService, SaveFsService>();
