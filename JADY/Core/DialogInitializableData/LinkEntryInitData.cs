@@ -1,6 +1,6 @@
 using JADY.ViewModels;
 
-namespace JADY.Core.Models;
+namespace JADY.Core.DialogInitializableData;
 
 public struct LinkEntryInitData
 {

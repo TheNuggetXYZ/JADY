@@ -6,6 +6,7 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using JADY.Core.Data;
+using JADY.Core.DialogInitializableData;
 using JADY.Core.Models;
 using JADY.Services;
 using JADY.UI.Base;

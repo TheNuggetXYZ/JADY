@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using JADY.Core.Attributes;
 using JADY.Core.Data;
+using JADY.Core.DialogInitializableData;
 using JADY.Core.Helpers;
 using JADY.Core.Models;
 using JADY.Services;
