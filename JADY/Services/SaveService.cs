@@ -27,7 +27,7 @@ public partial class SaveService : ObservableObject, ISaveService
     public SaveData SaveData { get; private set; } = new();
     public Config Config { get; private set; } = new();
 
-    public string SavesDirectory => _saveIoService.SavesDirectory;
+    public string SavesDirectory => AppDirectories.SavesDirectory;
 
     [ObservableProperty]
     private bool _unsavedChanges;
@@ -237,11 +237,11 @@ public partial class SaveService : ObservableObject, ISaveService
 
     private string GetSavePath()
     {
-        return Path.Combine(_saveIoService.SavesDirectory, "JADY.save");
+        return Path.Combine(AppDirectories.SavesDirectory, "JADY.save");
     }
 
     private string GetConfigPath()
     {
-        return Path.Combine(_saveIoService.SavesDirectory, "JADY.config");
+        return Path.Combine(AppDirectories.SavesDirectory, "JADY.config");
     }
 }

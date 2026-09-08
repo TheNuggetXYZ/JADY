@@ -9,8 +9,6 @@ namespace JADY.Services;
 
 public class SaveIoService(ILogger<SaveIoService> logger, ISaveFsService saveFsService, IEncryptionService encryptionService) : ISaveIoService
 {
-    public string SavesDirectory { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "JADY");
-    
     private const string SaveExtension = ".save";
     private const string BackupExtension = ".backup";
     private const string CorruptExtension = ".corrupted";
