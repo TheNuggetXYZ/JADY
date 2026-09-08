@@ -200,7 +200,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     [RelayCommand]
     private async Task ContextMenu_Remove()
     {
-        await _diaryViewModel.RemoveEntry(this);
+        await _diaryViewModel.PromptDeleteEntry(this);
     }
     
     [RelayCommand]
