@@ -9,9 +9,9 @@
         Icon="/Assets/Icons/JADY_32x.png"
         Title="Link a note"
         SizeToContent="Width"
-        Width="335"
+        Width="350"
         Height="380"
-        MinWidth="335"
+        MinWidth="350"
         MinHeight="270">
     
     <Grid RowDefinitions="Auto, Auto, *, Auto" Margin="10">
@@ -42,7 +42,15 @@
                                 Margin="5"
                                 ToolTip.Tip="Actual start date of an event or a date of a one time entry. (The date of adding an entry is saved automatically.)"/>
             
-            <IconButton Classes="accent" IconData="{StaticResource LinkIcon}" Click="Submit_OnClick" HorizontalAlignment="Right" Margin="5"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <IconButton IconData="{StaticResource AddFileIconSolid}" 
+                            Margin="5"/>
+                
+                <IconButton Classes="accent" 
+                            IconData="{StaticResource LinkIcon}" 
+                            Click="Submit_OnClick" 
+                            Margin="5"/>
+            </StackPanel>
             
         </Panel>
     </Grid>
