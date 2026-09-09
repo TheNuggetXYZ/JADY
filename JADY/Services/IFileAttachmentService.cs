@@ -7,6 +7,6 @@ namespace JADY.Services;
 
 public interface IFileAttachmentService
 {
-    public Task<IReadOnlyList<IStorageFile>> SelectAttachments();
+    public Task<IReadOnlyList<IStorageFile>> SelectAttachments(IStorageProvider storageProvider);
     public Task<List<FileAttachment>> CreateAttachments(IReadOnlyList<IStorageFile> rawAttachments);
 }

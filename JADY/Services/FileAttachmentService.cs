@@ -9,9 +9,9 @@ using Microsoft.Extensions.Logging;
 
 namespace JADY.Services;
 
-public class FileAttachmentService(ILogger<FileAttachmentService> logger, IStorageProvider storageProvider) : IFileAttachmentService
+public class FileAttachmentService(ILogger<FileAttachmentService> logger) : IFileAttachmentService
 {
-    public async Task<IReadOnlyList<IStorageFile>> SelectAttachments()
+    public async Task<IReadOnlyList<IStorageFile>> SelectAttachments(IStorageProvider storageProvider)
     {
         return await storageProvider.OpenFilePickerAsync(new FilePickerOpenOptions() { AllowMultiple = true });
     }
