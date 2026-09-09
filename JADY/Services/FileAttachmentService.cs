@@ -28,6 +28,9 @@ public class FileAttachmentService(ILogger<FileAttachmentService> logger) : IFil
         if (fileAttachments.Count != rawAttachments.Count)
             throw new InvalidOperationException("Raw and converted attachments count does not match");
 
+        if (!Path.Exists(AppDirectories.FileAttachmentDirectory))
+            Directory.CreateDirectory(AppDirectories.FileAttachmentDirectory);
+
         for (int i = 0; i < rawAttachments.Count; i++)
         {
             File.Copy(rawAttachments[i].Path.AbsolutePath, Path.Combine(AppDirectories.FileAttachmentDirectory, fileAttachments[i].GuidString));
