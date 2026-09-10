@@ -33,7 +33,7 @@ public class FileAttachmentService(ILogger<FileAttachmentService> logger) : IFil
 
         for (int i = 0; i < rawAttachments.Count; i++)
         {
-            File.Copy(rawAttachments[i].Path.AbsolutePath, Path.Combine(AppDirectories.FileAttachmentDirectory, fileAttachments[i].GuidString));
+            File.Copy(rawAttachments[i].Path.LocalPath, Path.Combine(AppDirectories.FileAttachmentDirectory, fileAttachments[i].GuidString));
         }
     }
 
