@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Timers;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -74,6 +75,8 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     /// </summary>
     public Guid? ParentEntryGuid { get; private set; }
 
+    public List<FileAttachment> FileAttachments { get; private set; } = new List<FileAttachment>();
+
     public DiaryEntryViewModel? ParentEntry { get; private set; }
     
     [ObservableProperty] private bool _isExpanded;
@@ -148,6 +151,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         Content = diaryEntry.Content;
         IsHidden = diaryEntry.IsHidden;
         EntryGuid = diaryEntry.EntryGuid;
+        FileAttachments = diaryEntry.FileAttachments;
         
         if (parentEntry is not null)
             AssignParentEntry(parentEntry);
@@ -175,6 +179,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
             IsHidden = IsHidden,
             EntryGuid = EntryGuid,
             ParentEntryGuid = ParentEntryGuid,
+            FileAttachments = FileAttachments
         };
     }
 
@@ -238,6 +243,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         Content = newEntry.Value.Content;
         IsHidden = newEntry.Value.IsHidden;
         Status = newEntry.Value.Status;
+        FileAttachments = newEntry.Value.FileAttachments;
 
         if (!EntryStatusExtensions.IsLink(newEntry.Value.Status))
             AssignParentEntry(null);
