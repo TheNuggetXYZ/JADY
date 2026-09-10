@@ -44,6 +44,7 @@
             
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <IconButton IconData="{StaticResource AddFileIconSolid}" 
+                            Click="AttachFiles_OnClick"
                             Margin="5"/>
                 
                 <IconButton Classes="accent" 

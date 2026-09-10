@@ -1,7 +1,10 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Data;
 using Avalonia.Input;
 using Avalonia.Interactivity;
+using Avalonia.Platform.Storage;
 using JADY.Core.Data;
 using JADY.Core.Helpers;
 using JADY.Core.Models;
@@ -11,8 +14,20 @@ using JADY.ViewModels;
 
 namespace JADY.UI.Views.Dialogs;
 
-public partial class EditEntryWindow(ISaveService saveService) : DialogWindow<DiaryEntry>, IDialogInitializable<DiaryEntryViewModel>
+public partial class EditEntryWindow : DialogWindow<DiaryEntry>, IDialogInitializable<DiaryEntryViewModel>
 {
+    private readonly IFileAttachmentService _fileAttachmentService;
+    private readonly ISaveService _saveService;
+    
+    private IReadOnlyList<IStorageFile> _rawFileAttachmentList;
+    private List<FileAttachment> _fileAttachmentList;
+
+    public EditEntryWindow(ISaveService saveService, IFileAttachmentService fileAttachmentService)
+    {
+        _saveService = saveService;
+        _fileAttachmentService = fileAttachmentService;
+    }
+
     public void Initialize(DiaryEntryViewModel data)
     {
         DataContext = data;
@@ -46,10 +61,20 @@ public partial class EditEntryWindow(ISaveService saveService) : DialogWindow<Di
             EntryEndDate.IsEnabled = true;
         }
         
-        EntryDate.CustomDateFormatString = saveService.Config.CultureInfo.DateTimeFormat.ShortDatePattern;
-        EntryEndDate.CustomDateFormatString = saveService.Config.CultureInfo.DateTimeFormat.ShortDatePattern;
+        EntryDate.CustomDateFormatString = _saveService.Config.CultureInfo.DateTimeFormat.ShortDatePattern;
+        EntryEndDate.CustomDateFormatString = _saveService.Config.CultureInfo.DateTimeFormat.ShortDatePattern;
+
+        _fileAttachmentList = data.FileAttachments;
     }
 
+    protected override async Task SubmitAsync(Optional<DiaryEntry> value)
+    {
+        if (_rawFileAttachmentList is not { Count: 0})
+            _fileAttachmentList = await _fileAttachmentService.CreateAttachments(_rawFileAttachmentList);
+        
+        await base.SubmitAsync(value);
+    }
+    
     protected override Optional<DiaryEntry> GetValue()
     {
         return new DiaryEntry()
@@ -62,12 +87,15 @@ public partial class EditEntryWindow(ISaveService saveService) : DialogWindow<Di
             Title = EntryTitle.Text,
             Content = EntryContent.Text,
             IsHidden = EntryIsHidden.IsChecked ?? false,
+            FileAttachments = _fileAttachmentList
         };
     }
     
     protected override InputElement? FocusedElement() => EntryCategory;
 
     private async void Submit_OnClick(object? sender, RoutedEventArgs e) => await TrySubmitAsync();
+    
+    private async void AttachFiles_OnClick(object? sender, RoutedEventArgs e) => _rawFileAttachmentList = await _fileAttachmentService.SelectAttachments(StorageProvider);
 
     private void EntryStatus_OnPropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
     {

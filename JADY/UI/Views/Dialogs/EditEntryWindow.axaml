@@ -70,6 +70,7 @@
             
             <StackPanel Grid.Column="2" Orientation="Horizontal">
                 <IconButton IconData="{StaticResource AddFileIconSolid}" 
+                            Click="AttachFiles_OnClick"
                             Margin="5"/>
                 
                 <IconButton Classes="accent" 
