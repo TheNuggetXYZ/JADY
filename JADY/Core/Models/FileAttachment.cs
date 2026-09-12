@@ -4,7 +4,9 @@ namespace JADY.Core.Models;
 
 public class FileAttachment
 {
-    public string? OriginalFileName { get; init; }
+    public required string OriginalFileName { get; init; }
+    
+    public required string OriginalFilePath { get; init; }
     
     public ulong? FileSizeBytes { get; init; }
     

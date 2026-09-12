@@ -19,7 +19,6 @@ public partial class EditEntryWindow : DialogWindow<DiaryEntry>, IDialogInitiali
     private readonly IFileAttachmentService _fileAttachmentService;
     private readonly ISaveService _saveService;
     
-    private IReadOnlyList<IStorageFile> _rawFileAttachmentList;
     private List<FileAttachment> _fileAttachmentList;
 
     public EditEntryWindow(ISaveService saveService, IFileAttachmentService fileAttachmentService)
@@ -67,16 +66,10 @@ public partial class EditEntryWindow : DialogWindow<DiaryEntry>, IDialogInitiali
         _fileAttachmentList = data.FileAttachments;
     }
 
-    protected override async Task SubmitAsync(Optional<DiaryEntry> value)
-    {
-        if (_rawFileAttachmentList is not { Count: 0})
-            _fileAttachmentList = await _fileAttachmentService.CreateAttachments(_rawFileAttachmentList);
-        
-        await base.SubmitAsync(value);
-    }
-    
     protected override Optional<DiaryEntry> GetValue()
     {
+        _fileAttachmentService.SaveAttachments(_fileAttachmentList);
+        
         return new DiaryEntry()
         {
             Status = (EntryStatus)EntryStatus.SelectedIndex,
@@ -95,7 +88,7 @@ public partial class EditEntryWindow : DialogWindow<DiaryEntry>, IDialogInitiali
 
     private async void Submit_OnClick(object? sender, RoutedEventArgs e) => await TrySubmitAsync();
     
-    private async void AttachFiles_OnClick(object? sender, RoutedEventArgs e) => _rawFileAttachmentList = await _fileAttachmentService.SelectAttachments(StorageProvider);
+    private async void AttachFiles_OnClick(object? sender, RoutedEventArgs e) => _fileAttachmentList = await _fileAttachmentService.SelectAttachments(StorageProvider);
 
     private void EntryStatus_OnPropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
     {

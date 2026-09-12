@@ -22,7 +22,6 @@ public partial class LinkEntryWindow : DialogWindow<DiaryEntry>, IDialogInitiali
     private readonly IFileAttachmentService _fileAttachmentService;
     private readonly ISaveService _saveService;
     
-    private IReadOnlyList<IStorageFile> _rawFileAttachmentList;
     private List<FileAttachment> _fileAttachmentList;
 
     public LinkEntryWindow(ISaveService saveService, IFileAttachmentService fileAttachmentService)
@@ -42,16 +41,11 @@ public partial class LinkEntryWindow : DialogWindow<DiaryEntry>, IDialogInitiali
         EntryDate.SelectedDate = DateTime.Now;
         EntryDate.CustomDateFormatString = _saveService.Config.CultureInfo.DateTimeFormat.ShortDatePattern;
     }
-    
-    protected override async Task SubmitAsync(Optional<DiaryEntry> value)
-    {
-        _fileAttachmentList = await _fileAttachmentService.CreateAttachments(_rawFileAttachmentList);
-        
-        await base.SubmitAsync(value);
-    }
 
     protected override Optional<DiaryEntry> GetValue()
     {
+        _fileAttachmentService.SaveAttachments(_fileAttachmentList);
+        
         return new DiaryEntry
         {
             Category = EntryCategory.Text,
@@ -75,5 +69,5 @@ public partial class LinkEntryWindow : DialogWindow<DiaryEntry>, IDialogInitiali
 
     private async void Submit_OnClick(object? sender, RoutedEventArgs e) => await TrySubmitAsync();
     
-    private async void AttachFiles_OnClick(object? sender, RoutedEventArgs e) => _rawFileAttachmentList = await _fileAttachmentService.SelectAttachments(StorageProvider);
+    private async void AttachFiles_OnClick(object? sender, RoutedEventArgs e) => _fileAttachmentList = await _fileAttachmentService.SelectAttachments(StorageProvider);
 }

@@ -11,34 +11,20 @@ namespace JADY.Services;
 
 public class FileAttachmentService(ILogger<FileAttachmentService> logger) : IFileAttachmentService
 {
-    public async Task<IReadOnlyList<IStorageFile>> SelectAttachments(IStorageProvider storageProvider)
+    public void SaveAttachments(List<FileAttachment> fileAttachments)
     {
-        return await storageProvider.OpenFilePickerAsync(new FilePickerOpenOptions() { AllowMultiple = true });
-    }
-
-    public async Task<List<FileAttachment>> CreateAttachments(IReadOnlyList<IStorageFile> rawAttachments)
-    {
-        var attachments = await ConvertAttachments(rawAttachments);
-        CopyAttachments(attachments, rawAttachments);
-        return attachments;
-    }
-
-    private void CopyAttachments(List<FileAttachment> fileAttachments, IReadOnlyList<IStorageFile> rawAttachments)
-    {
-        if (fileAttachments.Count != rawAttachments.Count)
-            throw new InvalidOperationException("Raw and converted attachments count does not match");
-
         if (!Path.Exists(AppDirectories.FileAttachmentDirectory))
             Directory.CreateDirectory(AppDirectories.FileAttachmentDirectory);
 
-        for (int i = 0; i < rawAttachments.Count; i++)
+        foreach (var attach in fileAttachments)
         {
-            File.Copy(rawAttachments[i].Path.LocalPath, Path.Combine(AppDirectories.FileAttachmentDirectory, fileAttachments[i].GuidString));
+            File.Copy(attach.OriginalFilePath, Path.Combine(AppDirectories.FileAttachmentDirectory, attach.GuidString));
         }
     }
 
-    private async Task<List<FileAttachment>> ConvertAttachments(IReadOnlyList<IStorageFile> rawAttachments)
+    public async Task<List<FileAttachment>> SelectAttachments(IStorageProvider storageProvider)
     {
+        IReadOnlyList<IStorageFile> rawAttachments = await storageProvider.OpenFilePickerAsync(new FilePickerOpenOptions() { AllowMultiple = true });
         List<FileAttachment> fileAttachments = new();
         
         foreach (var rawAttachment in rawAttachments)
@@ -50,6 +36,7 @@ public class FileAttachmentService(ILogger<FileAttachmentService> logger) : IFil
                 DateAdded = DateTimeOffset.Now,
                 FileSizeBytes = rawProperties.Size,
                 OriginalFileName = rawAttachment.Name,
+                OriginalFilePath = rawAttachment.Path.LocalPath,
             };
             
             fileAttachments.Add(attachment);
