@@ -14,7 +14,7 @@
         
         <Panel Margin="10">
             <TextBlock HorizontalAlignment="Left" Text="{Binding OriginalFileName}"/>
-            <TextBlock HorizontalAlignment="Right" Text="{Binding FileSizeBytes}"/>
+            <TextBlock Name="FileSize" HorizontalAlignment="Right"/>
         </Panel>
     </Border>
     
