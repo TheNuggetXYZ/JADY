@@ -88,7 +88,11 @@ public partial class EditEntryWindow : DialogWindow<DiaryEntry>, IDialogInitiali
 
     private async void Submit_OnClick(object? sender, RoutedEventArgs e) => await TrySubmitAsync();
     
-    private async void AttachFiles_OnClick(object? sender, RoutedEventArgs e) => _fileAttachmentList = await _fileAttachmentService.SelectAttachments(StorageProvider);
+    private async void AttachFiles_OnClick(object? sender, RoutedEventArgs e)
+    {
+        _fileAttachmentList = await _fileAttachmentService.SelectAttachments(StorageProvider);
+        AttachmentsItemsRepeater.ItemsSource = _fileAttachmentList;
+    }
 
     private void EntryStatus_OnPropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
     {

@@ -3,6 +3,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:JADY.ViewModels"
+        xmlns:models="clr-namespace:JADY.Core.Models"
         mc:Ignorable="d" d:DesignWidth="335" d:DesignHeight="340"
         x:Class="JADY.UI.Views.Dialogs.AddEntryWindow"
         x:DataType="vm:MainWindowViewModel"
@@ -14,7 +15,7 @@
         MinWidth="350"
         MinHeight="270">
     
-    <Grid RowDefinitions="Auto, Auto, *, Auto" Margin="10">
+    <Grid RowDefinitions="Auto, Auto, *, Auto, Auto" Margin="10">
         
         <Grid Grid.Row="0" ColumnDefinitions="*, *" Margin="5">
             <TextBox Grid.Column="0" Name="EntryCategory" PlaceholderText="Category..." Margin="5"></TextBox>
@@ -53,6 +54,14 @@
             </StackPanel>
             
         </Panel>
+        
+        <ItemsRepeater Grid.Row="4" Name="AttachmentsItemsRepeater" Margin="5">
+            <ItemsRepeater.ItemTemplate>
+                <DataTemplate DataType="models:FileAttachment">
+                    <FileAttachmentControl Margin="5"/>
+                </DataTemplate>
+            </ItemsRepeater.ItemTemplate>
+        </ItemsRepeater>
     </Grid>
         
 </Window>
