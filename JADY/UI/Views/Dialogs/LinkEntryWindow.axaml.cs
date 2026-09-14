@@ -70,5 +70,10 @@ public partial class LinkEntryWindow : DialogWindow<DiaryEntry>, IDialogInitiali
     {
         _fileAttachmentList = await _fileAttachmentService.SelectAttachments(StorageProvider);
         AttachmentsItemsRepeater.ItemsSource = _fileAttachmentList;
+        
+        foreach (var attachmentViewModel in _fileAttachmentList)
+        {
+            attachmentViewModel.SetEditWindowOnRemove(vm => _fileAttachmentList.Remove(vm));
+        }
     }
 }

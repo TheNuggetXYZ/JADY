@@ -12,10 +12,11 @@
             BorderThickness="1"
             CornerRadius="6">
         
-        <Panel Margin="10">
-            <TextBlock HorizontalAlignment="Left" Text="{Binding OriginalFileName}"/>
-            <TextBlock Name="FileSize" HorizontalAlignment="Right"/>
-        </Panel>
+        <Grid ColumnDefinitions="*, Auto, Auto" Margin="10">
+            <TextBlock Grid.Column="0" HorizontalAlignment="Left" Text="{Binding OriginalFileName}"/>
+            <TextBlock Grid.Column="1" Name="FileSize" HorizontalAlignment="Right"/>
+            <IconButton Grid.Column="2" IconData="{StaticResource TrashIconSolid}" Command="{Binding RemoveFromEditWindowCommand}"></IconButton>
+        </Grid>
     </Border>
     
 </UserControl>

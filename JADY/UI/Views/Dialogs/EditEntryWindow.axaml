@@ -81,7 +81,7 @@
             </StackPanel>
         </Grid>
         
-        <ItemsRepeater Grid.Row="4" Name="AttachmentsItemsRepeater" ItemsSource="{Binding FileAttachments}" Margin="5">
+        <ItemsRepeater Grid.Row="4" Name="AttachmentsItemsRepeater" Margin="5">
             <ItemsRepeater.ItemTemplate>
                 <DataTemplate DataType="vm:FileAttachmentViewModel">
                     <FileAttachmentControl Margin="5"/>

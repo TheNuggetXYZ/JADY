@@ -63,7 +63,14 @@ public partial class EditEntryWindow : DialogWindow<DiaryEntry>, IDialogInitiali
         EntryDate.CustomDateFormatString = _saveService.Config.CultureInfo.DateTimeFormat.ShortDatePattern;
         EntryEndDate.CustomDateFormatString = _saveService.Config.CultureInfo.DateTimeFormat.ShortDatePattern;
 
-        _fileAttachmentList = data.FileAttachments;
+        _fileAttachmentList = new ObservableCollection<FileAttachmentViewModel>(data.FileAttachments.ToList());
+        
+        AttachmentsItemsRepeater.ItemsSource = _fileAttachmentList;
+        
+        foreach (var attachmentViewModel in _fileAttachmentList)
+        {
+            attachmentViewModel.SetEditWindowOnRemove(vm => _fileAttachmentList.Remove(vm));
+        }
     }
 
     protected override Optional<DiaryEntry> GetValue()
@@ -92,6 +99,11 @@ public partial class EditEntryWindow : DialogWindow<DiaryEntry>, IDialogInitiali
     {
         _fileAttachmentList = await _fileAttachmentService.SelectAttachments(StorageProvider);
         AttachmentsItemsRepeater.ItemsSource = _fileAttachmentList;
+        
+        foreach (var attachmentViewModel in _fileAttachmentList)
+        {
+            attachmentViewModel.SetEditWindowOnRemove(vm => _fileAttachmentList.Remove(vm));
+        }
     }
 
     private void EntryStatus_OnPropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
