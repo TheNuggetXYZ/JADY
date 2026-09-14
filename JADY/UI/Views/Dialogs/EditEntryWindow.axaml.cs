@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+using System.Linq;
 using Avalonia;
 using Avalonia.Data;
 using Avalonia.Input;
 using Avalonia.Interactivity;
-using Avalonia.Platform.Storage;
 using JADY.Core.Data;
 using JADY.Core.Helpers;
 using JADY.Core.Models;
@@ -19,7 +19,7 @@ public partial class EditEntryWindow : DialogWindow<DiaryEntry>, IDialogInitiali
     private readonly IFileAttachmentService _fileAttachmentService;
     private readonly ISaveService _saveService;
     
-    private List<FileAttachment> _fileAttachmentList;
+    private ObservableCollection<FileAttachmentViewModel> _fileAttachmentList;
 
     public EditEntryWindow(ISaveService saveService, IFileAttachmentService fileAttachmentService)
     {
@@ -80,7 +80,7 @@ public partial class EditEntryWindow : DialogWindow<DiaryEntry>, IDialogInitiali
             Title = EntryTitle.Text,
             Content = EntryContent.Text,
             IsHidden = EntryIsHidden.IsChecked ?? false,
-            FileAttachments = _fileAttachmentList
+            FileAttachments = new List<FileAttachment>(_fileAttachmentList.Select(x => x.GetModel()))
         };
     }
     

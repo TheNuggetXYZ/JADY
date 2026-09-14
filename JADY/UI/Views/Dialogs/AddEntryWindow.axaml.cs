@@ -1,15 +1,15 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using Avalonia.Controls;
+using System.Collections.ObjectModel;
+using System.Linq;
 using Avalonia.Data;
 using Avalonia.Input;
 using Avalonia.Interactivity;
-using Avalonia.Platform.Storage;
 using JADY.Core.Data;
 using JADY.Core.Models;
 using JADY.Services;
 using JADY.UI.Base;
+using JADY.ViewModels;
 
 namespace JADY.UI.Views.Dialogs;
 
@@ -17,7 +17,7 @@ public partial class AddEntryWindow : DialogWindow<DiaryEntry>
 {
     private readonly IFileAttachmentService _fileAttachmentService;
     
-    private List<FileAttachment> _fileAttachmentList;
+    private ObservableCollection<FileAttachmentViewModel> _fileAttachmentList;
     
     public AddEntryWindow(ISaveService saveService, IFileAttachmentService fileAttachmentService)
     {
@@ -49,7 +49,7 @@ public partial class AddEntryWindow : DialogWindow<DiaryEntry>
                 NewEntryParameter.Started => EntryStatus.EventInProgress,
                 _ => throw new ArgumentOutOfRangeException(nameof(EntryParameter), EntryParameter, null)
             },
-            FileAttachments = _fileAttachmentList
+            FileAttachments = new List<FileAttachment>(_fileAttachmentList.Select(x => x.GetModel()))
         };
     }
     

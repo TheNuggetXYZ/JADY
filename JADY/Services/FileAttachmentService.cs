@@ -1,17 +1,19 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Threading.Tasks;
 using Avalonia.Platform.Storage;
 using JADY.Core.Data;
 using JADY.Core.Models;
+using JADY.ViewModels;
 using Microsoft.Extensions.Logging;
 
 namespace JADY.Services;
 
 public class FileAttachmentService(ILogger<FileAttachmentService> logger) : IFileAttachmentService
 {
-    public void SaveAttachments(List<FileAttachment> fileAttachments)
+    public void SaveAttachments(ObservableCollection<FileAttachmentViewModel> fileAttachments)
     {
         if (!Path.Exists(AppDirectories.FileAttachmentDirectory))
             Directory.CreateDirectory(AppDirectories.FileAttachmentDirectory);
@@ -22,10 +24,10 @@ public class FileAttachmentService(ILogger<FileAttachmentService> logger) : IFil
         }
     }
 
-    public async Task<List<FileAttachment>> SelectAttachments(IStorageProvider storageProvider)
+    public async Task<ObservableCollection<FileAttachmentViewModel>> SelectAttachments(IStorageProvider storageProvider)
     {
         IReadOnlyList<IStorageFile> rawAttachments = await storageProvider.OpenFilePickerAsync(new FilePickerOpenOptions() { AllowMultiple = true });
-        List<FileAttachment> fileAttachments = new();
+        ObservableCollection<FileAttachmentViewModel> fileAttachments = new();
         
         foreach (var rawAttachment in rawAttachments)
         {
@@ -39,7 +41,7 @@ public class FileAttachmentService(ILogger<FileAttachmentService> logger) : IFil
                 OriginalFilePath = rawAttachment.Path.LocalPath,
             };
             
-            fileAttachments.Add(attachment);
+            fileAttachments.Add(new FileAttachmentViewModel(attachment));
         }
         
         return fileAttachments;

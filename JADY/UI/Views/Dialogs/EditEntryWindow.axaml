@@ -4,7 +4,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:JADY.ViewModels"
         xmlns:converters="clr-namespace:JADY.UI.Converters"
-        xmlns:models="clr-namespace:JADY.Core.Models"
         mc:Ignorable="d" d:DesignWidth="335" d:DesignHeight="360"
         x:Class="JADY.UI.Views.Dialogs.EditEntryWindow"
         x:DataType="vm:DiaryEntryViewModel"
@@ -84,7 +83,7 @@
         
         <ItemsRepeater Grid.Row="4" Name="AttachmentsItemsRepeater" ItemsSource="{Binding FileAttachments}" Margin="5">
             <ItemsRepeater.ItemTemplate>
-                <DataTemplate DataType="models:FileAttachment">
+                <DataTemplate DataType="vm:FileAttachmentViewModel">
                     <FileAttachmentControl Margin="5"/>
                 </DataTemplate>
             </ItemsRepeater.ItemTemplate>

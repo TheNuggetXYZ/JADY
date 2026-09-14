@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Timers;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -75,7 +77,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
     /// </summary>
     public Guid? ParentEntryGuid { get; private set; }
 
-    public List<FileAttachment> FileAttachments { get; private set; } = new List<FileAttachment>();
+    public ObservableCollection<FileAttachmentViewModel> FileAttachments { get; }
 
     public DiaryEntryViewModel? ParentEntry { get; private set; }
     
@@ -151,7 +153,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         Content = diaryEntry.Content;
         IsHidden = diaryEntry.IsHidden;
         EntryGuid = diaryEntry.EntryGuid;
-        FileAttachments = diaryEntry.FileAttachments;
+        FileAttachments = new ObservableCollection<FileAttachmentViewModel>(diaryEntry.FileAttachments.Select(x => new FileAttachmentViewModel(x)));
         
         if (parentEntry is not null)
             AssignParentEntry(parentEntry);
@@ -179,7 +181,7 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
             IsHidden = IsHidden,
             EntryGuid = EntryGuid,
             ParentEntryGuid = ParentEntryGuid,
-            FileAttachments = FileAttachments
+            FileAttachments = new List<FileAttachment>(FileAttachments.Select(x => x.GetModel()))
         };
     }
 
@@ -243,7 +245,12 @@ public partial class DiaryEntryViewModel : SaveDependentViewModel
         Content = newEntry.Value.Content;
         IsHidden = newEntry.Value.IsHidden;
         Status = newEntry.Value.Status;
-        FileAttachments = newEntry.Value.FileAttachments;
+        
+        FileAttachments.Clear();
+        foreach (var fileAttachment in newEntry.Value.FileAttachments)
+        {
+            FileAttachments.Add(new FileAttachmentViewModel(fileAttachment));
+        }
 
         if (!EntryStatusExtensions.IsLink(newEntry.Value.Status))
             AssignParentEntry(null);

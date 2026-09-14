@@ -12,5 +12,5 @@ public class FileAttachment
     
     public DateTimeOffset DateAdded { get; init; }
     
-    public readonly string GuidString = Guid.NewGuid().ToString("N");
+    public string GuidString = Guid.NewGuid().ToString("N");
 }
