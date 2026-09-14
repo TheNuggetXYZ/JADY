@@ -6,14 +6,18 @@ public static class BytesUnitConverter
     
     public static string BytesToHuman(ulong bytes)
     {
-        for (int i = 0; i < Units.Length; i++)
+        double size = bytes;
+        
+        for (int i = 0; i < Units.Length - 1; i++)
         {
             if (bytes < 1000)
                 return bytes + " " + Units[i];
+            if (size < 1000)
+                return $"{size:F} " + Units[i];
             
-            bytes /= 1000;
+            size /= 1000;
         }
         
-        return bytes + " " + Units[^1];
+        return $"{size:F} " + Units[^1];
     }
 }
