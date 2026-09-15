@@ -14,7 +14,7 @@
         
         <Grid ColumnDefinitions="*, Auto, Auto" Margin="10">
             <TextBlock Grid.Column="0" HorizontalAlignment="Left" Text="{Binding OriginalFileName}"/>
-            <TextBlock Grid.Column="1" Name="FileSize" HorizontalAlignment="Right"/>
+            <TextBlock Grid.Column="1" HorizontalAlignment="Right" Text="{Binding FileSizeHuman}"/>
             <IconButton Grid.Column="2" IconData="{StaticResource TrashIconSolid}" Command="{Binding RemoveFromEditWindowCommand}"></IconButton>
         </Grid>
     </Border>

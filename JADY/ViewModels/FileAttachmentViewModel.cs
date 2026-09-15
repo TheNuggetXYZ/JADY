@@ -1,6 +1,7 @@
 using System;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using JADY.Core.Helpers;
 using JADY.Core.Models;
 
 namespace JADY.ViewModels;
@@ -11,6 +12,7 @@ public partial class FileAttachmentViewModel : ViewModelBase
 
     [ObservableProperty] private string? _originalFilePath;
 
+    [NotifyPropertyChangedFor(nameof(FileSizeHuman))]
     [ObservableProperty] private ulong? _fileSizeBytes;
 
     [ObservableProperty] private DateTimeOffset _dateAdded;
@@ -19,6 +21,8 @@ public partial class FileAttachmentViewModel : ViewModelBase
     
     private Action<FileAttachmentViewModel>? _editWindowOnRemove;
 
+    [ObservableProperty] private string _fileSizeHuman;
+
     public FileAttachmentViewModel(FileAttachment model)
     {
         OriginalFileName = model.OriginalFileName;
@@ -26,6 +30,8 @@ public partial class FileAttachmentViewModel : ViewModelBase
         FileSizeBytes = model.FileSizeBytes;
         DateAdded = model.DateAdded;
         GuidString = model.GuidString;
+        
+        FileSizeHuman = BytesUnitConverter.BytesToHuman(FileSizeBytes ?? 0);
     }
 
     public FileAttachment GetModel()
