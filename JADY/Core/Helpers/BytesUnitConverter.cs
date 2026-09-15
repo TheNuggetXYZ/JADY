@@ -11,11 +11,11 @@ public static class BytesUnitConverter
         for (int i = 0; i < Units.Length - 1; i++)
         {
             if (size < 1000)
-                return $"{size:F} " + Units[i];
+                return $"{size:0.0} " + Units[i];
             
             size /= 1000;
         }
         
-        return $"{size:F} " + Units[^1];
+        return $"{size:0.0} " + Units[^1];
     }
 }
